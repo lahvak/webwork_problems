@@ -1,0 +1,92 @@
+# DESCRIPTION
+# Standard deviation of a list
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Statistics')
+## DBchapter('')
+## DBsection('')
+## KEYWORDS('standard deviation')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+sub sum
+{
+    local($s);
+    $s = 0;
+    foreach(@_)
+    {
+        $s = $s + $_;
+    }
+    $s;
+}
+
+$length = random(5,9,1);
+$min = random(0,10,1);
+$span = random(1,10,1);
+@data = map { $min + random(0,100*$span)/100 } (1..$length);
+$mean = sum(@data)/$length;
+@devs = map {$_ - $mean} @data;
+@sqdevs = map {($_)**2} @devs;
+$sumsqdevs = sum( @sqdevs );
+$var = $sumsqdevs/($length-1);
+$sd = sqrt($var);
+
+$datarep = join(', ', @data);
+$datasum = join('+',@data);
+$calcdevs = join('\\', map { "x_{$_} - \bar{x} &= $data[$_-1] - $mean = $devs[$_-1]"} 1 .. ($#data+1));
+$squaredevs = join('\\', map { "($devs[$_])^2 =& $sqdevs[$_]" } 0 .. $#devs);
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+Find the standard deviation of the following sample:
+
+>>[`[$datarep]`]<<
+
+The standard deviation of the sample is [_______]{$sd}.
+END_PGML
+
+# Solution:
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+First we calculate the mean of the data:
+
+[``\bar{x} = \frac{\sum x}{n} = \frac{[$datasum]}{[$length]} = [$mean]``]
+
+Then we calculate the deviations:
+
+[``\begin{align*}[$calcdevs]\end{align*}``]
+
+We square all the deviations and add the squares together:
+
+[``\begin{align*}[$squaredevs]\\\hline\sum(x-\bar{x})^2 =&[$sumsqdevs]\end{align*}``]
+
+Since it is a standard deviation of a _sample_, we divide the sum of squared deviations by [`n-1`] to get the variance:
+
+[``s^2 = \frac{\sum (x - \bar{x})^2}{n-1} = \frac{[$sumsqdevs]}{[$length] - 1} = [$var]``]
+
+Finally, we take the square root of the variance to find the standard deviation:
+
+[``s = \sqrt{s^2} = \sqrt{[$var]} = [$sd]``]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

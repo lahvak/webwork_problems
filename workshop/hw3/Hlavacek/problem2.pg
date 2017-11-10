@@ -1,0 +1,58 @@
+# DESCRIPTION
+# Fully factored polynomial
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Algebra')
+## DBchapter('')
+## DBsection('')
+## KEYWORDS('algebra,polynomial,factoring')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextPolynomialFactors.pl",
+"contextLimitedPowers.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+$polynomial = Formula("8x^2 + 28x + 12");
+
+# copied from https://github.com/openwebwork/webwork-open-problem-library/blob/master/OpenProblemLibrary/FortLewis/Authoring/Templates/Algebra/FactoredPolynomial1_PGML.pg:
+
+Context("PolynomialFactors-Strict");
+Context()->flags->set(singleFactors=>0);
+LimitedPowers::OnlyIntegers(
+minPower => 0, maxPower => 1,
+message => "either 0 or 1",
+);
+$factored = Compute("4(2x+1)(x+3)");
+
+# However, this accepts (4x+2)(2x+6) as correct.  I do not see any way how to
+# prevent that.
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+Write the quadratic expression [`[$polynomial]`] in completely factored form [`k(ax+b)(cx+d)`] where [`k`], [`a`], [`b`], [`c`] and [`d`] are integers:  
+[`[$polynomial] = `][_______________________]{$factored}
+END_PGML
+
+# Solution:
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

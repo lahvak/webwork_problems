@@ -1,0 +1,64 @@
+##DESCRIPTION
+## DBsubject(Statistics)
+## DBchapter(Normal distribution)
+## DBsection(Other normal distribution)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## MLT(CI_1p_03)
+## MLTleader(1)
+## Level(3)
+## KEYWORDS('normal distribution')
+##ENDDESCRIPTION
+
+# File Created: 10/24/2017
+# Location: SVSU
+# Course: General Statistics
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+           "RserveClient.pl"
+);     
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$n = random(40,150,1);
+$p = random(.2,.8,.01);
+$mu = $n*$p;
+@sigs = rserve_eval("round(sqrt($n*$p*(1-$p)),3)");
+$sig = $sigs[0];
+$xmin = floor($mu - 3*$sig) + .5;
+$xmax = ceil($mu + 3*$sig) - .5;
+
+$x = random($xmin, $xmax, 1);
+
+@zscores = rserve_eval("round(($x - $mu)/$sig, 2)");
+
+$zscore = $zscores[0];
+
+@ltails = rserve_eval("round(pnorm($zscore),4)");
+
+$ltail = $ltails[0];
+
+BEGIN_PGML
+Find the area under the normal curve with mean [` \mu = [$mu] `] and standard deviation [` \sigma = [$sig] `] to the left of [` x = [$x] `]:
+
+1. Convert the problem to the *standard* normal curve by calculating the [:z:]-score for [:x:]: 
+
+    [: z = :] [__________]{$zscore} (round to two decimal places)
+
+2. Use the table C.1 in the textbook (or another normal probability table) to find the area under the standard normal curve to the left of your [:z:]-score: 
+
+    Area = [__________]{$ltail}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+1.  [` z = \frac{x - \mu}{\sigma} = \frac{[$x] - [$mu]}{[$sig]} = [$zscore] `].
+
+2.  From the table, the area to the left of [: [$zscore] :] is [: [$ltail] :].
+END_PGML_SOLUTION
+ENDDOCUMENT();

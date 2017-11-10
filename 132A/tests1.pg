@@ -1,0 +1,197 @@
+##DESCRIPTION
+## DBsubject(Statistics)
+## DBchapter(Hypothesis Testing)
+## DBsection(Test choice)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## MLT(CI_1p_03)
+## MLTleader(1)
+## Level(3)
+## KEYWORDS('hypothesis testing')
+##ENDDESCRIPTION
+
+# File Created: 06/16/17
+# Location: SVSU
+# Course: Biostatistic
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "contextPercent.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+           "parserPopUp.pl",
+           "PGchoicemacros.pl"
+);     
+TEXT(&beginproblem);
+
+Context("Numeric");
+@texts = (
+q{Some people claim that they can tell the difference between a diet soda and
+a regular soda in the first sip. A researcher wanting to test this claim randomly sampled 80 such
+people. He then filled 80 plain white cups with soda, half diet and half regular through random
+assignment, and asked each person to take one sip from their cup and identify the soda as diet or
+regular. 53 participants correctly identified the soda.},
+q{According to a report on sleep deprivation by the Centers for Disease Control
+and Prevention, the proportion of California residents who reported
+insufficient rest or sleep during each of the preceding 30 days is 8.0%, while
+this proportion is 8.8% for Oregon residents. These data are based on simple
+random samples of 11,545 California and 4,691 Oregon residents.
+Researchers want to know if there is a difference between the proportions of
+residents who reported insufficient sleep in the two states.},
+q{McDonald (1989) examined variation at the [`Mpi`] locus in the amphipod
+crustacean _Platorchestia platensis_ collected from a single location on Long
+Island, New York. There were two alleles, [`Mpi^{90}`] and [`Mpi^{100}`] and the genotype
+frequencies in samples from multiple dates pooled together were 1203 [`Mpi^{90/90}`],
+2919 [`Mpi^{90/100}`], and 1678 [`Mpi^{100/100}`]. 
+According to the Hardy-Weinberg formula, the expected genotype proportions are
+0.211 [`Mpi^{90/90}`], 0.497 [`Mpi^{90/100}`], and 0.293 [`Mpi^{100/100}`]. Do the data fit the 
+expected Hardy-Weinberg proportions?},
+q{The FDA’s webpage provides some data on mercury content of fish. Based on a sample of 15 croaker 
+white fish (Pacific), a sample mean and standard deviation were computed as 0.287 and 0.069 ppm 
+(parts per million), respectively. The EPA maximum recommended mercury contents in fish is 0.3 ppm. 
+Do the data provide sufficient evidence that the mean mercury contents of Pacific croaker white fish
+is below the EPA recommended maximum?},
+q{Researchers selected a sample of 100 volunteers and recorded the palm width
+of their dominant and non-dominant hand.  They wanted to see is dominant hands are generally 
+larger than non-dominant hands.},
+q{Researchers selected a sample of 40 right-handed and 30 left-handed volunteers.  For each volunteer, 
+they measured the palm width of their dominant hand.  They wanted to see if the mean palm width
+of the dominant hand is the same for left-handed and right-handed people.},
+q{Participants in a study investigating the
+relationship between coffee consumption and exercise were asked to report 
+their coffee consumption level (none: less than one cup a week, light: 2 to 6
+cups a week, medium: 1 cup a day, serious: 2 to 3 cups a day, and heavy: 4 or more cups a day),
+and the number of hours they spent per week on moderate (e.g., brisk walking) and
+vigorous (e.g., strenuous sports and jogging) exercise. Based on the exercise data the
+researchers estimated the total hours of metabolic equivalent tasks (MET) per
+week, a numerical value always greater than 0.
+The researchers wanted to know if the average physical activity level varies among the
+different levels of coffee consumption.}
+);
+
+@tests = (
+"single proportion",
+"difference of proportions",
+"goodness of fit",
+"single mean",
+"matched pair differences",
+"difference of means",
+"ANOVA"
+);
+
+@testchoices = [
+"choose one",
+"single proportion",
+"difference of proportions",
+"goodness of fit",
+"single mean",
+"matched pair differences",
+"difference of means",
+"ANOVA"
+];
+
+@h0s = [
+"choose one",
+"the sample proportion is equal to 0.5",
+"the sample proportion is greater than 0.5",
+"the sample proportion is different from 0.5",
+"the population proportion is equal to 0.5",
+"the population proportion is greater than 0.5",
+"the population proportion is different from 0.5",
+"the difference between the sample proportions is 0",
+"the difference between the sample proportions is not 0",
+"the difference between the population proportions is 0",
+"the difference between the population proportions is not 0",
+"the sample frequencies fit the Hardy-Weinberg formula",
+"the sample frequencies do not fit the Hardy-Weinberg formula",
+"the population proportions fit the Hardy-Weinberg formula",
+"the population proportions do not fit the Hardy-Weinberg formula",
+"the sample mean is less than 0.3 ppm",
+"the sample mean is 0.3 ppm",
+"the population mean is less than 0.3 ppm",
+"the population mean is 0.3 ppm",
+"the sample mean difference of the hand sizes is 0",
+"the sample mean difference of the hand sizes is greater than 0",
+"the population mean difference of the hand sizes is 0",
+"the population mean difference of the hand sizes is greater than 0",
+"there is no difference between the sample means of the hand sizes",
+"there is a difference between the sample means of the hand sizes",
+"there is no difference between the population means of the hand sizes",
+"there is a difference between the population means of the hand sizes",
+"there is a difference between the mean physical activity level among different levels of coffee consumption",
+"there is no difference between the mean physical activity level among different levels of coffee consumption"
+];
+
+@correct_h0s = (
+"the population proportion is equal to 0.5",
+"the difference between the population proportions is 0",
+"the population proportions fit the Hardy-Weinberg formula",
+"the population mean is 0.3 ppm",
+"the population mean difference of the hand sizes is 0",
+"there is no difference between the population means of the hand sizes",
+"there is no difference between the mean physical activity level among different levels of coffee consumption"
+);
+
+@selection = NchooseK(7,3);
+
+$test1 = PopUp(@testchoices, $tests[$selection[0]]);
+$hyp1 = PopUp(@h0s, $correct_h0s[$selection[0]]);
+$test2 = PopUp(@testchoices, $tests[$selection[1]]);
+$hyp2 = PopUp(@h0s, $correct_h0s[$selection[1]]);
+$test3 = PopUp(@testchoices, $tests[$selection[2]]);
+$hyp3 = PopUp(@h0s, $correct_h0s[$selection[2]]);
+
+
+BEGIN_PGML
+
+For each of the following three examples, decide which test to use, and select the corresponding null hypothesis:
+
+* [$texts[$selection[0]]]**
+
+  Test: [@ $test1->menu() @]*
+
+  Null hypothesis: [@ $hyp1->menu() @]*
+
+* [$texts[$selection[1]]]**
+
+  Test: [@ $test2->menu() @]*
+
+  Null hypothesis: [@ $hyp2->menu() @]*
+
+* [$texts[$selection[2]]]**
+
+  Test: [@ $test3->menu() @]*
+
+  Null hypothesis: [@ $hyp3->menu() @]*
+
+END_PGML
+
+install_problem_grader(~~&std_problem_grader);
+
+#$showPartialCorrectAnswers = 0;
+
+ANS( $test1->cmp() );
+ANS( $hyp1->cmp() );
+ANS( $test2->cmp() );
+ANS( $hyp2->cmp() );
+ANS( $test3->cmp() );
+ANS( $hyp3->cmp() );
+
+BEGIN_PGML_SOLUTION
+
+* The test is [$test1->correct_ans()].
+
+  The null hypothesis is [$hyp1->correct_ans()].
+
+* The test is [$test2->correct_ans()].
+
+  The null hypothesis is [$hyp2->correct_ans()].
+
+* The test is [$test3->correct_ans()].
+
+  The null hypothesis is [$hyp3->correct_ans()].
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

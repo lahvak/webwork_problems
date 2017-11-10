@@ -1,0 +1,35 @@
+##DESCRIPTION
+## DBsubject(Example)
+## DBchapter(Minimal example)
+## DBsection(Minimal example or error)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(3)
+##ENDDESCRIPTION
+
+# File Created: 10/21/2017
+# Location: SVSU
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "contextPercent.pl",
+           "parserOneOf.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+);     
+TEXT(beginproblem());
+Context("Numeric");
+$p = Compute("1/2");
+$q = Compute("1 - $p");
+Context("Percent");
+$pp = Percent("$p");
+$qp = Percent("$q");
+$a1 = OneOf($p, $pp);
+$a2 = OneOf($q, $qp);
+
+BEGIN_PGML
+* [_________]{$a1}
+* [_________]{$a2}
+END_PGML
+ENDDOCUMENT();

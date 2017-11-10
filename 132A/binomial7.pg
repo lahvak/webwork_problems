@@ -1,0 +1,83 @@
+##DESCRIPTION
+## DBsubject(Statistics)
+## DBchapter(Binomial Process)
+## DBsection(Identify binomial process)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## MLT(CI_1p_03)
+## MLTleader(1)
+## Level(3)
+## KEYWORDS('binomial process')
+##ENDDESCRIPTION
+
+# File Created: 10/21/2017
+# Location: SVSU
+# Course: General Statistics
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "MathObjects.pl",
+           "PGchoicemacros.pl",
+           "PGML.pl",
+           "scaffold.pl",
+           "parserPopUp.pl",
+);     
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$isBin = PopUp(["?", "Yes", "No"], "No");
+
+$reasons = new_checkbox_multiple_choice();
+
+$reasons->qa(
+"Select the reason(s) why this is not a binomial process:",
+"The trials are not independent. $BR",
+"The probabilities of success and failure change from trial to trial. $BR",
+);
+
+$reasons->extra(
+"The number of trials is not fixed. $BR",
+"There are more than two possible outcomes. $BR",
+"The success and failure are not well defined. $BR",
+);
+
+$n = Compute("13");
+
+Scaffold::Begin();
+Section::Begin("Part 1: Is this a binomial process?");
+
+BEGIN_PGML
+20 red and 30 blue marbles are placed in a bag.  [$n] marbles are sampled from the bag, without replacement, carefully mixing the marbles between each sampling.  The number of blue marbles is recorded.
+
+Is this an example of a *binomial process*?  [_______]{$isBin}
+END_PGML
+Section::End();
+
+Section::Begin("Part 2: Explain why or identify parameters");
+BEGIN_PGML
+You are correct, sampling [$n] marbles without replacement from a bag containing 20 red and 30 blue marbles and recording the number of red marbles is not a binomial process.
+
+[@ $reasons->print_q() @]***
+[@ $reasons->print_a() @]***
+
+END_PGML
+
+install_problem_grader(~~&std_problem_grader);
+
+ANS( checkbox_cmp( $reasons->correct_ans() ) );
+
+BEGIN_PGML_SOLUTION
+This is not a binomial process for the following reasons:
+
+- The trials are *not independent*. Since the sampling is done without replacement, the proportion of red marbles in the bag depends on what color marbles were pulled in previous trials.
+- For the same reason, the probabilities of both success and failure change from trial to trial.
+
+The correct answer is: [$reasons->correct_ans()]
+
+END_PGML_SOLUTION
+Section::End();
+Scaffold::End();
+ENDDOCUMENT();

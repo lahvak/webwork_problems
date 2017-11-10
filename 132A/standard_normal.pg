@@ -1,0 +1,52 @@
+##DESCRIPTION
+## DBsubject(Statistics)
+## DBchapter(Normal distribution)
+## DBsection(Standard normal distribution)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## MLT(CI_1p_03)
+## MLTleader(1)
+## Level(3)
+## KEYWORDS('normal distribution')
+##ENDDESCRIPTION
+
+# File Created: 10/24/2017
+# Location: SVSU
+# Course: General Statistics
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+           "RserveClient.pl"
+);     
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+@zscores = rserve_eval("round(runif(3, -3, -.5),2)");
+
+$z0 = $zscores[0];
+$z1 = -$zscores[1];
+$z2 = list_random(-1,1)*$zscores[2];
+
+@ltails = rserve_eval("round(pnorm(c($z0, $z1, $z2)),4)");
+
+$tail0 = $ltails[0];
+$tail1 = $ltails[1];
+$tail2 = 1 - $ltails[2];
+
+BEGIN_PGML
+Use the table C.1 in the textbook (or another normal probability table) to find the following areas under the standard normal curve:
+
+- The are to the left of [: [$z0] :]: [_________]{$tail0}
+- The are to the left of [: [$z1] :]: [_________]{$tail1}
+- The are to the right of [: [$z2] :]: [_________]{$tail2}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The areas to the left can be found directly in the table.  To find the area to the right, find the area to the left and subtract it from 1.
+END_PGML_SOLUTION
+ENDDOCUMENT();

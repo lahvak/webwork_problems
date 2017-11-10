@@ -1,0 +1,8 @@
+#!/bin/sh
+# Problem library questions go to the my home directory;
+# there are symlinks from there to the courses
+export COLL="120A"
+export SRC_DIR=$COLL
+export TARGET_DIR="$COLL"
+export SERVER="webwork"
+rsync -arv --delete --progress -e ssh $SRC_DIR/ $SERVER:$TARGET_DIR/

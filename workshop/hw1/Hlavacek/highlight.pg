@@ -1,0 +1,76 @@
+# DESCRIPTION
+# Test of highlight.js
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## KEYWORDS('')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+HEADER_TEXT(<<'EOF');
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/atelier-forest.dark.min.css"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/languages/julia.min.js"></script>
+<script language="javascript" type="text/javascript">
+  <!-- //
+  hljs.initHighlightingOnLoad();
+  // -->
+</script>
+EOF
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+Using preformatted text is PGML:
+:   A = [|[1 2; 3 4]|]
+:   s = "Blah blah"
+:   d = det(A)
+:   if false
+:      d = length(s)
+:   end
+
+Problem is that in preformatted text, each line is in its own <pre><code>...</code></pre> block
+which confuses the highlighter. There is also no way to specify language.
+
+The following is a code inserted directly into the html file outside of PGML blocks:
+END_PGML
+TEXT( MODES(TeX=>'', HTML=><<'END_SCRIPT' ) );
+<pre><code class="julia">A = [1 2; 3 4]
+s = "Blah blah"
+d = det(A)
+if false
+    d = length(s)
+end</code></pre>
+END_SCRIPT
+BEGIN_PGML
+This gets correctly highlighted, but will not show up in TeX version.
+What is the value of d? [_______]{-2}
+END_PGML
+
+# Solution:
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+hkjhkj
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,42 @@
+# DESCRIPTION
+# 
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('')
+## DBchapter('')
+## DBsection('')
+## KEYWORDS('')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+
+END_PGML
+
+# Solution:
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

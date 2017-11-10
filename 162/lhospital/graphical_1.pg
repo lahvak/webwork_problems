@@ -1,0 +1,110 @@
+# DESCRIPTION
+# Graphical l'Hospital rule
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Calculus')
+## DBchapter("Inverse Functions")
+## DBsection("L'Hospital's Rule")
+## KEYWORDS("Limits", "indeterminate forms", "l'Hospital's rule")
+## TitleText1('Calculus')
+## EditionText1('8')
+## AuthorText1('Stewart')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGgraphmacros.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+$sl1 = list_random(1/2, 1, 2, 3);
+do { $sl2 = list_random(-1,1)*list_random(1/2, 1, 2); } until ( $sl1 != $sl2 );
+
+$l1 = Compute("$sl1*(x-2)");
+$l2 = Compute("$sl2*(x-2)");
+
+$gcoef = ($sl2 < $sl1 and $sl2 > 0)?0.1:-0.1;
+
+$f1 = Compute("-0.2*(x-2)^3 + $l1");
+$f2 = Compute("$gcoef*(x-2)^2 + $l2");
+
+$y11 = $l1->eval(x=>(-1));
+$y12 = $l1->eval(x=>4);
+$y21 = $l2->eval(x=>(-1));
+$y22 = $l2->eval(x=>4);
+$gly = ($gly < -.8)?-.6:$gly;
+
+$flx = 2.4;
+$glx = 1.6;
+
+$fly = $f1->eval(x=>$flx) - .05;
+$gly = $f2->eval(x=>$glx) - .05;
+
+$gr = init_graph(-1,-1,4,4,
+axes=>[0,0],
+size=>[400,400]
+);
+
+$gr->h_ticks(0,"black",2);
+
+add_functions($gr, $f1 . " for x in <-1,4>" . 
+  " using color:blue and weight:2");
+add_functions($gr, $f2 . " for x in <-1,4>" . 
+  " using color:red and weight:2");
+$gr->moveTo(-1,$y11);
+$gr->lineTo(4,$y12,'blue',2,'dashed');
+$gr->moveTo(-1,$y21);
+$gr->lineTo(4,$y22,'red',2,'dashed');
+
+$gr->lb(new Label($flx,$fly,'f','blue','left','top'));
+$gr->lb(new Label($glx,$gly,'g','red','right','top'));
+
+$gr->lb(new Label(2,-.2,'a','black','center','bottom'));
+
+$limit = Compute("$sl1/$sl2");
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+Graphs of two continuously differentiable functions [::f::] (blue) and [::g::] (red) are given together with their tangent lines at the point [::(a,0)::] (dashed). 
+The equations of the tangent lines are [``\color{blue}{y=[$l1]}``] for [::f::] and [``\color{red}{y=[$l2]}``] for [::g::].
+
+
+
+>>[@ image(insertGraph( $gr ), tex_size=>400, height=>400, width=>400) @]*<<
+
+-----
+
+Find [``\lim_{x\to a} \frac{f(x)}{g(x)}``]: [__________________________________]{$limit} 
+
+END_PGML
+
+# Solution:
+BEGIN_PGML_SOLUTION
+**An intuitive approach:** As you can see from the graph, close to the point [::(a,0)::], the value [::f(x)::] can be approximated by [::[$l1]::] and the 
+value [::g(x)::] can be approximated by [::[$l2]::], with the approximation improving as you get closer to [::(a,0)::] (definition of _tangent line_ and _linearization_).
+
+Therefore the fraction [``\frac{f(x)}{g(x)}``] for [::x::] close to [::a::] can be approximated by [``\frac{[$l1]}{[$l2]}``], where again the approximation gets better as [::x::] gets better the closer you get to [::a::].
+
+But [``\lim_{x\to a} \frac{[$l1]}{[$l2]} = \frac{[$sl1]}{[$sl2]} = [$limit]``].
+
+**Formal approach:** From the graph we can see that [:: f(a) = g(a) = 0 ::], so [``\lim_{x\to a} \frac{f(x)}{g(x)}``] is of type [``\frac{0}{0}``].
+
+Since [::f::] and [::g::] are continuously differentiable, [``\lim_{x\to a} \frac{f'(x)}{g'(x)} = \frac{f'(a)}{g'(a)} = \frac{[$sl1]}{[$sl2]} = [$limit]``],
+and so, according to the l'Hospital's rule, 
+
+>>[``\lim_{x\to a} \frac{f(x)}{g(x)} = [$limit]``]<<
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,71 @@
+##DESCRIPTION
+## DBsubject(Statistics)
+## DBchapter(Normal distribution)
+## DBsection(Normal approximation for binomial)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## MLT(CI_1p_03)
+## MLTleader(1)
+## Level(3)
+## KEYWORDS('normal distribution', 'binomial process')
+##ENDDESCRIPTION
+
+# File Created: 10/24/2017
+# Location: SVSU
+# Course: General Statistics
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+           "RserveClient.pl"
+);     
+TEXT(beginproblem());
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$n = random(50,150,1);
+$p = random(.2,.8,.01);
+$q = 1 - $p;
+$mu = $n*$p;
+@sigs = rserve_eval("round(sqrt($n*$p*(1-$p)),3)");
+$sig = $sigs[0];
+$xmin = floor($mu - 3*$sig);
+$xmax = floor($mu + 3*$sig);
+
+$x = random($xmin, $xmax, 1);
+
+$xadj = $x + 0.5;
+
+@zscores = rserve_eval("round(($xadj - $mu)/$sig, 2)");
+
+$zscore = $zscores[0];
+
+@ltails = rserve_eval("round(pnorm($zscore),4)");
+
+$ltail = $ltails[0];
+
+BEGIN_PGML
+A binomial process has [$n] trials with probability of success [$p].
+
+Use the normal approximation to find the probability that the process results in *at most* [$x] successful trials.
+
+1. We will use the normal curve with mean [` \mu = `] [_________]{$mu} and standard deviation [` \sigma = `][__________]{$sig} (round to 3 decimal places).
+
+2. The [: z :]-score will be [: z = :] [__________]{$zscore} (round to two decimal places.  When calculating the [:z:]-score, do not forget to account for the thickness of the histogram bar!)
+
+3. Use the table C.1 in the textbook (or another normal probability table) to find the area under the standard normal curve to the left of your [:z:]-score: 
+
+    Area = [__________]{$ltail}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+1.  We will use a normal curve with [` \mu = np = [$n]\cdot [$p] = [$mu] `] and [` \sigma = \sqrt{npq} = \sqrt{[$n]\cdot [$p]\cdot [$q]} = [$sig] `].
+
+2.  [` z = \frac{x - \mu}{\sigma} = \frac{[$xadj] - [$mu]}{[$sig]} = [$zscore] `].
+
+3.  From the table, the area to the left of [: [$zscore] :] is [: [$ltail] :].
+END_PGML_SOLUTION
+ENDDOCUMENT();

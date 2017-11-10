@@ -1,0 +1,112 @@
+##DESCRIPTION
+## DBsubject(Statistics)
+## DBchapter(Uncertainty intervals)
+## DBsection(Uncertainty intervals for proportions)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## MLT(CI_1p_03)
+## MLTleader(1)
+## Level(3)
+## KEYWORDS('uncertainty intervals','confidence intervals')
+##ENDDESCRIPTION
+
+# File Created: 10/21/2017
+# Location: SVSU
+# Course: General Statistics
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+           "scaffold.pl",
+           "PGinfo.pl",
+           "RserveClient.pl"
+);     
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$L = random(50,99,1);  # Confidence level
+$Ld = Compute("$L/100");
+$bothtails = 1 - $Ld;
+$alpha = (1-$L/100)/2;
+
+@zs = rserve_eval("round(qnorm(c($alpha, 1-$alpha)),3)");
+$z = $zs[1];  # Critical z-score
+
+$n = random(50,150,1);  # sample size
+$x = random(10, $n-10,1);  # At least 10 successes and failures
+$phat = Compute("$x/$n");
+$qhat = 1 - $phat;
+@sigs = rserve_eval("round(sqrt($phat*$qhat/$n),6)");
+$SE = $sigs[0];  # Standard error
+$E = Compute("$z*$SE");  # Margin
+
+$start = $phat - $z*$SE;
+$end = $phat + $z*$SE;
+
+BEGIN_PGML
+A survey asked [$n] randomly selected residents in certain county if they support an increase in property taxes in order to
+improve the county school system.  All surveyed residents responded, and [$x] of them expressed support. 
+
+Use this data to construct a [$L]% uncertainty (confidence) interval estimating the proportion of the county residents who support
+an increase in property taxes in order to improve the school system.
+END_PGML
+
+Scaffold::Begin();
+Section::Begin("Part 1: Find the critical z score:");
+
+BEGIN_PGML
+Start by finding the critical z-scores corresponding to the [$L]% confidence level.  Enter the *positive* z-score: [_________]{$z}.
+END_PGML
+
+BEGIN_PGML_SOLUTION
+In the standard normal distribution curve, we want the area in the middle to be [$L]%, or [$Ld].  That means the two tails must have
+the area of [$bothtails], or [$alpha] in each tail. 
+
+The z-score corresponding to [$alpha] in left tail is [:[$zs[0]]:], the z-score corresponding to [$alpha] in right tail is [:[$z]:].
+END_PGML_SOLUTION
+Section::End();
+
+$studz = $inputs_ref->{ANS_NUM_TO_NAME(1)};
+
+Section::Begin("Part 2: Calculate the standard error:");
+BEGIN_PGML
+Next you need to find the _sample proportion_ [` \hat p `].
+
+[` \hat p = `] [__________]{$phat}
+
+Using the [` \hat p `], calculate the *standard error*:
+
+SE = [__________]{$SE}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+* The sample proportion is
+[`` \hat p = \frac{x}{n} = \frac{[$x]}{[$n]} = [$phat] ``]
+
+* The standard error is then
+[`` \text{SE} = \sqrt{\frac{\hat p \cdot \hat q}{n}} = \sqrt{\frac{[$phat]\cdot [$qhat]}{[$n]}} = [$SE] ``]
+END_PGML_SOLUTION
+Section::End();
+
+$studphat = $inputs_ref->{ANS_NUM_TO_NAME(2)};
+$studSE = $inputs_ref->{ANS_NUM_TO_NAME(3)};
+$studstart = $studphat - $studz*$studSE;
+$studend = $studphat + $studz*$studSE;
+
+Section::Begin("Part 3: Construct the confidence interval:");
+BEGIN_PGML
+We are [$L]% confident that the interval starting at [________]{$studstart} and ending at [________]{$studend} contains the true proportion
+of county residents who support raising property taxes in order to improve the county school system.
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The lower bound of the uncertainty interval is [` \hat p - z\cdot\text{SE} = [$phat] - [$z]\cdot [$SE] = [$start] `] and 
+the upper bound is [` \hat p + z\cdot\text{SE} = [$phat] + [$z]\cdot [$SE] = [$end] `]
+END_PGML_SOLUTION
+Section::End();
+Scaffold::End();
+ENDDOCUMENT();

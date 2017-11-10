@@ -1,0 +1,72 @@
+# DESCRIPTION
+# Problems in vector calculus
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Vector Calculus')
+## DBchapter('')
+## DBsection('')
+## KEYWORDS('calculus, multivariable, vector, derivative, gradient')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"parserVectorUtils.pl",
+"AnswerFormatHelp.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Vector");
+
+# Define variables here:
+
+Context()->variables->are(t=>"Real",x=>"Real",y=>"Real");
+#Context()->variables->set(t=>{limits=>[0,5]});
+Context()->variables->set(y=>{limits=>[0.01,5]});
+Context()->flags->set( ijk=>0, ijkAnyDimension => 1 );
+
+$coef1 = random(3,9,1);
+$pow1 = random(2,5,1);
+$sgn1 = list_random(-1,1,1); # make positive more likely
+if ($sgn1 == 1) { $sgn2 = list_random(-1,1); } else { $sgn2 = 1; } #we do not want both to be negative
+$coef2 = random(2,5,1);
+$trig1 = list_random("sin","cos");
+$f = Vector("<$sgn1*$coef1*t^$pow1 + $sgn2*t, $trig1($coef2*t)>")->reduce();
+$answer1 = $f->D('t');
+
+$coef3 = random(3,7,1);
+$coef4 = random(2,4,1);
+$trig2 = list_random("sin","cos");
+
+$f = Formula("$coef3*$trig2(x)*ln($coef4*y)")->reduce();
+$fx = $f->D('x');
+$fy = $f->D('y');
+$answer2 = Vector("<$fx,$fy>");
+$answer3 = $answer2->eval(x=>2,y=>1);
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+a.  Suppose [`f(t) = [$f]`]. Find [`f'(t)`].  
+    [`f'(t) = `][____________________]{$answer1} [@ AnswerFormatHelp("vectors") @]*
+
+b.  Suppose [`g(x) = [$g]`]. Find [`\nabla g`].  
+    [`\nabla g(x,y) = `] [____________________]{$answer2} [@ AnswerFormatHelp("vectors") @]*
+
+c.  Find [`\nabla g(2,1)`]: [___________________]{$answer3} [@ AnswerFormatHelp("vectors") @]*
+END_PGML
+
+# Solution:
+BEGIN_PGML_SOLUTION
+*SOLUTION*
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
