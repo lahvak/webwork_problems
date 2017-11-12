@@ -1,0 +1,93 @@
+##DESCRIPTION
+## DBsubject(Statistics)
+## DBchapter(Uncertainty intervals)
+## DBsection(Uncertainty intervals for proportions)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## MLT(CI_1p_03)
+## MLTleader(1)
+## Level(3)
+## KEYWORDS('uncertainty intervals','confidence intervals')
+##ENDDESCRIPTION
+
+# File Created: 10/21/2017
+# Location: SVSU
+# Course: General Statistics
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+           "PGinfo.pl",
+           "RserveClient.pl"
+);     
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$L = random(50,95,1);  # Confidence level
+$Ld = Compute("$L/100");
+$bothtails = 1 - $Ld;
+$alpha = (1-$L/100)/2;
+
+@zs = rserve_eval("round(qnorm(c($alpha, 1-$alpha)),3)");
+$z = $zs[1];  # Critical z-score
+
+$n = random(150,550,1);  # sample size
+$x = random(10, $n-10,1);  # At least 10 successes and failures
+$phat = Compute("$x/$n");
+$qhat = 1 - $phat;
+@sigs = rserve_eval("round(sqrt($phat*$qhat/$n),6)");
+$SE = $sigs[0];  # Standard error
+$E = Compute("$z*$SE");  # Margin
+
+$start = $phat - $z*$SE;
+$end = $phat + $z*$SE;
+
+# Story
+$story = random(0,5,1);
+
+Context()->texStrings;
+@stories = (
+"Researchers were studying the effect of certain herbicide on common ragweed. They treated \($n\) randomly selected ragweed plants with the herbicide.  \($x\) plants survived the treatment without any apparent damage.  Construct a \($L\)% uncertainty interval estimating the proportion of ragweed plants that survive application of the herbicide with no apparent damage.",
+"A group of SVSU students were studying water pollutants in the tri-city area. They selected a random sample of \($n\) bodies of water, and tested them for mercury content. In the sample, \($x\) cases contained more than EPA recommended maximum of 0.77 \(\mu\)g/L mercury.  Construct a \($L\)% uncertainty interval estimating the proportion of bodies of water in tri-city area that have mercury concentration higher than the EPA recommended maximum.",
+"In a random sample of \($n\) customers at a local mall, \($x\) customers expressed a dissatisfaction with the parking options at the mall. Construct a \($L\)% uncertainty interval estimating the proportion of the mall customers who are dissatisfied with the parking options.",
+"In a random sample of \($n\) female workers in certain industry, \($x\) reported experiencing unwanted sexual advances from colleagues or superiors. Construct a \($L\)% uncertainty interval estimating the proportion of female workers in this industry who experienced unwanted sexual advances from colleagues or superiors.",
+"In a randomly selected sample of \($n\) graduates of a programming bootcamp, \($x\) found a programming job within the first year after graduation. Construct a \($L\)% uncertainty interval estimating the proportion of the bootcamp graduates who find a programming job within one year after graduation.",
+"In a random sample of \($n\) home owners, \($x\) said that they have hard time paying off their mortgage.  Construct a \($L\)% uncertainty interval estimating the proportion of homeowners who have hard time paying off their mortgage.");
+
+@answers = (
+"ragweed plants that survive application of the herbicide with no apparent damage.",
+"of bodies of water in tri-city area that have mercury concentration higher than the EPA recommended maximum.",
+"the mall customers who are dissatisfied with the parking options.",
+"female workers in the industry who experienced unwanted sexual advances from colleagues or superiors.",
+"the bootcamp graduates who find a programming job within one year after graduation.",
+"homeowners who have hard time paying off their mortgage.");
+
+Context()->normalStrings;
+
+BEGIN_PGML
+[$stories[$story]] Make sure you enter enough decimal places.
+
+We are [$L]% confident that the interval starting at [________]{$start} and ending at [________]{$end} contains the true proportion
+[$answers[$story]]
+END_PGML
+
+BEGIN_PGML_SOLUTION
+In the standard normal distribution curve, we want the area in the middle to be [$L]%, or [$Ld].  That means the two tails must have
+the area of [$bothtails], or [$alpha] in each tail. 
+
+The z-score corresponding to [$alpha] in left tail is [:[$zs[0]]:], the z-score corresponding to [$alpha] in right tail is [:[$z]:].
+
+* The sample proportion is
+[`` \hat p = \frac{x}{n} = \frac{[$x]}{[$n]} = [$phat] ``]
+
+* The standard error is then
+[`` \text{SE} = \sqrt{\frac{\hat p \cdot \hat q}{n}} = \sqrt{\frac{[$phat]\cdot [$qhat]}{[$n]}} = [$SE] ``]
+
+The lower bound of the uncertainty interval is [` \hat p - z\cdot\text{SE} = [$phat] - [$z]\cdot [$SE] = [$start] `] and 
+the upper bound is [` \hat p + z\cdot\text{SE} = [$phat] + [$z]\cdot [$SE] = [$end] `]
+END_PGML_SOLUTION
+ENDDOCUMENT();
