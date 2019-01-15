@@ -47,7 +47,7 @@ if ($dir) {
 $ineq = "\\le";
 $ans = Compute("$a - x");
 } else {
-$ineq = "\\ge";
+$ineq = "\ge";
 $ans = Compute("x - $a");
 }
 
@@ -74,7 +74,7 @@ END_PGML
 # Solution:
 BEGIN_PGML_SOLUTION
 The two absolute value expressions are actually equal, so the two answers are actually the same.  They are both equal to
-[`$ans`], which is the _non-negative_ difference.
+[`[$ans]`], which is the _non-negative_ difference.
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
