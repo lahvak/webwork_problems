@@ -34,13 +34,13 @@ $b = random($a+1,15,1);  # $a < $b
 $c = random(7, 18, 1);
 $d = random(2,$c-1,1);  # $c > $d
 
-$ans1 = Calculate("$b - $a");
-$ans2 = Calculate("$c - $d");
+$ans1 = Compute("$b - $a");
+$ans2 = Compute("$c - $d");
 
-$ans3 = Calculate("x - $a");
-$ans4 = Calculate("$d - x");
+$ans3 = Compute("x - $a");
+$ans4 = Compute("$d - x");
 
-$ans5 = Calculate("|x - $b|");
+$ans5 = Compute("|x - $b|");
 
 # Actual problem goes here:
 TEXT(beginproblem());
