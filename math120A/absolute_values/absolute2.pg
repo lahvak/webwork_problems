@@ -44,7 +44,7 @@ $fst = Compute("$a - x");
 $snd = Compute("x - $a");
 
 if ($dir) {
-$ineq = "\\le";
+$ineq = "\le";
 $ans = Compute("$a - x");
 } else {
 $ineq = "\ge";
