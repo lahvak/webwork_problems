@@ -31,8 +31,8 @@ Context("Numeric");
 $a = list_random(2,3,5,7);
 do {$b = list_random(2,3,5,7);} until ($b != $a);
 
-$c = 0.1*ceil(10*sqrt($a));
-$d = 0.1*floor(10*sqrt($b));
+$c = Compute("ceil(sqrt($a)");
+$d = Compute("floor(sqrt($b)");
 
 Context("LimitedRadical");
 Context()->functions->disable("abs");
