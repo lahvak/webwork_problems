@@ -49,24 +49,24 @@ This problem is about the _distance between numbers on the number line_.
 
 1. What is the distance between [$a] and [$b] on the number line?
 
-   [_________]{$ans1}
+    [_________]{$ans1}
 
 2. What is the distance between [$c] and [$d] on the number line?
 
-   [_________]{$ans2}
+    [_________]{$ans2}
 
 3. Write a formula giving the distance between an unknown number [`x`] and [$a] if we know that [`x > [$a]`]:
 
-   [_________]{$ans3}
+    [_________]{$ans3}
 
 4. Write a formula giving the distance between an unknown number [`x`] and [$d] if we know that [`x < [$d]`]:
 
-   [_________]{$ans4}
+    [_________]{$ans4}
 
 5. Finally, write a formula that will always give the distance between an unknown number [`x`] and [$b] if we do not have any additional 
    information about [`x`]:
 
-   [_________]{$ans5}
+    [_________]{$ans5}
 
 ([@ AnswerFormatHelp("formulas", "Help entering formulas") @]*)
 END_PGML
