@@ -1,0 +1,68 @@
+##DESCRIPTION
+## DBsubject(Statistics)
+## DBchapter(Uncertainty intervals)
+## DBsection(Uncertainty intervals for proportions)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## MLT(CI_1p_03)
+## MLTleader(1)
+## Level(3)
+## KEYWORDS('uncertainty intervals','confidence intervals')
+##ENDDESCRIPTION
+
+# File Created: 10/21/2017
+# Location: SVSU
+# Course: General Statistics
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+           "PGinfo.pl",
+           "RserveClient.pl"
+);     
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$L = random(50,95,1);  # Confidence level
+$Ld = Compute("$L/100");
+$bothtails = 1 - $Ld;
+$alpha = (1-$L/100)/2;
+
+@zs = rserve_eval("round(qnorm(c($alpha, 1-$alpha)),3)");
+$z = $zs[1];  # Critical z-score
+
+$merror = random(.02,.08,.01);
+
+$rawn = .25*$z*$z/($merror*$merror);
+
+$n = ceil($rawn);
+
+BEGIN_PGML
+What is the minimal sample size you need to construct a [$L]% uncertainty interval
+for proportion with margin or error less than or equal to 
+[$merror]?  Assume that the population is very large, you do not know anything
+about the population proportion, but that the success-failure condition is
+satisfied.
+
+Use [$z] for the z-score.
+
+[:n >= :] [_________________]{$n}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+Since we have no information about [`\hat p`] and [`\hat q`], we will go with the "worst case scenario" and use 0.5 for each of them.  Then we 
+need to find [`n`] such that 
+
+[``z\cdot\sqrt{\frac{0.5\cdot 0.5}{n}} \le [$merror]``]
+
+The [$L]% confidence level gives us [: z=[$z] :], and solving the inequality we get
+
+[`` n \ge \frac{0.25\cdot ([$z])^2}{([$merror])^2} = [$rawn] ``]
+
+Rounding *up* will give us [$n].
+END_PGML_SOLUTION
+ENDDOCUMENT();
