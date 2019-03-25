@@ -35,6 +35,8 @@ $r = random(1,9,1);
 $which = list_random(-1,1);
 $name = $which<0?"lower":"upper";
 
+Context()->variables->set(x=>{limits=>[$h-($r),$h+($r)]});
+
 $rhs = Formula("$k + $which*sqrt($r^2 - (x - $h)^2)")->reduce("(-x)+y" => 0, "(-x)-y" => 0);
 $eq = Formula("y = $rhs");
 
