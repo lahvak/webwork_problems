@@ -30,6 +30,8 @@ Context("Numeric")->variables->add(h=>"Real");
 
 $a = non_zero_random(-8,8,1);
 
+Context()->variables->set(x=>{limits=>[$a,$a+5]});
+
 $fun = Compute("sqrt(x-$a)")->reduce();
 $funxph = $fun->substitute(x => "x+h");
 $inside = Compute("x-$a")->reduce();
