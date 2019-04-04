@@ -27,7 +27,8 @@ Context("Numeric");
 
 # Define variables here:
 
-$open = list_random(0,1);
+$closed = list_random(0,1);
+$rightdomf = list_random(0,1);
 
 $a = list_random(-1,1)*random(1,5,1) + 1;  # can be anything except 1
 $b = random(-8,8,1);
@@ -37,19 +38,19 @@ $d = $c + $k;
 
 if($k < 0) {
     $left = $d;
-    $left_included = $open;
+    $left_included = $closed;
     $right = $c;
     $right_included = 0;
 } else {
     $left = $c;
     $left_included = 0;
     $right = $d;
-    $right_included = $open;
+    $right_included = $closed;
 }
 
 Context("Interval");
 
-if($a < 1){
+if(($a < 1) xor $rightdomf){
     $int = ($left_included?"[":"(") . "${left}, ${right}" . ($right_included?"]":")");
 } else {
     $int = "(-inf, ${left}" . ($left_included?"]":")") . "U" . ($right_included?"[":"(") . "${right}, inf)";
@@ -57,7 +58,11 @@ if($a < 1){
 
 $sol = Compute($int);
 
-$domf = Compute("(-inf, $a" . ($open?")":"]"));
+if($rightdomf){
+    $domf = Compute(($closed?"[":"(") . "$a, inf)");
+} else {
+    $domf = Compute("(-inf, $a" . ($closed?"]":")"));
+}
 
 Context("Numeric");
 
