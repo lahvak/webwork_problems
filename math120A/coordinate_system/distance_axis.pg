@@ -62,7 +62,7 @@ if ($axis == 'x'){
 # Actual problem goes here:
 TEXT(beginproblem());
 BEGIN_PGML
-Find all points on the [`[$axis]`]-axis that are distance [`[$distance]`] from the point [`P([$pointx],[$pointy])`]
+Find all points on the [`[$axis]`]-axis that are distance [`[$distance]`] from the point [`P([$pointx],[$pointy])`].
 
 The points are [_____________] and [_____________].
 
