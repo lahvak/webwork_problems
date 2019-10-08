@@ -47,16 +47,18 @@ $sol2 = $center2 + $axisdist;
 
 Context("LimitedPoint");
 
-if ($axis == 'x'){
+if ($axis eq 'x'){
     $pointx = $center2;
     $pointy = $center1;
     $answer1 = Point($sol1,0);
     $answer2 = Point($sol2,0);
+    $form = "(x,0)";
 } else {
     $pointx = $center1;
     $pointy = $center2;
     $answer1 = Point(0,$sol1);
     $answer2 = Point(0,$sol2);
+    $form = "(0,y)";
 }
 
 # Actual problem goes here:
