@@ -1,0 +1,73 @@
+# DESCRIPTION
+# Arrow diagrams for functions
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Algebra')
+## DBchapter('Functions')
+## DBsection('Arrow diagrams')
+## KEYWORDS('algebra,domain,diagram,function')
+## TitleText1('Algebra and Trigonometry')
+## EditionText1('13')
+## AuthorText1('Swokowski, Cole')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+"PGgraphmacros.pl",
+);
+
+$showPartialAnswers = 1;
+
+Context("Numeric");
+
+# Create a new function to scale
+
+$to0 = random(5,9,1);
+$to1 = random(5,9,1);
+$to2 = random(5,9,1);
+$to3 = random(5,9,1);
+$to4 = random(5,9,1);
+
+# Create a graph and add the function to the graph
+
+$graph = init_graph(0,0,100,100);
+
+$xfunc1 = sub { my $t = shift();
+    return 25 + 15*cos($t); };
+$xfunc2 = sub { my $t = shift();
+    return 75 + 15*cos($t); };
+$yfunc = sub { my $t = shift();
+    return 50 + 45*sin($t); };
+$fn1 = new Fun( $xfunc1, $yfunc, $gr );
+$fn2 = new Fun( $xfunc2, $yfunc, $gr );
+$fn1->domain(0,6.2832);
+$fn2->domain(0,6.2832);
+
+
+TEXT(beginproblem());
+BEGIN_PGML
+
+>>[@ image(insertGraph($graph),tex_size => 300, width=> 300, height=> 300) @]*<<
+
+END_PGML
+
+#hint:
+$showHint = 2;
+
+BEGIN_PGML_HINT
+END_PGML_HINT
+
+
+# Solution:
+BEGIN_PGML_SOLUTION
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
