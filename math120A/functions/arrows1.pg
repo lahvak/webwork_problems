@@ -80,6 +80,14 @@ $graph->lb($l5, $l6, $l7, $l8, $l9);
 
 $graph->moveTo(25,80);
 $graph->arrowTo(75, 155 - 15*$to0);
+$graph->moveTo(25,65);
+$graph->arrowTo(75, 155 - 15*$to1);
+$graph->moveTo(25,50);
+$graph->arrowTo(75, 155 - 15*$to2);
+$graph->moveTo(25,35);
+$graph->arrowTo(75, 155 - 15*$to3);
+$graph->moveTo(25,20);
+$graph->arrowTo(75, 155 - 15*$to4);
 
 TEXT(beginproblem());
 BEGIN_PGML
