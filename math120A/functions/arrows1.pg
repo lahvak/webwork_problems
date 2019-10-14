@@ -59,8 +59,19 @@ $graph->stamps(
     closed_circle(25, 80, "blue"),
 );
 
-$l5 = new Label(23,20,'5', 'blue','right','middle','giant');
-$graph->lb($l5);
+$l4 = new Label(23,20,'4', 'blue','right','middle','giant');
+$l3 = new Label(23,35,'3', 'blue','right','middle','giant');
+$l2 = new Label(23,50,'2', 'blue','right','middle','giant');
+$l1 = new Label(23,65,'1', 'blue','right','middle','giant');
+$l0 = new Label(23,80,'0', 'blue','right','middle','giant');
+$graph->lb($l0, $l1, $l2, $l3, $l4);
+
+$l9 = new Label(77,20,'9', 'blue','left','middle','giant');
+$l8 = new Label(77,35,'8', 'blue','left','middle','giant');
+$l7 = new Label(77,50,'7', 'blue','left','middle','giant');
+$l6 = new Label(77,65,'6', 'blue','left','middle','giant');
+$l5 = new Label(77,80,'5', 'blue','left','middle','giant');
+$graph->lb($l0, $l1, $l2, $l3, $l4);
 
 TEXT(beginproblem());
 BEGIN_PGML
