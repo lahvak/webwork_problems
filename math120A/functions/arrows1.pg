@@ -52,7 +52,11 @@ $fn1->domain(0,6.2832);
 $fn2->domain(0,6.2832);
 
 $graph->stamps(
-    closed_circle(25, 20, "blue")
+    closed_circle(25, 20, "blue"),
+    closed_circle(25, 35, "blue"),
+    closed_circle(25, 50, "blue"),
+    closed_circle(25, 65, "blue"),
+    closed_circle(25, 80, "blue"),
 );
 
 TEXT(beginproblem());
