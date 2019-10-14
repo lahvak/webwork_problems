@@ -59,6 +59,9 @@ $graph->stamps(
     closed_circle(25, 80, "blue"),
 );
 
+$graph->lb( new Label(25,20,'5',
+    'blue','left','middle'));
+
 TEXT(beginproblem());
 BEGIN_PGML
 
