@@ -57,6 +57,11 @@ $graph->stamps(
     closed_circle(25, 50, "blue"),
     closed_circle(25, 65, "blue"),
     closed_circle(25, 80, "blue"),
+    closed_circle(75, 20, "blue"),
+    closed_circle(75, 35, "blue"),
+    closed_circle(75, 50, "blue"),
+    closed_circle(75, 65, "blue"),
+    closed_circle(75, 80, "blue"),
 );
 
 $l4 = new Label(23,20,'4', 'blue','right','middle','giant');
@@ -71,7 +76,7 @@ $l8 = new Label(77,35,'8', 'blue','left','middle','giant');
 $l7 = new Label(77,50,'7', 'blue','left','middle','giant');
 $l6 = new Label(77,65,'6', 'blue','left','middle','giant');
 $l5 = new Label(77,80,'5', 'blue','left','middle','giant');
-$graph->lb($l0, $l1, $l2, $l3, $l4);
+$graph->lb($l5, $l6, $l7, $l8, $l9);
 
 TEXT(beginproblem());
 BEGIN_PGML
