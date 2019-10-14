@@ -46,8 +46,8 @@ $xfunc2 = sub { my $t = shift();
     return 75 + 15*cos($t); };
 $yfunc = sub { my $t = shift();
     return 50 + 45*sin($t); };
-$fn1 = new Fun( $xfunc1, $yfunc, $gr );
-$fn2 = new Fun( $xfunc2, $yfunc, $gr );
+$fn1 = new Fun( $xfunc1, $yfunc, $graph );
+$fn2 = new Fun( $xfunc2, $yfunc, $graph );
 $fn1->domain(0,6.2832);
 $fn2->domain(0,6.2832);
 
