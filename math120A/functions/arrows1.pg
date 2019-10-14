@@ -59,7 +59,7 @@ $graph->stamps(
     closed_circle(25, 80, "blue"),
 );
 
-$l5 = new Label(23,20,'5', 'blue','right','middle'));
+$l5 = new Label(23,20,'5', 'blue','right','middle');
 $l5->font = GD::gdLargeFont;
 $graph->lb($l5);
 
