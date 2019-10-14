@@ -96,7 +96,7 @@ $graph->arrowTo(75, 155 - 15*$to4);
 
 TEXT(beginproblem());
 BEGIN_PGML
-The following arrow diagram represent a function [`f`]:
+The following arrow diagram represents a function [`f`]:
 
 [@ image(insertGraph($graph),tex_size => 300, width=> 300, height=> 300) @]*
 
@@ -118,8 +118,33 @@ The function values are:
 
 END_PGML
 
+#hint:
+$showHint = 2;
+
+BEGIN_PGML_HINT
+An arrow going from [`a`] to [`b`] means that [`f(a) = b`].
+END_PGML_HINT
+
 # Solution:
 BEGIN_PGML_SOLUTION
+**Domain:** All the points in the left set have arrows starting at them, so all of them are in the domain.  The points correspond to 
+numbers 0, 1, 2, 3 and 4, so the domain is [`[$domain]`].
+
+**Range:** The range is a set of all the possible outputs, in other words, all the numbers that correspond to points that have an 
+arrow ending at them.  The range is [`[$range]`].
+
+**Values:** The following are the function values:
+
+[`f(0) = [$to0]`]
+
+[`f(1) = [$to1]`]
+
+[`f(2) = [$to2]`]
+
+[`f(3) = [$to3]`]
+
+[`f(4) = [$to4]`]
+
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
