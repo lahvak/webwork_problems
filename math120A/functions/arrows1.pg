@@ -51,6 +51,9 @@ $fn2 = new Fun( $xfunc2, $yfunc, $graph );
 $fn1->domain(0,6.2832);
 $fn2->domain(0,6.2832);
 
+$graph->stamps(
+    closed_circle(25, 20, "blue")
+);
 
 TEXT(beginproblem());
 BEGIN_PGML
