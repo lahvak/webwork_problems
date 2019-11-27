@@ -42,7 +42,7 @@ $showPartialCorrectAnswers = 1;
 $f = Formula("cos^2(x)+sin^2(x)");
 
 TEXT(beginproblem());
-Scaffold::Begin()
+Scaffold::Begin();
 Section::Begin("Party! 1");
 BEGIN_PGML
 The number twelve is [_______]{12}  
