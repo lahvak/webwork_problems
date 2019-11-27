@@ -42,6 +42,8 @@ Context("Numeric");
 $showPartialCorrectAnswers = 1;
 $f = Formula("cos^2(x)+sin^2(x)");
 
+$Scaffold::isInstructor = 0;
+
 TEXT(beginproblem());
 Scaffold::Begin();
 Section::Begin("Party! 1");
