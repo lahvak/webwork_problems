@@ -24,6 +24,9 @@ loadMacros(
 "PGcourse.pl",
 );
 
+# Open section only when previous section is incorrect, but has no blank
+# answers:
+
 sub when_previous_nonempty_incorrect {
   my $section = shift; my $scores = $Scaffold::scaffold->{scores};
   # If one of them is blank, do not open:
