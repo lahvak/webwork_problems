@@ -30,7 +30,6 @@ loadMacros(
 sub when_previous_nonempty_incorrect {
   my $section = shift; my $scores = $Scaffold::scaffold->{scores};
   # If one of them is blank, do not open:
-  return 0;
   foreach my $name (@{$section->{previous_ans}}) {return 0 unless defined $scores->{$name}};
   # All non-blank: if one is incorrect, open it:
   foreach my $name (@{$section->{previous_ans}}) {return 1 if ($scores->{$name}) < 1};
