@@ -65,7 +65,7 @@ You can use PGML in your solution if you use the structure
 above.  There is currently no short cut.
 END_PGML_SOLUTION
 Section::End();
-Section::Begin(name => "Feedbck!",
+Section::Begin("Feedbck!",
     can_open => when_previous_nonempty_incorrect,
     is_open => when_previous_nonempty_incorrect
     );
