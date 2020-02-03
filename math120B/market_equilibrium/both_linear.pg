@@ -62,7 +62,7 @@ The supply function for certain product is [`p = [$supply]`], while the demand f
 *  [`q_e = `][___________]{$qe}
 *  [`p_e = `][___________]{$pe}
 
-Suppose the price of thge product is [`[$price]`].  Is there going to be a shortage or surplus?
+Suppose the price of the product is [`[$price]`].  Is there going to be a shortage or surplus?
 
 [_]{$radio}
 
