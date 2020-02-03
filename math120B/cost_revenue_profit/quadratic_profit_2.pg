@@ -52,7 +52,7 @@ $maxprof = $profit->eval(x=>$maxx);
 #  Main text
 
 BEGIN_PGML
-A fixed cost for certain product is $[$fixcost] a month.  The variable cost is [$varcost] dollars per unit. The demand function for the product is [`p = [$price]`], where [`p`] is the price per unit in dollars, and [`x`] is the number of units produced and sold in a month. 
+A fixed cost for certain product is $[$fixcost] a month.  The variable cost is [`[$varcost]`] dollars per unit. The demand function for the product is [`p = [$price]`], where [`p`] is the price per unit in dollars, and [`x`] is the number of units produced and sold in a month. 
 
 Find the following:
 
@@ -69,7 +69,7 @@ END_PGML
 BEGIN_PGML_SOLUTION
 *  The revenue is simply the price times the quantity.  The price is given by the demand function, so [`R(x) = [$revenue]`].
 *  The cost has two parts: fixed cost and variable cost.  The variable cost is cost per unit times the number of units.  Altogether,
-   [`C(x) = [$fixcost] + [$varcost] x`].
+   [`C(x) = [$cost]`].
 *  The profit is revenue minus cost, or [`[$revenue] - ([$cost]) = [$profit]`].
 
 Then,
