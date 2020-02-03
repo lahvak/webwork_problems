@@ -39,7 +39,7 @@ $c = random(20,40,1);
 $difflin = 2*$maxx*$diffquad;
 $b = $c + $difflin;
 $maxvarcost = -$diffquad*($maxx^2) + $difflin*$maxx;
-$fixcost = random(50, $maxvarcost/2, 1);
+$fixcost = random(50, min($maxvarcost/2, 2000), 1);
 
 $price = Compute("$b - $a*x");
 $revenue = Compute("$price*x");
