@@ -63,16 +63,16 @@ Then, calculate the following:
 
 END_PGML
 BEGIN_PGML_SOLUTION
-*  The revenue is simply the price times the quantity, or [`[$price]\cdot x`].
+*  The revenue is simply the price times the quantity, or [`[$price] x`].
 *  The cost has two parts: fixed cost and variable cost.  The variable cost is cost per unit times the number of units.  Altogether,
-   [`C(x) = [$fixcost] + [$varcost]\cdot x`].
-*  The profit is revenue minus cost, or [`[$price]\cdot x - ([$fixcost] + [$varcost]\cdot x) = [$price]\cdot x - [$fixcost] - [$varcost]\cdot x = [$diff]\cdot x - [$fixcost]`].
+   [`C(x) = [$fixcost] + [$varcost] x`].
+*  The profit is revenue minus cost, or [`[$price] x - ([$fixcost] + [$varcost] x) = [$price] x - [$fixcost] - [$varcost] x = [$diff] x - [$fixcost]`].
 
 Then,
 
 *  The _marginal profit_ is the _rate of change_ of profit.  Since the profit function is _linear_, the rare of change is simply the coefficient of the [`x`] variable, or [`[$diff]`].
 *  [`P([$point]) = [$diff]\cdot [$point] - [$fixcost] = [$value]`].
-*  To find the break even point, we need to find for which value of [`x`] is [`P(x) = 0`].  That means we need to solve the equation [`[$diff]\cdot x - [$fixcost] = 0`].  Adding [`[$fixcost]`] to both sides, followed by dividing both sides by [`[$diff]`] will give us [`x = [$BOP]`].
+*  To find the break even point, we need to find for which value of [`x`] is [`P(x) = 0`].  That means we need to solve the equation [`[$diff] x - [$fixcost] = 0`].  Adding [`[$fixcost]`] to both sides, followed by dividing both sides by [`[$diff]`] will give us [`x = [$BEP]`].
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
