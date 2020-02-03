@@ -34,7 +34,7 @@ Context("Numeric")->variables->are(p=>"Real", q=>"Real");
 
 $qe = random(50, 100, 1);
 $sslope = random(11,99,1)/100;
-$pslope = -random(11,99,1)/100;
+$dslope = -random(11,99,1)/100;
 $sint = random(2,20,1);
 $dint = $sint + ($sslope - $pslope)*$qe;
 
