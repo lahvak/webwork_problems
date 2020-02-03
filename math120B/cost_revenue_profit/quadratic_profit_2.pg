@@ -56,14 +56,14 @@ A fixed cost for certain product is $[$fixcost] a month.  The variable cost is [
 
 Find the following:
 
-*  The monthly revenue as a function of [`x`]: [`R(x)=`][__________]{$revenue}
-*  The monthly cost as a function of [`x`]: [`C(x)=`][___________]{$cost}
-*  The monthly profit as a function of [`x`]: [`P(x)=`][___________]{$profit}
+*  The monthly revenue as a function of [`x`]: [`R(x)=`][__________________]{$revenue}
+*  The monthly cost as a function of [`x`]: [`C(x)=`][___________________]{$cost}
+*  The monthly profit as a function of [`x`]: [`P(x)=`][___________________]{$profit}
 
 Then, calculate the following:
 
 *  The level of production that will maximize the profit: [_________]{$maxx}
-*  The maximal profit: [_________]{$maxprof}
+*  The maximal profit: [_____________]{$maxprof}
 
 END_PGML
 BEGIN_PGML_SOLUTION
