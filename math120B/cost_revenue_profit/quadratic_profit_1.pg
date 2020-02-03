@@ -65,7 +65,7 @@ Then, calculate the following:
 
 *  [`P([$point])=`][____________]{$value}
 *  The _first break even point_: [___________]{$BEP1}
-*  The _second break even point_: [___________]{$BEP1}
+*  The _second break even point_: [___________]{$BEP2}
 *  The level of production that will maximize the profit: [_________]{$maxx}
 *  The maximal profit: [_________]{$maxprof}
 
