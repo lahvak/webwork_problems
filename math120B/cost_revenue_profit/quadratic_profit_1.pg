@@ -1,0 +1,87 @@
+## DESCRIPTION
+## Algebra: Find a profit function, break even points, and max profit, quadratic version
+## ENDDESCRIPTION
+
+## DBsubject()
+## DBchapter()
+## DBsection()
+## Date()
+## Institution()
+## Author()
+## KEYWORDS('algebra', 'application problems', 'business math')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric")->variables->are(x=>"Real");
+
+$BEP1 = random(30, 150, 1);
+$BEPdiff_half = random(20,100,1);
+$BEP2 = $BEP1 + 2*$BEPdiff_half;
+$maxx = $BEP1 + $BEPdiff_half;
+$varcost = random(1, 79, 1)/10;
+$a = random(1, 8, 1)/10;
+$b = $varcost + $a*($BEP1 + $BEP2);
+$fixcost = $a*$BEP1*$BEP2;
+$point = $BEP1 + list_random(-1,1)*random(10,$BEP1 - 10, 1);
+$diff = $b - $varcost;
+
+$price = Compute("$b - $a*x");
+$revenue = Compute("$price*x");
+$cost = Compute("$varcost*x + $fixcost");
+$profit = Compute("$diff*x - $a*x^2 - $fixcost");
+$value = $profit->eval(x=>$point);
+$maxprof = $profit->eval(x=>$maxx);
+
+###########################
+#  Main text
+
+BEGIN_PGML
+A fixed cost for certain product is $[$fixcost] a month.  The variable cost is $[$varcost] per unit. The demand function for the product is [`p = [$price]`], where [`p`] is the price per unit in dollars, and [`x`] is the number of units produced and sold in a month. 
+
+Find the following:
+
+*  The monthly revenue as a function of [`x`]: [`R(x)=`][__________]{$revenue}
+*  The monthly cost as a function of [`x`]: [`C(x)=`][___________]{$cost}
+*  The monthly profit as a function of [`x`]: [`P(x)=`][___________]{$profit}
+
+Then, calculate the following:
+
+*  [`P([$point])=`][____________]{$value}
+*  The _first break even point_: [___________]{$BEP1}
+*  The _second break even point_: [___________]{$BEP1}
+*  The level of production that will maximize the profit: [_________]{$maxx}
+*  The maximal profit: [_________]{$maxprof}
+
+END_PGML
+BEGIN_PGML_SOLUTION
+*  The revenue is simply the price times the quantity.  The proce is given by the demand function, so [`R(x) = [$revenue]`].
+*  The cost has two parts: fixed cost and variable cost.  The variable cost is cost per unit times the number of units.  Altogether,
+   [`C(x) = [$fixcost] + [$varcost] x`].
+*  The profit is revenue minus cost, or [`[$revenue] - ([$fixcost] + [$varcost] x) = [$revenue] x - [$fixcost] - [$varcost] x = [$diff] x - [$a]x^2 - [$fixcost]`].
+
+Then,
+
+*  [`P([$point]) = [$diff]\cdot [$point] - [$a]\cdot [$point]^2 - [$fixcost] = [$value]`].
+*  To find the break even points, we need to find for which value of [`x`] is [`P(x) = 0`].  That means we need to solve the equation [`[$diff] x - [$a]x^2 - [$fixcost] = 0`].  This is a quadratic equation, which we can solve using the quadratic formula or by factoring.  The first (smaller) solution is [`[$BEP1]`], and the second is [`[$BEP2]`].
+*  Since the profit function is quadratic, to maximize the profit, we need to find the vertex of the profit function. The coefficients of the functions are: [`a = -[$a]`], [`b = [$diff]`], and [`c = -[$fixcost]`].  The [`x`]-coordinate of the vertex is [`-b/(2a) = [$maxx]`].
+*  The maximal profit is then [`P([$maxx]) = [$diff]\cdot [$maxx] - [$a]\cdot [$maxx]^2 - [$fixcost] = [$maxprof]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
