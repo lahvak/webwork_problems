@@ -1,0 +1,73 @@
+## DESCRIPTION
+## Algebra: Given a supply and a demand function, find the market equilibrium
+## ENDDESCRIPTION
+
+## DBsubject()
+## DBchapter()
+## DBsection()
+## Date()
+## Institution()
+## Author()
+## KEYWORDS('algebra', 'application problems', 'business math')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+"parserRadioButtons.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric")->variables->are(p=>"Real", q=>"Real");
+
+$qe = random(50, 100, 1);
+$sslope = random(11,99,1)/100;
+$pslope = -random(11,99,1)/100;
+$sint = random(2,20,1);
+$dint = $sint + ($sslope - $pslope)*$qe;
+
+$supply = Compute("$sslope*q + $sint");
+$demand = Compute("$dslope*q + $dint");
+$pe = $supply->eval(q=>$qe);
+
+$dir = list_random(-1,1);
+$diff = random(2, $pe/2, 1);
+$price = $pe + $diff*$dir;
+if ($dir == -1) {
+    $answer = "shortage";
+} else {
+    $answer = "surplus";
+}
+
+$radio = RadioButtons([["shortage", "surplus"]], $answer);
+
+###########################
+#  Main text
+
+BEGIN_PGML
+The supply function for certain product is [`p = [$supply]`], while the demand function is [`p = [$demand]`]. Find the market equilibrium quantity and the market equilibrium price.
+
+*  [`q_e = `][___________]{$qe}
+*  [`p_e = `][___________]{$pe}
+
+Suppose the price of thge product is [`[$price]`].  Is there going to be a shortage or surplus?
+
+[_]{$radio}
+
+END_PGML
+BEGIN_PGML_SOLUTION
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
