@@ -1,0 +1,81 @@
+## DESCRIPTION
+## Algebra: Find a profit function and max profit, quadratic version
+## ENDDESCRIPTION
+
+## DBsubject()
+## DBchapter()
+## DBsection()
+## Date()
+## Institution()
+## Author()
+## KEYWORDS('algebra', 'application problems', 'business math')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric")->variables->are(x=>"Real");
+
+$maxx = random(100,300,1);
+$d = random(1, 8, 1)/10;
+$diffquad = random(2,8,1)/10;
+$a = $d + $diffquad;
+$c = random(20,40,1);
+$difflin = 2*$maxx*$diffquad;
+$b = $c + $difflin;
+$maxvarcost = -$diffquad*($maxx^2) + $difflin*$maxx;
+$fixcost = random(50, $maxvarcost/2, 1);
+
+$price = Compute("$b - $a*x");
+$revenue = Compute("$price*x");
+$varcost = Compute("$c - $d*x");
+$cost = Compute("$varcost*x + $fixcost");
+$profit = Compute("-$diffquad*x^2 + $difflin*x - $fixcost");
+$maxprof = $profit->eval(x=>$maxx);
+
+###########################
+#  Main text
+
+BEGIN_PGML
+A fixed cost for certain product is $[$fixcost] a month.  The variable cost is [$varcost] dollars per unit. The demand function for the product is [`p = [$price]`], where [`p`] is the price per unit in dollars, and [`x`] is the number of units produced and sold in a month. 
+
+Find the following:
+
+*  The monthly revenue as a function of [`x`]: [`R(x)=`][__________]{$revenue}
+*  The monthly cost as a function of [`x`]: [`C(x)=`][___________]{$cost}
+*  The monthly profit as a function of [`x`]: [`P(x)=`][___________]{$profit}
+
+Then, calculate the following:
+
+*  The level of production that will maximize the profit: [_________]{$maxx}
+*  The maximal profit: [_________]{$maxprof}
+
+END_PGML
+BEGIN_PGML_SOLUTION
+*  The revenue is simply the price times the quantity.  The price is given by the demand function, so [`R(x) = [$revenue]`].
+*  The cost has two parts: fixed cost and variable cost.  The variable cost is cost per unit times the number of units.  Altogether,
+   [`C(x) = [$fixcost] + [$varcost] x`].
+*  The profit is revenue minus cost, or [`[$revenue] - ([$cost]) = [$profit]`].
+
+Then,
+
+*  since the profit function is quadratic, to maximize the profit, we need to find the vertex of the profit function. The coefficients of the functions are: [`a = -[$diffquad]`], [`b = [$difflin]`], and [`c = -[$fixcost]`].  The [`x`]-coordinate of the vertex is [`-b/(2a) = [$maxx]`].
+*  The maximal profit is then [`P([$maxx]) = [$difflin]\cdot [$maxx] - [$diffquad]\cdot [$maxx]^2 - [$fixcost] = [$maxprof]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
