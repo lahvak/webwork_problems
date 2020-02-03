@@ -71,10 +71,10 @@ Then, calculate the following:
 
 END_PGML
 BEGIN_PGML_SOLUTION
-*  The revenue is simply the price times the quantity.  The proce is given by the demand function, so [`R(x) = [$revenue]`].
+*  The revenue is simply the price times the quantity.  The price is given by the demand function, so [`R(x) = [$revenue]`].
 *  The cost has two parts: fixed cost and variable cost.  The variable cost is cost per unit times the number of units.  Altogether,
    [`C(x) = [$fixcost] + [$varcost] x`].
-*  The profit is revenue minus cost, or [`[$revenue] - ([$fixcost] + [$varcost] x) = [$revenue] x - [$fixcost] - [$varcost] x = [$diff] x - [$a]x^2 - [$fixcost]`].
+*  The profit is revenue minus cost, or [`[$revenue] - ([$fixcost] + [$varcost] x) = [$revenue] - [$fixcost] - [$varcost] x = [$diff] x - [$a]x^2 - [$fixcost]`].
 
 Then,
 
