@@ -83,7 +83,7 @@ $domainE[4] = 3;
 ## Curve 5: horizontal parabola
 $dir5 = list_random(-1,1);
 $shift5 = $dir5*random(-4,1);
-$x[5] = Formula("$dir4*(t^2) + $shift4")->reduce;
+$x[5] = Formula("$dir5*(t^2) + $shift5")->reduce;
 $y[5] = Formula("2*t")->reduce;
 $domainS[5] = -3;
 $domainE[5] = 3;
