@@ -76,14 +76,14 @@ $domainE[3] = 2.5;
 $dir4 = list_random(-1,1);
 $shift4 = $dir4*random(-4,1);
 $x[4] = Formula("2*t")->reduce;
-$y[4] = Formula("$dir4*$t^2 + $shift4")->reduce;
+$y[4] = Formula("$dir4*(t^2) + $shift4")->reduce;
 $domainS[4] = -3;
 $domainE[4] = 3;
 
 ## Curve 5: horizontal parabola
 $dir4 = list_random(-1,1);
 $shift4 = $dir4*random(-4,1);
-$x[4] = Formula("$dir4*$t^2 + $shift4")->reduce;
+$x[4] = Formula("$dir4*(t^2) + $shift4")->reduce;
 $y[4] = Formula("2*t")->reduce;
 $domainS[4] = -3;
 $domainE[4] = 3;
