@@ -128,7 +128,7 @@ $ml = new_image_match_list(
 $ml->{separation} = 5;      # separation for questions in the list
 
 $ml->rf_print_q(~~&pop_up_list_print_q); # use pop-up-lists
-$ml -> ra_pop_up_list([ No_answer=>"?", A=>"A", B=>"B", C=>"C", D=>"D" ] );
+$ml -> ra_pop_up_list([ No_answer=>"?", A=>"A", B=>"B", C=>"C", D=>"D", E=>"E", F=>"F" ] );
 
 $ml->qa(@QA);
 $ml->choose(6);
