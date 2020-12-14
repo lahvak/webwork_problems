@@ -72,20 +72,21 @@ $y[3] = Formula("$starty3 + $vy3*t")->reduce;
 $domainS[3] = -2.5;
 $domainE[3] = 2.5;
 
-## Curve 4: slanted line, small slope
+## Curve 4: vertical parabola
 $dir4 = list_random(-1,1);
-$shift = random(1,4);
-$x[4] = Formula("t*(t^2 - 2)")->reduce;
-$y[4] = Formula("$dir($shift - t^2)")->reduce;
-$domainS[4] = -2.5;
-$domainE[4] = 2.5;
+$shift4 = $dir4*random(-4,1);
+$x[4] = Formula("2*t")->reduce;
+$y[4] = Formula("$dir4*$t^2 + $shift4")->reduce;
+$domainS[4] = -3;
+$domainE[4] = 3;
 
-## Curve 5: slanted line, small slope
-$dir5 = list_random(-1,1);
-$x[5] = Formula("$dir5*12*t*(1 - t)")->reduce;
-$y[5] = Formula("4*sin(2*pi*t)")->reduce;
-$domainS[5] = 0;
-$domainE[5] = 1;
+## Curve 5: horizontal parabola
+$dir4 = list_random(-1,1);
+$shift4 = $dir4*random(-4,1);
+$x[4] = Formula("$dir4*$t^2 + $shift4")->reduce;
+$y[4] = Formula("2*t")->reduce;
+$domainS[4] = -3;
+$domainE[4] = 3;
 
 foreach my $i (0..5) {
   $gr[$i] = init_graph(-5,-5,5,5,axes=>[0,0],pixels=>[400,400]);
