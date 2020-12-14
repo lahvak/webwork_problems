@@ -122,7 +122,7 @@ $popup = PopUp(["?","A","B","C","D","E","F"], $letter[$inv[$k]]);
 TEXT(beginproblem());
 
 BEGIN_TEXT
-Below is the Cartesian graph of the equation \(r = f(\theta)\):
+Below is the Cartesian graph of the equation \(r = f(\theta)\) for \(-\pi \le \theta \le \pi\):
 $PAR
 $BCENTER\{ $cartfig \}$ECENTER
 
