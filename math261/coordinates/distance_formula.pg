@@ -1,0 +1,99 @@
+# DESCRIPTION
+# Find the distance between two points in R^n for n = 1, 2, 3, and 4
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Algebra')
+## DBchapter('Cartesian coordinate system')
+## DBsection('Distance formula')
+## KEYWORDS('algebra,equations,distance formula')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+Context("Numeric");
+Context()->flags->set(
+  tolerance => 0.01,
+  tolType => "absolute",
+);
+
+$x1 = random(-16,16,1);
+$xdiff = random(4,15,1);
+$x2 = $x1 - $xdiff;
+
+$y1 = random(-10,10,1);
+$ydiff = list_random(-1,1)*random(1,15,1);
+$y2 = $y1 + $ydiff;
+
+$z1 = random(-8,8,1);
+$zdiff = list_random(-1,1)*random(1,15,1);
+$z2 = $z1 + $zdiff;
+
+$w1 = random(-6,6,1);
+$wdiff = list_random(-1,1)*random(1,15,1);
+$w2 = $w1 + $wdiff;
+
+$xdiffsq = $xdiff**2;
+$ydiffsq = $ydiff**2;
+$zdiffsq = $zdiff**2;
+$wdiffsq = $wdiff**2;
+
+$dist1sq = $xdiffsq;
+$dist2sq = $xdiffsq + $ydiffsq;
+$dist3sq = $xdiffsq + $ydiffsq + $zdiffsq;
+$dist4sq = $xdiffsq + $ydiffsq + $zdiffsq + $wdiffsq;
+
+$dist1 = Compute("$xdiff");
+$dist2 = Compute("sqrt($dist2sq)");
+$dist3 = Compute("sqrt($dist3sq)");
+$dist4 = Compute("sqrt($dist4sq)");
+
+# Actual problem goes here:
+BEGIN_PGML
+
+Give all the answers rounded to two decimal places:
+
+*  The distance between the points [`[$x1]`] and [`[$x2]`] in [`\mathbb{R}^1`] is [____________]{$dist1}.
+*  The distance between the points [`([$x1], [$y1])`] and [`([$x2],[$y2])`] in [`\mathbb{R}^2`] is [____________]{$dist2}.
+*  The distance between the points [`([$x1], [$y1], [$z1])`] and [`([$x2],[$y2],[$z2])`] in [`\mathbb{R}^3`] is [____________]{$dist3}.
+*  The distance between the points [`([$x1], [$y1], [$z1],[$w1])`] and [`([$x2],[$y2],[$z2],[$w2])`] in [`\mathbb{R}^4`] is [____________]{$dist4}.
+
+END_PGML
+
+$showPartialCorrectAnswers = 1;
+
+# Solution:
+BEGIN_PGML_SOLUTION
+
+*   The distance between two points [`x_1`] and [`x_2`] in [`\mathbb{R}^1`] is [`\left\lvert x_2 - x_1 \right\rvert = \sqrt{(x_2 - x_1)^2}`].
+
+    In this case it is [`\left\lvert [$x2] - [$x1] \right\rvert = \left\lvert -[$xdiff] \right\rvert = [$xdiff]`].
+
+*   The distance between two points [`(x_1,y_1)`] and [`(x_2,y_2)`] in [`\mathbb{R}^2`] is [`\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}`].
+
+    In this case it is [`\sqrt{([$x2] - [$x1])^2 + ([$y2] - [$y1])^2} = \sqrt{(-[$xdiff])^2 + ([$ydiff])^2} = \sqrt{[$dist2sq]} = [$dist2]`].
+
+*   The distance between two points [`(x_1,y_1,z_1)`] and [`(x_2,y_2,z_2)`] in [`\mathbb{R}^3`] is [`\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}`].
+
+    In this case it is [`\sqrt{([$x2] - [$x1])^2 + ([$y2] - [$y1])^2 + ([$z2] - [$z1])^2} = \sqrt{(-[$xdiff])^2 + ([$ydiff])^2 + ([$zdiff])^2} = \sqrt{[$dist3sq]} = [$dist3]`].
+
+*   The distance between two points [`(x_1,y_1,z_1,w_1)`] and [`(x_2,y_2,z_2,w_2)`] in [`\mathbb{R}^4`] is [`\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2 + (w_2 - w_1)^2}`].
+
+    In this case it is [`\sqrt{([$x2] - [$x1])^2 + ([$y2] - [$y1]^2) + ([$z2] - [$z1])^2 + ([$w2] - [$w1])^2} = \sqrt{(-[$xdiff])^2 + ([$ydiff])^2 + ([$zdiff])^2 + ([$wdiff])^2} = \sqrt{[$dist4sq]} = [$dist4]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
