@@ -1,0 +1,85 @@
+# DESCRIPTION
+# Identify an equation in three variables
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Algebra')
+## DBchapter('Cartesian coordinate system')
+## DBsection('Distance formula')
+## KEYWORDS('algebra,equations,distance formula')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"parserRadioButtons.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+Context("Numeric");
+Context()->variables->add(y=>"Real",z=>"Real");
+
+$x = random(-10,10);
+$y = random(-10,10);
+$z = list_random(-1,1)*random(1,10);
+
+$r = random(2,10);
+$rsq = $r**2;
+
+$lhs = Formula("z")->reduce;
+$rhs = Compute("$z");
+
+$mc = RadioButtons(
+    [[ 
+    "Sphere with center \(($x, $y, $z)\) and radius \($r\)", 
+    "Sphere with center \(($x, $y, $z)\) and radius \($rsq\)", 
+    "Cylinder with vertical axis through \(($x,$y,0)\) and radius \($r\)",
+    "Cylinder with horizontal axis through \(($x,$y,0)\) and radius \($rsq\)",
+    "Horizontal plane through the point \(($x, $y, $z)\)",
+    "Plane parallel to the \(xz\)-plane through the point \(($x, $y, $z)\)",
+    "Vertical line through the point \(($x, $y, $z)\)"],
+    "None of these" ],
+    "Horizontal plane through the point \(($x, $y, $z)\)",
+    );
+
+# Actual problem goes here:
+BEGIN_PGML
+
+In [`\mathbb{R}^3`], the equation [`[$lhs] = [$rhs]`] represents a
+
+[@ $mc->buttons() @]*
+
+END_PGML
+
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+ANS( $mc->cmp() );
+
+# Solution:
+BEGIN_PGML_SOLUTION
+
+The equation
+
+[```[$lhs] = [$rhs]```]
+
+represents the set of all points with the same [`z`]-coordinate [`[$rhs]`].  Since the [`z`]-coordinate gives the distance from the 
+[`xy`]-plane, the points form a plane parallel to [`xy`]-plane, which in the usual placement of the axes means a _horizontal_ plane.
+
+The point [`([$x],[$y],[$z])`] is one of those points, so the plane passes through it.
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

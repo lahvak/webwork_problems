@@ -1,0 +1,94 @@
+# DESCRIPTION
+# Identify an equation in three variables
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Algebra')
+## DBchapter('Cartesian coordinate system')
+## DBsection('Distance formula')
+## KEYWORDS('algebra,equations,distance formula')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"parserRadioButtons.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+Context("Numeric");
+Context()->variables->add(y=>"Real",z=>"Real");
+
+$x = random(-10,10);
+$y = random(-10,10);
+$z = random(-10,10);
+
+do {
+$x1 = random(-10,10);
+$y1 = random(-10,10);
+$z1 = random(-10,10);
+} while (($x == $x1) and ($y == $y1) and ($z == $z1));
+
+$r = random(2,10);
+$rsq = $r**2;
+
+$lhs = Formula("(x - $x)^2 + (y - $y)^2")->reduce;
+$rhs = Compute("$rsq");
+
+$mc = RadioButtons(
+    [[ 
+    "Sphere with center \(($x, $y, $z)\) and radius \($r\)", 
+    "Sphere with center \(($x, $y, $z)\) and radius \($rsq\)", 
+    "Sphere with center \(($x1, $y1, $z1)\) and radius \($r\)", 
+    "Cylinder with vertical axis through \(($x,$y,0)\) and radius \($r\)",
+    "Cylinder with vertical axis through \(($x,0,$z)\) and radius \($r\)",
+    "Cylinder with horizontal axis through \(($x,$y,0)\) and radius \($rsq\)",
+    "Horizontal plane through the point \(($x, $y, $z)\)",
+    "Plane parallel to the \(xz\)-plane through the point \(($x1, $y1, $z1)\)"],
+    "None of these" ],
+    "Cylinder with vertical axis through \(($x,$y,0)\) and radius \($r\)",
+    );
+
+# Actual problem goes here:
+BEGIN_PGML
+
+In [`\mathbb{R}^3`], the equation [`[$lhs] = [$rhs]`] represents a
+
+[@ $mc->buttons() @]*
+
+END_PGML
+
+
+install_problem_grader(~~&std_problem_grader);
+
+$showPartialCorrectAnswers = 0;
+
+ANS( $mc->cmp() );
+
+# Solution:
+BEGIN_PGML_SOLUTION
+
+The equation
+
+[```[$lhs] = [$rhs]```]
+
+is an equation of a circle in two variables, [`x`] and [`y`], with center with
+[`x = [$x]`] and [`y=[$y]`], and radius [`[$r]`].  It does not depend on [`z`],
+so it is the same circle for any level [`z`]. The circles "stacked on top of
+each other" for every value of [`z`] will form an infinite cylinder, with axis
+formed by the vertical line consisting of all points with [`x`]-coordinate [`[$x]`] and
+[`y`]-coordinate [`[$y]`].
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
