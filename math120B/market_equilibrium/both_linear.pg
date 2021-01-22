@@ -47,8 +47,10 @@ $diff = random(2, $pe/2, 1);
 $price = $pe + $diff*$dir;
 if ($dir == -1) {
     $answer = "shortage";
+    $dirword = "lower";
 } else {
     $answer = "surplus";
+    $dirword = "higher";
 }
 
 $radio = RadioButtons([["shortage", "surplus"]], $answer);
@@ -68,6 +70,14 @@ Suppose the price of the product is [`[$price]`].  Is there going to be a shorta
 
 END_PGML
 BEGIN_PGML_SOLUTION
+To find the market equilibrium, one has to find the point where the consumers (described by the demand function) and the producers (described by the supply function) agree on the price and quantity.  In other words, we need to find the solution of the system of equations
+
+[```\left\{\begin{aligned} p &= [$supply]\\p &= [$demand]\end{aligned}\right.```]
+
+The solution of the system is [`q = [$qe]`] and [`p = [$pe]`], so the market equilibrium quantity [`q_e`] is [`[$qe]`] and the market equilibrium price [`p_e`] is [`[$pe]`].
+
+Since [`[$price]`] is [$dirword] than [`p_e`], there will be a [$answer].
+
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
