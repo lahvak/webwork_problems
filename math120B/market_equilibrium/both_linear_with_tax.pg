@@ -1,0 +1,92 @@
+## DESCRIPTION
+## Algebra: Given a supply and a demand function, find the market equilibrium, with tax
+## ENDDESCRIPTION
+
+## DBsubject()
+## DBchapter()
+## DBsection()
+## Date()
+## Institution()
+## Author()
+## KEYWORDS('algebra', 'application problems', 'business math')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric")->variables->are(p=>"Real", q=>"Real");
+
+$taxqdiff = -random(2, 20, 1);
+$qe = random(50, 100, 1);
+$sslope = random(11,99,1)/100;
+$dslope = -random(11,99,1)/100;
+$sint = random(2,20,1);
+$dint = $sint + ($sslope - $dslope)*$qe;
+
+$tax = $taxqdiff * ($dslope - $sslope);
+$taxsint = $sint + $tax;
+$taxqe = $qe + $taxqdiff;
+
+$supply = Compute("$sslope*q + $sint");
+$taxsupply = Compute("$sslope*q + $taxsint");
+$demand = Compute("$dslope*q + $dint");
+$pe = $supply->eval(q=>$qe);
+$taxpe = $taxsupply->eval(q=>$taxqe);
+
+###########################
+#  Main text
+
+BEGIN_PGML
+The supply function for certain product is [`p = [$supply]`], while the demand function is [`p = [$demand]`]. Find the market equilibrium quantity and the market equilibrium price.
+
+*  [`q_e = `][___________]{$qe}
+*  [`p_e = `][___________]{$pe}
+
+Now suppose that an additional tax of [`[$tax]`] is charged for each unit of the product.
+
+The new supply function will be [`p = `][__________________]{$taxsupply}
+
+The new market equilibrium point will be
+
+*  [`q_e = `][___________]{$taxqe}
+*  [`p_e = `][___________]{$taxpe}
+
+
+END_PGML
+BEGIN_PGML_SOLUTION
+To find the market equilibrium, one has to find the point where the consumers (described by the demand function) and the producers (described by the supply function) agree on the price and quantity.  In other words, we need to find the solution of the system of equations
+
+[```\left\{\begin{aligned} p &= [$supply]\\p &= [$demand]\end{aligned}\right.```]
+
+The solution of the system is [`q = [$qe]`] and [`p = [$pe]`], so the market equilibrium quantity [`q_e`] is [`[$qe]`] and the market equilibrium price [`p_e`] is [`[$pe]`].
+
+The additional tax will not change the demand for the product.  The supplier will however only receive [`p - [$tax]`] for each product, so the supply equation will become
+
+[``` p - [$tax] = [$supply]. ```]
+
+Solving for [`p`] will give us [` p = [$taxsupply]`].
+
+The new system of equations to solve will be
+
+[```\left\{\begin{aligned} p &= [$taxsupply]\\p &= [$demand]\end{aligned}\right.```]
+
+The solution of the system is [`q = [$taxqe]`] and [`p = [$taxpe]`], so the new market equilibrium quantity [`q_e`] is [`[$taxqe]`] and the market equilibrium price [`p_e`] is [`[$taxpe]`].
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
