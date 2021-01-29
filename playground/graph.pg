@@ -32,6 +32,7 @@ is_bidir <- function(G, M, edge){
     tail <- tail_of(G, edge)
     return(M[head, tail] == 1)
     }
+0
 bidir_END
 rserve_eval($is_bidir);
 rserve_eval("M <- matrix(sample(0:1, 25, replace=TRUE), nrow=5, ncol=5)");
