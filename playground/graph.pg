@@ -55,7 +55,7 @@ BEGIN_PGML
 
 [@ image($image_path, width=>500, height=>500) @]*
 
-Matrix: [$M]
+Matrix: [`[$M]`]
 
 END_PGML
 
