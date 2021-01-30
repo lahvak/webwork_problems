@@ -47,6 +47,7 @@ CREATE_MATRIX
 $M = Matrix([@RM[0..4]],[@RM[5..9]],[@RM[10..14]],[@RM[15..19]],[@RM[20..24]])->transpose;
 $create_m2 = <<'CREATE_MATRIX2';
 M2 <- M %*% M
+for (i in 1:5) {M2[i,i] = 0}
 for (i in 1:25) {
     if (M2[i] != 0) {M2[i] = 1}
     }
@@ -67,6 +68,10 @@ $img = rserve_start_plot('png', 500, 500);
 rserve_eval("print(plot(G))");
 $image_path = rserve_finish_plot($img);
 
+$Msum = $M + $M2;
+
+@rowsums = map {sum($Msum->row($_))} 1..5;
+
 BEGIN_PGML
 
 [@ image($image_path, width=>500, height=>500) @]*
@@ -74,6 +79,8 @@ BEGIN_PGML
 Matrix: [`[$M]`]
 
 Matrix: [`[$M2]`]
+
+Row sums: [$rowsums[0]], [$rowsums[1]], [$rowsums[2]], [$rowsums[3]], [$rowsums[4]]
 
 END_PGML
 
