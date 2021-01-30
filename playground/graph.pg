@@ -35,10 +35,26 @@ is_bidir <- function(G, M, edge){
 0
 bidir_END
 rserve_eval($is_bidir);
-rserve_eval("M <- matrix(sample(0:1, 25, replace=TRUE), nrow=5, ncol=5)");
-rserve_eval("for (i in 1:5) {M[i,i] = 0}");
-@RM = rserve_eval("M");
+$create_matrix = <<'CREATE_MATRIX';
+repeat {
+   M <- matrix(sample(0:1, 25, replace=TRUE), nrow=5, ncol=5)
+   for (i in 1:5) {M[i,i] = 0}
+   if (sum(M) >= 12) {break}
+   }
+M
+CREATE_MATRIX
+@RM = rserve_eval($create_matrix);
 $M = Matrix([@RM[0..4]],[@RM[5..9]],[@RM[10..14]],[@RM[15..19]],[@RM[20..24]])->transpose;
+$create_m2 = <<'CREATE_MATRIX2';
+M2 <- M*M
+for (i in 1:25) {
+    if (M2[i] != 0) {M2[i] = 1}
+    }
+M2
+CREATE_MATRIX2
+@RM2 = rserve_eval($create_m2);
+$M2 = Matrix([@RM2[0..4]],[@RM2[5..9]],[@RM2[10..14]],[@RM2[15..19]],[@RM2[20..24]])->transpose;
+
 rserve_eval("G <- graph_from_adjacency_matrix(M)");
 $set_curves = <<'SET_CURVES';
 for (edge in E(G)) {
@@ -57,7 +73,7 @@ BEGIN_PGML
 
 Matrix: [`[$M]`]
 
-Matrix: [`[$M*$M]`]
+Matrix: [`[$M2]`]
 
 END_PGML
 
