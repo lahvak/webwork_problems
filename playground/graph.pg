@@ -70,7 +70,7 @@ $image_path = rserve_finish_plot($img);
 
 $Msum = $M + $M2;
 
-@rowsums = map {sum($Msum->row($_))} 1..5;
+@rowsums = map {$Msum->row($_)->norm_max} 1..5;
 
 BEGIN_PGML
 
