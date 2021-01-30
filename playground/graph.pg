@@ -90,11 +90,17 @@ BEGIN_PGML
 
 [@ image($image_path, width=>500, height=>500) @]*
 
-Matrix: [`[$M]`]
+Matrix: [`[$M]`] = [__]*{$M}
 
-Matrix: [`[$M2]`]
+Matrix: [`[$M2]`] = [__]*{$M2]
 
-Row sums: [$rowsums[0]], [$rowsums[1]], [$rowsums[2]], [$rowsums[3]], [$rowsums[4]]
+Player ranks:
+
+* Player 1 [______]{$rowsums[0]} 
+* Player 2 [______]{$rowsums[1]}
+* Player 3 [______]{$rowsums[2]}
+* Player 4 [______]{$rowsums[3]}
+* Player 5 [______]{$rowsums[4]}
 
 END_PGML
 
