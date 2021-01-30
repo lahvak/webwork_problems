@@ -26,14 +26,23 @@ TEXT(beginproblem());
 Context("Numeric");
 
 rserve_eval('library(igraph)');
-$is_bidir = <<'bidir_END';
+$functions = <<'FUNCTIONS_END';
 is_bidir <- function(G, M, edge){
     head <- head_of(G, edge)
     tail <- tail_of(G, edge)
     return(M[head, tail] == 1)
     }
+is_diag <- function(G, M, edge){
+    head <- head_of(G, edge)
+    tail <- tail_of(G, edge)
+    if (head == 1 && tail == 5) return(true)
+    if (head == 5 && tail == 1) return(true)
+    if (head == 2 && tail == 4) return(TRUE)
+    if (head == 4 && tail == 2) return(TRUE)
+    return(FALSE)
+    }
 0
-bidir_END
+FUNCTIONS_END
 rserve_eval($is_bidir);
 ## Create game matrix: at least 8 games were played, at most 15, and
 ## everybody won at least once
@@ -61,7 +70,8 @@ $M2 = Matrix([@RM2[0..4]],[@RM2[5..9]],[@RM2[10..14]],[@RM2[15..19]],[@RM2[20..2
 rserve_eval("G <- graph_from_adjacency_matrix(M)");
 $set_curves = <<'SET_CURVES';
 for (edge in E(G)) {
-    edge_attr(G, "curved", edge) <- ifelse(is_bidir(G,M,edge),0.5,0)
+    edge_attr(G, "curved", edge) <- ifelse(is_bidir(G,M,edge),0.3,0)
+    if (is_diag(G, M, edge) {edge_attr(G, "curved", edge) <- 0.5}
     }
 SET_CURVES
 rserve_eval($set_curves);
