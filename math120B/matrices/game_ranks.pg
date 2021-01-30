@@ -23,6 +23,8 @@ loadMacros(
 
 TEXT(beginproblem());
 
+$showPartialCorrectAnswers=1;
+
 Context("Numeric");
 Context()->parens->set("[" => {formMatrix => 1});
 
