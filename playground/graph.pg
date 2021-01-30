@@ -71,7 +71,7 @@ rserve_eval("G <- graph_from_adjacency_matrix(M)");
 $set_curves = <<'SET_CURVES';
 for (edge in E(G)) {
     edge_attr(G, "curved", edge) <- ifelse(is_bidir(G,M,edge),0.3,0)
-    if (is_diag(G, M, edge) {edge_attr(G, "curved", edge) <- 0.5}
+    if (is_diag(G, M, edge)) {edge_attr(G, "curved", edge) <- 0.5}
     }
 SET_CURVES
 rserve_eval($set_curves);
