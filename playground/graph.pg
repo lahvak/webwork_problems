@@ -92,7 +92,7 @@ BEGIN_PGML
 
 Matrix: [`[$M]`] = [__]*{$M}
 
-Matrix: [`[$M2]`] = [__]*{$M2]
+Matrix: [`[$M2]`] = [__]*{$M2}
 
 Player ranks:
 
