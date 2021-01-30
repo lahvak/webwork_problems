@@ -24,6 +24,7 @@ loadMacros(
 TEXT(beginproblem());
 
 Context("Numeric");
+Context()->parens->set("[" => {formMatrix => 1});
 
 rserve_eval('library(igraph)');
 $functions = <<'FUNCTIONS_END';
