@@ -79,7 +79,7 @@ rserve_eval($set_curves);
 rserve_eval("L = matrix(c(0, 2, 1, 0, 2, 0, 0, 1, 2, 2), nrow=5, ncol=2)");
 
 $img = rserve_start_plot('png', 500, 500);
-rserve_eval("print(plot(G, layout=L))");
+rserve_eval("print(plot(G, layout=L, color=\"white\", color=\"black\", width=2, margin=.2))");
 $image_path = rserve_finish_plot($img);
 
 $Msum = $M + $M2;
