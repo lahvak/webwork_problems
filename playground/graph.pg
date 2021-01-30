@@ -76,7 +76,7 @@ for (edge in E(G)) {
 SET_CURVES
 rserve_eval($set_curves);
 
-rserve_eval("L = matrix(c(0, 2, 1, 0, 2, 0, 0, 1, 2, 2), nrow=5, ncol=2)");
+rserve_eval("L = matrix(c(0, 2, 1, 0, 2, 2, 2, 1, 0, 0), nrow=5, ncol=2)");
 
 $img = rserve_start_plot('png', 500, 500);
 rserve_eval("plot(G, layout=L, vertex.color='white', edge.color='black', edge.width=2, margin=.1, vertex.label.cex=1.5)");
