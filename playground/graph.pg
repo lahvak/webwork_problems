@@ -35,8 +35,8 @@ is_bidir <- function(G, M, edge){
 is_diag <- function(G, M, edge){
     head <- head_of(G, edge)
     tail <- tail_of(G, edge)
-    if (head == 1 && tail == 5) return(true)
-    if (head == 5 && tail == 1) return(true)
+    if (head == 1 && tail == 5) return(TRUE)
+    if (head == 5 && tail == 1) return(TRUE)
     if (head == 2 && tail == 4) return(TRUE)
     if (head == 4 && tail == 2) return(TRUE)
     return(FALSE)
