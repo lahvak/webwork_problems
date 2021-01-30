@@ -43,7 +43,7 @@ is_diag <- function(G, M, edge){
     }
 0
 FUNCTIONS_END
-rserve_eval($is_bidir);
+rserve_eval($functions);
 ## Create game matrix: at least 8 games were played, at most 15, and
 ## everybody won at least once
 $create_matrix = <<'CREATE_MATRIX';
