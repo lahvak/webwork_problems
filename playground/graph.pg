@@ -46,7 +46,7 @@ CREATE_MATRIX
 @RM = rserve_eval($create_matrix);
 $M = Matrix([@RM[0..4]],[@RM[5..9]],[@RM[10..14]],[@RM[15..19]],[@RM[20..24]])->transpose;
 $create_m2 = <<'CREATE_MATRIX2';
-M2 <- M*M
+M2 <- M %*% M
 for (i in 1:25) {
     if (M2[i] != 0) {M2[i] = 1}
     }
