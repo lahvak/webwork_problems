@@ -30,7 +30,7 @@ $a = random(17,120,1);
 
 $bin = sprintf("%08b", $a);
 
-@bigits = split(//, $a);
+@bigits = split(//, $bin);
 
 # Actual problem goes here:
 TEXT(beginproblem());
