@@ -37,7 +37,7 @@ TEXT(beginproblem());
 BEGIN_PGML
 Enter the 8-bit binary representation of the decimal number [$a]. The most significant bit is first.
 
-[ ]{$bigits[0]}[ ]{$bigits[1]}[ ]{$bigits[2]}[ ]{$bigits[3]}[ ]{$bigits[4]}[ ]{$bigits[5]}[ ]{$bigits[6]}[ ]{$bigits[7]}
+[_]{$bigits[0]}[_]{$bigits[1]}[_]{$bigits[2]}[_]{$bigits[3]}[_]{$bigits[4]}[_]{$bigits[5]}[_]{$bigits[6]}[_]{$bigits[7]}
 
 END_PGML
 
