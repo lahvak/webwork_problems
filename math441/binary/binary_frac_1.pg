@@ -20,13 +20,12 @@ loadMacros(
 "PGstandard.pl",
 "MathObjects.pl",
 "PGML.pl",
-"parserAutoStrings.pl",
+"contextArbitraryStrings.pl",
 "PGcourse.pl",
 );
-Context("Strings");
-AutoStrings();
-
 # Define variables here:
+
+Context("ArbitraryStrings");
 
 @bigits = ();
 
