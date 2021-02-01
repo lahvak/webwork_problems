@@ -48,9 +48,9 @@ $ans = Compute(join "", @bigits);
 # Actual problem goes here:
 TEXT(beginproblem());
 BEGIN_PGML
-Enter the binary representation of the decimal number [$dec]:
+Enter the binary representation of the decimal number [$dec], with no extra zeros at the end.
 
-0.[_______]{$ans}
+The binary representation is *0.*[_______]{$ans}.
 
 END_PGML
 
