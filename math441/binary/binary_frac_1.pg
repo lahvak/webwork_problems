@@ -34,7 +34,7 @@ for my $i (1..6) {
 
 push @bigits, 1;
 
-$dec = 0;
+$dec = 0.0;
 
 $mul = 0.5;
 for my $i (@bigits) {
