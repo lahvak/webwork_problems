@@ -30,7 +30,9 @@ $a = -random(17,120,1);
 
 $bin = sprintf("%08b", $a);
 
-@bigits = splice split(//, $bin), -8;
+@allbigits = split(//, $bin);
+
+@bigits = splice(@allbigits, -8);
 
 # Actual problem goes here:
 TEXT(beginproblem());
