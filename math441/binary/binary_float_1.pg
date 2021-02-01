@@ -1,0 +1,99 @@
+# DESCRIPTION
+# Write a floating point number in binary
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Representation of numbers')
+## DBsection('Integers')
+## KEYWORDS('binary')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+# Define variables here:
+
+Context("Numeric");
+
+$sign = random(0,1);
+
+$exponent = random(5,7,1);
+$mantissa = random(6,10);
+
+$bias = 2**($exponent - 1) - 1;
+
+@expbigits = ();
+
+for my $i (1..$exponent) {
+   push @expbigits, random(0,1);
+}
+
+if (all {$_ == 1} @expbigits) {$expbigits[0] = 0};
+
+$expval = 0.0;
+
+$mul = 2**($exponent - 1);
+for my $i (@expbigits) {
+   $expval += $i*$mul;
+   $mul /= 2;
+}
+
+$exptext = join " ", @expbigits;
+
+$expvaltrue = $expval - $bias;
+
+@mantbigits = ();
+
+for my $i (1..$mantissa) {
+   push @mantbigits, random(0,1);
+}
+
+$mantval = 0.0;
+
+$mul = 0.5;
+for my $i (@mantbigits) {
+   $mantval += $i*$mul;
+   $mul /= 2;
+}
+
+$manttext = join " ", @mantbigits;
+
+$ansval = (-1)**$sign * (1 + $mantval) * 2**$expvaltrue;
+
+Context()->flags->set(
+     tolerance    => 0,       # the relative or absolute tolerance
+     zeroLevel    => 0,       # when to use zeroLevelTol
+);
+
+$ans = Compute("$ansval");
+
+$totbits = 1 + $exponent + $mantissa;
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+A new experimental CPU by the ACME corporation uses [$totbits]-bit floating point numbers with exponent of [$exponent] bits, with bias [$bias], 
+and mantissa of [$mantissa] bits.
+
+A number is represented as
+
+>>[$sign] | [$exptext] | [$manttext]<<
+
+where the order is _sign_, _exponent_ and _mantissa_.
+
+In decimal notation, the number is [___________________________]{$ans}
+
+END_PGML
+
+ENDDOCUMENT();
