@@ -20,12 +20,12 @@ loadMacros(
 "PGstandard.pl",
 "MathObjects.pl",
 "PGML.pl",
-"contextArbitraryStrings.pl",
+"contextArbitraryString.pl",
 "PGcourse.pl",
 );
 # Define variables here:
 
-Context("ArbitraryStrings");
+Context("ArbitraryString");
 
 @bigits = ();
 
@@ -43,7 +43,7 @@ for my $i (@bigits) {
    $mul /= 2;
 }
 
-$ans = String(join "", @bigits);
+$ans = Compute(join "", @bigits);
 
 # Actual problem goes here:
 TEXT(beginproblem());
