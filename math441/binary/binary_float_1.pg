@@ -35,11 +35,18 @@ $bias = 2**($exponent - 1) - 1;
 
 @expbigits = ();
 
+$allzeros = 1;
+$allones = 1;
+
 for my $i (1..$exponent) {
-   push @expbigits, random(0,1);
+   my $d = random(0,1);
+   if ($d == 0) {$allones = 0};
+   if ($d == 1) {$allzeros = 0};
+   push @expbigits, $d;
 }
 
-if (all {$_ == 1} @expbigits) {$expbigits[0] = 0};
+if ($allzeros == 1) {$expbigits[-1] = 1};
+if ($allones == 1) {$expbigits[-1] = 0};
 
 $expval = 0.0;
 
