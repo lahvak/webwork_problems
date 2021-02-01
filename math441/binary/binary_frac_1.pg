@@ -20,9 +20,11 @@ loadMacros(
 "PGstandard.pl",
 "MathObjects.pl",
 "PGML.pl",
+"parserAutoStrings.pl",
 "PGcourse.pl",
 );
-Context("Numeric");
+Context("Strings");
+AutoStrings();
 
 # Define variables here:
 
@@ -42,7 +44,7 @@ for my $i (@bigits) {
    $mul /= 2;
 }
 
-$ans = join "", @bigits;
+$ans = String(join "", @bigits);
 
 # Actual problem goes here:
 TEXT(beginproblem());
