@@ -48,7 +48,7 @@ $ans = Compute(join "", @bigits);
 # Actual problem goes here:
 TEXT(beginproblem());
 BEGIN_PGML
-Enter the binary representation of the decimal number [$dec], with no extra zeros at the end.
+Enter the fractional part of the binary representation of the decimal number [$dec], with no extra zeros at the end.
 
 The binary representation is *0.*[_______]{$ans}.
 
