@@ -29,7 +29,7 @@ Context("Numeric");
 $sign = random(0,1);
 
 $exponent = random(5,7,1);
-$mantissa = random(6,10);
+$mantissa = random(5,8);
 
 $bias = 2**($exponent - 1) - 1;
 
@@ -66,7 +66,7 @@ for my $i (1..$mantissa) {
    push @mantbigits, random(0,1);
 }
 
-$mantval = 0.0;
+$mantval = 1.0;
 
 $mul = 0.5;
 for my $i (@mantbigits) {
@@ -76,7 +76,9 @@ for my $i (@mantbigits) {
 
 $manttext = join " ", @mantbigits;
 
-$ansval = (-1)**$sign * (1 + $mantval) * 2**$expvaltrue;
+$ansval = (-1)**$sign * ($mantval) * 2**$expvaltrue;
+
+$signedmant = (-1)**$sign * $mantval;
 
 Context()->flags->set(
      tolerance    => 0,       # the relative or absolute tolerance
@@ -97,10 +99,31 @@ A number is represented as
 
 >>[$sign] | [$exptext] | [$manttext]<<
 
-where the order is _sign_, _exponent_ and _mantissa_.
+written as _sign_ | _exponent_ | _mantissa_.
 
 In decimal notation, the number is [___________________________]{$ans}
 
+(Enter the exact value with no rounding!)
+
 END_PGML
+
+BEGIN_PGML_SOLUTION
+The number represented as 
+
+>>[$sign] | [$exptext] | [$manttext]<<
+
+is 
+
+[```(-1)^{[$sign]} \times (1.[$manttext])_2 \times 2^{([$exptext])_2 - ($bias)_{10}} ```]
+
+or, in base 10,
+
+[```(-1)^{[$sign]} \times [$mantval] \times 2^{[$expval] - $bias} ```]
+
+which simplifies to
+
+[``` [$signedmant \times 2^{[$expvaltrue]} ```]
+
+END_PGML_SOLUTION
 
 ENDDOCUMENT();
