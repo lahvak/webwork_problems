@@ -1,0 +1,56 @@
+# DESCRIPTION
+# Write an integer in binary
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Representation of numbers')
+## DBsection('Integers')
+## KEYWORDS('binary')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+@bigits = [];
+
+for my $i (1..6) {
+   push @bigits, random(0,1);
+}
+
+push @bigits, 1;
+
+$dec = 0;
+
+$mul = 0.5;
+for my $i @bigits {
+   $dec += $i*$mul;
+   $mul /= 2;
+}
+
+$ans = join "", @bigits;
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+Enter the binary representation of the decimal number [$dec]:
+
+0.[_______]{$ans}
+
+END_PGML
+
+ENDDOCUMENT();
