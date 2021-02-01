@@ -28,7 +28,10 @@ Context("Numeric");
 
 $a = -random(17,120,1);
 
+$b = -$a;
+
 $bin = sprintf("%08b", $a);
+$bbin = sprintf("%08b", $b);
 
 @allbigits = split(//, $bin);
 
@@ -42,5 +45,9 @@ Enter the 8-bit binary representation of the decimal number [$a], using the _two
 [_]{$bigits[0]}[_]{$bigits[1]}[_]{$bigits[2]}[_]{$bigits[3]}[_]{$bigits[4]}[_]{$bigits[5]}[_]{$bigits[6]}[_]{$bigits[7]}
 
 END_PGML
+
+BEGIN_PGML_SOLUTION
+The binary representation of [$b] is [$bbin].  To get the _two's complement_ representation of [$a] we flip all the ones to zeros and zeros to ones, and add 1.
+END_PGML_SOLUTION
 
 ENDDOCUMENT();
