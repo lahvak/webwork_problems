@@ -37,7 +37,7 @@ push @bigits, 1;
 $dec = 0;
 
 $mul = 0.5;
-for my $i @bigits {
+for my $i (@bigits) {
    $dec += $i*$mul;
    $mul /= 2;
 }
