@@ -1,0 +1,125 @@
+# DESCRIPTION
+# Write a floating point number in binary
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Representation of numbers')
+## DBsection('Integers')
+## KEYWORDS('binary')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+# Define variables here:
+
+Context("Numeric");
+
+$exponent = random(3,4,1);
+$mantissa = random(4,5);
+
+$bias = 2**($exponent - 1) - 1;
+
+if ($exponent == 3) {
+    $maxexp = 6;
+    $maxexpbin = "110";
+    $minexpbin = "001";
+} else {
+    $maxexp = 14;
+    $maxexpbin = "1110";
+    $minexpbin = "0001";
+}
+
+$maxexptrue = $maxexp - $bias;
+$minexptrue = 1 - $bias;
+
+$maxmant = 1.0;
+$maxmantbin = "";
+$minmantbin = "";
+
+$mul = 0.5;
+for my $i (1..$mantissa) {
+   $maxmant += $mul;
+   $mul /= 2;
+   $maxmantbin .= "1";
+   $minmantbin .= "0";
+}
+
+$minval = 2**(1 - $bias);
+$maxval = $maxmant * 2**($maxexp - $bias);
+
+Context()->flags->set(
+     tolerance    => 0,       # the relative or absolute tolerance
+     zeroLevel    => 0,       # when to use zeroLevelTol
+);
+
+$ansmin = Compute("$minval");
+$ansmax = Compute("$maxval");
+
+$totbits = 1 + $exponent + $mantissa;
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+A new experimental CPU by the ACME corporation uses [$totbits]-bit floating point numbers with exponent of [$exponent] bits, with bias [$bias], 
+and mantissa of [$mantissa] bits.
+
+* The largest finite floating point number that can be represented is [___________________________]{$ansmax}
+* The smallest positive _normal_ floating point number that can be represented is [___________________________]{$ansmin}
+
+Enter exact values with no rounding!  Remember that exponents with _all zeros_ or _all ones_ are reserved for special situations, such as infinite numbers, zero, or subnormal numbers, and cannot be used for normal floating point numbers.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The largest number will be represented as 
+
+>>0 | [$maxexpbin] | [$maxmantbin]<<
+
+which is 
+
+[```(-1)^{0} \times (1.[$maxmantbin])_2 \times 2^{([$maxexpbin])_2 - ([$bias])_{10}} ```]
+
+or, in base 10,
+
+[```(-1)^{0} \times [$maxmant] \times 2^{[$maxexp] - [$bias]} ```]
+
+which simplifies to
+
+[``` [$maxmant] \times 2^{[$maxexptrue]} ```]
+
+or [$ansmax].
+
+--------
+
+The smallest number will be represented as 
+
+>>0 | [$minexpbin] | [$minmantbin]<<
+
+which is 
+
+[```(-1)^{0} \times (1.[$minmantbin])_2 \times 2^{([$minexpbin])_2 - ([$bias])_{10}} ```]
+
+or, in base 10,
+
+[```(-1)^{0} \times 1 \times 2^{1 - [$bias]} ```]
+
+which simplifies to
+
+[``` 2^{[$minexptrue]} ```]
+
+or [$ansmin].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
