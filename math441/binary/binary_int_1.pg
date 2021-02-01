@@ -1,0 +1,44 @@
+# DESCRIPTION
+# Write an integer in binary
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Representation of numbers')
+## DBsection('Integers')
+## KEYWORDS('binary')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+$a = random(17,120,1);
+
+$bin = sprintf("%08b", $a);
+
+@bigits = split(//, $a);
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+Enter the 8-bit binary representation of the decimal number [$a]. The most significant bit is first.
+
+[ ]{$bigits[0]}[ ]{$bigits[1]}[ ]{$bigits[2]}[ ]{$bigits[3]}[ ]{$bigits[4]}[ ]{$bigits[5]}[ ]{$bigits[6]}[ ]{$bigits[7]}
+
+END_PGML
+
+ENDDOCUMENT();
