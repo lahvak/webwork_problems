@@ -114,15 +114,15 @@ The number represented as
 
 is 
 
-[```(-1)^{[$sign]} \times (1.[$manttext])_2 \times 2^{([$exptext])_2 - ($bias)_{10}} ```]
+[```(-1)^{[$sign]} \times (1.[$manttext])_2 \times 2^{([$exptext])_2 - ([$bias])_{10}} ```]
 
 or, in base 10,
 
-[```(-1)^{[$sign]} \times [$mantval] \times 2^{[$expval] - $bias} ```]
+[```(-1)^{[$sign]} \times [$mantval] \times 2^{[$expval] - [$bias]} ```]
 
 which simplifies to
 
-[``` [$signedmant \times 2^{[$expvaltrue]} ```]
+[``` [$signedmant] \times 2^{[$expvaltrue]} ```]
 
 END_PGML_SOLUTION
 
