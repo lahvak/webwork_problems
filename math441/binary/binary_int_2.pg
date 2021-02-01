@@ -1,0 +1,52 @@
+# DESCRIPTION
+# Write an integer in binary
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Representation of numbers')
+## DBsection('Integers')
+## KEYWORDS('binary')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+$a = random(5,13,1);
+
+$IMAX = 2**($a-1) - 1;
+
+$IMIN = -2**($a-1);
+
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+A new experimental CPU from the ACME corporation uses [$a] bits to represent integers.  Assuming that _two's complement_ is used to represent
+negative integers:
+
+*  What is the _largest_ integer that can be represented?  [_____________________]{$IMAX}
+*  What is the _most negative_ integer that can be represented?  [_____________________]{$IMIN}
+
+(Enter answers using *decimal* notation!)
+END_PGML
+
+BEGIN_PGML_SOLUTION
+*  The _largest_ integer will be represented as 0 followed by [$a-1] ones, which is [`2^{[$a]-1}-1`].
+*  The _most negative_ integer will be represented as 1 followed by [$a-1] zeros, which represents [`-2^{[$a]-1}`].
+END_PGML_SOLUTION
+ENDDOCUMENT();
