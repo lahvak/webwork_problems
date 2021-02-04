@@ -25,6 +25,7 @@ loadMacros(
 # Define variables here:
 
 Context("Numeric");
+Context()->{format}{number} = "%.16f#";
 
 $exponent = random(3,4,1);
 $mantissa = random(4,5);
