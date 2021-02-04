@@ -34,6 +34,7 @@ Context("Numeric")->variables->are(x=>"Real");
 $BEP1 = random(30, 150, 1);
 $BEPdiff_half = random(20,100,1);
 $BEP2 = $BEP1 + 2*$BEPdiff_half;
+Context()->variables->set(x=>{limits=>[0,$BEP2]});
 $maxx = $BEP1 + $BEPdiff_half;
 $varcost = random(1, 79, 1)/10;
 $a = random(1, 8, 1)/10;

@@ -40,6 +40,7 @@ $difflin = 2*$maxx*$diffquad;
 $b = $c + $difflin;
 $maxvarcost = -$diffquad*($maxx^2) + $difflin*$maxx;
 $fixcost = random(50, min($maxvarcost/2, 2000), 1);
+Context()->variables->set(x=>{limits=>[0,2*$maxx]});
 
 $price = Compute("$b - $a*x");
 $revenue = Compute("$price*x");
