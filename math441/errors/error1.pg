@@ -1,0 +1,60 @@
+# DESCRIPTION
+# Calculate absolute and relative error
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Errors')
+## DBsection('Absolute and relative errors')
+## KEYWORDS('error, approximation')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+Context()->{format}{number} = "%.8f#";
+Context()->flags->set(
+     tolType      => 'absolute',
+     tolerance    => 1e-6,       # the relative or absolute tolerance
+);
+
+# Define variables here:
+
+$a = random(100,999,1);
+
+$b = random(10,99,1)*10;
+
+$c = random(1,9,1);
+
+$approx = $a;
+$exact = $a*1000 + $b + $c;
+$error = $b + $c;
+
+$abserror = $error*1e-5;
+$relerror = $error/$exact;
+
+$absans = Compute("$abserror");
+$relans = Compute("$relerror");
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+The number [`x = 0.[$exact]`] is approximated by [`x^* = 0.[$approx]`].  Calculate the absolute and relative errors.  Enter the answers with at least 6 decimal places.
+
+*  Absolute error: [_______________]{$absans}
+*  Relative error: [_______________]{$relans}
+
+END_PGML
+
+ENDDOCUMENT();
