@@ -26,7 +26,7 @@ Context("Numeric");
 Context()->{format}{number} = "%.8f#";
 Context()->flags->set(
      tolType      => 'absolute',
-     tolerance    => 1e-6,       # the relative or absolute tolerance
+     tolerance    => 1e-7,       # the relative or absolute tolerance
 );
 
 # Define variables here:
@@ -50,7 +50,7 @@ $relans = Compute("$relerror");
 # Actual problem goes here:
 TEXT(beginproblem());
 BEGIN_PGML
-The number [`x = 0.[$exact]`] is approximated by [`x^* = 0.[$approx]`].  Calculate the absolute and relative errors.  Enter the answers with at least 6 decimal places.
+The number [`x = 0.[$exact]`] is approximated by [`x^* = 0.[$approx]`].  Calculate the absolute and relative errors.  Enter the answers with at least 7 decimal places.
 
 *  Absolute error: [_______________]{$absans}
 *  Relative error: [_______________]{$relans}
