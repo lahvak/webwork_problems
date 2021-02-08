@@ -52,7 +52,7 @@ $relans = Compute("$relerror");
 # Actual problem goes here:
 TEXT(beginproblem());
 BEGIN_PGML
-The number [`x = [$aint].[$exact]`] is approximated by [`x^* = [$aint].[$approx]`].  Calculate the absolute and relative errors.  Enter the answers with at least 6 decimal places.
+The number [`x = [$aint].[$exactf]`] is approximated by [`x^* = [$aint].[$approxf]`].  Calculate the absolute and relative errors.  Enter the answers with at least 6 decimal places.
 
 *  Absolute error: [_______________]{$absans}
 *  Relative error: [_______________]{$relans}
