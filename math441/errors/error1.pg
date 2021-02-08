@@ -41,7 +41,7 @@ $approx = $a;
 $exact = $a*1000 + $b + $c;
 $error = $b + $c;
 
-$abserror = $error*1e-5;
+$abserror = $error*1e-6;
 $relerror = $error/$exact;
 
 $absans = Compute("$abserror");
