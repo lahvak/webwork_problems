@@ -24,10 +24,6 @@ loadMacros(
 );
 Context("Numeric");
 Context()->{format}{number} = "%.8f#";
-Context()->flags->set(
-     tolType      => 'absolute',
-     tolerance    => 1e-7,       # the relative or absolute tolerance
-);
 
 # Define variables here:
 
@@ -64,13 +60,13 @@ $summant = $flsum/(10**$adrops);
 
 $error = $sum - $flsum;
 
-$relerror = Compute($error/$sum);
+$relerror = Compute($error/$sum)->cmp(tolType => 'relative', tolerance => 0.001);
 
 # number of decimals in a and b
 $decb = random(4,6);
 $deca = $decb - $shift;
 
-$abserror = Compute($error*10**(-$decb));
+$abserror = Compute($error*10**(-$decb))->cmp(tolType => 'absolute', tolerance => 0.00001);
 
 # Exponents
 $expa = 8 - $deca;
