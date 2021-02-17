@@ -64,13 +64,13 @@ $summant = $flsum/(10**$adrops);
 
 $error = $sum - $flsum;
 
-$relerror = $error/$sum;
+$relerror = Compute($error/$sum);
 
 # number of decimals in a and b
 $decb = random(4,6);
 $deca = $decb - $shift;
 
-$abserror = $error*10**(-$decb);
+$abserror = Compute($error*10**(-$decb));
 
 # Exponents
 $expa = 8 - $deca;
