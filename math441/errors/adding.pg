@@ -103,6 +103,7 @@ Given numbers [`a = [$aint].[$adecstr]`] and [`b = [$bint].[$bdecstr]`]:
 1.  Enter [`\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)`]: [`0.`][______]{$summant}[`\times 10`]^[_______]{$expsum}
 
 Then calculate the errors when approximating [`a + b`] by [`\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)`].
+Calculate the errors using regular arithmetic.  Enter the _exact value_ for the absolute error.  Enter the relative error with at least 3 significant figures.
 
 *   Absolute error: [_____________]{$abserror}
 *   Relative error: [_____________]{$relerror}
