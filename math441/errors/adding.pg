@@ -60,7 +60,7 @@ $summant = $flsum/(10**$adrops);
 
 $error = $sum - $flsum;
 
-$relerror = Compute($error/$sum)->cmp(tolType => 'relative', tolerance => 0.001);
+$relerror = Compute($error/$sum)->cmp(tolType => 'relative', tolerance => 0.01);
 
 # number of decimals in a and b
 $decb = random(4,6);
