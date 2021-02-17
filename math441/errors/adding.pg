@@ -31,23 +31,24 @@ Context()->flags->set(
 
 # Define variables here:
 
-$araw = random(10**6,8*10**6-1,1)*10 + random(1,9,1); # 7 digits, LSD != 0, MSD < 8
-$b = random(10**6,10**7-1,1)*10 + random(1,9,1); # 7 digits, LSD != 0
+# Make both numbers have 8 significant digits:
+$araw = random(10**6,(8*10**6)-1,1)*10 + random(1,9,1); # 8 digits, LSD != 0, MSD < 8
+$b = random(10**6,(10**7)-1,1)*10 + random(1,9,1); # 8 digits, LSD != 0
 
 $shift = random(2,3);
-$a = $araw*(10**$shift); # between 9 and 10 digits
+$a = $araw*(10**$shift); # between 10 and 11 digits
 
-$sum = $a + $b; # between 9 and 10 digits
+$sum = $a + $b; # between 10 and 11 digits
 
 # precision between 4 and 6 digits
 $prec = $shift + random(2,3);
 
 # Chop a and b to precision
-$adigs = 7 + $shift;
+$adigs = 8 + $shift;
 $adrops = $adigs - $prec;
 $fla = $a - $a % (10**$adrops);
 
-$bdrops = 7 - $prec;
+$bdrops = 8 - $prec;
 $flb = $b - $b % (10**$bdrops);
 
 # mantissas of a and b
@@ -72,8 +73,8 @@ $deca = $decb - $shift;
 $abserror = $error*10**(-$decb);
 
 # Exponents
-$expa = 7 - $deca;
-$expb = 7 - $decb;
+$expa = 8 - $deca;
+$expb = 8 - $decb;
 $expsum = $expa;
 
 # Integer and decimal parts of a and b:
