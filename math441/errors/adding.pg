@@ -88,7 +88,7 @@ $bdecstr = sprintf "%0${decb}u", $bdec;
 # Integer and decimal part of sum
 $sumdec = $sum % (10**$decb);
 $sumint = ($sum - $sumdec)/(10**$decb);
-$sumdecstr = sprintf "%0${decb}u" $sumdec;
+$sumdecstr = sprintf "%0${decb}u", $sumdec;
 
 
 # Actual problem goes here:
