@@ -82,8 +82,8 @@ $adec = $araw % (10**$deca);
 $aint = ($araw - $adec)/(10**$deca);
 $bdec = $b % (10**$decb);
 $bint = ($b - $bdec)/(10**$decb);
-$adecstr = sprintf "%0${deca}u" $adec;
-$bdecstr = sprintf "%0${decb}u" $bdec;
+$adecstr = sprintf "%0${deca}u", $adec;
+$bdecstr = sprintf "%0${decb}u", $bdec;
 
 # Integer and decimal part of sum
 $sumdec = $sum % (10**$decb);
