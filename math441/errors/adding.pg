@@ -92,10 +92,6 @@ TEXT(beginproblem());
 BEGIN_PGML
 In this problem you will do your calculation *using [$prec] digit arithmetic with chopping*.
 
-*  araw = [$araw]
-*  a = [$a]
-*  b - [$b]
-
 Given numbers [`a = [$aint].[$adecstr]`] and [`b = [$bint].[$bdecstr]`]:
 
 1.  Enter [`\operatorname{fl}(a)`]: [`0.`][______]{$amant}[`\times 10`]^[_______]{$expa}
