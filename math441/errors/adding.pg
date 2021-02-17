@@ -1,0 +1,109 @@
+# DESCRIPTION
+# Calculate absolute and relative error
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Errors')
+## DBsection('Absolute and relative errors')
+## KEYWORDS('error, approximation')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+Context()->{format}{number} = "%.8f#";
+Context()->flags->set(
+     tolType      => 'absolute',
+     tolerance    => 1e-7,       # the relative or absolute tolerance
+);
+
+# Define variables here:
+
+$araw = random(10**6,8*10**6-1,1)*10 + random(1,9,1); # 7 digits, LSD != 0, MSD < 8
+$b = random(10**6,10**7-1,1)*10 + random(1,9,1); # 7 digits, LSD != 0
+
+$shift = random(2,3);
+$a = $araw*(10**$shift); # between 9 and 10 digits
+
+$sum = $a + $b; # between 9 and 10 digits
+
+# precision between 4 and 6 digits
+$prec = $shift + random(2,3);
+
+# Chop a and b to precision
+$adigs = 7 + $shift;
+$adrops = $adigs - $prec;
+$fla = $a - $a % (10**$adrops);
+
+$bdrops = 7 - $prec;
+$flb = $b - $b % (10**$bdrops);
+
+# mantissas of a and b
+$amant = $fla/(10**$adrops);
+$bmant = $flb/(10**$bdrops);
+
+# Calculate the sum of floats and chop it to precision
+$sumfls = $fla + $flb;  # flsum will have the same number of digits as a
+$flsum = $sumfls - $sumfls % (10**$adrops);
+
+# Mantissa of sum
+$summant = $flsum/(10**$adrops);
+
+$error = $sum - $flsum;
+
+$relerror = $error/$sum;
+
+# number of decimals in a and b
+$decb = random(4,6);
+$deca = $decb - $shift;
+
+$abserror = $error*10**(-$decb);
+
+# Exponents
+$expa = 7 - $deca;
+$expb = 7 - $decb;
+$expsum = $expa;
+
+# Integer and decimal parts of a and b:
+$adec = $araw % (10**$deca);
+$aint = ($araw - $adec)/(10**$deca);
+$bdec = $b % (10**$decb);
+$bint = ($b - $bdec)/(10**$decb);
+
+# Integer and decimal part of sum
+$sumdec = $sum % (10**$decb);
+$sumint = ($sum - $sumdec)/(10**$decb);
+
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+In this problem you will do your calculation *using [$prec] digit arithmetic with chopping*.
+
+Given numbers [`a = [$aint].[$adec]`] and [`b = [$bint].[$dec]`]:
+
+1.  Enter [`\operatorname{fl}(a)`]: [`0.`][______]{$amant}[`\times 10`]^[_______]{$expa}
+1.  Enter [`\operatorname{fl}(b)`]: [`0.`][______]{$bmant}[`\times 10`]^[_______]{$expb}
+1.  Enter [`\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)`]: [`0.`][______]{$summant}[`\times 10`]^[_______]{$expsum}
+
+Then calculate the errors when approximating [`a + b`] by [`\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)`].
+
+*   Absolute error: [_____________]{$abserror}
+*   Relative error: [_____________]{$relerror}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+END_PGML_SOLUTION
+ENDDOCUMENT();
