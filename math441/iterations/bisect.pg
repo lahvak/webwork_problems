@@ -50,7 +50,7 @@ sub perturb {
 $currenta = $a;
 $currentb = $b;
 
-for(my i = 0; i < $levels; $i++){
+for(my $i = 0; $i < $levels; $i++){
     $currentp = printf("%.3f", $currenta + ($currentb - $currenta)/2);
     push(@as, $currenta);
     push(@bs, $currentb);
