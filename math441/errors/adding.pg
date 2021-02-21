@@ -60,13 +60,15 @@ $summant = $flsum/(10**$adrops);
 
 $error = $sum - $flsum;
 
-$relerror = Compute("$error/$sum")->cmp(tolType => 'relative', tolerance => 0.01);
+$relerror = Compute("$error/$sum");
+$relerrorans = $relerror->cmp(tolType => 'relative', tolerance => 0.01);
 
 # number of decimals in a and b
 $decb = random(4,6);
 $deca = $decb - $shift;
 
-$abserror = Compute($error*10**(-$decb))->cmp(tolType => 'absolute', tolerance => 0.00001);
+$abserror = Compute($error*10**(-$decb));
+$abserrorans = $abserror->cmp(tolType => 'absolute', tolerance => 0.00001);
 
 # Exponents
 $expa = 8 - $deca;
@@ -161,8 +163,8 @@ Given numbers [`a = [$aint].[$adecstr]`] and [`b = [$bint].[$bdecstr]`]:
 Then calculate the errors when approximating [`a + b`] by [`\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)`].
 Calculate the errors using regular arithmetic.  Enter the _exact value_ for the absolute error.  Enter the relative error with at least 3 significant figures.
 
-*   Absolute error: [_____________]{$abserror}
-*   Relative error: [_____________]{$relerror}
+*   Absolute error: [_____________]{$abserrorans}
+*   Relative error: [_____________]{$relerrorans}
 END_PGML
 
 BEGIN_PGML_SOLUTION
@@ -175,8 +177,10 @@ The floating point representation of [`b = [$bint].[$bdecstr]`] in [$prec] digit
 The sum [`\operatorname{fl}(a) + \operatorname{fl}(b)`] is [`[$sflint][$sfldecstr]`].  The floating point representation of that is
 [```\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right) = [$flsint][$flsdecstr] = 0.[$summant]\times 10^{[$expsum]}```]
 
-The _absolute error_ is [`\left\lvert (a + b) - \operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)\right\rvert`] which is
-`[\left\lvert [$sumint].[$sumdecstr] - [$flsint][$flsdecstr]\right\rvert = [$abserror]`].
+The _absolute error_ is 
+[`\left\lvert (a + b) - \operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)\right\rvert`]
+which is
+[`\left\lvert [$sumint].[$sumdecstr] - [$flsint][$flsdecstr]\right\rvert = [$abserror]`].
 
 The _relative error_ is
 [```\left\lvert \frac{(a + b) - \operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)}{a+b}\right\rvert = [$relerror]```]
