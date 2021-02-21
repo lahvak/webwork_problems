@@ -175,5 +175,11 @@ The floating point representation of [`b = [$bint].[$bdecstr]`] in [$prec] digit
 The sum [`\operatorname{fl}(a) + \operatorname{fl}(b)`] is [`[$sflint][$sfldecstr]`].  The floating point representation of that is
 [```\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right) = [$flsint][$flsdecstr] = 0.[$summant]\times 10^{[$expsum]}```]
 
+The _absolute error_ is [`\left\lvert (a + b) - \operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)\right\rvert`] which is
+`[\left\lvert [$sumint].[$sumdecstr] - [$flsint][$flsdecstr]\right\rvert = [$abserror]`].
+
+The _relative error_ is
+[```\left\lvert \frac{(a + b) - \operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)}{a+b}\right\rvert = [$relerror]```]
+
 END_PGML_SOLUTION
 ENDDOCUMENT();
