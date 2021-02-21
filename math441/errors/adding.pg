@@ -76,15 +76,75 @@ $expsum = $expa;
 # Integer and decimal parts of a and b:
 $adec = $araw % (10**$deca);
 $aint = ($araw - $adec)/(10**$deca);
+$adecstr = sprintf "%0${deca}u", $adec;
 $bdec = $b % (10**$decb);
 $bint = ($b - $bdec)/(10**$decb);
-$adecstr = sprintf "%0${deca}u", $adec;
 $bdecstr = sprintf "%0${decb}u", $bdec;
+
 
 # Integer and decimal part of sum
 $sumdec = $sum % (10**$decb);
 $sumint = ($sum - $sumdec)/(10**$decb);
 $sumdecstr = sprintf "%0${decb}u", $sumdec;
+
+# Integer and decimal parts of fla and flb:
+$fladec = $fla % (10**$deca);
+$flaint = ($fla - $fladec)/(10**$deca);
+
+if($fladec == 0){
+    $fladecstr = "";
+} else {
+    $decfla = $deca;
+    while ($fladec % 10 == 0) { # remove trailing zeros
+        $fladec = $fladec / 10;
+        $decfla--;
+    }
+    $fladecstr = sprintf ".%0${decfla}u", $fladec;
+}
+
+$flbdec = $flb % (10**$decb);
+$flbint = ($flb - $flbdec)/(10**$decb);
+
+if($flbdec == 0){
+    $flbdecstr = "";
+} else {
+    $decflb = $decb;
+    while ($flbdec % 10 == 0) { # remove trailing zeros
+        $flbdec = $flbdec / 10;
+        $decflb--;
+    }
+    $flbdecstr = sprintf ".%0${decflb}u", $flbdec;
+}
+
+# Integer and decimal parts of sumfls
+$sfldec = $sumfls % (10**$deca);
+$sflint = ($sumfls - $sfldec)/(10**$deca);
+
+if($sfldec == 0){
+    $sfldecstr = "";
+} else {
+    $decsfl = $deca;
+    while ($sfldec % 10 == 0) { # remove trailing zeros
+        $sfldec = $sfldec / 10;
+        $decsfl--;
+    }
+    $sfldecstr = sprintf ".%0${decsfl}u", $sfldec;
+}
+
+# Integer and decimal parts of flsum
+$flsdec = $flsum % (10**$deca);
+$flsint = ($flsum - $flsdec)/(10**$deca);
+
+if($flsdec == 0){
+    $flsdecstr = "";
+} else {
+    $decfls = $deca;
+    while ($flsdec % 10 == 0) { # remove trailing zeros
+        $flsdec = $flsdec / 10;
+        $decfls--;
+    }
+    $flsdecstr = sprintf ".%0${decfls}u", $flsdec;
+}
 
 
 # Actual problem goes here:
@@ -106,5 +166,14 @@ Calculate the errors using regular arithmetic.  Enter the _exact value_ for the 
 END_PGML
 
 BEGIN_PGML_SOLUTION
+The floating point representation of [`a = [$aint].[$adecstr]`] in [$prec] digit arithmetic with chopping is
+[`\operatorname{fl}(a) = [$flaint][$fladecstr]`]. The normal representation of this is [`0.[$amant]\times 10^{[$expa]}`].
+
+The floating point representation of [`b = [$bint].[$bdecstr]`] in [$prec] digit arithmetic with chopping is
+[`\operatorname{fl}(b) = [$flbint][$flbdecstr]`]. The normal representation of this is [`0.[$bmant]\times 10^{[$expb]}`].
+
+The sum [`\operatorname{fl}(a) + \operatorname{fl}(b)`] is [`[$sflint][$sfldecstr]`].  The floating point representation of that is
+[```\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right) = [$flsint][$flsdecstr] = 0.[$summant]\times 10^{[$expsum]}```]
+
 END_PGML_SOLUTION
 ENDDOCUMENT();
