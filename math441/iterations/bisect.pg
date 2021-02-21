@@ -89,8 +89,8 @@ You are right, the first approximation will be [`p = [$ps[0]]`].  Pluggin this i
 
 Find the next values of [`a`], [`b`] and [`p`] (round to 3 decimal places when necessary):
 
-*   [`a = `][________]{$as[0]}
-*   [`b = `][________]{$bs[0]}
+*   [`a = `][________]{$as[1]}
+*   [`b = `][________]{$bs[1]}
 *   [`p = `][________]{$ps[1]}
 
 END_PGML
@@ -104,8 +104,8 @@ You are right, the second approximation will be [`p = [$ps[1]]`].  Pluggin this 
 
 Find the next values of [`a`], [`b`] and [`p`] (round to 3 decimal places when necessary):
 
-*   [`a = `][________]{$as[1]}
-*   [`b = `][________]{$bs[1]}
+*   [`a = `][________]{$as[2]}
+*   [`b = `][________]{$bs[2]}
 *   [`p = `][________]{$ps[2]}
 
 END_PGML
