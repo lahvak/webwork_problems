@@ -55,7 +55,7 @@ for(my $i = 0; $i < $levels; $i++){
     push(@as, $currenta);
     push(@bs, $currentb);
     push(@ps, $currentp);
-    push($fs, $sign_factor*perturb($currentp - $solution));
+    push(@fs, $sign_factor*perturb($currentp - $solution));
     if ($currentp < $solution) {
         $currenta = $currentp;
     } else {
