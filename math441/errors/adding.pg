@@ -88,16 +88,16 @@ $sumint = ($sum - $sumdec)/(10**$decb);
 $sumdecstr = sprintf "%0${decb}u", $sumdec;
 
 # Integer and decimal parts of fla and flb:
-$fladec = $fla % (10**$deca);
-$flaint = ($fla - $fladec)/(10**$deca);
+$fladec = $fla % (10**$decb);
+$flaint = ($fla - $fladec)/(10**$decb);
 
 if($fladec == 0){
     $fladecstr = "";
 } else {
-    $decfla = $deca;
+    $decfla = $decb;
     while ($fladec % 10 == 0) { # remove trailing zeros
-        $fladec = $fladec / 10;
-        $decfla--;
+        $fladec /= 10;
+        $decfla -= 1;
     }
     $fladecstr = sprintf ".%0${decfla}u", $fladec;
 }
@@ -110,38 +110,38 @@ if($flbdec == 0){
 } else {
     $decflb = $decb;
     while ($flbdec % 10 == 0) { # remove trailing zeros
-        $flbdec = $flbdec / 10;
-        $decflb--;
+        $flbdec /= 10;
+        $decflb -= 1;
     }
     $flbdecstr = sprintf ".%0${decflb}u", $flbdec;
 }
 
 # Integer and decimal parts of sumfls
-$sfldec = $sumfls % (10**$deca);
-$sflint = ($sumfls - $sfldec)/(10**$deca);
+$sfldec = $sumfls % (10**$decb);
+$sflint = ($sumfls - $sfldec)/(10**$decb);
 
 if($sfldec == 0){
     $sfldecstr = "";
 } else {
-    $decsfl = $deca;
+    $decsfl = $decb;
     while ($sfldec % 10 == 0) { # remove trailing zeros
-        $sfldec = $sfldec / 10;
-        $decsfl--;
+        $sfldec /= 10;
+        $decsfl -= 1;
     }
     $sfldecstr = sprintf ".%0${decsfl}u", $sfldec;
 }
 
 # Integer and decimal parts of flsum
-$flsdec = $flsum % (10**$deca);
-$flsint = ($flsum - $flsdec)/(10**$deca);
+$flsdec = $flsum % (10**$decb);
+$flsint = ($flsum - $flsdec)/(10**$decb);
 
 if($flsdec == 0){
     $flsdecstr = "";
 } else {
-    $decfls = $deca;
+    $decfls = $decb;
     while ($flsdec % 10 == 0) { # remove trailing zeros
-        $flsdec = $flsdec / 10;
-        $decfls--;
+        $flsdec /= 10;
+        $decfls -= 1;
     }
     $flsdecstr = sprintf ".%0${decfls}u", $flsdec;
 }
