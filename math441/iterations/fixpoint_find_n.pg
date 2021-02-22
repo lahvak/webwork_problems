@@ -1,0 +1,117 @@
+##DESCRIPTION
+## DBsubject(Numerical Analysis)
+## DBchapter(Iterative Methods)
+## DBsection(Fixed point method)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(3)
+## KEYWORDS('iterative methods, fixed point')
+##ENDDESCRIPTION
+
+# File Created: 2021-02-21
+# Location: SVSU
+# Course: Numerical Analysis
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric");
+
+$L = random(3,8,1);
+
+$a = random(-10, 10, .1);
+$l = random(1.5, 5.7, .2);
+$b = $a + $l;
+
+$p0 = random($a + .1, $b - .1, .1);
+
+$dist = max($p0 - $a, $b - $p0);
+
+$k = random(0.4, 0.7, .01);
+
+$step = random(0.05, 0.15, 0.01)*$l;
+
+if ($p0 - $a > $b - $p0) {
+    $p1 = $p0 - $step;
+} else {
+    $p1 = $p0 + $step;
+}
+
+$n1_nonint = -($L*ln(10) + ln($dist))/ln($k);
+
+$n1 = ceil($n1_nonint);
+
+$n2_noint = (ln(1-$k) - $L*ln(10) - ln($step))/ln($k);
+
+$n2_try = ceil($n2_noint);
+
+$n2 = min($n1, $n2_try);
+
+Context("LimitedNumeric");
+Parser::Number::NoDecimals();
+
+$ans1 = Compute("$n1");
+$ans2 = Compute("$n2");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML You are trying to find the fixed point of the funcion [`g`] on the
+interval [`[[$a], [$b]]`] by iterating [`g`] with starting point [`p_0 = [$p0]`].
+You know that [`g`] is _differentiable_ on [`[[$a], [$b]]`] and that for every [`x \in [[$a],[$b]]`], [`g(x) \in [[$a],[$b]]`].
+You also know that [`\left\lvert g'(x)\right\rvert \le [$k]`] for every [`x \in [[$a],[$b]]`].
+
+Based on this information, what is the smallest number of iterations that will guarantee that the error will be _at most_ [`10^{-[$L]}`]?
+
+[`n = `][________]{$ans1}
+
+>> ----{100px} <<
+
+After the first application of the function [`g`], you get [`p_1 = g(p_0) = [$p1]`].
+
+With this additional information, what is the smallest number of iterations that will guarantee that the error will be _at most_ [`10^{-[$L]}`]?
+
+[`n = `][________]{$ans2}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+We know that [`g`] is a contraction on [`[[$a], [$b]]`] with [`\lambda = [$k]`]. Therefore the error 
+[```\left\lvert p_n - p\right\rvert \le \lambda^n \max\left\{p_0 - a, b - p_0\right\} = [$k]^n [$dist]```]
+
+In order for the error to be at most [`10^{-[$L]}`],
+[``` n \ge \frac{\ln\left(\frac{10^{-[$L]}}{[$dist]}\right)}{\ln([$k])} = $n1_nonint ```]
+
+The number of iterations must be an integer, and the closest integer greater than or equal to [`[$n1_nonint]`] is [`[$n1]`].
+
+>> ----{100px} <<
+
+With the aditional information [`p_1 = [$p1]`], we know that [`\left\lvert p_1 - p_0\right\rvert = [$step]`].  We can try to use the inequality
+[``` \left\lvert p_n - p \right\rvert \le \frac{\lambda^n}{1-\lambda}\left\lvert p_1 - p_0\right\rvert = \frac{[$k]^n}{1 - [$k]}[$step]```]
+which could give us a better estimate.
+
+Now
+[``` n \ge \frac{\ln\left(\frac{(1-[$k])10^{-[$L]}}{[$step]}\right)}{\ln([$k])} = $n2_nonint ```]
+
+The number of iterations must be an integer, and the closest integer greater than or equal to [`[$n2_nonint]`] is [`[$n2_try]`].
+
+We will choose whichever of the two estimates will give us a better result, which means the smaller number of iterations, which is [`[$n2]`].
+END_PGML_SOLUTION
+ENDDOCUMENT();
