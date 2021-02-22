@@ -74,7 +74,7 @@ In this problem you will perform three steps of the _Newton's method_ to find th
 *   [`f(p_0) = [$fx0]`]
 *   [`f'(p_0) = [$fp0]`]
 
-The first approximation of the solution will be [`p = `][_________]{$x1}. *Round to 3 decimal places when necessary.*
+The first approximation of the solution will be [`p = `][_________]{$x1}. *Round to 2 decimal places when necessary.*
 END_PGML
 Section::End();
 
@@ -96,7 +96,7 @@ You are right, the second approximation will be [`p = [$x2]`].  Pluggin this int
 *   [`f(p) = [$fx2]`]
 *   [`f'(p) = [$fp2]`]
 
-The third approximation of the solution will be [`p = `][_________]{$x3}. *Round to 3 decimal places when necessary.*
+The third approximation of the solution will be [`p = `][_________]{$x3}. *Round to 4 decimal places when necessary.*
 END_PGML
 Section::End();
 Scaffold::End();
