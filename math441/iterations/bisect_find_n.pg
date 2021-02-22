@@ -31,8 +31,7 @@ $showPartialCorrectAnswers=1;
 ###########################
 #  Setup
 
-Context("LimitedNumeric");
-Parser::Number::NoDecimals();
+Context("Numeric");
 
 sub log2 {
     my $x = shift(@_);
@@ -46,6 +45,9 @@ $a = random(-10, 10, .1);
 $l = random(1.3, 3.7, .2);
 
 $n = ceil(log2($l) + $L*log2(10));
+
+Context("LimitedNumeric");
+Parser::Number::NoDecimals();
 
 $ans = Compute("$n");
 
