@@ -1,0 +1,103 @@
+##DESCRIPTION
+## DBsubject(Numerical Analysis)
+## DBchapter(Iterative Methods)
+## DBsection(Bisection)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(3)
+## KEYWORDS('iterative methods, bisection')
+##ENDDESCRIPTION
+
+# File Created: 2021-02-21
+# Location: SVSU
+# Course: Numerical Analysis
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+           "scaffold.pl",
+);
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$sign_factor = list_random(-1,1);
+
+$x0 = random(2,20,1);
+
+$dx1 = list_random(-1,1)*random(.6, .9, .01);
+
+$dx2 = list_random(-1,1)*random(.6*$dx1**2, .9*dx1**2, .001);
+
+$dx3 = list_random(-1,1)*random(.6*$dx2**2, .9*dx2**2, .0001);
+
+$x1 = $x0 + $dx1;
+$x2 = $x1 + $dx2;
+$x3 = $x2 + $dx3;
+
+$minx = min($x0, $x1, $x2, $x3);
+$maxx = max($x0, $x1, $x2, $x3);
+
+$lefft_fprime = random(.5, 1.5, .01);
+$right_fprime = random(.5, 1.5, .01);
+$fpslope = ($right_fprime - $lefft_fprime)/($maxx - $minxx);
+
+sub fprime {
+    $x = shift(@_);
+    $fp = $fpslope*($x - $minx) + $lefft_fprime;
+    return $fp*random(.9, 1.1, .01);
+}
+
+$fp0 = fprime($x0);
+$fp1 = fprime($x1);
+$fp2 = fprime($x2);
+
+$fx0 = $fp0*$dx1;
+$fx1 = $fp1*$dx2;
+$fx2 = $fp2*$dx3;
+
+Scaffold::Begin(
+    can_open => "when_previous_correct",
+    is_open => "correct_or_first_incorrect",
+    hardcopy_is_open => "correct_or_first_incorrect"
+);
+Section::Begin("Step 1");
+
+BEGIN_PGML
+In this problem you will perform three steps of the _Newton's method_ to find the solution of the equation
+[```f(x) = 0```].  To start, the following is given:
+
+*   [`p_0 = [$x0]`]
+*   [`f(p_0) = [$fx0]`]
+*   [`f'(p_0) = [$fp0]`]
+
+The first approximation of the solution will be [`p = `][_________]{$x1}. *Round to 3 decimal places when necessary.*
+END_PGML
+Section::End();
+
+Section::Begin("Step 2");
+BEGIN_PGML
+You are right, the first approximation will be [`p = [$x1]`].  Pluggin this into the functions [`f`]  and [`f'`] will give you
+
+*   [`f(p) = [$fx1]`]
+*   [`f'(p) = [$fp1]`]
+
+The second approximation of the solution will be [`p = `][_________]{$x2}. *Round to 3 decimal places when necessary.*
+END_PGML
+Section::End();
+
+Section::Begin("Step 3");
+BEGIN_PGML
+You are right, the second approximation will be [`p = [$x2]`].  Pluggin this into the functions [`f`]  and [`f'`] will give you
+
+*   [`f(p) = [$fx2]`]
+*   [`f'(p) = [$fp2]`]
+
+The third approximation of the solution will be [`p = `][_________]{$x3}. *Round to 3 decimal places when necessary.*
+END_PGML
+Section::End();
+Scaffold::End();
+ENDDOCUMENT();
