@@ -95,23 +95,23 @@ END_PGML
 
 BEGIN_PGML_SOLUTION
 We know that [`g`] is a contraction on [`[[$a], [$b]]`] with [`\lambda = [$k]`]. Therefore the error 
-[```\left\lvert p_n - p\right\rvert \le \lambda^n \max\left\{p_0 - a, b - p_0\right\} = [$k]^n [$dist]```]
+[```\left\lvert p_n - p\right\rvert \le \lambda^n \max\left\{p_0 - a, b - p_0\right\} = [$k]^n\cdot [$dist]```]
 
 In order for the error to be at most [`10^{-[$L]}`],
-[``` n \ge \frac{\ln\left(\frac{10^{-[$L]}}{[$dist]}\right)}{\ln([$k])} = $n1_nonint ```]
+[``` n \ge \frac{\ln\left(\frac{10^{-[$L]}}{[$dist]}\right)}{\ln([$k])} = [$n1_nonint] ```]
 
 The number of iterations must be an integer, and the closest integer greater than or equal to [`[$n1_nonint]`] is [`[$n1]`].
 
 >> ----{100px} <<
 
 With the aditional information [`p_1 = [$p1]`], we know that [`\left\lvert p_1 - p_0\right\rvert = [$step]`].  We can try to use the inequality
-[``` \left\lvert p_n - p \right\rvert \le \frac{\lambda^n}{1-\lambda}\left\lvert p_1 - p_0\right\rvert = \frac{[$k]^n}{1 - [$k]}[$step]```]
+[``` \left\lvert p_n - p \right\rvert \le \frac{\lambda^n}{1-\lambda}\left\lvert p_1 - p_0\right\rvert = \frac{[$k]^n}{1 - [$k]}\cdot [$step]```]
 which could give us a better estimate.
 
 Now
-[``` n \ge \frac{\ln\left(\frac{(1-[$k])10^{-[$L]}}{[$step]}\right)}{\ln([$k])} = $n2_nonint ```]
+[``` n \ge \frac{\ln\left(\frac{(1-[$k])10^{-[$L]}}{[$step]}\right)}{\ln([$k])} = [$n2_noint] ```]
 
-The number of iterations must be an integer, and the closest integer greater than or equal to [`[$n2_nonint]`] is [`[$n2_try]`].
+The number of iterations must be an integer, and the closest integer greater than or equal to [`[$n2_noint]`] is [`[$n2_try]`].
 
 We will choose whichever of the two estimates will give us a better result, which means the smaller number of iterations, which is [`[$n2]`].
 END_PGML_SOLUTION
