@@ -32,7 +32,7 @@ $showPartialCorrectAnswers=1;
 #  Setup
 
 Context("LimitedNumeric");
-Parser:Number::NoDecimals();
+Parser::Number::NoDecimals();
 
 sub log2 {
     my $x = shift(@_);
