@@ -65,9 +65,9 @@ You are trying to solve the equation [`f(x) = 0`] on the interval [`[[$a], [$b]]
 END_PGML
 
 BEGIN_PGML_SOLUTION
-Since in the bisection method, [`\left\lvert p_n - p\right\rvert \le \frac{1}{2^n}\left\lvert b - a\right\rvert`\, the number of iterations
+Since in the bisection method, [`\left\lvert p_n - p\right\rvert \le \frac{1}{2^n}\left\lvert b - a\right\rvert`], the number of iterations
 required for [`\left\lvert p_n - p \right\rvert \le 10^{-[$L]}`] is greater than or equal to
-[```\log_2\left(\frac{\left\lvert b - a\right\rvert}{10^{-[$L]}} = [$n_nonint]```]
+[```\log_2\left(\frac{\left\lvert b - a\right\rvert}{10^{-[$L]}}\right) = [$n_nonint]```]
 
 The number of iterations must be an integer, and the closest integer greater than or equal to [`[$n_nonint]`] is [`[$n]`].
 END_PGML_SOLUTION
