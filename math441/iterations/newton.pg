@@ -55,9 +55,9 @@ $fp0 = fprime($x0);
 $fp1 = fprime($x1);
 $fp2 = fprime($x2);
 
-$fx0 = $fp0*$dx1;
-$fx1 = $fp1*$dx2;
-$fx2 = $fp2*$dx3;
+$fx0 = -$fp0*$dx1;
+$fx1 = -$fp1*$dx2;
+$fx2 = -$fp2*$dx3;
 
 Scaffold::Begin(
     can_open => "when_previous_correct",
