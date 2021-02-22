@@ -59,7 +59,7 @@ $ans = Compute("$n");
 #  Main text
 
 BEGIN_PGML
-You are trying to solve the equation [`f(x) = 0`] on the interval [`[[$a], [$b]]`].  What is the smallest number of iterations that will guarantee that the error will be _at most_ [`10^{-[$L]}`]?
+You are trying to solve the equation [`f(x) = 0`] on the interval [`[[$a], [$b]]`] using the _bisection method_.  What is the smallest number of iterations that will guarantee that the error will be _at most_ [`10^{-[$L]}`]?
 
 [`n = `][________]{$ans}
 END_PGML
