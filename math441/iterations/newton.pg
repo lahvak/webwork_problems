@@ -30,9 +30,9 @@ $x0 = random(2,20,1);
 
 $dx1 = list_random(-1,1)*random(.6, .9, .01);
 
-$dx2 = list_random(-1,1)*random(.6*$dx1**2, .9*$dx1**2, .001);
+$dx2 = list_random(-1,1)*sprintf("%.3f", random(.6*$dx1**2, .9*$dx1**2, .001));
 
-$dx3 = list_random(-1,1)*random(.6*$dx2**2, .9*$dx2**2, .0001);
+$dx3 = list_random(-1,1)*sprintf("%.4f", random(.6*$dx2**2, .9*$dx2**2, .0001));
 
 $x1 = $x0 + $dx1;
 $x2 = $x1 + $dx2;
