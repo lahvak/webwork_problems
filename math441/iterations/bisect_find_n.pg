@@ -36,7 +36,7 @@ Context("Numeric");
 sub log2 {
     my $x = shift(@_);
 
-    return ln(x)/ln(2);
+    return ln($x)/ln(2);
 }
 
 $L = random(3,8,1);
