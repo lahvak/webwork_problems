@@ -48,7 +48,7 @@ $fpslope = ($right_fprime - $lefft_fprime)/($maxx - $minxx);
 sub fprime {
     $x = shift(@_);
     $fp = $fpslope*($x - $minx) + $lefft_fprime;
-    return $fp*random(.9, 1.1, .01);
+    return 1*sprintf("%.3f", $fp*random(.9, 1.1, .01));
 }
 
 $fp0 = fprime($x0);
