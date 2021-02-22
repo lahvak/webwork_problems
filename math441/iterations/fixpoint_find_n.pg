@@ -73,7 +73,8 @@ $ans2 = Compute("$n2");
 ###########################
 #  Main text
 
-BEGIN_PGML You are trying to find the fixed point of the funcion [`g`] on the
+BEGIN_PGML 
+You are trying to find the fixed point of the funcion [`g`] on the
 interval [`[[$a], [$b]]`] by iterating [`g`] with starting point [`p_0 = [$p0]`].
 You know that [`g`] is _differentiable_ on [`[[$a], [$b]]`] and that for every [`x \in [[$a],[$b]]`], [`g(x) \in [[$a],[$b]]`].
 You also know that [`\left\lvert g'(x)\right\rvert \le [$k]`] for every [`x \in [[$a],[$b]]`].
