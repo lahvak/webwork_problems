@@ -18,7 +18,7 @@
 DOCUMENT();
 loadMacros(
 "PGstandard.pl",
-"NiceTavles.pl",
+"NiceTables.pl",
 "MathObjects.pl",
 "PGML.pl",
 "PGcourse.pl",
