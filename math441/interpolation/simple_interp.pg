@@ -63,7 +63,7 @@ Given the following data:
               ["\\(y_i\\)", @ys]],
              align => 'r|c|c|c|c') @]***
 
-find a polynomial $P$ of degree at most 3 such that $P(x_i) = y_i$ for $i = 0, 1, 2, 3$.
+find a polynomial [`P`] of degree at most 3 such that [`P(x_i) = y_i`] for [`i = 0, 1, 2, 3`].
 
 [`P(x) = `] [_________________________]{$poly}
 
