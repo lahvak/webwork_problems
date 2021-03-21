@@ -49,8 +49,8 @@ $y1 = $poly->eval(x=>$x1);
 $y2 = $poly->eval(x=>$x2);
 $y3 = $poly->eval(x=>$x3);
 
-@xs = [$x0, $x1, $x2, $x3]
-@ys = [$y0, $y1, $y2, $y3]
+@xs = [$x0, $x1, $x2, $x3];
+@ys = [$y0, $y1, $y2, $y3];
 
 # Actual problem goes here:
 TEXT(beginproblem());
