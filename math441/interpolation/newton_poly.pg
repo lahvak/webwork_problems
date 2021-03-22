@@ -64,13 +64,14 @@ The following nodes were given:
               ["\\(x_i\\)", @xs]], 
              align => 'r|c|c|c|c|c') @]***
 
-The following coefficients for _Newton's basis_ of degree 4 were calculated:
+Using the nodes and some [`y`] values *in the given order*,
+the following coefficients for _Newton's basis_ of degree 4 were calculated:
 
 [@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], 0, 1, 2, 3, 4], 
               ["\\(a_i\\)", @as]], 
              align => 'r|c|c|c|c|c') @]***
 
-find the approximating polynomial [`P`] of degree at most 4 using Newton's basis with the given coefficients:
+Find the approximating polynomial [`P`] of degree at most 4 using Newton's basis with the given coefficients:
 
 [`P(x) = `] [______________________________________________________]{$poly}
 
