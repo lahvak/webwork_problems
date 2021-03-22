@@ -69,7 +69,7 @@ $f012 = Compute("($f12 - $f01)/($x2 - $x0)");
 $f123 = Compute("($f23 - $f12)/($x3 - $x1)");
 $f0123 = Compute("($f123 - $f012)/($x3 - $x0)");
 
-$n1 = Compute("x - $x0)->reduce;
+$n1 = Compute("x - $x0")->reduce;
 $n2 = Compute("(x-$x0)*(x-$x1)")->reduce;
 $n3 = Compute("(x-$x0)*(x-$x1)*(x-$x2)")->reduce;
 $newton = Compute("$y0 + $f01*$n1 + $f012*$n2 + $f0123*$n3");
