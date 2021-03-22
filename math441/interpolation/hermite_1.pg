@@ -36,14 +36,14 @@ if ($x0*$x1*$x2 != 0) {
     do {$x3 = random(-3,3,1);} while ($x3 == $x0 || $x3 == $x1 || $x3 == $x2);
 }
 
-$a0 = list_random(-1,1)*random(1,3,1);
-$a1 = list_random(-1,1)*random(1,3,1);
-$a2 = list_random(-1,1)*random(1,3,1);
-$a3 = list_random(-1,1)*random(1,3,1);
-$a4 = list_random(-1,1)*random(1,3,1);
-$a5 = list_random(-1,1)*random(1,3,1);
-$a6 = list_random(-1,1)*random(1,3,1);
-$a7 = list_random(-1,1)*random(1,3,1);
+$a0 = list_random(-1,1)*random(1,2,1);
+$a1 = list_random(-1,1)*random(1,2,1);
+$a2 = list_random(-1,1)*random(1,2,1);
+$a3 = list_random(-1,1)*random(1,2,1);
+$a4 = list_random(-1,1)*random(1,2,1);
+$a5 = list_random(-1,1)*random(1,2,1);
+$a6 = list_random(-1,1)*random(1,2,1);
+$a7 = list_random(-1,1)*random(1,2,1);
 
 $poly = Compute("$a7*x^7 + ($a6)*x^6 + ($a5)*x^5 + ($a4)*x^4 + ($a3)*x^3 + ($a2)*x^2 + ($a1)*x +  $a0")->reduce;
 $polyprime = Compute("7*$a7*x^6 + 6*($a6)*x^5 + 5*($a5)*x^4 + 4*($a4)*x^3 + 3*($a3)*x^2 + 2*($a2)*x + ($a1)")->reduce;
