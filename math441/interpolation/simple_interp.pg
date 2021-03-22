@@ -118,11 +118,11 @@ There is exactly one polynomial satisfying the given conditions.  There are seve
 
 3.  Using _Newton basis_: first find the Newton's coefficients using divided differences:
 
-    [```\begin{array}[r|rrrr]
+    [```\begin{array}{r|rrrr}
     [$x0] & [$y0] & & & \\
-    [$x0] & [$y0] & [$f01] & & \\
-    [$x0] & [$y0] & [$f12] & [$f012] & \\
-    [$x0] & [$y0] & [$f23] & [$f123] & [$f0123] \\
+    [$x1] & [$y1] & [$f01] & & \\
+    [$x2] & [$y2] & [$f12] & [$f012] & \\
+    [$x3] & [$y3] & [$f23] & [$f123] & [$f0123] \\
     \end{array}```]
 
     Then [`P(x) = [$newton]`].
