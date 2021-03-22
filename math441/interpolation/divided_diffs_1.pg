@@ -83,7 +83,7 @@ fill in the following _divided differences_ table:
 
 END_PGML
 
-BEGIN_PGML_SOLUTION
-END_PGML_SOLUTION
+#BEGIN_PGML_SOLUTION
+#END_PGML_SOLUTION
 
 ENDDOCUMENT();
