@@ -1,0 +1,103 @@
+# DESCRIPTION
+# Interpolate given points with a polynomial
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Interpolation')
+## DBsection('Polynomial Interpolation')
+## KEYWORDS('interpolation, polynomial')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"niceTables.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+$x0 = random(-5,5,1);
+do {$x1 = random(-5,5,1);} while ($x1 == $x0);
+do {$x2 = random(-5,5,1);} while ($x2 == $x0 || $x2 == $x1);
+do {$x3 = random(-5,5,1);} while ($x3 == $x0 || $x3 == $x1 || $x3 == $x2);
+if ($x0*$x1*$x2*$x3 != 0) {
+    $x4 = 0;
+} else {
+    do {$x4 = random(-5,5,1);} while ($x4 == $x0 || $x4 == $x1 || $x4 == $x2 || $x4 == $x3);
+}
+
+$a0 = list_random(-1,1)*random(1,5,1);
+$a1 = list_random(-1,1)*random(1,5,1);
+$a2 = list_random(-1,1)*random(1,5,1);
+$a3 = list_random(-1,1)*random(1,5,1);
+$a4 = list_random(-1,1)*random(1,5,1);
+
+@xs = ($x0, $x1, $x2, $x3);
+@as = ($a0, $a1, $a2, $a3);
+
+$n1 = Compute("x - $x0")->reduce;
+$n2 = Compute("(x-$x0)*(x-$x1)")->reduce;
+$n3 = Compute("(x-$x0)*(x-$x1)*(x-$x2)")->reduce;
+$n4 = Compute("(x-$x0)*(x-$x1)*(x-$x2)*(x-$x3)")->reduce;
+$poly = Compute("$a0 + $a1*$n1 + $a2*$n2 + $a3*$n3 + $a4*$n4");
+
+$poly->{limits} = [-5,5];
+$poly->{test_at} = [[$x0], [$x1], [$x2], [$x3], [$x4]];
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+The following nodes were given:
+
+[@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], 0, 1, 2, 3, 4], 
+              ["\\(x_i\\)", @xs]], 
+             align => 'r|c|c|c|c|c') @]***
+
+The following coefficients for _Newton's basis_ of degree 4 were calculated:
+
+[@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], 0, 1, 2, 3, 4], 
+              ["\\(a_i\\)", @as]], 
+             align => 'r|c|c|c|c|c') @]***
+
+find the approximating polynomial [`P`] of degree at most 4 using Newton's basis with the given coefficients:
+
+[`P(x) = `] [____________________________________________]{$poly}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The Newton's basis are given by the following recursive formula:
+
+[```\begin{aligned}
+\pi_0(x) &= 1\\
+\pi_{i+1}(x) = \pi_{i}(x)(x-x_i) \text{ for } i = 0, 1, \ldots, n-1
+\end{aligned}```]
+
+Then the approximating polynomial can be written as
+
+[```P(x) = \sum_{i=0}^n a_i\pi_i(x)```]
+
+In this case:
+
+*  [`\pi_0(x) = 1`]
+*  [`\pi_1(x) = [$n1]`]
+*  [`\pi_2(x) = [$n2]`]
+*  [`\pi_3(x) = [$n3]`]
+*  [`\pi_4(x) = [$n4]`]
+
+and [`P(x) = [$poly]`].
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
