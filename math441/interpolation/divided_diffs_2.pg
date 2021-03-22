@@ -91,11 +91,11 @@ the column will contain the coefficients of the Newton's polynomial, in the corr
 This is the first step, the old [`a_i`]s are the [`y_i`]s.
 
 [@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], "\\(x_i\\)", "old \\(a_i\\)", "new \\(a_i\\)"], 
-              [0, [$x0], [$y0], PGML('[      ]{$y0}')],
-              [1, [$x1], [$y1], PGML('[      ]{$f01}')],
-              [2, [$x2], [$y2], PGML('[      ]{$f12}')],
-              [3, [$x3], [$y3], PGML('[      ]{$f23}')],
-              [4, [$x4], [$y4], PGML('[      ]{$f34}')],
+              [0, [$x0], [$y0], PGML('[______]{$y0}')],
+              [1, [$x1], [$y1], PGML('[______]{$f01}')],
+              [2, [$x2], [$y2], PGML('[______]{$f12}')],
+              [3, [$x3], [$y3], PGML('[______]{$f23}')],
+              [4, [$x4], [$y4], PGML('[______]{$f34}')],
               ],
              align => 'r|c|c|c|c') @]***
 
@@ -109,11 +109,11 @@ BEGIN_PGML
 This is the second step, the old [`a_i`]s are the already calculated [`a_i`]s and the first divided differences:
 
 [@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], "\\(x_i\\)", "old \\(a_i\\)", "new \\(a_i\\)"], 
-              [0, [$x0], [$y0], PGML('[      ]{$y0}')],
-              [1, [$x1], [$f01], PGML('[      ]{$f01}')],
-              [2, [$x2], [$f12], PGML('[      ]{$f012}')],
-              [3, [$x3], [$f23], PGML('[      ]{$f123}')],
-              [4, [$x4], [$f34], PGML('[      ]{$f234}')],
+              [0, [$x0], [$y0], PGML('[______]{$y0}')],
+              [1, [$x1], [$f01], PGML('[______]{$f01}')],
+              [2, [$x2], [$f12], PGML('[______]{$f012}')],
+              [3, [$x3], [$f23], PGML('[______]{$f123}')],
+              [4, [$x4], [$f34], PGML('[______]{$f234}')],
               ],
              align => 'r|c|c|c|c') @]***
 
@@ -127,11 +127,11 @@ BEGIN_PGML
 This is the third step, the old [`a_i`]s are the already calculated [`a_i`]s and the second divided differences:
 
 [@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], "\\(x_i\\)", "old \\(a_i\\)", "new \\(a_i\\)"], 
-              [0, [$x0], [$y0], PGML('[      ]{$y0}')],
-              [1, [$x1], [$f01], PGML('[      ]{$f01}')],
-              [2, [$x2], [$f012], PGML('[      ]{$f012}')],
-              [3, [$x3], [$f123], PGML('[      ]{$f0123}')],
-              [4, [$x4], [$f234], PGML('[      ]{$f1234}')],
+              [0, [$x0], [$y0], PGML('[______]{$y0}')],
+              [1, [$x1], [$f01], PGML('[______]{$f01}')],
+              [2, [$x2], [$f012], PGML('[______]{$f012}')],
+              [3, [$x3], [$f123], PGML('[______]{$f0123}')],
+              [4, [$x4], [$f234], PGML('[______]{$f1234}')],
               ],
              align => 'r|c|c|c|c') @]***
 
@@ -147,11 +147,11 @@ This is the fourth step, the old [`a_i`]s are the already calculated [`a_i`]s an
 At the end of this step, the "new [`a_i`]" column will contain the coefficients of the Newton's polynomial.
 
 [@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], "\\(x_i\\)", "old \\(a_i\\)", "new \\(a_i\\)"], 
-              [0, [$x0], [$y0], PGML('[      ]{$y0}')],
-              [1, [$x1], [$f01], PGML('[      ]{$f01}')],
-              [2, [$x2], [$f012], PGML('[      ]{$f012}')],
-              [3, [$x3], [$f0123], PGML('[      ]{$f0123}')],
-              [4, [$x4], [$f1234], PGML('[      ]{$f01234}')],
+              [0, [$x0], [$y0], PGML('[______]{$y0}')],
+              [1, [$x1], [$f01], PGML('[______]{$f01}')],
+              [2, [$x2], [$f012], PGML('[______]{$f012}')],
+              [3, [$x3], [$f0123], PGML('[______]{$f0123}')],
+              [4, [$x4], [$f1234], PGML('[______]{$f01234}')],
               ],
              align => 'r|c|c|c|c') @]***
 
