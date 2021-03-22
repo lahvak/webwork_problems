@@ -1,0 +1,108 @@
+# DESCRIPTION
+# Find the Lagrange basis polynomials
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Interpolation')
+## DBsection('Polynomial Interpolation')
+## KEYWORDS('interpolation, polynomial')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+
+# Define variables here:
+
+$x0 = random(-5,5,1);
+do {$x1 = random(-5,5,1);} while ($x1 == $x0);
+do {$x2 = random(-5,5,1);} while ($x2 == $x0 || $x2 == $x1);
+do {$x3 = random(-5,5,1);} while ($x3 == $x0 || $x3 == $x1 || $x3 == $x2);
+if ($x0*$x1*$x2*$x3 != 0) {
+    $x4 = 0;
+} else {
+    do {$x4 = random(-5,5,1);} while ($x4 == $x0 || $x4 == $x1 || $x4 == $x2 || $x4 == $x3);
+}
+
+$poly->{limits} = [-5,5];
+$poly->{test_at} = [[$x0], [$x1], [$x2], [$x3], [$x4]];
+
+$l0 = Compute("(x-$x1)*(x-$x2)*(x-$x3)*(x-$x4)/(($x0-$x1)*($x0-$x2)*($x0-$x3)*($x0-$x4))")->reduce;
+$l1 = Compute("(x-$x0)*(x-$x2)*(x-$x3)*(x-$x4)/(($x1-$x0)*($x1-$x2)*($x1-$x3)*($x1-$x4))")->reduce;
+$l2 = Compute("(x-$x0)*(x-$x1)*(x-$x3)*(x-$x4)/(($x2-$x0)*($x2-$x1)*($x2-$x3)*($x2-$x4))")->reduce;
+$l3 = Compute("(x-$x0)*(x-$x1)*(x-$x2)*(x-$x4)/(($x3-$x0)*($x3-$x1)*($x3-$x2)*($x3-$x4))")->reduce;
+$l4 = Compute("(x-$x0)*(x-$x1)*(x-$x2)*(x-$x3)/(($x4-$x0)*($x4-$x1)*($x4-$x2)*($x4-$x3))")->reduce;
+
+$l0->{limits} = [-5,5];
+$l0->{test_at} = [[$x0], [$x1], [$x2], [$x3], [$x4]];
+$l1->{limits} = [-5,5];
+$l1->{test_at} = [[$x0], [$x1], [$x2], [$x3], [$x4]];
+$l2->{limits} = [-5,5];
+$l2->{test_at} = [[$x0], [$x1], [$x2], [$x3], [$x4]];
+$l3->{limits} = [-5,5];
+$l3->{test_at} = [[$x0], [$x1], [$x2], [$x3], [$x4]];
+$l4->{limits} = [-5,5];
+$l4->{test_at} = [[$x0], [$x1], [$x2], [$x3], [$x4]];
+
+$l01 = Compute("(x-$x1)/($x0 - $x1)")->reduce;
+$l02 = Compute("(x-$x2)/($x0 - $x2)")->reduce;
+$l03 = Compute("(x-$x3)/($x0 - $x3)")->reduce;
+$l04 = Compute("(x-$x4)/($x0 - $x4)")->reduce;
+
+@xs = ($x0, $x1, $x2, $x3, $x4);
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+Given the following five nodes:
+
+[@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], 0, 1, 2, 3, 4], 
+              ["\\(x_i\\)", @xs]], 
+             align => 'r|c|c|c|c|c') @]***
+
+find the five _Lagrange basis_ polynomials corresponding to the five nodes, that is five degree 4 polynomials
+[`\ell_j`] such that
+
+[```\ell_j(x_i) = \begin{cases}
+1 & \text{ if } i = j\\
+0 & \text{ otherwise}
+\end{cases}```]
+
+* [`\ell_0(x) = `] [___________________________________]{$l0}
+* [`\ell_1(x) = `] [___________________________________]{$l1}
+* [`\ell_2(x) = `] [___________________________________]{$l2}
+* [`\ell_3(x) = `] [___________________________________]{$l3}
+* [`\ell_4(x) = `] [___________________________________]{$l4}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The formula for [`\ell_j`] is
+
+[```\ell_j(x) = \prod_\substack{0\le i\le n\\i\neq j} \frac{\left(x - x_i\right)}{\left(x_j - x_i\right)}```]
+
+For example,
+
+[```\ell_0(x) = \left([$l01]\right)\(left[$l02]\right)\left([$l03]\right)\left([$l04]\right) = [$l0]```]
+
+Similarly
+
+*  [``\ell_1(x) = [$l1]``]
+*  [``\ell_2(x) = [$l2]``]
+*  [``\ell_3(x) = [$l3]``]
+*  [``\ell_4(x) = [$l4]``]
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
