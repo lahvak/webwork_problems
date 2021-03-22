@@ -92,11 +92,11 @@ END_PGML
 BEGIN_PGML_SOLUTION
 The formula for [`\ell_j`] is
 
-[```\ell_j(x) = \prod_\substack{0\le i\le n\\i\neq j} \frac{\left(x - x_i\right)}{\left(x_j - x_i\right)}```]
+[```\ell_j(x) = \prod_{\substack{0\le i\le n\\i\neq j}} \frac{\left(x - x_i\right)}{\left(x_j - x_i\right)}```]
 
 For example,
 
-[```\ell_0(x) = \left([$l01]\right)\(left[$l02]\right)\left([$l03]\right)\left([$l04]\right) = [$l0]```]
+[```\ell_0(x) = \left([$l01]\right)\left([$l02]\right)\left([$l03]\right)\left([$l04]\right) = [$l0]```]
 
 Similarly
 
