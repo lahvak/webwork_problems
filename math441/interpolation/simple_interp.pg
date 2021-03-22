@@ -53,6 +53,24 @@ $y3 = $poly->eval(x=>$x3);
 @xs = ($x0, $x1, $x2, $x3);
 @ys = ($y0, $y1, $y2, $y3);
 
+# Solution stuff:
+
+$l0 = Compute("(x-$x1)*(x-$x2)*(x-$x3)/(($x0-$x1)*($x0-$x2)*($x0-$x3))")->reduce;
+$l1 = Compute("(x-$x0)*(x-$x2)*(x-$x3)/(($x1-$x0)*($x1-$x2)*($x1-$x3))")->reduce;
+$l2 = Compute("(x-$x0)*(x-$x1)*(x-$x3)/(($x2-$x0)*($x2-$x1)*($x2-$x3))")->reduce;
+$l3 = Compute("(x-$x0)*(x-$x1)*(x-$x2)/(($x3-$x0)*($x3-$x1)*($x3-$x2))")->reduce;
+
+$lagrange = Compute("$y0*$l0 + $y1*$l1 + $y2*$l2 + $y3*$l3");
+
+$f01 = Compute("($y1 - $y0)/($x1 - $x0)");
+$f12 = Compute("($y2 - $y1)/($x2 - $x1)");
+$f23 = Compute("($y3 - $y2)/($x3 - $x2)");
+$f012 = Compute("($f12 - $f01)/($x2 - $x0)");
+$f123 = Compute("($f23 - $f12)/($x3 - $x1)");
+$f0123 = Compute("($f123 - $f012)/($x3 - $x0)");
+
+$newton = Compute("$y0 + $f01*(x - $x0) + $f012*(x-$x0)*(x-$x1) + $f0123*(x-$x0)*(x-$x1)*(x-$x2)");
+
 # Actual problem goes here:
 TEXT(beginproblem());
 BEGIN_PGML
@@ -68,5 +86,43 @@ find a polynomial [`P`] of degree at most 3 such that [`P(x_i) = y_i`] for [`i =
 [`P(x) = `] [_________________________]{$poly}
 
 END_PGML
+
+BEGIN_PGML_SOLUTION
+There is exactly one polynomial satisfying the given conditions.  There are several ways how to find it:
+
+1.  Using _monomial basis_: [`P(x) = a_0 + a_1x + a_2x^2 + a_3x^3`]. When we plug in each [`x_i`] and set [`P(x_i) = y_i`], we will get
+    the following system of equations:
+
+    [```\begin{pmatrix}
+    1 & [$x0] & [$x0**2] & [$x0**3]\\
+    1 & [$x1] & [$x1**2] & [$x1**3]\\
+    1 & [$x2] & [$x2**2] & [$x2**3]\\
+    1 & [$x3] & [$x3**2] & [$x3**3]
+    \end{pmatrix}
+    \begin{pmatrix}a_0\\a_1\\a_2\\a_3\end{pmatrix} =
+    \begin{pmatrix}[$y0]\\[$y1]\\[$y2]\\[$y3]\end{pmatrix}```]
+
+    Solving this system gives us [`a_0 = [$a0]`], [`a_1 = [$a1]`], [`a_2 = [$a2]`] and [`a_3 = [$a3]`].  Then [`P(x) = [$poly]`].
+
+2.  Using _Lagrange basis_: the four Lagrange basis polynomials are:
+
+    1.  [``\ell_0(x) = [$l0]``]
+    1.  [``\ell_1(x) = [$l1]``]
+    1.  [``\ell_2(x) = [$l2]``]
+    1.  [``\ell_3(x) = [$l3]``]
+    
+    Then [``P(x) = [$lagrange]``].
+
+3.  Using _Newton basis_: first find the Newton's coefficients using divided differences:
+
+    [```\begin{array}[r|rrrr]
+    [$x0] & [$y0] & & & \\
+    [$x0] & [$y0] & [$f01] & & \\
+    [$x0] & [$y0] & [$f12] & [$f012] & \\
+    [$x0] & [$y0] & [$f23] & [$f123] & [$f0123] \\
+    \end{array}```]
+
+    Then [``P(x) = [$newton]``].
+END_PGML_SOLUTION
 
 ENDDOCUMENT();
