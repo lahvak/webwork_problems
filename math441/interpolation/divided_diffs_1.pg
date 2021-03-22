@@ -71,7 +71,7 @@ Given the following data:
 fill in the following _divided differences_ table:
 
 [@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], "\\(x_i\\)", "\\(f[x_i]\\)", "\\(f[x_i,x_{i+1}]\\)",
-                "\\(f[x_{i-1},x_i,x_{i+1}]\\)", "\\f[x_0,x_1,x_2,x_3]\\)"], 
+                "\\(f[x_{i-1},x_i,x_{i+1}]\\)", "\\(f[x_0,x_1,x_2,x_3]\\)"], 
               [0, [$x0], [$y0]], 
               ["", "", "",  PGML('[______]{$f01}')], 
               [1, [$x1], [$y1], "", PGML('[______]{f012}')],
