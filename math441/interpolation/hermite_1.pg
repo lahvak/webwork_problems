@@ -69,7 +69,7 @@ $f23 = Compute("($y3 - $y2)/($x3 - $x2)");
 # Actual problem goes here:
 TEXT(beginproblem());
 BEGIN_PGML
-A function $f$ is to be approximated by a Hermite polynomial from teh following data:
+A function [`f`] is to be approximated by a Hermite polynomial from the following data:
 
 [@ DataTable([[["\\(i\\)", midrule=>1, headrow=>1], 0, 1, 2, 3], 
               ["\\(x_i\\)", @xs], 
@@ -98,7 +98,7 @@ Set up the first three columns of the _divided differences_ table for Hermite po
               ["", "", PGML('[______]{$yp3}')],
               [PGML('[______]{$x3}'), PGML('[______]{$y3}')]
               ], 
-             align => 'r|r|cccc') @]***
+             align => 'c|c|c') @]***
 
 END_PGML
 
