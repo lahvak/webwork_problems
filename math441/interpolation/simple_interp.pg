@@ -111,7 +111,7 @@ There is exactly one polynomial satisfying the given conditions.  There are seve
     1.  [``\ell_2(x) = [$l2]``]
     1.  [``\ell_3(x) = [$l3]``]
     
-    Then [``P(x) = [$lagrange]``].
+    Then [`P(x) = [$lagrange]`].
 
 3.  Using _Newton basis_: first find the Newton's coefficients using divided differences:
 
@@ -122,7 +122,7 @@ There is exactly one polynomial satisfying the given conditions.  There are seve
     [$x0] & [$y0] & [$f23] & [$f123] & [$f0123] \\
     \end{array}```]
 
-    Then [``P(x) = [$newton]``].
+    Then [`P(x) = [$newton]`].
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
