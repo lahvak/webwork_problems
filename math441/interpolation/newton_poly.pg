@@ -72,7 +72,7 @@ The following coefficients for _Newton's basis_ of degree 4 were calculated:
 
 find the approximating polynomial [`P`] of degree at most 4 using Newton's basis with the given coefficients:
 
-[`P(x) = `] [____________________________________________]{$poly}
+[`P(x) = `] [______________________________________________________]{$poly}
 
 END_PGML
 
