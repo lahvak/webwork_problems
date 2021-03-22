@@ -41,7 +41,7 @@ $a1 = list_random(-1,1)*random(1,5,1);
 $a2 = list_random(-1,1)*random(1,5,1);
 $a3 = list_random(-1,1)*random(1,5,1);
 
-$poly = Compute("$a3*x^3 + ($x2)*x^2 + ($x1)*x + $x0")->reduce;
+$poly = Compute("$a3*x^3 + ($a2)*x^2 + ($a1)*x + $a0")->reduce;
 $poly->{limits} = [-3,3];
 $poly->{test_at} = [[$x0], [$x1], [$x2], [$x3]];
 
