@@ -23,7 +23,7 @@ DOCUMENT();
 loadMacros(
   "PGstandard.pl",
   "MathObjects.pl",
-  "contextFractions.pl",
+  "contextFraction.pl",
   "PGML.pl",
   "PGcourse.pl"
 );
