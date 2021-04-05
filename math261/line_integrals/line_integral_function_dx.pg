@@ -58,6 +58,8 @@ $tcoef = Compute("$num*$cx^($a)*$cy^($b)*$cx*$c/$den");
 $xt = Formula("$cx*t^($c)");
 $yt = Formula("$cy*t^($d)");
 
+$dx = Formula("$cx*$c*t^($c-1)");
+
 $integrand = Compute("$tcoef*t^($tpow)")->reduce;
 
 $lowerlimit = Real("0");
@@ -88,4 +90,23 @@ where the curve [:C:] is parametrized by the vector function [`\mathbf{r}(t) = \
     [``\int_C \frac{[$num]}{[$den]} x^{[$a]}y^{[$b]}\;dx = ``][________________________]{$integralvalue}
 
 END_PGML
+
+BEGIN_PGML_SOLUTION
+The curve [:C:] is parametrized by the vector function [`\mathbf{r}(t) = \left\langle [$xt], [$yt]\right\rangle`] for [`0\le t \le 1`].
+
+We will substitute
+[```\begin{aligned}
+x &= [$xt]\\
+y &= [$yt]\\
+dx &= [$dx]\;dt
+\end{aligned}```]
+
+That will give us the integral
+[```\int_0^1 \frac{[$num]}{[$den]} \left([$xt]\right)^{[$a]}\left([$yt]\right)^{[$b]}[$dx]\;dt```]
+which will simplify to
+[```\int_0^1 [$integrand]\;dt```]
+
+Evaluating that integral will give us [$integralvalue].
+
+END_PGML_SOLUTION
 ENDDOCUMENT();
