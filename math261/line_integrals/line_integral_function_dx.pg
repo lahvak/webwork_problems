@@ -53,17 +53,17 @@ if ($cx == 2){
 }
 
 $tpow = Compute("$c*$a + $b*$d + $c - 1");
-$tcoef = Compute("$num*$cx^($a)*$cy^($b)*$cx*$c/$num");
+$tcoef = Compute("$num*$cx^($a)*$cy^($b)*$cx*$c/$den");
 
 $xt = Formula("$cx*t^($c)");
 $yt = Formula("$cy*t^($d)");
 
-$integrand = Compute("$tcoef*t^($tpow)");
+$integrand = Compute("$tcoef*t^($tpow)")->reduce;
 
 $lowerlimit = Real("0");
 $upperlimit = Real("1");
 
-$integralvalue = Compute("$tcoef/($tpow + 1)");
+$integralvalue = Compute("$tcoef/($tpow + 1)")->reduce;
 
 ##########################################
 #  Main text
