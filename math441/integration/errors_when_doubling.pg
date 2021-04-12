@@ -29,6 +29,18 @@ $a = random(0,3,1);
 $diff = random(1,5,1);
 $b = $a + $diff;
 
+$index = random(0,4);
+if $index > 2 {
+    $a += 1;
+    $diff += 1;
+}
+
+@functions = ("exp(x)", "x^4", "x^5", "1/x", "1/x^2");
+@adiffs = ("exp(x)", "x^5/5", "x^6/6", "ln(x)", "-1/x");
+
+$fun = $functions[$index];
+$pfun = $adiffs[$index];
+
 $h4 = $diff/4;
 $h8 = $diff/8;
 $h16 = $diff/16;
@@ -37,8 +49,8 @@ $h16 = $diff/16;
 @nodes8 = map { $a + $_*$h8 } 0..8;
 @nodes16 = map { $a + $_*$h16 } 0..16;
 
-$function = Formula("exp(x)");
-$primfun = Formula("exp(x)");
+$function = Formula($fun);
+$primfun = Formula($pfun);
 $function->perlFunction("F");
 
 @values4 = map {F($_)} @nodes4;
