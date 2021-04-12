@@ -41,9 +41,9 @@ $function = Formula("exp(x)");
 $primfun = Formula("exp(x)");
 $function->perlFunction("f");
 
-@values4 = map f, @nodes4;
-@values8 = map f, @nodes8;
-@values16 = map f, @nodes16;
+@values4 = map $f, @nodes4;
+@values8 = map $f, @nodes8;
+@values16 = map $f, @nodes16;
 
 $int = $primfun->eval(x=>$b) - $primfun->eval(x=>$a);
 
@@ -86,9 +86,9 @@ $simper16 = $int - $simp16;
 TEXT(beginproblem());
 BEGIN_PGML
 
-[$nodes4[0]], [$nodes4[1]], [$nodes4[2]], [$nodes4[3]]
+[$nodes4[0]], [$nodes4[1]], [$nodes4[2]], [$nodes4[3]], [$nodes4[4]]
 
-[$values4[0]], [$values4[1]], [$values4[2]], [$values4[3]]
+[$values4[0]], [$values4[1]], [$values4[2]], [$values4[3]], [$values4[4]]
 
 Let [`f(x)=[$function]`].
 
