@@ -30,9 +30,9 @@ $diff = random(1,5,1);
 $b = $a + $diff;
 
 $index = random(0,4);
-if $index > 2 {
+if ($index > 2) {
     $a += 1;
-    $diff += 1;
+    $diff random(2,4,1);
 }
 
 @functions = ("exp(x)", "x^4", "x^5", "1/x", "1/x^2");
