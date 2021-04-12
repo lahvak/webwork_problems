@@ -45,7 +45,7 @@ $function->perlFunction("f");
 @values8 = map f, @nodes8;
 @values16 = map f, @nodes16;
 
-$int = $primfun->eval(x=$b) - $primfun->eval(x=$a);
+$int = $primfun->eval(x=>$b) - $primfun->eval(x=>$a);
 
 sub trapsum {
     my @vals = @_;
