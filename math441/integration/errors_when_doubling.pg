@@ -84,7 +84,7 @@ $simper8 = $int - $simp8;
 $simper16 = $int - $simp16;
 
 TEXT(beginproblem());
-PGML_BEGIN
+BEGIN_PGML
 Let [`f(x)=[$function]`].
 
 1.  Compute [``\int_{[$a]}^{[$b]} [$function]\;dx``].
@@ -113,5 +113,5 @@ Let [`f(x)=[$function]`].
 
 Observe what happens to the errors when [`n`] is doubled.
 
-END_TEXT
+END_PGML
 ENDDOCUMENT();
