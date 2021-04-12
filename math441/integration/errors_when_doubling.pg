@@ -102,13 +102,13 @@ Let [`f(x)=[$function]`].
 
      *  [`T_8 = `][__________]{$trap8},  error = [__________]{$traper8}
 
-     *  [`T_16 = `][__________]{$trap16},  error = [__________]{$traper16}
+     *  [`T_{16} = `][__________]{$trap16},  error = [__________]{$traper16}
 
      *  [`S_4 = `][__________]{$simp4},  error = [__________]{$simper4}
 
      *  [`S_8 = `][__________]{$simp8},  error = [__________]{$simper8}
 
-     *  [`S_16 = `][__________]{$simp16},  error = [__________]{$simper16}
+     *  [`S_{16} = `][__________]{$simp16},  error = [__________]{$simper16}
 
 
 Observe what happens to the errors when [`n`] is doubled.
