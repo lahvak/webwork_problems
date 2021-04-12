@@ -32,7 +32,7 @@ $b = $a + $diff;
 $index = random(0,4);
 if ($index > 2) {
     $a += 1;
-    $diff random(2,4,1);
+    $diff = random(2,4,1);
 }
 
 @functions = ("exp(x)", "x^4", "x^5", "1/x", "1/x^2");
