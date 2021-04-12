@@ -1,0 +1,117 @@
+## DBsubject(Numerical Analysis)
+## DBchapter(Numerical integration)
+## DBsection(Newton-Cotes formulas)
+## Institution(SVSU)
+## TitleText1()
+## AuthorText1()
+## EditionText1()
+## Section1()
+## Problem1()
+## KEYWORDS('approximate integration')
+
+DOCUMENT();
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "PGML.pl",
+  "PGcourse.pl"
+);
+
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+Context()->flags->set(
+  tolerance => 0.000001,
+  tolType => "absolute",
+);
+$a = random(0,3,1);
+$diff = random(1,5,1);
+$b = $a + $diff;
+
+$h4 = $diff/4;
+$h8 = $diff/8;
+$h16 = $diff/16;
+
+@nodes4 = map { $a + $_*$h4 } 0..4;
+@nodes8 = map { $a + $_*$h8 } 0..8;
+@nodes16 = map { $a + $_*$h16 } 0..16;
+
+$function = Formula("exp(x)");
+$primfun = Formula("exp(x)");
+$function->perlFunction("f");
+
+@values4 = map f @nodes4;
+@values8 = map f @nodes8;
+@values16 = map f @nodes16;
+
+$int = $primfun->eval(x=$b) - $primfun->eval(x=$a);
+
+sub trapsum {
+    my @vals = @_;
+    my $total = $vals[0] + $vals[$#vals];
+    foreach (@vals[1..($#vals-1)]) {
+        $total += 2*$_;
+    }
+
+    return $total;
+}
+
+$trap4 = trapsum(@vals4)*$h4/2;
+$trap8 = trapsum(@vals8)*$h8/2;
+$trap16 = trapsum(@vals16)*$h16/2;
+
+$traper4 = $int - $trap4;
+$traper8 = $int - $trap8;
+$traper16 = $int - $trap16;
+
+sub simpsum {
+    my @vals = @_;
+    my $total = $vals[0] + $vals[$#vals];
+    foreach (1..($#vals-1)) {
+        $total += (($_ % 2)?4:2)*$vals[$_];
+    }
+
+    return $total;
+}
+
+$simp4 = simpsum(@vals4)*$h4/3;
+$simp8 = simpsum(@vals8)*$h8/3;
+$simp16 = simpsum(@vals16)*$h16/3;
+
+$simper4 = $int - $simp4;
+$simper8 = $int - $simp8;
+$simper16 = $int - $simp16;
+
+TEXT(beginproblem());
+PGML_BEGIN
+Let [`f(x)=[$function]`].
+
+1.  Compute [``\int_{[$a]}^{[$b]} [$function]\;dx``].
+
+    [__________________]{$int}
+
+2.   Compute the approximations using the composite trapezoidal rule with [`n`] intervals ([`T_n`]) and 
+     the composite Simpson's rule with [`n`] intervals ([`S_n`]) for [`n = 4, 8, \text{ and } 16`] for the integral in part 1.
+
+     For each of these, compute the corresponding absolute error.
+
+     Note: Make sure all answers are correct to six decimal places.
+
+     *  [`T_4 = `][__________]{$trap4},  error = [__________]{$traper4}
+
+     *  [`T_8 = `][__________]{$trap8},  error = [__________]{$traper8}
+
+     *  [`T_16 = `][__________]{$trap16},  error = [__________]{$traper16}
+
+     *  [`S_4 = `][__________]{$simp4},  error = [__________]{$simper4}
+
+     *  [`S_8 = `][__________]{$simp8},  error = [__________]{$simper8}
+
+     *  [`S_16 = `][__________]{$simp16},  error = [__________]{$simper16}
+
+
+Observe what happens to the errors when [`n`] is doubled.
+
+END_TEXT
+ENDDOCUMENT();
