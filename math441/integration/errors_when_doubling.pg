@@ -42,8 +42,8 @@ $primfun = Formula("exp(x)");
 $function->perlFunction("F");
 
 @values4 = map {F($_)} @nodes4;
-@values8 = map F, @nodes8;
-@values16 = map F, @nodes16;
+@values8 = map {F($_)} @nodes8;
+@values16 = map {F($_)} @nodes16;
 
 $int = $primfun->eval(x=>$b) - $primfun->eval(x=>$a);
 
