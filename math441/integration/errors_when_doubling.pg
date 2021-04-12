@@ -39,11 +39,11 @@ $h16 = $diff/16;
 
 $function = Formula("exp(x)");
 $primfun = Formula("exp(x)");
-$f = $function->perlFunction;
+$function->perlFunction("F");
 
-@values4 = map &{$f} @nodes4;
-@values8 = map f, @nodes8;
-@values16 = map f, @nodes16;
+@values4 = map F, @nodes4;
+@values8 = map F, @nodes8;
+@values16 = map F, @nodes16;
 
 $int = $primfun->eval(x=>$b) - $primfun->eval(x=>$a);
 
