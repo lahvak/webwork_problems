@@ -85,6 +85,11 @@ $simper16 = $int - $simp16;
 
 TEXT(beginproblem());
 BEGIN_PGML
+
+[$nodes[0]], [$nodes[1]], [$nodes[2]], [$nodes[3]]
+
+[$values[0]], [$values[1]], [$values[2]], [$values[3]]
+
 Let [`f(x)=[$function]`].
 
 1.  Compute [``\int_{[$a]}^{[$b]} [$function]\;dx``].
