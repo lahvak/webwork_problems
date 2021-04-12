@@ -41,7 +41,7 @@ $function = Formula("exp(x)");
 $primfun = Formula("exp(x)");
 $f = $function->perlFunction;
 
-@values4 = map &{$f}, @nodes4;
+@values4 = map &{$f} @nodes4;
 @values8 = map f, @nodes8;
 @values16 = map f, @nodes16;
 
