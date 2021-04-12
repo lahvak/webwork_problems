@@ -86,9 +86,9 @@ $simper16 = $int - $simp16;
 TEXT(beginproblem());
 BEGIN_PGML
 
-[$nodes[0]], [$nodes[1]], [$nodes[2]], [$nodes[3]]
+[$nodes4[0]], [$nodes4[1]], [$nodes4[2]], [$nodes4[3]]
 
-[$values[0]], [$values[1]], [$values[2]], [$values[3]]
+[$values4[0]], [$values4[1]], [$values4[2]], [$values4[3]]
 
 Let [`f(x)=[$function]`].
 
