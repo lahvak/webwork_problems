@@ -3,17 +3,18 @@
 # written by Jan Hlavacek (jhlavace@svsu.edu)
 # ENDDESCRIPTION
 
-## DBsubject('Algebra')
-## DBchapter('Graphs of Equations')
-## DBsection('Circles')
-## KEYWORDS('algebra,equations,circle,semicircle')
+## DBsubject(Algebra)
+## DBchapter(Cartesian coordinate system)
+## DBsection(Circles)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(2)
 ## TitleText1('Algebra and Trigonometry')
-## EditionText1('13')
 ## AuthorText1('Swokowski, Cole')
-## Section1('')
+## EditionText1('13')
+## Section1('.')
 ## Problem1('')
-## Author('Jan Hlavacek')
-## Institution('SVSU')
+## KEYWORDS('algebra,equations,circle,semicircle')
 
 DOCUMENT();
 loadMacros(

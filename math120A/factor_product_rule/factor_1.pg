@@ -3,17 +3,18 @@
 # written by Jan Hlavacek (jhlavace@svsu.edu)
 # ENDDESCRIPTION
 
-## DBsubject('Algebra')
-## DBchapter('Rational Expressions')
-## DBsection('Factoring')
-## KEYWORDS('algebra,rational expressions,product rule')
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(3)
 ## TitleText1('Algebra and Trigonometry')
-## EditionText1('13')
 ## AuthorText1('Swokowski, Cole')
-## Section1('')
+## EditionText1('13')
+## Section1('.')
 ## Problem1('')
-## Author('Jan Hlavacek')
-## Institution('SVSU')
+## KEYWORDS('algebra,rational expressions,product rule')
 
 DOCUMENT();
 loadMacros(

@@ -3,17 +3,18 @@
 # written by Jan Hlavacek (jhlavace@svsu.edu)
 # ENDDESCRIPTION
 
-## DBsubject('Algebra')
-## DBchapter('Systems of equations')
-## DBsection('Nonlinear systems')
-## KEYWORDS('algebra, systems of equations, nonlinear')
+## DBsubject(Algebra)
+## DBchapter(Systems of equations and inequalities)
+## DBsection(Nonlinear systems)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(2)
 ## TitleText1('Algebra and Trigonometry')
-## EditionText1('13')
 ## AuthorText1('Swokowski, Cole')
-## Section1('')
+## EditionText1('13')
+## Section1('.')
 ## Problem1('')
-## Author('Jan Hlavacek')
-## Institution('SVSU')
+## KEYWORDS('algebra, systems of equations, nonlinear')
 
 DOCUMENT();
 loadMacros(

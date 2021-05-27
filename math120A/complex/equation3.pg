@@ -3,12 +3,10 @@
 ## ENDDESCRIPTION
 
 
-## DBsubject()
-## DBchapter()
-## DBsection()
-## Date()
-## Institution()
-## Author()
+## DBsubject(Algebra)
+## DBchapter(Polynomial equations and functions)
+## DBsection(Complex roots)
+## Level(3)
 ## KEYWORDS('algebra', 'complex numbers', 'quadratic equations', 'cubic equations')
 
 

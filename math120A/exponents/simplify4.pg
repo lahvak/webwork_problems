@@ -3,12 +3,10 @@
 ## ENDDESCRIPTION
 
 
-## DBsubject()
-## DBchapter()
-## DBsection()
-## Date()
-## Institution()
-## Author()
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(1)
 ## KEYWORDS('algebra', 'rules of exponents')
 
 

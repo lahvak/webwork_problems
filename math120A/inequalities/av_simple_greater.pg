@@ -3,17 +3,18 @@
 # written by Jan Hlavacek (jhlavace@svsu.edu)
 # ENDDESCRIPTION
 
-## DBsubject('Algebra')
-## DBchapter('Inequalities')
-## DBsection('Inequalities with Absolute Value')
-## KEYWORDS('algebra,inequality,absolute value,intervals')
+## DBsubject(Algebra)
+## DBchapter(Absolute value expressions and functions)
+## DBsection(Absolute value inequalities)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(1)
 ## TitleText1('Algebra and Trigonometry')
-## EditionText1('13')
 ## AuthorText1('Swokowski, Cole')
-## Section1('')
+## EditionText1('13')
+## Section1('.')
 ## Problem1('')
-## Author('Jan Hlavacek')
-## Institution('SVSU')
+## KEYWORDS('algebra,inequality,absolute value,intervals')
 
 DOCUMENT();
 loadMacros(

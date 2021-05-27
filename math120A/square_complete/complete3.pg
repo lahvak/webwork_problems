@@ -3,12 +3,10 @@
 ## ENDDESCRIPTION
 
 
-## DBsubject()
-## DBchapter()
-## DBsection()
-## Date()
-## Institution()
-## Author()
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Completing the square)
+## Level(2)
 ## KEYWORDS('algebra', 'quadratic equation', 'completing the square')
 
 

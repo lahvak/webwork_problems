@@ -3,17 +3,18 @@
 # written by Jan Hlavacek (jhlavace@svsu.edu)
 # ENDDESCRIPTION
 
-## DBsubject('Algebra')
-## DBchapter('Properties of Real Numbers')
-## DBsection('Absolute Value')
-## KEYWORDS('algebra,absolute value')
+## DBsubject(Algebra)
+## DBchapter(Algebra of real numbers and simplifying expressions)
+## DBsection(Algebraic expressions)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(2)
 ## TitleText1('Algebra and Trigonometry')
-## EditionText1('13')
 ## AuthorText1('Swokowski, Cole')
-## Section1('')
+## EditionText1('13')
+## Section1('.')
 ## Problem1('')
-## Author('Jan Hlavacek')
-## Institution('SVSU')
+## KEYWORDS('algebra,absolute value')
 
 DOCUMENT();
 loadMacros(

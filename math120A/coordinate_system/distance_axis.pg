@@ -3,17 +3,18 @@
 # written by Jan Hlavacek (jhlavace@svsu.edu)
 # ENDDESCRIPTION
 
-## DBsubject('Algebra')
-## DBchapter('Cartesian coordinate system')
-## DBsection('Distance formula')
-## KEYWORDS('algebra,equations,distance formuls')
+## DBsubject(Algebra)
+## DBchapter(Cartesian coordinate system)
+## DBsection(Midpoint and distance formulas)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(3)
 ## TitleText1('Algebra and Trigonometry')
-## EditionText1('13')
 ## AuthorText1('Swokowski, Cole')
-## Section1('')
+## EditionText1('13')
+## Section1('.')
 ## Problem1('')
-## Author('Jan Hlavacek')
-## Institution('SVSU')
+## KEYWORDS('algebra,equations,distance formuls')
 
 DOCUMENT();
 loadMacros(
