@@ -23,6 +23,8 @@
 ## Problem2('38')
 ## KEYWORDS('algebra', 'polynomial function', 'rational zero')
 
+# modified by Jan Hlavacek (jhlavace@svsu.edu)
+
 DOCUMENT();        # This should be the first executable line in the problem.
 
 loadMacros(
