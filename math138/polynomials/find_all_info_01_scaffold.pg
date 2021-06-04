@@ -8,11 +8,18 @@
 ## DBchapter(Polynomial equations and functions)
 ## DBsection(Graphs of polynomials)
 ## Institution(University of Missouri-Columbia)
+## Institution(SVSU)
 ## Author(Rick Lynch)
+## Author(Jan Hlavacek)
+## MLT(polynomial_all_info)
 ## Level(3)
 ## KEYWORDS('functions', 'polynomials', 'graphs')
 
-# modified by Jan Hlavacek (jhlavace@svsu.edu)
+# The original problem by Rick Lynch (UoM-C) modified to use PGML and scaffold
+# by Jan Hlavacek (SVSU) (jhlavace@svsu.edu)
+#
+# The original problem in OPL:
+# Mizzou/Algebra/graph_polynomials/find_all_info_01.pg
 
 ###########################################################################
 # initialization 
