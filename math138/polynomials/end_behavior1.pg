@@ -8,6 +8,8 @@
 ## DBsection(Graphs of polynomials)
 ## Level(2)
 ## KEYWORDS('Algebra', 'Functions','Polynomial')
+## Institution(SVSU)
+## Author(Jan Hlavacek)
 
 DOCUMENT();        # This should be the first executable line in the problem.
 
