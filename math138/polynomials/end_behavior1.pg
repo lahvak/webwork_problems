@@ -6,8 +6,6 @@
 ## DBsubject(Algebra)
 ## DBchapter(Polynomial equations and functions)
 ## DBsection(Graphs of polynomials)
-## Institution(ASU)
-## MLT(EndBehavior)
 ## Level(2)
 ## KEYWORDS('Algebra', 'Functions','Polynomial')
 
@@ -27,16 +25,15 @@ $showPartialCorrectAnswers = 0;
 
 Context("Numeric");
 
-$a = non_zero_random(-5,5,1);
-$p = non_zero_random(-8,8,2);
-$q = non_zero_random(-8,8,2);
+$a = non_zero_random(-20,20,1);
+$b = non_zero_random(-20,20,1);
+$c = non_zero_random(-20,20,1);
 $const = random(-10,10,1);
 $xdeg = random(1,4,1);
-##$a*x^$xdeg(x+$p)(x+$q)
-$b=$a*($p-$q);
-$c=$a*$p*$q;
+$xdegadd = random(2,10,2);
+$xdegmid = $xdeg + random(1,$xdegadd - 1,1);
 
-$poly = Compute("$a*x^($xdeg+2) + $b*x^($xdeg+1) + $c*x^$xdeg + $const")->reduce("(-x)+y" => 0, "(-x)-y" => 0);
+$poly = Compute("$a*x^($xdeg+$xdegadd) + $b*x^$xdegmid + $c*x^$xdeg + $const")->reduce("(-x)+y" => 0, "(-x)-y" => 0);
 
 if ($xdeg % 2) { # odd degree
   $left = ($a > 0)?"down":"up";
@@ -62,7 +59,7 @@ $const_str = "The constant term of the polynomial \(p(x)\) is \($const\)."
 $const_str = "The polynomial \(p(x)\) does not have a explicit constant term, which means that the constant term is \(0\)."
 }
 
-$leading = Compute("$a*x^($xdeg+2)")->reduce();
+$leading = Compute("$a*x^($xdeg+$xdegadd)")->reduce();
 
 $parity = "**" . (($xdeg % 2)?"odd":"even") . "**";
 $sign = "**" . (($a > 0)?"positive":"negative") . "**";
@@ -72,7 +69,7 @@ TEXT(beginproblem());
 BEGIN_PGML
 For the polynomial [` p(x) = [$poly] `], answer the following questions:
 
-1.  What is the [:y:] intercept of [:p(x):]?  [:y = :] [______________]{$const}
+1.  What is the [:y:]-coordinate of the [:y:]-intercept of [:p(x):]?  [:y = :] [______________]{$const}
 
 2.  What is the end behavior of the polynomial?
 
