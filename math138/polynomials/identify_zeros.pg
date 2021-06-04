@@ -9,6 +9,7 @@
 ## Date(01/10/2010)
 ## Institution(University of Minnesota)
 ## Author(Justin Sukiennik)
+## MLT(polynomial_zeros_from_graph)
 ## Level(2)
 ## MO(1)
 ## TitleText1('Algebra for College Students')
@@ -18,8 +19,15 @@
 ## Problem1('')
 ## KEYWORDS('algebra', 'graph', 'functions', 'polynomials', 'quartic')
 
-
-# modified by Jan Hlavacek (jhlavace@svsu.edu)
+# modified by Jan Hlavacek (jhlavace@svsu.edu):
+#
+# *  Rewrite in PGML, add solutions and hints
+# *  Choose $b randomly so it is not always 1
+# *  Change the notation from a,b,c to x_1, x_2, x_3
+# *  Add a leading coefficient
+# *  Randomly flip the polynomial horizontally and vertically for
+#    more variability
+# *  Scale the polynomial to better fit the window
 
 #####################################################################
 
@@ -109,7 +117,7 @@ plot_functions($graph,$p);
 BEGIN_PGML
 The graph below is a polynomial function in the form 
 
->>[:f(x) = a(x-x_1)^2(x-x_2)(x-x_3).:]<<
+>>[:f(x) = a*(x-x_1)^2(x-x_2)(x-x_3).:]<<
 
 Find suitable unique real numbers [:x_1:], [:x_2:], and [:x_3:] that describe the graph.
 
