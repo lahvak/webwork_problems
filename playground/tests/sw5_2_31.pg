@@ -63,7 +63,7 @@ $ans3 = Compute("$c");
 BEGIN_PGML
 Use synthetic division and the Remainder Theorem to evaluate [:P(c):], where
 
->>[``P(x)=[$p], \quad c=-7\]<<
+>>[``P(x)=[$p], \quad c=-7``]<<
 
 -----
 *  The quotient is [_________________________]{$ans1}  [@ AnswerFormatHelp("formulas") @]*
