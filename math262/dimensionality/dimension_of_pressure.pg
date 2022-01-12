@@ -1,0 +1,45 @@
+# DESCRIPTION
+# Find the dimension of a given quantity
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Differential equations')
+## DBchapter('Chapter 1')
+## DBsection('1.5: The Blessing of Dimensionality')
+## KEYWORDS('dimensionality')
+## TitleText1('DIFFERENTIAL EQUATIONS A TOOLBOX FOR MODELING THE WORLD')
+## EditionText1()
+## AuthorText1('Kurt Bryan')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+Context("Numeric");
+Context()->variables->add(L=>"Real",M=>"Real",T=>"Real");
+
+$dimension = Formula("M*L*T^(-1)");
+# Actual problem goes here:
+BEGIN_PGML
+What is the dimension of **linear momentum**?
+
+_Use [:M:] for dimension of mass, [:T:] for the dimenstion of time, and [:L:] for the dimension of length.
+Write your answer as a product of powers of [:M:], [:L:] and [:T:]._
+
+[`\left[\mathbf{p}\right] = `][____________]{$dimension}
+
+END_PGML
+
+#Note: this is an exercise from a textbook that does not have a solution in the
+#textbook, so I do not want to include a solution here.
+ENDDOCUMENT();
