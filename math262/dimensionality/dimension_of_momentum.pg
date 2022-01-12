@@ -28,15 +28,15 @@ TEXT(beginproblem());
 Context("Numeric");
 Context()->variables->add(L=>"Real",M=>"Real",T=>"Real");
 
-$dimension = Formula("M*L^(-1)*T^(-2)");
+$dimension = Formula("M*L*T^(-1)");
 # Actual problem goes here:
 BEGIN_PGML
-What is the dimension of **pressure**?
+What is the dimension of **linear momentum**?
 
 _Use [:M:] for dimension of mass, [:T:] for the dimenstion of time, and [:L:] for the dimension of length.
 Write your answer as a product of powers of [:M:], [:L:] and [:T:]._
 
-[`\left[p\right] = `][____________]{$dimension}
+[`\left[\mathbf{p}\right] = `][____________]{$dimension}
 
 END_PGML
 
