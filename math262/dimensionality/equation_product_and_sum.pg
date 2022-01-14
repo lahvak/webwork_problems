@@ -46,8 +46,8 @@ $md = random(-4,2);
 $td = random(-1,5);
 
 $le = $lc + $ld;
-$me = $me + $md;
-$te = $te + $td;
+$me = $mc + $md;
+$te = $tc + $td;
 
 sub LMB {
     my $a = shift @_;
@@ -81,7 +81,7 @@ find [`\left[B\right]`] and [`\left[E\right]`].
 END_PGML
 
 BEGIN_PGML_SOLUTION
-Since [:AB:] [:C:] are added, they must have the same dimension.
+Since [:AB:] and [:C:] are added, they must have the same dimension.
 Therefore [`\left[C\right] = \left[AB\right] = \left[A\right]\left[B\right]`], and so [`\left[B\right] = L^aM^bT^c`] where
 
 [``[$dimc] = [$dima]L^aM^bT^c``]
@@ -91,10 +91,10 @@ From this we can see that
 [``\begin{aligned}
 [$lc] &= [$la] + a\\
 [$mc] &= [$ma] + b\\
-[$tc] &= [$la] + c
+[$tc] &= [$ta] + c
 \end{aligned}``]
 
-From this we can see that [`a = [$la]`], [`b = [$ma]`] and [`c = [$ta]`].
+From this we can see that [`a = [$lb]`], [`b = [$mb]`] and [`c = [$tb]`].
 
 We can also see that [`\left[AB + C\right] = \left[AB\right] = \left[C\right] = [$dimc]`].
 
