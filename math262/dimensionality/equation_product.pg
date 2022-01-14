@@ -42,9 +42,9 @@ $la = $ll - $lr;
 $ma = $ml - $mr;
 $ta = $tl - $tr;
 
-$left = Formula("L*^($ll)*M^($ml)*T^($tl)")->reduce;
-$right = Formula("L*^($lr)*M^($mr)*T^($tr)")->reduce;
-$ans = Formula("L*^($la)*M^($ma)*T^($ta)")->reduce;
+$left = Formula("L^($ll)*M^($ml)*T^($tl)")->reduce;
+$right = Formula("L^($lr)*M^($mr)*T^($tr)")->reduce;
+$ans = Formula("L^($la)*M^($ma)*T^($ta)")->reduce;
 # Actual problem goes here:
 BEGIN_PGML
 Three quantities [:A:], [:B:] and [:C:] satisfy the equation [`A = $const BC`].
