@@ -28,8 +28,6 @@ TEXT(beginproblem());
 Context("Numeric");
 Context()->variables->add(L=>"Real",M=>"Real",T=>"Real");
 
-$const = random(2,9);
-
 $ll = random(-3,3);
 $ml = random(-3,3);
 $tl = random(-3,3);
@@ -47,7 +45,7 @@ $right = Formula("L^($lr)*M^($mr)*T^($tr)")->reduce;
 $ans = Formula("L^($la)*M^($ma)*T^($ta)")->reduce;
 # Actual problem goes here:
 BEGIN_PGML
-Three quantities [:A:], [:B:] and [:C:] satisfy the equation [`A = $const BC`].
+Three quantities [:A:], [:B:] and [:C:] satisfy the equation [`A = BC`].
 
 Given that [`\left[A\right] = [$left]`] and [`\left[C\right] = [$right]`], find [`\left[B\right]`].
 
