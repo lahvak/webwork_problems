@@ -1,0 +1,67 @@
+# DESCRIPTION
+# Find a dimension of a derivative
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Differential equations')
+## DBchapter('Chapter 1')
+## DBsection('1.5: The Blessing of Dimensionality')
+## KEYWORDS('dimensionality')
+## TitleText1('DIFFERENTIAL EQUATIONS A TOOLBOX FOR MODELING THE WORLD')
+## EditionText1()
+## AuthorText1('Kurt Bryan')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+Context("Numeric");
+Context()->variables->add(L=>"Real",M=>"Real",T=>"Real");
+Context()->noreduce('x^(-a)');
+
+$lf = random(-3,3);
+$mf = random(-3,3);
+$tf = random(-3,3);
+
+$lx = random(-2,4);
+$mx = random(-4,2);
+$tx = random(-1,5);
+
+$ld = $lf - $lx;
+$md = $mf - $mx;
+$td = $tf - $tx;
+
+sub LMB {
+    my $a = shift @_;
+    my $b = shift @_;
+    my $c = shift @_;
+    return Formula("L^($a)*M^($b)*T^($c)")->reduce;
+}
+
+$dimf = LMB($lf, $mf, $tf);
+$dimx = LMB($lx, $mx, $tx);
+$dimd = LMB($ld, $md, $td);
+
+# Actual problem goes here:
+BEGIN_PGML
+Given a function [:f:] with input that has the dimension [`\left[x\right] = [$dimx]`], such that [`\left[f(x)\right] = [$dimf]`],
+find the dimension of the derivative [`\frac{df}{dx}`].
+
+[`\left[\frac{df}{dx}\right] = `][____________]{$dimd}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+[`\left[\frac{df}{dx}\right] = \frac{\left[f(x)\right]}{\left[x\right]} = \frac{[$dimf]}{[$dimx]} = [$dimd]`]
+END_PGML_SOLUTION
+ENDDOCUMENT();
