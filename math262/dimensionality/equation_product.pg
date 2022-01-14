@@ -27,6 +27,7 @@ TEXT(beginproblem());
 
 Context("Numeric");
 Context()->variables->add(L=>"Real",M=>"Real",T=>"Real");
+Context()->noreduce('x^(-a)');
 
 $ll = random(-3,3);
 $ml = random(-3,3);
