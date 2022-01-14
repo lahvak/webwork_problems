@@ -82,8 +82,8 @@ Since [`\left[D\right] = \left[A\right]^\alpha\left[B\right]^\beta\left[C\right]
 
 Comparing the exponents of [:L:], [:M:] and [:T:] on the left and the right side, we get the system of equations for [`\alpha`], [`\beta`] and [`\gamma`]:
 [```\begin{aligned}
-[$ll] &= [$lr1]\alpha + [$lr2]\beta + [$lr3]\gamma
-[$ml] &= [$mr1]\alpha + [$mr2]\beta + [$mr3]\gamma
+[$ll] &= [$lr1]\alpha + [$lr2]\beta + [$lr3]\gamma\\
+[$ml] &= [$mr1]\alpha + [$mr2]\beta + [$mr3]\gamma\\
 [$tl] &= [$tr1]\alpha + [$tr2]\beta + [$tr3]\gamma
 \end{aligned}```]
 
