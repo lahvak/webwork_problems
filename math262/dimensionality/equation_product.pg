@@ -1,0 +1,73 @@
+# DESCRIPTION
+# Find a dimension of a quantity in an equation
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Differential equations')
+## DBchapter('Chapter 1')
+## DBsection('1.5: The Blessing of Dimensionality')
+## KEYWORDS('dimensionality')
+## TitleText1('DIFFERENTIAL EQUATIONS A TOOLBOX FOR MODELING THE WORLD')
+## EditionText1()
+## AuthorText1('Kurt Bryan')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+Context("Numeric");
+Context()->variables->add(L=>"Real",M=>"Real",T=>"Real");
+
+$const = random(2,9);
+
+$ll = random(-3,3);
+$ml = random(-3,3);
+$tl = random(-3,3);
+
+$lr = random(-2,4);
+$mr = random(-4,2);
+$tr = random(-1,5);
+
+$la = $ll - $lr;
+$ma = $ml - $mr;
+$ta = $tl - $tr;
+
+$left = Formula("L*^($ll)*M^($ml)*T^($tl)")->reduce;
+$right = Formula("L*^($lr)*M^($mr)*T^($tr)")->reduce;
+$ans = Formula("L*^($la)*M^($ma)*T^($ta)")->reduce;
+# Actual problem goes here:
+BEGIN_PGML
+Three quantities [:A:], [:B:] and [:C:] satisfy the equation [`A = $const BC`].
+
+Given that [`\left[A\right] = [$left]`] and [`\left[C\right] = [$right]`], find [`\left[B\right]`].
+
+[`\left[B\right] = `][____________]{$ans}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+Since [`\left[A\right] = \left[B\right]\left[C\right]`], we see that [`\left[B\right] = L^aM^bT^c`] where
+
+[``[$left] = L^aM^bT^c[$right]``]
+
+From this we can see that
+[``\begin{aligned}
+[$ll] &= a + [$lr]\\
+[$ml] &= b + [$mr]\\
+[$tl] &= c + [$tr]
+\end{aligned}``]
+
+From this we can see that [`a = [$la]`], [`b = [$ma]`] and [`c = [$ta]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
