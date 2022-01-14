@@ -29,13 +29,13 @@ Context("Numeric");
 Context()->variables->add(L=>"Real",M=>"Real",T=>"Real");
 Context()->noreduce('x^(-a)');
 
-$lf = random(-3,3);
-$mf = random(-3,3);
-$tf = random(-3,3);
-
 $lx = random(-2,4);
-$mx = random(-4,2);
-$tx = random(-1,5);
+$mx = random(-5,1);
+$tx = random(-3,3);
+
+$lf = random(-2,4);
+$mf = random(-4,2);
+$tf = random(-1,5);
 
 $ld = $lf - $lx;
 $md = $mf - $mx;
