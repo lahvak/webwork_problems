@@ -1,0 +1,111 @@
+# DESCRIPTION
+# Find a dimension of a quantity in an equation
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Differential equations')
+## DBchapter('Chapter 1')
+## DBsection('1.5: The Blessing of Dimensionality')
+## KEYWORDS('dimensionality')
+## TitleText1('DIFFERENTIAL EQUATIONS A TOOLBOX FOR MODELING THE WORLD')
+## EditionText1()
+## AuthorText1('Kurt Bryan')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+Context("Numeric");
+Context()->variables->add(L=>"Real",M=>"Real",T=>"Real");
+Context()->noreduce('x^(-a)');
+
+$la = random(-3,3);
+$ma = random(-3,3);
+$ta = random(-3,3);
+
+$lc = random(-2,4);
+$mc = random(-4,2);
+$tc = random(-1,5);
+
+$lb = $lc - $la;
+$mb = $mc - $ma;
+$tb = $tc - $ta;
+
+$ld = random(-2,4);
+$md = random(-4,2);
+$td = random(-1,5);
+
+$le = $lc + $ld;
+$me = $me + $md;
+$te = $te + $td;
+
+sub LMB {
+    my $a = shift @_;
+    my $b = shift @_;
+    my $c = shift @_;
+    return Formula("L^($a)*M^($b)*T^($c)")->reduce;
+}
+
+$dima = LMB($la, $ma, $ta);
+$dimb = LMB($lb, $mb, $tb);
+$dimc = LMB($lc, $mc, $tc);
+$dimd = LMB($ld, $md, $td);
+$dime = LMB($le, $me, $te);
+
+# Actual problem goes here:
+BEGIN_PGML
+Quantities [:A:], [:B:], [:C:], [:D:] and [:E:] satisfy the equation [`E = (AB + C)D`].
+
+Given the following dimensions: 
+[```\begin{aligned}
+\left[A\right] &= [$dima]\\
+\left[C\right] &= [$dimc]\\
+\left[D\right] &= [$dimd]
+\end{aligned}```]
+
+find [`\left[B\right]`] and [`\left[E\right]`].
+
+*  [`\left[B\right] = `][____________]{$dimb}
+*  [`\left[E\right] = `][____________]{$dime}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+Since [:AB:] [:C:] are added, they must have the same dimension.
+Therefore [`\left[C\right] = \left[AB\right] = \left[A\right]\left[B\right]`], and so [`\left[B\right] = L^aM^bT^c`] where
+
+[``[$dimc] = [$dima]L^aM^bT^c``]
+
+From this we can see that
+
+[``\begin{aligned}
+[$lc] &= [$la] + a\\
+[$mc] &= [$ma] + b\\
+[$tc] &= [$la] + c
+\end{aligned}``]
+
+From this we can see that [`a = [$la]`], [`b = [$ma]`] and [`c = [$ta]`].
+
+We can also see that [`\left[AB + C\right] = \left[AB\right] = \left[C\right] = [$dimc]`].
+
+Then
+
+[``\begin{aligned}
+\left[E\right] &= \left[(AB + C)D\right]\\
+&= \left[AB + C\right]\left[D\right]\\
+&= [$dimc][$dimd]
+&= [$dime]
+\end{aligned}``]
+
+END_PGML_SOLUTION
+ENDDOCUMENT();
