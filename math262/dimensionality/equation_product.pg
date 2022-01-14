@@ -59,6 +59,7 @@ Since [`\left[A\right] = \left[B\right]\left[C\right]`], we see that [`\left[B\r
 [``[$left] = L^aM^bT^c[$right]``]
 
 From this we can see that
+
 [``\begin{aligned}
 [$ll] &= a + [$lr]\\
 [$ml] &= b + [$mr]\\
