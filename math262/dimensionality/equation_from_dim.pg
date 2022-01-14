@@ -41,9 +41,9 @@ $lr3 = random(1,3);
 $mr3 = 0;
 $tr3 = random(1,3);
 
-$alpha = random_non_zero(-2,2);
+$alpha = non_zero_random(-2,2);
 $beta = random(-3,2);
-$gamma = random_non_zero(-1,3);
+$gamma = non_zero_random(-1,3);
 
 $ll = $alpha*$lr1 + $beta*$lr2 + $gamma*$lr3;
 $ml = $alpha*$mr1 + $beta*$mr2 + $gamma*$mr3;
