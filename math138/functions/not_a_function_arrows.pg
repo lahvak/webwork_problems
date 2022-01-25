@@ -44,7 +44,7 @@ foreach my $i (0..4) {
 @rangelist = ();
 foreach $_ (0..4) {
     do {$x = random(-20,20);} while (grep { $x == $_} @rangelist);
-    push @rangelist $x;
+    push @rangelist, $x;
 }
 
 @rangelist = PGsort( sub {$_[0] < $_[1]}, @rangelist);
@@ -55,7 +55,7 @@ foreach $_ (0..4) {
 
 sub outindex_for_input {
     my $input = shift();
-    $my $inputidx = $revinputs{$input};
+    my $inputidx = $revinputs{$input};
 
     return $output_is[$inputidx]
 }
