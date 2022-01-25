@@ -1,0 +1,157 @@
+# DESCRIPTION
+# Arrow diagrams for functions
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Functions)
+## DBsection(Definition, concept)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(2)
+## TitleText1('Algebra and Trigonometry')
+## AuthorText1('Swokowski, Cole')
+## EditionText1('13')
+## Section1('.')
+## Problem1('')
+## KEYWORDS('algebra,domain,diagram,function')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+"PGgraphmacros.pl",
+);
+
+$showPartialAnswers = 1;
+
+Context("Numeric");
+
+# Create a new function to scale
+
+%inputs = ();
+foreach my $i 0..4 {
+    do {$x = random(-20,20);} while (grep { $x == $_} values %inputs);
+    $inputs{$i} = $x;
+}
+
+%revinputs = reverse %inputs;
+
+@inputvals = sort (values %inputs);
+
+@rangelist = ();
+foreach _ 0..4 {
+    do {$x = random(-20,20);} while (grep { $x == $_} @rangelist);
+    push @rangelist $x;
+}
+
+@rangelist = sort @rangelist;
+
+@output_is = map {random(0,4)} 0..4;
+
+@outputs = map {$rangelist[$_]} @output_is;
+
+sub outindex_for_input {
+    my $input = shift();
+    $my $inputidx = $revinputs{$input};
+
+    return $output_is[$inputidx]
+}
+
+@outputvals = map {$outputs[outindex_for_input($_)]} @inputvals;
+
+Context("Interval");
+
+$domain = Set($inputvals[0], $inputvals[1], $inputvals[2], $inputvals[3], $inputvals[4]);
+$range = Set($outputs[0], $outputs[1], $outputs[2], $outputs[3], $outputs[4]);
+
+# Create a graph and add the function to the graph
+
+$graph = init_graph(0,0,100,100);
+
+# draw the ovals
+$xfunc1 = sub { my $t = shift();
+    return 25 + 15*cos($t); };
+$xfunc2 = sub { my $t = shift();
+    return 75 + 15*cos($t); };
+$yfunc = sub { my $t = shift();
+    return 50 + 45*sin($t); };
+$fn1 = new Fun( $xfunc1, $yfunc, $graph );
+$fn2 = new Fun( $xfunc2, $yfunc, $graph );
+$fn1->domain(0,6.2832);
+$fn2->domain(0,6.2832);
+
+for my $i 0..4 {
+    $graph->stamps(
+        closed_circle(25, 80 - 15*$i, "blue"),
+        closed_circle(75, 80 - 15*$i, "blue"),
+    );
+}
+
+for my $i 0..4 {
+    my $li = new Label(23,80-15*$i,'$inputvals[$i]', 'blue','right','middle','giant');
+    my $l0 = new Label(77,80-15*$i,'$range[$i]', 'blue','left','middle','giant');
+    $graph->lb($li, $lo);
+}
+
+for my $i 0..4 {
+    $graph->moveTo(25,80 - 15*$i);
+    $graph->arrowTo(75, 80 - 15*outindex_for_input($inputvals[$i]));
+}
+
+TEXT(beginproblem());
+BEGIN_PGML
+The following arrow diagram represents a function [`f`]:
+
+[@ image(insertGraph($graph),tex_size => 300, width=> 300, height=> 300) @]*
+
+The domain of the funstion is [_______________________]{$domain}
+
+The range of the funstion is [_______________________]{$range}
+
+The function values are:
+
+[`f([$inputvals[0]]) = `][_____]{$outputvals[0]}
+
+[`f($inputvals[1]) = `][_____]{$outputvals[1]}
+
+[`f($inputvals[2]) = `][_____]{$outputvals[2]}
+
+[`f($inputvals[3]) = `][_____]{$outputvals[3]}
+
+[`f($inputvals[4]) = `][_____]{$outputvals[4]}
+
+END_PGML
+
+#hint:
+$showHint = 2;
+
+BEGIN_PGML_HINT
+An arrow going from [`a`] to [`b`] means that [`f(a) = b`].
+END_PGML_HINT
+
+# Solution:
+BEGIN_PGML_SOLUTION
+**Domain:** All the points in the left set have arrows starting at them, so all of them are in the domain.  The points correspond to 
+numbers 0, 1, 2, 3 and 4, so the domain is [`[$domain]`].
+
+**Range:** The range is a set of all the possible outputs, in other words, all the numbers that correspond to points that have an 
+arrow ending at them.  The range is [`[$range]`].
+
+**Values:** The following are the function values:
+
+[`f(0) = [$outputs[0]]`]
+
+[`f(1) = [$outputs[1]]`]
+
+[`f(2) = [$outputs[2]]`]
+
+[`f(3) = [$outputs[3]]`]
+
+[`f(4) = [$outputs[4]]`]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
