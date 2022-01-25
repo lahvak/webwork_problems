@@ -91,8 +91,8 @@ for my $i (0..4) {
 }
 
 for my $i (0..4) {
-    my $li = new Label(23,80-15*$i,'$inputvals[$i]', 'blue','right','middle','giant');
-    my $lo = new Label(77,80-15*$i,'$range[$i]', 'blue','left','middle','giant');
+    my $li = new Label(23,80-15*$i,"$inputvals[$i]", 'blue','right','middle','giant');
+    my $lo = new Label(77,80-15*$i,"$range[$i]", 'blue','left','middle','giant');
     $graph->lb($li, $lo);
 }
 
@@ -115,13 +115,13 @@ The function values are:
 
 [`f([$inputvals[0]]) = `][_____]{$outputvals[0]}
 
-[`f($inputvals[1]) = `][_____]{$outputvals[1]}
+[`f([$inputvals[1]]) = `][_____]{$outputvals[1]}
 
-[`f($inputvals[2]) = `][_____]{$outputvals[2]}
+[`f([$inputvals[2]]) = `][_____]{$outputvals[2]}
 
-[`f($inputvals[3]) = `][_____]{$outputvals[3]}
+[`f([$inputvals[3]]) = `][_____]{$outputvals[3]}
 
-[`f($inputvals[4]) = `][_____]{$outputvals[4]}
+[`f([$inputvals[4]]) = `][_____]{$outputvals[4]}
 
 END_PGML
 
