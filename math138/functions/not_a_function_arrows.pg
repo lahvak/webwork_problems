@@ -32,7 +32,7 @@ Context("Numeric");
 # Create a new function to scale
 
 %inputs = ();
-foreach my $i 0..4 {
+foreach my $i (0..4) {
     do {$x = random(-20,20);} while (grep { $x == $_} values %inputs);
     $inputs{$i} = $x;
 }
@@ -42,7 +42,7 @@ foreach my $i 0..4 {
 @inputvals = sort (values %inputs);
 
 @rangelist = ();
-foreach _ 0..4 {
+foreach _ (0..4) {
     do {$x = random(-20,20);} while (grep { $x == $_} @rangelist);
     push @rangelist $x;
 }
@@ -83,20 +83,20 @@ $fn2 = new Fun( $xfunc2, $yfunc, $graph );
 $fn1->domain(0,6.2832);
 $fn2->domain(0,6.2832);
 
-for my $i 0..4 {
+for my $i (0..4) {
     $graph->stamps(
         closed_circle(25, 80 - 15*$i, "blue"),
         closed_circle(75, 80 - 15*$i, "blue"),
     );
 }
 
-for my $i 0..4 {
+for my $i (0..4) {
     my $li = new Label(23,80-15*$i,'$inputvals[$i]', 'blue','right','middle','giant');
     my $l0 = new Label(77,80-15*$i,'$range[$i]', 'blue','left','middle','giant');
     $graph->lb($li, $lo);
 }
 
-for my $i 0..4 {
+for my $i (0..4) {
     $graph->moveTo(25,80 - 15*$i);
     $graph->arrowTo(75, 80 - 15*outindex_for_input($inputvals[$i]));
 }
