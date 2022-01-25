@@ -92,7 +92,7 @@ for my $i (0..4) {
 
 for my $i (0..4) {
     my $li = new Label(23,80-15*$i,'$inputvals[$i]', 'blue','right','middle','giant');
-    my $l0 = new Label(77,80-15*$i,'$range[$i]', 'blue','left','middle','giant');
+    my $lo = new Label(77,80-15*$i,'$range[$i]', 'blue','left','middle','giant');
     $graph->lb($li, $lo);
 }
 
@@ -107,9 +107,9 @@ The following arrow diagram represents a function [`f`]:
 
 [@ image(insertGraph($graph),tex_size => 300, width=> 300, height=> 300) @]*
 
-The domain of the funstion is [_______________________]{$domain}
+The domain of the function is [_______________________]{$domain}
 
-The range of the funstion is [_______________________]{$range}
+The range of the function is [_______________________]{$range}
 
 The function values are:
 
