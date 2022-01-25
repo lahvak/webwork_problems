@@ -92,7 +92,7 @@ for my $i (0..4) {
 
 for my $i (0..4) {
     my $li = new Label(23,80-15*$i,"$inputvals[$i]", 'blue','right','middle','giant');
-    my $lo = new Label(77,80-15*$i,"$range[$i]", 'blue','left','middle','giant');
+    my $lo = new Label(77,80-15*$i,"$rangelist[$i]", 'blue','left','middle','giant');
     $graph->lb($li, $lo);
 }
 
