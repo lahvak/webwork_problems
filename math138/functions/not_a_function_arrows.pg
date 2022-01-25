@@ -42,7 +42,7 @@ foreach my $i (0..4) {
 @inputvals = PGsort( sub {$_[0] < $_[1]}, values %inputs);
 
 @rangelist = ();
-foreach _ (0..4) {
+foreach $_ (0..4) {
     do {$x = random(-20,20);} while (grep { $x == $_} @rangelist);
     push @rangelist $x;
 }
