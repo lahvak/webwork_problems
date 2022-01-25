@@ -39,7 +39,7 @@ foreach my $i (0..4) {
 
 %revinputs = reverse %inputs;
 
-@inputvals = sort (values %inputs);
+@inputvals = PGsort( sub {$_[0] < $_[1]}, values %inputs);
 
 @rangelist = ();
 foreach _ (0..4) {
@@ -47,7 +47,7 @@ foreach _ (0..4) {
     push @rangelist $x;
 }
 
-@rangelist = sort @rangelist;
+@rangelist = PGsort( sub {$_[0] < $_[1]}, @rangelist);
 
 @output_is = map {random(0,4)} 0..4;
 
