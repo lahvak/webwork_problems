@@ -87,7 +87,7 @@ sub arrow_diagram {
     my $inputgap = int(100/($inputno + 3));
     my $outputgap = int(100/($outputno + 3));
 
-    mt $yrad = max(100 - $inputgap, 100 - $outputgap)/2;
+    my $yrad = max(100 - $inputgap, 100 - $outputgap)/2;
 
 
     # Create a graph and add the function to the graph
