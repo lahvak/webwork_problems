@@ -76,7 +76,7 @@ sub arrow_diagram {
         push @{$input_outputs{$inp}}, $outputs[$i];
     }
 
-    @inputs_sorted = PGsort( sub {$_[0] < $_[1]}, (@inputs, @extra_inputs));
+    @inputs_sorted = PGsort( sub {$_[0] < $_[1]}, (keys %input_outputs, @extra_inputs));
     @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, (@outputs, @extra_outputs));
 
     my %output_indices;
