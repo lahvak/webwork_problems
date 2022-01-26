@@ -1,0 +1,204 @@
+# DESCRIPTION
+# Arrow diagrams for functions
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Functions)
+## DBsection(Definition, concept)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(2)
+## TitleText1('Algebra and Trigonometry')
+## AuthorText1('Swokowski, Cole')
+## EditionText1('13')
+## Section1('.')
+## Problem1('')
+## KEYWORDS('algebra,domain,diagram,function')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+"PGgraphmacros.pl",
+);
+
+$showPartialAnswers = 1;
+
+Context("Numeric");
+
+# Create a new function to scale
+
+@inputs = ();
+foreach my $i (0..4) {
+    do {$x = random(-20,20);} while (grep { $x == $_} @inputs);
+    push @inputs, $x;
+}
+
+@rangelist = ();
+foreach $_ (0..4) {
+    do {$x = random(-20,20);} while (grep { $x == $_} @rangelist);
+    push @rangelist, $x;
+}
+
+@output_is = map {random(0,4)} 0..4;
+
+@outputs = map {$rangelist[$_]} @output_is;
+
+do {$extra1 = random(-20,20);} while (grep { $extra1 == $_} @outputs);
+do {$extra2 = random(-20,20);} while (grep { $extra2 == $_} (@outputs, $extra1));
+
+Context("Interval");
+
+$domain = Set($inputs[0], $inputs[1], $inputs[2], $inputs[3], $inputs[4]);
+$range = Set($outputs[0], $outputs[1], $outputs[2], $outputs[3], $outputs[4]);
+
+sub arrow_diagram {
+    my ($ref1, $ref2, $ref3, $ref4) = @_;
+    my @inputs = @{$ref1};
+    my @outputs = @{$ref2};
+    my @extra_inputs = @{$ref3};
+    my @extra_outputs = @{$ref4};
+    my $lastind = min(scalar(@inputs),scalar(@outputs)) - 1;
+    @inputs = @inputs[0..$lastind];
+    @outputs = @outputs[0..$lastind];
+    
+    my %input_outputs;
+    for my $i (0..$lastind){
+        my $inp = $inputs[$i];
+        $input_outputs{$inp} = [] unless exists $input_outputs{$inp};
+        push @{$input_outputs{$inp}}, $outputs[$i];
+    }
+
+    @inputs_sorted = PGsort( sub {$_[0] < $_[1]}, (@inputs, @extra_inputs));
+    @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, (@outputs, @extra_outputs));
+
+    my %output_indices;
+    my $j = 0;
+    for my $o (@outputs_sorted) {
+        if (not exists $output_indices{$o}) {
+            $output_indices{$o} = $j;
+            $j += 1;
+        }
+    }
+
+    @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, keys %output_indices);
+
+    my $inputno = scalar @inputs_sorted;
+    my $outputno = scalar @outputs_sorted;
+
+    my $inputgap = int(100/($inputno + 2));
+    my $outputgap = int(100/($outputno + 2));
+
+    my $yrad = max(100 - $inputgap, 100 - $outputgap)/2;
+
+
+    # Create a graph and add the function to the graph
+
+    my $graph = init_graph(0,0,100,100);
+
+    # draw the ovals
+    my $xfunc1 = sub { my $t = shift();
+        return 25 + 15*cos($t); };
+    my $xfunc2 = sub { my $t = shift();
+        return 75 + 15*cos($t); };
+    my $yfunc = sub { my $t = shift();
+        return 50 + $yrad*sin($t); };
+    my $fn1 = new Fun( $xfunc1, $yfunc, $graph );
+    my $fn2 = new Fun( $xfunc2, $yfunc, $graph );
+    $fn1->domain(0,6.2832);
+    $fn2->domain(0,6.2832);
+
+    for my $i (0..($inputno-1)) {
+        $graph->stamps(
+            closed_circle(25, 100 - 1.5*$inputgap - $inputgap*$i, "blue"),
+        );
+    }
+
+    for my $i (0..($outputno-1)) {
+        $graph->stamps(
+            closed_circle(75, 100 - 1.5*$outputgap - $outputgap*$i, "blue"),
+        );
+    }
+
+    for my $i (0..($inputno-1)) {
+        my $li = new Label(23,100-1.5*$inputgap - $inputgap*$i,"$inputs_sorted[$i]", 'blue','right','middle','giant');
+        $graph->lb($li);
+    }
+
+    for my $i (0..($outputno-1)) {
+        my $lo = new Label(77,100-1.5*$outputgap - $outputgap*$i,"$outputs_sorted[$i]", 'blue','left','middle','giant');
+        $graph->lb($lo);
+    }
+
+    for my $i (0..($inputno-1)) {
+        my $in = $inputs_sorted[$i];
+        my @outs = @{$input_outputs{$in}};
+        for my $o (@outs) {
+            my $j = $output_indices{$o};
+            $graph->moveTo(25,100 - 1.5*$inputgap - $inputgap*$i);
+            $graph->arrowTo(75, 100 - 1.5*$outputgap - $outputgap*$j);
+        }
+    }
+
+    return $graph;
+}
+
+$graph = arrow_diagram(~~@inputs, ~~@outputs, [], [$extra1, $extra2]);
+
+TEXT(beginproblem());
+BEGIN_PGML
+The following arrow diagram represents a function [`f`]:
+
+[@ image(insertGraph($graph),tex_size => 300, width=> 300, height=> 300) @]*
+
+The domain of the function is [_______________________]{$domain}
+
+The range of the function is [_______________________]{$range}
+
+The function values are:
+
+[`f([$inputs[0]]) = `][_____]{$outputs[0]}
+
+[`f([$inputs[1]]) = `][_____]{$outputs[1]}
+
+[`f([$inputs[2]]) = `][_____]{$outputs[2]}
+
+[`f([$inputs[3]]) = `][_____]{$outputs[3]}
+
+[`f([$inputs[4]]) = `][_____]{$outputs[4]}
+
+END_PGML
+
+#hint:
+$showHint = 2;
+
+BEGIN_PGML_HINT
+An arrow going from [`a`] to [`b`] means that [`f(a) = b`].
+END_PGML_HINT
+
+# Solution:
+BEGIN_PGML_SOLUTION
+**Domain:** All the points in the left set have arrows starting at them, so all of them are in the domain.  The points correspond to 
+numbers [$inputs[0]], [$inputs[1]], [$inputs[2]], [$inputs[3]] and [$inputs[4]], so the domain is [`[$domain]`].
+
+**Range:** The range is a set of all the possible outputs, in other words, all the numbers that correspond to points that have an 
+arrow ending at them.  The range is [`[$range]`].
+
+**Values:** The following are the function values:
+
+[`f([$inputs[0]]) = [$outputs[0]]`]
+
+[`f([$inputs[1]]) = [$outputs[1]]`]
+
+[`f([$inputs[2]]) = [$outputs[2]]`]
+
+[`f([$inputs[3]]) = [$outputs[3]]`]
+
+[`f([$inputs[4]]) = [$outputs[4]]`]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
