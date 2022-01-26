@@ -62,7 +62,7 @@ sub arrow_diagram {
     
     my %input_outputs;
     for my $i (0..$lastind){
-        my $inp = $input[$i];
+        my $inp = $inputs[$i];
         $input_outputs{$inp} = [] unless exists $input_outputs{$inp};
         push @{$input_outputs{$inp}}, $outputs[$i];
     }
