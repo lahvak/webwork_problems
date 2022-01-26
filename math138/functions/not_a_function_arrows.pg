@@ -21,21 +21,24 @@ loadMacros(
 "PGstandard.pl",
 "MathObjects.pl",
 "PGML.pl",
-"PGcourse.pl",
+"parserOneOf.pl",
 "PGgraphmacros.pl",
+"PGcourse.pl",
 );
 
 $showPartialAnswers = 1;
 
 Context("Numeric");
 
-# Create a new function to scale
-
 @inputs = ();
 foreach my $i (0..4) {
     do {$x = random(-20,20);} while (grep { $x == $_} @inputs);
     push @inputs, $x;
 }
+
+$double_idx = random(0,4);
+$double = $inputs[$double_idx];
+push @inputs, $double;
 
 @rangelist = ();
 foreach $_ (0..4) {
@@ -47,13 +50,14 @@ foreach $_ (0..4) {
 
 @outputs = map {$rangelist[$_]} @output_is;
 
-do {$extra1 = random(-20,20);} while (grep { $extra1 == $_} @outputs);
-do {$extra2 = random(-20,20);} while (grep { $extra2 == $_} (@outputs, $extra1));
+$fst_double_output = $outputs[$double_idx];
+do {$snd_double_output = random(-20,20);} while ($snd_double_output == $fst_double_output);
+push @outputs, $snd_double_output;
 
-Context("Interval");
+do {$extra = random(-20,20);} while (grep { $extra2 == $_} (@outputs));
 
-$domain = Set($inputs[0], $inputs[1], $inputs[2], $inputs[3], $inputs[4]);
-$range = Set($outputs[0], $outputs[1], $outputs[2], $outputs[3], $outputs[4]);
+$input_to_remove = Compute("$double");
+$output_to_remove = OneOf($fst_double_output, $snd_double_output);
 
 sub arrow_diagram {
     my ($ref1, $ref2, $ref3, $ref4) = @_;
@@ -150,55 +154,16 @@ $graph = arrow_diagram(~~@inputs, ~~@outputs, [], [$extra1, $extra2]);
 
 TEXT(beginproblem());
 BEGIN_PGML
-The following arrow diagram represents a function [`f`]:
+The following arrow diagram represents a relation that is not a function.
 
 [@ image(insertGraph($graph),tex_size => 300, width=> 300, height=> 300) @]*
 
-The domain of the function is [_______________________]{$domain}
-
-The range of the function is [_______________________]{$range}
-
-The function values are:
-
-[`f([$inputs[0]]) = `][_____]{$outputs[0]}
-
-[`f([$inputs[1]]) = `][_____]{$outputs[1]}
-
-[`f([$inputs[2]]) = `][_____]{$outputs[2]}
-
-[`f([$inputs[3]]) = `][_____]{$outputs[3]}
-
-[`f([$inputs[4]]) = `][_____]{$outputs[4]}
-
+However, it is possible to turn this into a diagram of a function by removing an arrow that starts at [_____]{$input_to_remove} and ends at [____]{$output_to_remove}.
 END_PGML
-
-#hint:
-$showHint = 2;
-
-BEGIN_PGML_HINT
-An arrow going from [`a`] to [`b`] means that [`f(a) = b`].
-END_PGML_HINT
 
 # Solution:
 BEGIN_PGML_SOLUTION
-**Domain:** All the points in the left set have arrows starting at them, so all of them are in the domain.  The points correspond to 
-numbers [$inputs[0]], [$inputs[1]], [$inputs[2]], [$inputs[3]] and [$inputs[4]], so the domain is [`[$domain]`].
-
-**Range:** The range is a set of all the possible outputs, in other words, all the numbers that correspond to points that have an 
-arrow ending at them.  The range is [`[$range]`].
-
-**Values:** The following are the function values:
-
-[`f([$inputs[0]]) = [$outputs[0]]`]
-
-[`f([$inputs[1]]) = [$outputs[1]]`]
-
-[`f([$inputs[2]]) = [$outputs[2]]`]
-
-[`f([$inputs[3]]) = [$outputs[3]]`]
-
-[`f([$inputs[4]]) = [$outputs[4]]`]
-
+This relation is not a function, because the input [`[$input_to_remove]`] has has two arrows starting at it: one that associates it with the output [`[$fst_double_output]`] and one that associates it with [`[$snd_double_output]`].  Removing one of these arrows will turn the diagram into a diagram of a function.
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
