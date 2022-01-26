@@ -138,18 +138,14 @@ sub arrow_diagram {
         }
     }
 
-    #return $graph;
-    return join ";", map {join ",", @{$_}} (values %input_outputs);
+    return $graph;
 }
 
 $graph = arrow_diagram(~~@inputs, ~~@outputs);
 
-
 TEXT(beginproblem());
 BEGIN_PGML
 The following arrow diagram represents a function [`f`]:
-
-[$graph]
 
 [@ image(insertGraph($graph),tex_size => 300, width=> 300, height=> 300) @]*
 
