@@ -171,6 +171,7 @@ END_PGML
 
 # Solution:
 BEGIN_PGML_SOLUTION
+Each of the arrows corresponds to one ordered pair, for example, the arrow from [`[$inputs[0]]`] to [`[$outputs[0]]`] corresponds to the pair [`[$pt0]`]. The relation can then be written as [`\{[$pairs]\}`].
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
