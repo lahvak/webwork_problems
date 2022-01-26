@@ -64,7 +64,7 @@ sub arrow_diagram {
     for my $i (0..$lastind){
         my $inp = $input[$i];
         $input_outputs{$inp} = [] unless exists $input_outputs{$inp};
-        push @{$input_outputs{$inp}} $outputs[$i];
+        push @{$input_outputs{$inp}}, $outputs[$i];
     }
 
     @inputs_sorted = PGsort( sub {$_[0] < $_[1]}, @inputs);
@@ -73,10 +73,10 @@ sub arrow_diagram {
     my %output_indices;
     my $j = 0;
     for my $o (@outputs_sorted) {
-        {
+        if (not exists $output_indices{$o}) {
             $output_indices{$o} = $j;
             $j += 1;
-        } unless exists $output_indices{$o};
+        }
     }
 
     @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, keys @output_indices);
