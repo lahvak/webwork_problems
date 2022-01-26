@@ -79,7 +79,7 @@ sub arrow_diagram {
         }
     }
 
-    @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, keys @output_indices);
+    @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, keys %output_indices);
 
     my $inputno = scalar @inputs_sorted;
     my $outputno = scalar @outputs_sorted;
@@ -138,7 +138,7 @@ sub arrow_diagram {
         }
     }
 
-    return ($inputgap, $outputgap);
+    return ($inputgap, $outputgap, $inputno, $outputno);
 }
 
 @graph = arrow_diagram(~~@inputs, ~~@outputs);
