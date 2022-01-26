@@ -139,7 +139,7 @@ sub arrow_diagram {
     }
 
     #return $graph;
-    return join (";", map {join "," @{$_}} (values %input_outputs));
+    return join ";", map {join ",", @{$_}} (values %input_outputs);
 }
 
 $graph = arrow_diagram(~~@inputs, ~~@outputs);
