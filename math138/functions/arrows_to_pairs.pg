@@ -63,13 +63,14 @@ $pt3 = Point($inputs[3], $outputs[3]);
 $pt4 = Point($inputs[4], $outputs[4]);
 
 $pairs = List($pt0, $pt1, $pt2, $pt3, $pt4);
-$cmp = $pairs->cmp(requireParenMatch => 0, entry_type => "pair", list_type => "relation")->withPostFilter(sub { 
+$cmp = $pairs->cmp(requireParenMatch => 0, entry_type => "pair", list_type => "relation");
+$cmp = $cmp->withPostFilter(sub { 
   my $ans = shift; 
   if ($ans->{ans_message} =~ /Your (\S*) value isn't pair.*/) {
       $ans->{ans_message} = "There is something wrong with your $1 pair!";
   }
   return $ans; 
-}));
+});
 
 sub arrow_diagram {
     my ($ref1, $ref2, $ref3, $ref4) = @_;
