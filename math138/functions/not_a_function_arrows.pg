@@ -31,15 +31,11 @@ Context("Numeric");
 
 # Create a new function to scale
 
-%inputs = ();
+@inputs = ();
 foreach my $i (0..4) {
-    do {$x = random(-20,20);} while (grep { $x == $_} values %inputs);
-    $inputs{$i} = $x;
+    do {$x = random(-20,20);} while (grep { $x == $_} @inputs);
+    push @inputs, $x;
 }
-
-%revinputs = reverse %inputs;
-
-@inputvals = PGsort( sub {$_[0] < $_[1]}, values %inputs);
 
 @rangelist = ();
 foreach $_ (0..4) {
@@ -47,59 +43,105 @@ foreach $_ (0..4) {
     push @rangelist, $x;
 }
 
-@rangelist = PGsort( sub {$_[0] < $_[1]}, @rangelist);
-
 @output_is = map {random(0,4)} 0..4;
 
 @outputs = map {$rangelist[$_]} @output_is;
 
-sub outindex_for_input {
-    my $input = shift();
-    my $inputidx = $revinputs{$input};
-
-    return $output_is[$inputidx]
-}
-
-@outputvals = map {$outputs[outindex_for_input($_)]} @inputvals;
-
 Context("Interval");
 
-$domain = Set($inputvals[0], $inputvals[1], $inputvals[2], $inputvals[3], $inputvals[4]);
+$domain = Set($inputs[0], $inputs[1], $inputs[2], $inputs[3], $inputs[4]);
 $range = Set($outputs[0], $outputs[1], $outputs[2], $outputs[3], $outputs[4]);
 
-# Create a graph and add the function to the graph
+sub arrow_diagram {
+    my ($ref1, $ref2) = @_;
+    my @inputs = @{$ref1};
+    my @outputs = @{$ref2};
+    my $lastind = min(scalar(@inputs),scalar(@outputs)) - 1;
+    @inputs = @inputs[0..$lastind];
+    @outputs = @outputs[0..$lastind];
+    
+    my %input_outputs;
+    for my $i (0..$lastind){
+        my $inp = $input[$i];
+        $input_outputs{$inp} = [] unless exists $input_outputs{$inp};
+        push @{$input_outputs{$inp}} $outputs[$i];
+    }
 
-$graph = init_graph(0,0,100,100);
+    @inputs_sorted = PGsort( sub {$_[0] < $_[1]}, @inputs);
+    @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, @outputs);
 
-# draw the ovals
-$xfunc1 = sub { my $t = shift();
-    return 25 + 15*cos($t); };
-$xfunc2 = sub { my $t = shift();
-    return 75 + 15*cos($t); };
-$yfunc = sub { my $t = shift();
-    return 50 + 45*sin($t); };
-$fn1 = new Fun( $xfunc1, $yfunc, $graph );
-$fn2 = new Fun( $xfunc2, $yfunc, $graph );
-$fn1->domain(0,6.2832);
-$fn2->domain(0,6.2832);
+    my %output_indices;
+    my $j = 0;
+    for my $o (@outputs_sorted) {
+        {
+            $output_indices{$o} = $j;
+            $j += 1;
+        } unless exists $output_indices{$o};
+    }
 
-for my $i (0..4) {
-    $graph->stamps(
-        closed_circle(25, 80 - 15*$i, "blue"),
-        closed_circle(75, 80 - 15*$i, "blue"),
-    );
+    @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, keys @output_indices);
+
+    my $inputno = scalar @inputs_sorted;
+    my $outputno = scalar @outputs_sorted;
+
+    my $inputgap = int(100/($inputno + 3));
+    my $outputgap = int(100/($outputno + 3));
+
+    mt $yrad = max(100 - $inputgap, 100 - $outputgap)/2;
+
+
+    # Create a graph and add the function to the graph
+
+    my $graph = init_graph(0,0,100,100);
+
+    # draw the ovals
+    my $xfunc1 = sub { my $t = shift();
+        return 25 + 15*cos($t); };
+    my $xfunc2 = sub { my $t = shift();
+        return 75 + 15*cos($t); };
+    my $yfunc = sub { my $t = shift();
+        return 50 + $yrad*sin($t); };
+    my $fn1 = new Fun( $xfunc1, $yfunc, $graph );
+    my $fn2 = new Fun( $xfunc2, $yfunc, $graph );
+    $fn1->domain(0,6.2832);
+    $fn2->domain(0,6.2832);
+
+    for my $i (0..($inputno-1)) {
+        $graph->stamps(
+            closed_circle(25, 100 - 0.5*$inputgap - $inputgap*$i, "blue"),
+        );
+    }
+
+    for my $i (0..($outputno-1)) {
+        $graph->stamps(
+            closed_circle(75, 100 - 1.5*$outputgap - $outputgap*$i, "blue"),
+        );
+    }
+
+    for my $i (0..($inputno-1)) {
+        my $li = new Label(23,100-1.5*$inputgap - $inputgap*$i,"$inputs_sorted[$i]", 'blue','right','middle','giant');
+        $graph->lb($li, $lo);
+    }
+
+    for my $i (0..($outputno-1)) {
+        my $li = new Label(77,100-1.5*$outputgap - $outputgap*$i,"$outputs_sorted[$i]", 'blue','left','middle','giant');
+        $graph->lb($li, $lo);
+    }
+
+    for my $i (0..($inputno-1)) {
+        my $in = $inputs_sorted[$i];
+        my @outs = @{$input_outputs[$i]};
+        for my $o (@outs) {
+            my $j = $output_indices[$o];
+            $graph->moveTo(25,100 - 1.5*$inputgap - $inputgap*$i);
+            $graph->arrowTo(75, 100 - 1.5*$outputgap - $outputgap*$j);
+        }
+    }
+
+    return $graph;
 }
 
-for my $i (0..4) {
-    my $li = new Label(23,80-15*$i,"$inputvals[$i]", 'blue','right','middle','giant');
-    my $lo = new Label(77,80-15*$i,"$rangelist[$i]", 'blue','left','middle','giant');
-    $graph->lb($li, $lo);
-}
-
-for my $i (0..4) {
-    $graph->moveTo(25,80 - 15*$i);
-    $graph->arrowTo(75, 80 - 15*outindex_for_input($inputvals[$i]));
-}
+$graph = arrow_diagram(~~@inputs, ~~@outputs);
 
 TEXT(beginproblem());
 BEGIN_PGML
