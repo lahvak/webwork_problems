@@ -155,15 +155,15 @@ The range of the function is [_______________________]{$range}
 
 The function values are:
 
-[`f([$inputvals[0]]) = `][_____]{$outputvals[0]}
+[`f([$inputs[0]]) = `][_____]{$outputs[0]}
 
-[`f([$inputvals[1]]) = `][_____]{$outputvals[1]}
+[`f([$inputs[1]]) = `][_____]{$outputs[1]}
 
-[`f([$inputvals[2]]) = `][_____]{$outputvals[2]}
+[`f([$inputs[2]]) = `][_____]{$outputs[2]}
 
-[`f([$inputvals[3]]) = `][_____]{$outputvals[3]}
+[`f([$inputs[3]]) = `][_____]{$outputs[3]}
 
-[`f([$inputvals[4]]) = `][_____]{$outputvals[4]}
+[`f([$inputs[4]]) = `][_____]{$outputs[4]}
 
 END_PGML
 
@@ -177,22 +177,22 @@ END_PGML_HINT
 # Solution:
 BEGIN_PGML_SOLUTION
 **Domain:** All the points in the left set have arrows starting at them, so all of them are in the domain.  The points correspond to 
-numbers 0, 1, 2, 3 and 4, so the domain is [`[$domain]`].
+numbers [$inputs[0]], [$inputs[1]], [$inputs[2]], [$inputs[3]] and [$inputs[4]], so the domain is [`[$domain]`].
 
 **Range:** The range is a set of all the possible outputs, in other words, all the numbers that correspond to points that have an 
 arrow ending at them.  The range is [`[$range]`].
 
 **Values:** The following are the function values:
 
-[`f(0) = [$outputs[0]]`]
+[`f([$inputs[0]]) = [$outputs[0]]`]
 
-[`f(1) = [$outputs[1]]`]
+[`f([$inputs[1]]) = [$outputs[1]]`]
 
-[`f(2) = [$outputs[2]]`]
+[`f([$inputs[2]]) = [$outputs[2]]`]
 
-[`f(3) = [$outputs[3]]`]
+[`f([$inputs[3]]) = [$outputs[3]]`]
 
-[`f(4) = [$outputs[4]]`]
+[`f([$inputs[4]]) = [$outputs[4]]`]
 
 END_PGML_SOLUTION
 
