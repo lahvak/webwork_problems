@@ -56,13 +56,13 @@ push @outputs, $snd_double_output;
 
 do {$extra = random(-20,20);} while (grep { $extra == $_} (@outputs));
 
-$pairs = Set(
-    Point($inputs[0], $outputs[0]),
-    Point($inputs[1], $outputs[1]),
-    Point($inputs[2], $outputs[2]),
-    Point($inputs[3], $outputs[3]),
-    Point($inputs[4], $outputs[4])
-    );
+$pt0 = Point($inputs[0], $outputs[0]);
+$pt1 = Point($inputs[1], $outputs[1]);
+$pt2 = Point($inputs[2], $outputs[2]);
+$pt3 = Point($inputs[3], $outputs[3]);
+$pt4 = Point($inputs[4], $outputs[4]);
+
+$pairs = Compute("{$pt0, $pt1, $pt2, $pt3, $pt4}")->with(requireParenMatch => 0);
 
 sub arrow_diagram {
     my ($ref1, $ref2, $ref3, $ref4) = @_;
