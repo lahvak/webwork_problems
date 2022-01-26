@@ -63,6 +63,8 @@ $pt3 = Point($inputs[3], $outputs[3]);
 $pt4 = Point($inputs[4], $outputs[4]);
 
 $pairs = List($pt0, $pt1, $pt2, $pt3, $pt4);
+$pairs->{open} = '{';
+$pairs->{close} = '}';
 $cmp = $pairs->cmp(requireParenMatch => 0, entry_type => "pair", list_type => "relation");
 
 sub arrow_diagram {
