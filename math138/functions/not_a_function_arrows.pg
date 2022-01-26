@@ -138,7 +138,7 @@ sub arrow_diagram {
         }
     }
 
-    return (@inputs, @outputs);
+    return ($inputgap, $outputgap);
 }
 
 @graph = arrow_diagram(~~@inputs, ~~@outputs);
