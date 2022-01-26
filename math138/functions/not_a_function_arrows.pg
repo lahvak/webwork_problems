@@ -54,7 +54,7 @@ $fst_double_output = $outputs[$double_idx];
 do {$snd_double_output = random(-20,20);} while ($snd_double_output == $fst_double_output);
 push @outputs, $snd_double_output;
 
-do {$extra = random(-20,20);} while (grep { $extra2 == $_} (@outputs));
+do {$extra = random(-20,20);} while (grep { $extra == $_} (@outputs));
 
 $input_to_remove = Compute("$double");
 $output_to_remove = OneOf($fst_double_output, $snd_double_output);
@@ -150,7 +150,7 @@ sub arrow_diagram {
     return $graph;
 }
 
-$graph = arrow_diagram(~~@inputs, ~~@outputs, [], [$extra1, $extra2]);
+$graph = arrow_diagram(~~@inputs, ~~@outputs, [], [$extra]);
 
 TEXT(beginproblem());
 BEGIN_PGML
