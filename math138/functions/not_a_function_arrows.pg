@@ -106,44 +106,43 @@ sub arrow_diagram {
     $fn1->domain(0,6.2832);
     $fn2->domain(0,6.2832);
 
-    for my $i (0..($inputno-1)) {
-        $graph->stamps(
-            closed_circle(25, 100 - 0.5*$inputgap - $inputgap*$i, "blue"),
-        );
-    }
-
-    for my $i (0..($outputno-1)) {
-        $graph->stamps(
-            closed_circle(75, 100 - 1.5*$outputgap - $outputgap*$i, "blue"),
-        );
-    }
-
-    for my $i (0..($inputno-1)) {
-        my $li = new Label(23,100-1.5*$inputgap - $inputgap*$i,"$inputs_sorted[$i]", 'blue','right','middle','giant');
-        $graph->lb($li, $lo);
-    }
-
-    for my $i (0..($outputno-1)) {
-        my $li = new Label(77,100-1.5*$outputgap - $outputgap*$i,"$outputs_sorted[$i]", 'blue','left','middle','giant');
-        $graph->lb($li, $lo);
-    }
-
-    for my $i (0..($inputno-1)) {
-        my $in = $inputs_sorted[$i];
-        my @outs = @{$input_outputs[$i]};
-        for my $o (@outs) {
-            my $j = $output_indices[$o];
-            $graph->moveTo(25,100 - 1.5*$inputgap - $inputgap*$i);
-            $graph->arrowTo(75, 100 - 1.5*$outputgap - $outputgap*$j);
-        }
-    }
-
-    return ($inputgap, $outputgap, $inputno, $outputno);
+###    for my $i (0..($inputno-1)) {
+###        $graph->stamps(
+###            closed_circle(25, 100 - 1.5*$inputgap - $inputgap*$i, "blue"),
+###        );
+###    }
+###
+###    for my $i (0..($outputno-1)) {
+###        $graph->stamps(
+###            closed_circle(75, 100 - 1.5*$outputgap - $outputgap*$i, "blue"),
+###        );
+###    }
+###
+###    for my $i (0..($inputno-1)) {
+###        my $li = new Label(23,100-1.5*$inputgap - $inputgap*$i,"$inputs_sorted[$i]", 'blue','right','middle','giant');
+###        $graph->lb($li, $lo);
+###    }
+###
+###    for my $i (0..($outputno-1)) {
+###        my $li = new Label(77,100-1.5*$outputgap - $outputgap*$i,"$outputs_sorted[$i]", 'blue','left','middle','giant');
+###        $graph->lb($li, $lo);
+###    }
+###
+###    for my $i (0..($inputno-1)) {
+###        my $in = $inputs_sorted[$i];
+###        my @outs = @{$input_outputs[$i]};
+###        for my $o (@outs) {
+###            my $j = $output_indices[$o];
+###            $graph->moveTo(25,100 - 1.5*$inputgap - $inputgap*$i);
+###            $graph->arrowTo(75, 100 - 1.5*$outputgap - $outputgap*$j);
+###        }
+###    }
+###
+    return $graph;
 }
 
-@graph = arrow_diagram(~~@inputs, ~~@outputs);
+$graph = arrow_diagram(~~@inputs, ~~@outputs);
 
-$graphstr = join " ", @graph;
 
 TEXT(beginproblem());
 BEGIN_PGML
