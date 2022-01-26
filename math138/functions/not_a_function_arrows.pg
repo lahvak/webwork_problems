@@ -47,6 +47,9 @@ foreach $_ (0..4) {
 
 @outputs = map {$rangelist[$_]} @output_is;
 
+do {$extra1 = random(-20,20);} while (grep { $extra1 == $_} @outputs);
+do {$extra2 = random(-20,20);} while (grep { $extra2 == $_} (@outputs, $extra1));
+
 Context("Interval");
 
 $domain = Set($inputs[0], $inputs[1], $inputs[2], $inputs[3], $inputs[4]);
@@ -143,7 +146,7 @@ sub arrow_diagram {
     return $graph;
 }
 
-$graph = arrow_diagram(~~@inputs, ~~@outputs, [45], [0,91]);
+$graph = arrow_diagram(~~@inputs, ~~@outputs, [], [$extra1, $extra2]);
 
 TEXT(beginproblem());
 BEGIN_PGML
