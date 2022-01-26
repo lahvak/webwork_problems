@@ -53,9 +53,11 @@ $domain = Set($inputs[0], $inputs[1], $inputs[2], $inputs[3], $inputs[4]);
 $range = Set($outputs[0], $outputs[1], $outputs[2], $outputs[3], $outputs[4]);
 
 sub arrow_diagram {
-    my ($ref1, $ref2) = @_;
+    my ($ref1, $ref2, $ref3, $ref4) = @_;
     my @inputs = @{$ref1};
     my @outputs = @{$ref2};
+    my @extra_inputs = @{$ref3};
+    my @extra_outputs = @{$ref4};
     my $lastind = min(scalar(@inputs),scalar(@outputs)) - 1;
     @inputs = @inputs[0..$lastind];
     @outputs = @outputs[0..$lastind];
@@ -67,8 +69,8 @@ sub arrow_diagram {
         push @{$input_outputs{$inp}}, $outputs[$i];
     }
 
-    @inputs_sorted = PGsort( sub {$_[0] < $_[1]}, @inputs);
-    @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, @outputs);
+    @inputs_sorted = PGsort( sub {$_[0] < $_[1]}, (@inputs, @extra_inputs));
+    @outputs_sorted = PGsort( sub {$_[0] < $_[1]}, (@outputs, @extra_outputs));
 
     my %output_indices;
     my $j = 0;
@@ -141,7 +143,7 @@ sub arrow_diagram {
     return $graph;
 }
 
-$graph = arrow_diagram(~~@inputs, ~~@outputs);
+$graph = arrow_diagram(~~@inputs, ~~@outputs, [45], [0,91]);
 
 TEXT(beginproblem());
 BEGIN_PGML
