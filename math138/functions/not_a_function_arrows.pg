@@ -120,12 +120,12 @@ sub arrow_diagram {
 
     for my $i (0..($inputno-1)) {
         my $li = new Label(23,100-1.5*$inputgap - $inputgap*$i,"$inputs_sorted[$i]", 'blue','right','middle','giant');
-        $graph->lb($li, $lo);
+        $graph->lb($li);
     }
 
     for my $i (0..($outputno-1)) {
-        my $li = new Label(77,100-1.5*$outputgap - $outputgap*$i,"$outputs_sorted[$i]", 'blue','left','middle','giant');
-        $graph->lb($li, $lo);
+        my $l0 = new Label(77,100-1.5*$outputgap - $outputgap*$i,"$outputs_sorted[$i]", 'blue','left','middle','giant');
+        $graph->lb($lo);
     }
 
 ###    for my $i (0..($inputno-1)) {
