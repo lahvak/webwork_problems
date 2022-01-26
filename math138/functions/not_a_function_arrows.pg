@@ -84,8 +84,8 @@ sub arrow_diagram {
     my $inputno = scalar @inputs_sorted;
     my $outputno = scalar @outputs_sorted;
 
-    my $inputgap = int(100/($inputno + 3));
-    my $outputgap = int(100/($outputno + 3));
+    my $inputgap = int(100/($inputno + 2));
+    my $outputgap = int(100/($outputno + 2));
 
     my $yrad = max(100 - $inputgap, 100 - $outputgap)/2;
 
@@ -112,12 +112,12 @@ sub arrow_diagram {
         );
     }
 
-###    for my $i (0..($outputno-1)) {
-###        $graph->stamps(
-###            closed_circle(75, 100 - 1.5*$outputgap - $outputgap*$i, "blue"),
-###        );
-###    }
-###
+    for my $i (0..($outputno-1)) {
+        $graph->stamps(
+            closed_circle(75, 100 - 1.5*$outputgap - $outputgap*$i, "blue"),
+        );
+    }
+
 ###    for my $i (0..($inputno-1)) {
 ###        my $li = new Label(23,100-1.5*$inputgap - $inputgap*$i,"$inputs_sorted[$i]", 'blue','right','middle','giant');
 ###        $graph->lb($li, $lo);
