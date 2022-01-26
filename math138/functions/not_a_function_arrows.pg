@@ -130,7 +130,7 @@ sub arrow_diagram {
 
     for my $i (0..($inputno-1)) {
         my $in = $inputs_sorted[$i];
-        my @outs = @{$input_outputs[$i]};
+        my @outs = @{$input_outputs[$in]};
         for my $o (@outs) {
             my $j = $output_indices[$o];
             $graph->moveTo(25,100 - 1.5*$inputgap - $inputgap*$i);
