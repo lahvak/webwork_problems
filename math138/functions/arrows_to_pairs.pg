@@ -69,6 +69,9 @@ $cmp = $cmp->withPostFilter(sub {
   if ($ans->{ans_message} =~ /Your (~~S*) value isn't pair.*/) {
       $ans->{ans_message} = "There is something wrong with your $1 pair!";
   }
+  if ($ans->{ans_message} eq "Operands of '*' can't be lists") {
+      $ans->{ans_message} = "Something wrong, perhaps missing a comma?";
+  }
   return $ans; 
 });
 
