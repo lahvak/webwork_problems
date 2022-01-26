@@ -26,7 +26,7 @@ loadMacros(
 "PGcourse.pl",
 );
 
-$showPartialAnswers = 1;
+$showPartialCorrectAnswers = 1;
 
 Context("Numeric");
 
