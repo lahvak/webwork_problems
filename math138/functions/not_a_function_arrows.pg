@@ -128,16 +128,16 @@ sub arrow_diagram {
         $graph->lb($lo);
     }
 
-###    for my $i (0..($inputno-1)) {
-###        my $in = $inputs_sorted[$i];
-###        my @outs = @{$input_outputs[$i]};
-###        for my $o (@outs) {
-###            my $j = $output_indices[$o];
-###            $graph->moveTo(25,100 - 1.5*$inputgap - $inputgap*$i);
-###            $graph->arrowTo(75, 100 - 1.5*$outputgap - $outputgap*$j);
-###        }
-###    }
-###
+    for my $i (0..($inputno-1)) {
+        my $in = $inputs_sorted[$i];
+        my @outs = @{$input_outputs[$i]};
+        for my $o (@outs) {
+            my $j = $output_indices[$o];
+            $graph->moveTo(25,100 - 1.5*$inputgap - $inputgap*$i);
+            $graph->arrowTo(75, 100 - 1.5*$outputgap - $outputgap*$j);
+        }
+    }
+
     return $graph;
 }
 
