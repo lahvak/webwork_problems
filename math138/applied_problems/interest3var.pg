@@ -19,7 +19,7 @@ loadMacros(
 "PGstandard.pl",
 "MathObjects.pl",
 "PGcourse.pl",
-"parserImplicitPlanes.pl",
+"parserImplicitPlane.pl",
 "PGML.pl",
 "scaffold.pl",
 );
