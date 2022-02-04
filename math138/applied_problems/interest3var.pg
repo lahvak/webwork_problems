@@ -30,7 +30,7 @@ $showPartialCorrectAnswers=1;
 ###########################
 #  Setup
 
-Context("Numeric")->variables->are(x=>"Real", y=>"Real", z=>"Real");
+Context("Numeric");
 
 ## names and pronouns:
 
@@ -57,6 +57,8 @@ $interest = ($r1*$x + $r2*$y + $r3*$z)/100;
 $rate1 = $r1/100;
 $rate2 = $r2/100;
 $rate3 = $r3/100;
+
+Context("ImplicitPlane")->variables->are(x=>"Real", y=>"Real", z=>"Real");
 
 $equation1 = ImplicitPlane("x + y + z = $total");
 $equation2 = ImplicitPlane("$rate1*x + $rate2*y + $rate3*z = $interest");
