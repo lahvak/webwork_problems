@@ -122,7 +122,7 @@ BEGIN_PGML_SOLUTION
     * For the second account, it is [`[$rate2]y`].
     * For the third account, it is [`[$rate3]z`].
 
-   The total interest is then [`[$rate1]x + [$rate2]y + [$rate3]z`], so the second equation is
+    The total interest is then [`[$rate1]x + [$rate2]y + [$rate3]z`], so the second equation is
 
     [`[$equation2]`]
 
