@@ -118,9 +118,9 @@ BEGIN_PGML_SOLUTION
 
 *  The interest in a simple interest account after one year is the interest rate times the ammount invested.
 
-   * For the first account, it is [`[$rate1]x`].
-   * For the second account, it is [`[$rate2]y`].
-   * For the third account, it is [`[$rate3]z`].
+    * For the first account, it is [`[$rate1]x`].
+    * For the second account, it is [`[$rate2]y`].
+    * For the third account, it is [`[$rate3]z`].
 
    The total interest is then [`[$rate1]x + [$rate2]y + [$rate3]z`], so the second equation is
 
