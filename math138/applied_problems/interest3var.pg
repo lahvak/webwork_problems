@@ -1,0 +1,180 @@
+## DESCRIPTION
+## Algebra: Solve mixing problems with interest rates
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Linear equations and functions)
+## DBsection(Applications and models)
+## Level(5)
+## KEYWORDS('algebra', 'application problems', 'mixing problems')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"parserImplicitPlanes.pl",
+"PGML.pl",
+"scaffold.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric")->variables->are(x=>"Real", y=>"Real", z=>"Real");
+
+## names and pronouns:
+
+$sex = list_random("he","she");
+
+if ($sex eq "he") {
+    $name = list_random("John", "Darquese", "Sven", "Deleon", "Khulai", "Timbo", "Jarmain", "Mustafa", "Luca", "Razvan");
+} else {
+    $name = list_random("Tawni", "Monisha", "Angelique", "Samantha", "Grauni", "Khianna", "Angelis", "Mahala", "Lela");
+}
+
+$r1 = random(2,5);
+$r2 = random(6,9);
+$r3 = random(10,15);
+
+$y = random(10,20)*100;
+$z = random(10,20)*100;
+$x = 2*($y + $z);
+
+$total = $x + $y + $z;
+
+$interest = ($r1*$x + $r2*$y + $r3*$z)/100;
+
+$rate1 = $r1/100;
+$rate2 = $r2/100;
+$rate3 = $r3/100;
+
+$equation1 = ImplicitPlane("x + y + z = $total");
+$equation2 = ImplicitPlane("$rate1*x + $rate2*y + $rate3*z = $interest");
+$equation3 = ImplicitPlane("x = 2y + 2z");
+
+###########################
+#  Main text
+
+BEGIN_PGML
+>> ----{100px} <<
+
+>> [$name] wants to invest $[$total].  There are three different accounts in which [$sex] can invest: first one pays [$r1]% simple
+interest, the second one pays [$r2]% simple interest, and the third one pays [$r3]% simple interest.  The first account is the safest one, so to keep the risk low, [$name] wants to invest exacxtly twice as much in the first account as in the second and the third combined. How much should [$sex] invest into each account so that
+the resulting annual interest will be exactly $[$interest]? <<
+
+
+>> ----{100px} <<
+END_PGML
+
+Scaffold::Begin(
+    can_open => "when_previous_correct",
+    is_open  => "first_incorrect"
+);
+
+Section::Begin("Part 1: Set up the system");
+
+BEGIN_PGML
+First set up the system of equations for the problem:
+
+We will use three variables for the amounts invested in the three accounts:
+
+* [`x`] for the ammount invested in the first account, with interest rate [$r1]%.
+* [`y`] for the ammount invested in the second account, with interest rate [$r2]%.
+* [`z`] for the ammount invested in the third account, with interest rate [$r3]%.
+
+*  Enter an equation that will assure that the total amount invested is $[$total]:
+
+    [_________________________________________]{$equation1}
+
+*  Enter an equation that will assure that the total interest after one year is $[$interest]:
+
+    [_________________________________________]{$equation2}
+
+*  Enter an equation that will assure that the amount invested in the first account is twice the amount in the second and third account combined.
+
+    [_________________________________________]{$equation3}
+
+END_PGML
+
+############################
+
+BEGIN_PGML_SOLUTION
+
+*  The total is simply the the sum of the three ammounts, [`x + y + z`].  Therefore the first equation will be
+
+    [`[$equation1]`]
+
+*  The interest in a simple interest account after one year is the interest rate times the ammount invested.
+
+   * For the first account, it is [`[$rate1]x`].
+   * For the second account, it is [`[$rate2]y`].
+   * For the third account, it is [`[$rate3]z`].
+
+   The total interest is then [`[$rate1]x + [$rate2]y + [$rate3]z`], so the second equation is
+
+    [`[$equation2]`]
+
+*  To assure that the amount invested in the first account is twice the amount in the second and third account combined, [`x`] has
+    to be twice [`y + z`], or [`x = 2(y+z)`].  Simplifying this will give us
+
+    [`[$equation3]`]
+
+END_PGML_SOLUTION
+
+Section::End();
+
+###########################################
+Section::Begin("Part 2: Solve the system");
+
+BEGIN_PGML
+That's correct, the system of equations we need to solve is
+[```
+\left\{
+\setlength\arraycolsep{0pt}
+\begin{array}{r  >{{}}c<{{}} r  >{{}}c<{{}}  r @{{}={}} r}
+ x &+&  y &+&  z & [$total] \\
+ [$rate1]x &+& [$rate2]y &+& [$rate3]z & [$interest] \\ 
+ x &-& 2y &-& 2z & 0 \\
+\end{array}
+\right.
+```]
+
+Solve the system and enter the amounts below:
+
+*  The amount invested in the first account is [__________]{$x}.
+*  The amount invested in the second account is [__________]{$y}.
+*  The amount invested in the third account is [__________]{$z}.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+Solve the system using Gauss elimination.  It may be a good idea to multiply the second equation by 100 first, to get rid of the decimals.
+
+Solving the system gives us
+
+* [`x = [$x]`]
+* [`y = [$y]`]
+* [`z = [$z]`]
+
+Therefore 
+
+*  The amount invested in the first account is [`[$x]`].
+*  The amount invested in the second account is [`[$y]`].
+*  The amount invested in the third account is [`[$z]`].
+END_PGML_SOLUTION
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();
