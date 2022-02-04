@@ -142,12 +142,11 @@ BEGIN_PGML
 That's correct, the system of equations we need to solve is
 [```
 \left\{
-\setlength\arraycolsep{0pt}
-\begin{array}{r  >{{}}c<{{}} r  >{{}}c<{{}}  r @{{}={}} r}
- x &+&  y &+&  z & [$total] \\
- [$rate1]x &+& [$rate2]y &+& [$rate3]z & [$interest] \\ 
- x &-& 2y &-& 2z & 0 \\
-\end{array}
+\begin{aligned}
+ x &+&  y &+&  z &=& [$total] \\
+ [$rate1]x &+& [$rate2]y &+& [$rate3]z &=& [$interest] \\ 
+ x &-& 2y &-& 2z &=& 0 \\
+\end{aligned}
 \right.
 ```]
 
