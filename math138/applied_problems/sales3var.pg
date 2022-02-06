@@ -124,7 +124,7 @@ BEGIN_PGML_SOLUTION
 
     [`[$equation2]`]
 
-*  To assure that the number of small servings is [$small_factor] times larger than the number of large servings, [`x`] must be [small_factor] timss [`z`]:
+*  To assure that the number of small servings is [$small_factor] times larger than the number of large servings, [`x`] must be [$small_factor] times [`z`]:
 
     [`[$equation3]`]
 
