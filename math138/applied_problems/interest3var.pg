@@ -60,9 +60,24 @@ $rate3 = $r3/100;
 
 Context("ImplicitPlane")->variables->are(x=>"Real", y=>"Real", z=>"Real");
 
+sub equation_post_filter {
+  my $ans = shift; 
+  if ($ans->{ans_message} =~ /Your answer isn't an implicit plane(.*)/s) {
+      $ans->{ans_message} = "Your answer isn't a linear equation. $1";
+  }
+  if ($ans->{ans_message} eq "Your formula isn't a linear one") {
+      $ans->{ans_message} = "Your equation is not linear!";
+  }
+  return $ans; 
+}
+
 $equation1 = ImplicitPlane("x + y + z = $total");
 $equation2 = ImplicitPlane("$rate1*x + $rate2*y + $rate3*z = $interest");
 $equation3 = ImplicitPlane("x = 2y + 2z");
+
+$cmp1 = $equation1->cmp->withPostFilter(~~&equation_post_filter);
+$cmp2 = $equation2->cmp->withPostFilter(~~&equation_post_filter);
+$cmp3 = $equation3->cmp->withPostFilter(~~&equation_post_filter);
 
 ###########################
 #  Main text
@@ -96,15 +111,15 @@ We will use three variables for the amounts invested in the three accounts:
 
 *  Enter an equation that will assure that the total amount invested is $[$total]:
 
-    [_________________________________________]{$equation1}
+    [_________________________________________]{$cmp1}
 
 *  Enter an equation that will assure that the total interest after one year is $[$interest]:
 
-    [_________________________________________]{$equation2}
+    [_________________________________________]{$cmp2}
 
 *  Enter an equation that will assure that the amount invested in the first account is twice the amount in the second and third account combined.
 
-    [_________________________________________]{$equation3}
+    [_________________________________________]{$cmp3}
 
 END_PGML
 
