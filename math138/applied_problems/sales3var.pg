@@ -49,6 +49,10 @@ $step = random(1,5,2)/2;
 $price_medium = $price_small + $step;
 $price_large = $price_medium + $step/2;
 
+$psp = sprintf("%.2f", $price_small);
+$pmp = sprintf("%.2f", $price_medium);
+$plp = sprintf("%.2f", $price_large);
+
 $small_factor = random(2,5);
 
 $y = random(10,50);
@@ -86,7 +90,7 @@ $cmp3 = $equation3->cmp->withPostFilter(~~&equation_post_filter);
 BEGIN_PGML
 >> ----{100px} <<
 
->> A [$vendor] vendor sells three serving sizes of [$good]: small, medium and large.  A small serving costs $[$price_small], medium serving costs $[$price_medium], and the large serving costs $[$price_large]. One day [$sex] sold [$total] servings of [$good], and had a total revenue of $[$revenue]. On that day [$sex] sold [$small_factor] times as many small serving as large servings.  How many of each servings were sold? <<
+>> A [$vendor] vendor sells three serving sizes of [$good]: small, medium and large.  A small serving costs $[$psp], medium serving costs $[$pmp], and the large serving costs $[$plp]. One day [$sex] sold [$total] servings of [$good], and had a total revenue of $[$revenue]. On that day [$sex] sold [$small_factor] times as many small serving as large servings.  How many of each servings were sold? <<
 
 >> ----{100px} <<
 END_PGML
