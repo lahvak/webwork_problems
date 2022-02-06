@@ -63,7 +63,7 @@ Context("ImplicitPlane")->variables->are(x=>"Real", y=>"Real", z=>"Real");
 
 sub equation_post_filter {
   my $ans = shift; 
-  if ($ans->{ans_message} =~ /Your answer isn't an implicit plane. (.*)$/s) {
+  if ($ans->{ans_message} =~ /Your answer isn't an implicit plane (.*)$/s) {
       $ans->{ans_message} = "Your answer isn't a linear equation. $1";
   }
   if ($ans->{ans_message} eq "Your formula isn't a linear one") {
