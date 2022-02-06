@@ -1,0 +1,178 @@
+## DESCRIPTION
+## Algebra: Solve mixing problems with interest rates
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Linear equations and functions)
+## DBsection(Applications and models)
+## Level(5)
+## KEYWORDS('algebra', 'application problems', 'mixing problems')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"parserImplicitPlane.pl",
+"PGML.pl",
+"scaffold.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric");
+
+## names and pronouns:
+
+$sex = list_random("he","she");
+
+@vendors = ("coffee", "ice cream", "cupcake", "taco", "elephant ear", "cotton candy", "salad");
+@goods = ("coffee", "ice cream", "cupcakes", "tacos", "elephant ears", "cotton candy", "salad");
+
+$index = random(0,$#vendors);
+
+$vendor = $vendors[$index];
+$good = $goods[$index];
+
+$price_small = random(5,7)/4;
+$step = random(1,5,2)/2;
+$price_medium = $price_small + $step;
+$price_large = $price_medium + $step/2;
+
+$small_factor = random(2,5);
+
+$y = random(10,50);
+$z = random(20,60);
+$x = $small_factor*$z;
+
+$total = $x + $y + $z;
+
+$revenue = $price_small*$x + $price_medium*$y + $price_large*$z;
+
+Context("ImplicitPlane")->variables->are(x=>"Real", y=>"Real", z=>"Real");
+
+$equation1 = ImplicitPlane("x + y + z = $total");
+$equation2 = ImplicitPlane("$price_small*x + $price_medium*y + $price_large*z = $revenue");
+$equation3 = ImplicitPlane("x = $small_factor*z");
+
+###########################
+#  Main text
+
+BEGIN_PGML
+>> ----{100px} <<
+
+>> A [$vendor] vendor sells three serving sizes of $[$good]: small, medium and large.  A small serving costs $[$price_small], medium serving costs $[$price_medium], and the large serving costs $[$price_large]. One day [$sex] sold [$total] servings of [$good], and had a total revenue of $[$revenue]. On that day [$sex] sold [$small_factor] times as many small serving as large servings.  How many of each servings were sold? <<
+
+>> ----{100px} <<
+END_PGML
+
+Scaffold::Begin(
+    can_open => "when_previous_correct",
+    is_open  => "first_incorrect"
+);
+
+Section::Begin("Part 1: Set up the system");
+
+BEGIN_PGML
+First set up the system of equations for the problem:
+
+We will use three variables for the numbers of servings of the three different sizes:
+
+* [`x`] for the number of small servings sold,
+* [`y`] for the number of medium servings sold,
+* [`z`] for the number of large servings sold.
+
+*  Enter an equation that will assure that the total number of servings is $[$total]:
+
+    [_________________________________________]{$equation1}
+
+*  Enter an equation that will assure that the total revenue is $[$revenue]:
+
+    [_________________________________________]{$equation2}
+
+*  Enter an equation that will assure that the number of small servings is [$small_factor] times larger than the number of large servings:
+    [_________________________________________]{$equation3}
+
+END_PGML
+
+############################
+
+BEGIN_PGML_SOLUTION
+
+*  The total number of servings is simply the the sum of the three ammounts, [`x + y + z`].  Therefore the first equation will be
+
+    [`[$equation1]`]
+
+*  The total revenue will be the sum of the revenues form the three serving sizes.  For each serving size, the revenue is the number of servings times the serving price.
+
+    * For the small servings, it is [`[$price_small]x`].
+    * For the medium servings, it is [`[$price_medium]y`].
+    * For the large servings, it is [`[$price_large]z`].
+
+    The total revenue is then [`[$price_small]x + [$price_medium]y + [$price_large]z`], so the second equation is
+
+    [`[$equation2]`]
+
+*  To assure that the number of small servings is [$small_factor] times larger than the number of large servings, [`x`] must be [small_factor] timss [`z`]:
+
+    [`[$equation3]`]
+
+END_PGML_SOLUTION
+
+Section::End();
+
+###########################################
+Section::Begin("Part 2: Solve the system");
+
+BEGIN_PGML
+That's correct, the system of equations we need to solve is
+[```
+\left\{
+\begin{array}{rcrcrcr}
+ x &+&  y &+&  z &=& [$total] \\
+ [$price_small]x &+& [$price_medium]y &+& [$price_large]z &=& [$revenue] \\ 
+ x &&  &-& [$small_factor]z &=& 0 \\
+\end{array}
+\right.
+```]
+
+Solve the system and enter the amounts below:
+
+*  The number of small servings sold was [__________]{$x}.
+*  The number of medium servings sold was [__________]{$y}.
+*  The number of large servings sold was [__________]{$z}.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+Solve the system using Gauss elimination.  It may be a good idea to multiply the second equation by 100 first, to get rid of the decimals.
+
+Solving the system gives us
+
+* [`x = [$x]`]
+* [`y = [$y]`]
+* [`z = [$z]`]
+
+Therefore 
+
+*  The number of small servings sold was [`[$x]`].
+*  The number of medium servings sold was [`[$y]`].
+*  The number of large servings sold was [`[$z]`].
+
+END_PGML_SOLUTION
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();
