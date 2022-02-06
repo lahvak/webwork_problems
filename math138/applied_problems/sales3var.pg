@@ -76,9 +76,9 @@ $equation1 = ImplicitPlane("x + y + z = $total");
 $equation2 = ImplicitPlane("$price_small*x + $price_medium*y + $price_large*z = $revenue");
 $equation3 = ImplicitPlane("x = $small_factor*z");
 
-$cmp1 = $equation1->cmp->withPostFilter(equation_post_filter);
-$cmp2 = $equation2->cmp->withPostFilter(equation_post_filter);
-$cmp3 = $equation3->cmp->withPostFilter(equation_post_filter);
+$cmp1 = $equation1->cmp->withPostFilter(~~&equation_post_filter);
+$cmp2 = $equation2->cmp->withPostFilter(~~&equation_post_filter);
+$cmp3 = $equation3->cmp->withPostFilter(~~&equation_post_filter);
 
 ###########################
 #  Main text
