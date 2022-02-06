@@ -61,9 +61,24 @@ $revenue = $price_small*$x + $price_medium*$y + $price_large*$z;
 
 Context("ImplicitPlane")->variables->are(x=>"Real", y=>"Real", z=>"Real");
 
+sub equation_post_filter {
+  my $ans = shift; 
+  if ($ans->{ans_message} =~ /Your answer isn't an implicit plane. (.*)$/) {
+      $ans->{ans_message} = "Your answer isn't a linear equation. $1";
+  }
+  if ($ans->{ans_message} eq "Your formula isn't a linear one") {
+      $ans->{ans_message} = "Your equation is not linear!";
+  }
+  return $ans; 
+}
+
 $equation1 = ImplicitPlane("x + y + z = $total");
 $equation2 = ImplicitPlane("$price_small*x + $price_medium*y + $price_large*z = $revenue");
 $equation3 = ImplicitPlane("x = $small_factor*z");
+
+$cmp1 = $equation1->cmp()->withPostFilter(equation_post_filter);
+$cmp2 = $equation2->cmp()->withPostFilter(equation_post_filter);
+$cmp3 = $equation3->cmp()->withPostFilter(equation_post_filter);
 
 ###########################
 #  Main text
@@ -94,15 +109,15 @@ We will use three variables for the numbers of servings of the three different s
 
 *  Enter an equation that will assure that the total number of servings is [$total]:
 
-    [_________________________________________]{$equation1}
+    [_________________________________________]{$cmp1}
 
 *  Enter an equation that will assure that the total revenue is $[$revenue]:
 
-    [_________________________________________]{$equation2}
+    [_________________________________________]{$cmp2}
 
 *  Enter an equation that will assure that the number of small servings is [$small_factor] times larger than the number of large servings:
 
-    [_________________________________________]{$equation3}
+    [_________________________________________]{$cmp3}
 
 END_PGML
 
