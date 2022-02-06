@@ -71,7 +71,7 @@ $equation3 = ImplicitPlane("x = $small_factor*z");
 BEGIN_PGML
 >> ----{100px} <<
 
->> A [$vendor] vendor sells three serving sizes of $[$good]: small, medium and large.  A small serving costs $[$price_small], medium serving costs $[$price_medium], and the large serving costs $[$price_large]. One day [$sex] sold [$total] servings of [$good], and had a total revenue of $[$revenue]. On that day [$sex] sold [$small_factor] times as many small serving as large servings.  How many of each servings were sold? <<
+>> A [$vendor] vendor sells three serving sizes of [$good]: small, medium and large.  A small serving costs $[$price_small], medium serving costs $[$price_medium], and the large serving costs $[$price_large]. One day [$sex] sold [$total] servings of [$good], and had a total revenue of $[$revenue]. On that day [$sex] sold [$small_factor] times as many small serving as large servings.  How many of each servings were sold? <<
 
 >> ----{100px} <<
 END_PGML
@@ -92,7 +92,7 @@ We will use three variables for the numbers of servings of the three different s
 * [`y`] for the number of medium servings sold,
 * [`z`] for the number of large servings sold.
 
-*  Enter an equation that will assure that the total number of servings is $[$total]:
+*  Enter an equation that will assure that the total number of servings is [$total]:
 
     [_________________________________________]{$equation1}
 
@@ -101,6 +101,7 @@ We will use three variables for the numbers of servings of the three different s
     [_________________________________________]{$equation2}
 
 *  Enter an equation that will assure that the number of small servings is [$small_factor] times larger than the number of large servings:
+
     [_________________________________________]{$equation3}
 
 END_PGML
