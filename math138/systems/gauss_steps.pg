@@ -67,7 +67,7 @@ sub dispeq {
         return "&& $by &$sc& $cz &=& $d";
     }
 
-    return "$a x &$sb& $by &$sc& $cz &=& $d;
+    return "$a x &$sb& $by &$sc& $cz &=& $d";
 }
 
 sub plane {
