@@ -140,7 +140,7 @@ $b2o = $b2m - $fsec*$b1;
 
 $c2o = $c2m - $fsec*$c1;
 
-$d20 = $d2m - $fsec*$d1;
+$d2o = $d2m - $fsec*$d1;
 
 @second_orig = ($a2o, $b2o, $c2o, $d2o);
 
@@ -154,7 +154,7 @@ $b3o = $b3m - $fthird*$b1;
 
 $c3o = $c3m - $fthird*$c1;
 
-$d30 = $d3m - $fthird*$d1;
+$d3o = $d3m - $fthird*$d1;
 
 @third_orig = ($a3o, $b3o, $c3o, $d3o);
 
