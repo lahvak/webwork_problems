@@ -1,0 +1,303 @@
+## DESCRIPTION
+## Algebra: Gauss elimination with 3 variables
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Linear equations and functions)
+## DBsection(Applications and models)
+## Level(5)
+## KEYWORDS('algebra', 'linear equations', 'Gauss elimination')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"parserImplicitPlane.pl",
+"PGML.pl",
+"scaffold.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+sub dispeq {
+    my ($a, $b, $c, $d) = @_;
+
+    my $sa, $sb, $sc, $by, $cz;
+
+    if ($b == 0) {
+        $sb = "";
+        $by = "";
+    } elsif ($b < 0) {
+        $sb = "-";
+        my $ab = -$b;
+        $by = "$ab y";
+    } else {
+        $sb = "+";
+        $by = "$b y";
+    }
+
+    if ($c == 0) {
+        $sc = "";
+        $cz = "";
+    } elsif ($c < 0) {
+        $sc = "-";
+        my $ac = -$c;
+        $cz = "$ac z";
+    } else {
+        $sc = "+";
+        $cz = "$c z";
+    }
+
+    if ($a == 0) {
+        if ($b == 0) { # Assume that at least one of a, b, and c is nonzero
+            return "&& && $c z &=& $d";
+        }
+        $by = "$b y"
+        return "&& $by &$sc& $cz &=& $d";
+    }
+
+    return "$a x &$sb& $by &$sc& $cz &=& $d;
+}
+
+sub plane {
+    my ($a, $b, $c, $d) = @_;
+
+    return ImplicitPlane([$a, $b, $c], $d);
+}
+
+Context("Numeric");
+
+# Solution
+
+$x = random(-20,20);
+$y = random(-20,20);
+$z = random(-20,20);
+
+# First equation
+
+$b1 = -random(2,5);
+$c1 = random(2,5);
+
+$d1 = $x + $b1*$y + $c1*$z;
+
+@first = (1, $b1, $c1, $d1);
+
+# Second equation final:
+
+$c2 = -random(2,5);
+
+$d2 = $y + $c2*$z;
+
+@second_final = (0, 1, $c2, $d2);
+
+# Third equation final:
+
+$c3 = random(2,7);
+
+$d3 = $c3*$z;
+
+@third_final = (0, 0, $c3, $d3);
+
+# Third equation middle
+
+$msec = random(2,5);
+
+$b3m = $msec;
+$c3m = $c3 + $c2*$msec;
+
+$d3m = $d3 + $d2*$msec;
+
+@third_middle = (0, $b3m, $c3m, $d3m);
+
+# second equation middle
+
+$secfact = random(2,5);
+
+$b2m = $secfact;
+$c2m = $c2*$secfact;
+$d2m = $d2*$secfact;
+
+@second_middle = (0, $b2m, $c2m, $d2m);
+
+# second equation original:
+
+$fsec = random(2,5);
+
+$a2o = -$fsec;
+
+$b2o = $b2m - $fsec*$b1;
+
+$c2o = $c2m - $fsec*$c1;
+
+$d20 = $d2m - $fsec*$d1;
+
+@second_orig = ($a2o, $b2o, $c2o, $d2o);
+
+# third equation original:
+
+$fthird = -random(2,5);
+
+$a3o = -$fthird;
+
+$b3o = $b3m - $fthird*$b1;
+
+$c3o = $c3m - $fthird*$c1;
+
+$d30 = $d3m - $fthird*$d1;
+
+@third_orig = ($a3o, $b3o, $c3o, $d3o);
+
+Context("ImplicitPlane")->variables->are(x=>"Real", y=>"Real", z=>"Real");
+
+sub equation_post_filter {
+  my $ans = shift; 
+  if ($ans->{ans_message} =~ /Your answer isn't an implicit plane(.*)/s) {
+      $ans->{ans_message} = "Your answer isn't a linear equation. $1";
+  }
+  if ($ans->{ans_message} eq "Your formula isn't a linear one") {
+      $ans->{ans_message} = "Your equation is not linear!";
+  }
+  return $ans; 
+}
+
+$eq_second_middle = plane(@second_middle);
+$eq_third_middle = plane(@third_middle);
+$eq_third_final = plane(@third_final);
+
+$cmp_second_middle = $equation_second_middle->cmp->withPostFilter(~~&equation_post_filter);
+$cmp_third_middle = $equation_third_middle->cmp->withPostFilter(~~&equation_post_filter);
+$cmp_third_final = $equation_third_final->cmp->withPostFilter(~~&equation_post_filter);
+
+###########################
+#  Main text
+Scaffold::Begin(
+    can_open => "when_previous_correct",
+    is_open  => "correct_or_first_incorrect"
+);
+
+Section::Begin("Eliminate x in the second and third equation");
+
+BEGIN_PGML
+The goal is to solve the following system of equations using Gauss elimination and back substitution:
+
+[```
+\left\{
+\begin{array}{rcrcrcr}
+[dispeq(@first)]\\
+[dispeq(@second_orig)]\\
+[dispeq(@third_orig)]
+\end{array}
+\right.
+```]
+
+*   We will start by eliminating the [`x`] variable in the second equation. To do
+    that, we will add a multiple of the first equation to the second equation, to
+    get an equation with no [`x`].  Enter the resulting equation:
+
+    [______________________________________]{$cmp_second_middle}
+
+*   In a similar way we will eliminate the [`x`] variable in the third equation.
+    Add a multiple of the first equation to the third equation, to
+    get an equation with no [`x`].  Enter the resulting equation:
+
+    [______________________________________]{$cmp_third_middle}
+
+END_PGML
+
+############################
+
+BEGIN_PGML_SOLUTION
+
+*  Adding [$fsec] times the first equation to the second equation will give us
+
+    [`[$eq_second_middle]`]
+
+*  Adding [$fthird] times the first equation to the third equation will give us
+
+    [`[$eq_third_middle]`]
+
+END_PGML_SOLUTION
+
+Section::End();
+
+###########################################
+Section::Begin("Eliminate y in the third equation");
+
+BEGIN_PGML
+After the previous steps, and after dividing the second equation by [$msec], we have the following system:
+
+[```
+\left\{
+\begin{array}{rcrcrcr}
+[dispeq(@first)]\\
+[dispeq(@second_middle)]\\
+[dispeq(@third_middle)]
+\end{array}
+\right.
+```]
+
+We now need to eliminate the [`y`] variable in the third equation. To do
+that, we will add a multiple of the second equation to the third equation, to
+get an equation with no [`x`] and no [`y`].  Enter the resulting equation:
+
+[______________________________________]{$cmp_third_final}
+
+END_PGML
+
+############################
+
+BEGIN_PGML_SOLUTION
+
+Adding [$fthird] times the second equation to the third equation will give us
+
+[`[$eq_third_final]`]
+
+END_PGML_SOLUTION
+
+Section::End();
+
+############################
+Section::Begin("Use back substitution to solve the system");
+
+BEGIN_PGML
+Now the system of equations is
+[```
+\left\{
+\begin{array}{rcrcrcr}
+[dispeq(@first)]\\
+[dispeq(@second_final)]\\
+[dispeq(@third_final)]
+\end{array}
+\right.
+```]
+
+This syetm is in a row-echelon form, so we can use back susbstitution to solve it.  Enter the solutions below:
+
+*  [`x = `] [__________]{$x}.
+*  [`y = `] [__________]{$y}.
+*  [`z = `] [__________]{$z}.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+Dividing the third equation by [$c3] will give us [`z = [$z]`].  We can now plug that into the second equation and solve for [`y`] to get
+[`y = [$y]`].  Finally, we can plug [`y`] and [`z`] into the first equation and solve for [`x`] to get [`x = [$x]`].
+
+END_PGML_SOLUTION
+
+Section::End();
+
+Scaffold::End();
+
+ENDDOCUMENT();
