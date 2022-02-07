@@ -99,9 +99,9 @@ Context("Numeric");
 
 # Solution
 
-$x = random(-20,20);
-$y = random(-20,20);
-$z = random(-20,20);
+$x = random(-10,10);
+$y = random(-10,10);
+$z = random(-10,10);
 
 # First equation
 
