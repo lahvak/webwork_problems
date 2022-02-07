@@ -41,11 +41,11 @@ sub dispeq {
     } elsif ($b < 0) {
         $sb = "-";
         my $ab = -$b;
-        if ($ab == 1) { $ab = ""; }
+        #if ($ab == 1) { $ab = ""; }
         $by = "$ab y";
     } else {
         $sb = "+";
-        if ($b == 1) { $b = ""; }
+        #if ($b == 1) { $b = ""; }
         $by = "$b y";
     }
 
@@ -55,37 +55,37 @@ sub dispeq {
     } elsif ($c < 0) {
         $sc = "-";
         my $ac = -$c;
-        if ($ac == 1) { $ac = ""; }
+        #if ($ac == 1) { $ac = ""; }
         $cz = "$ac z";
     } else {
         $sc = "+";
-        if ($c == 1) { $c = ""; }
+        #if ($c == 1) { $c = ""; }
         $cz = "$c z";
     }
 
     if ($a == 0) {
         if ($b == 0) { # Assume that at least one of a, b, and c is nonzero
-            if ($c == 1) {
-                $c = "";
-            } elsif ($c == -1) {
-                $c = "-";
-            }
+            # if ($c == 1) {
+            #    $c = "";
+            #} elsif ($c == -1) {
+            #    $c = "-";
+            #}
             return "&& && $c z &=& $d";
         }
-        if ($b == 1) {
-            $b = "";
-        } elsif ($b == -1) {
-            $b = "-";
-        }
+        #if ($b == 1) {
+        #    $b = "";
+        #} elsif ($b == -1) {
+        #    $b = "-";
+        #}
         $by = "$b y";
         return "&& $by &$sc& $cz &=& $d";
     }
 
-    if ($a == 1) {
-        $a = "";
-    } elsif ($a == -1) {
-        $a = "-";
-    }
+    #if ($a == 1) {
+    #    $a = "";
+    #} elsif ($a == -1) {
+    #    $a = "-";
+    #}
     return "$a x &$sb& $by &$sc& $cz &=& $d";
 }
 
