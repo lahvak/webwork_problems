@@ -132,10 +132,10 @@ $d3 = $c3*$z;
 
 $msec = random(2,5);
 
-$b3m = $msec;
-$c3m = $c3 + $c2*$msec;
+$b3m = -$msec;
+$c3m = $c3 - $c2*$msec;
 
-$d3m = $d3 + $d2*$msec;
+$d3m = $d3 - $d2*$msec;
 
 @third_middle = (0, $b3m, $c3m, $d3m);
 
