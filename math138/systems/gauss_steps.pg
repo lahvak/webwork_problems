@@ -63,7 +63,7 @@ sub dispeq {
         if ($b == 0) { # Assume that at least one of a, b, and c is nonzero
             return "&& && $c z &=& $d";
         }
-        $by = "$b y"
+        $by = "$b y";
         return "&& $by &$sc& $cz &=& $d";
     }
 
