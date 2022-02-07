@@ -175,9 +175,9 @@ $eq_second_middle = plane(@second_middle);
 $eq_third_middle = plane(@third_middle);
 $eq_third_final = plane(@third_final);
 
-$cmp_second_middle = $equation_second_middle->cmp->withPostFilter(~~&equation_post_filter);
-$cmp_third_middle = $equation_third_middle->cmp->withPostFilter(~~&equation_post_filter);
-$cmp_third_final = $equation_third_final->cmp->withPostFilter(~~&equation_post_filter);
+$cmp_second_middle = $eq_second_middle->cmp->withPostFilter(~~&equation_post_filter);
+$cmp_third_middle = $eq_third_middle->cmp->withPostFilter(~~&equation_post_filter);
+$cmp_third_final = $eq_third_final->cmp->withPostFilter(~~&equation_post_filter);
 
 ###########################
 #  Main text
