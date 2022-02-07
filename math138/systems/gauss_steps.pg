@@ -263,13 +263,13 @@ Section::End();
 Section::Begin("Eliminate y in the third equation");
 
 BEGIN_PGML
-After the previous steps, and after dividing the second equation by [$msec], we have the following system:
+After the previous steps, and after dividing the second equation by [$secfact], we have the following system:
 
 [```
 \left\{
 \begin{array}{rcrcrcr}
 [$disp_first]\\
-[$disp_second_middle]\\
+[$disp_second_final]\\
 [$disp_third_middle]
 \end{array}
 \right.
@@ -287,7 +287,7 @@ END_PGML
 
 BEGIN_PGML_SOLUTION
 
-Adding [$fthird] times the second equation to the third equation will give us
+Adding [$msec] times the second equation to the third equation will give us
 
 [`[$eq_third_final]`]
 
