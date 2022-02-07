@@ -179,6 +179,15 @@ $cmp_second_middle = $eq_second_middle->cmp->withPostFilter(~~&equation_post_fil
 $cmp_third_middle = $eq_third_middle->cmp->withPostFilter(~~&equation_post_filter);
 $cmp_third_final = $eq_third_final->cmp->withPostFilter(~~&equation_post_filter);
 
+$disp_first = dispeq(@first);
+$disp_second_orig = dispeq(@second_orig);
+$disp_third_orig = dispeq(@third_orig);
+$disp_second_middle = dispeq(@second_middle);
+$disp_third_middle = dispeq(@third_middle);
+$disp_second_final = dispeq(@second_final);
+$disp_third_final = dispeq(@third_final);
+
+
 ###########################
 #  Main text
 Scaffold::Begin(
@@ -194,9 +203,9 @@ The goal is to solve the following system of equations using Gauss elimination a
 [```
 \left\{
 \begin{array}{rcrcrcr}
-[dispeq(@first)]\\
-[dispeq(@second_orig)]\\
-[dispeq(@third_orig)]
+[$disp_first]\\
+[$disp_second_orig]\\
+[$disp_third_orig]
 \end{array}
 \right.
 ```]
@@ -240,9 +249,9 @@ After the previous steps, and after dividing the second equation by [$msec], we 
 [```
 \left\{
 \begin{array}{rcrcrcr}
-[dispeq(@first)]\\
-[dispeq(@second_middle)]\\
-[dispeq(@third_middle)]
+[$disp_first]\\
+[$disp_second_middle]\\
+[$disp_third_middle]
 \end{array}
 \right.
 ```]
@@ -275,9 +284,9 @@ Now the system of equations is
 [```
 \left\{
 \begin{array}{rcrcrcr}
-[dispeq(@first)]\\
-[dispeq(@second_final)]\\
-[dispeq(@third_final)]
+[$disp_first]\\
+[$disp_second_final]\\
+[$disp_third_final]
 \end{array}
 \right.
 ```]
