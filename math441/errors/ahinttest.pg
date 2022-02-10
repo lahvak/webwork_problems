@@ -1,0 +1,42 @@
+# DESCRIPTION
+# Calculate absolute and relative error
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject('Numerical Analysis')
+## DBchapter('Errors')
+## DBsection('Absolute and relative errors')
+## KEYWORDS('error, approximation')
+## TitleText1()
+## EditionText1()
+## AuthorText1()
+## Section1()
+## Problem1()
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"answerHints.pl",
+"PGcourse.pl",
+);
+Context("Numeric");
+Context()->{format}{number} = "%.8f#";
+
+$amant = 1234567;
+
+$amant_cmp = Compute($amant)->cmp(tolType => 'absolute', tolerance => 0.00000001);
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+Enter [$amant]:  [_________]{$amant_cmp}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+Ze answer be [$amant]!
+END_PGML_SOLUTION
+ENDDOCUMENT();
