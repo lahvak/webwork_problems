@@ -58,6 +58,10 @@ $flsum = $sumfls - $sumfls % (10**$adrops);
 # Mantissa of sum
 $summant = $flsum/(10**$adrops);
 
+$amant_cmp = Compute($amant)->cmp(tolType => 'absolute', tolerance => 0.00000001);
+$bmant_cmp = Compute($bmant)->cmp(tolType => 'absolute', tolerance => 0.00000001);
+$summant_cmp = Compute($summant)->cmp(tolType => 'absolute', tolerance => 0.000000001);
+
 $error = $sum - $flsum;
 
 $relerror = Compute("$error/$sum");
@@ -152,13 +156,13 @@ if($flsdec == 0){
 # Actual problem goes here:
 TEXT(beginproblem());
 BEGIN_PGML
-In this problem you will do your calculation *using [$prec] digit arithmetic with chopping*.
+In this problem you will do your calculation *using [$prec] digit arithmetic with _chopping_*.
 
 Given numbers [`a = [$aint].[$adecstr]`] and [`b = [$bint].[$bdecstr]`]:
 
-1.  Enter [`\operatorname{fl}(a)`]: [`0.`][______]{$amant}[`\times 10`]^[_______]{$expa}
-1.  Enter [`\operatorname{fl}(b)`]: [`0.`][______]{$bmant}[`\times 10`]^[_______]{$expb}
-1.  Enter [`\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)`]: [`0.`][______]{$summant}[`\times 10`]^[_______]{$expsum}
+1.  Enter [`\operatorname{fl}(a)`]: [`0.`][______]{$amant_cmp}[`\times 10`]^[_______]{$expa}
+1.  Enter [`\operatorname{fl}(b)`]: [`0.`][______]{$bmant_cmp}[`\times 10`]^[_______]{$expb}
+1.  Enter [`\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)`]: [`0.`][______]{$summant_cmp}[`\times 10`]^[_______]{$expsum}
 
 Then calculate the errors when approximating [`a + b`] by [`\operatorname{fl}\left(\operatorname{fl}(a) + \operatorname{fl}(b)\right)`].
 Calculate the errors using regular arithmetic.  Enter the _exact value_ for the absolute error.  Enter the relative error with at least 3 significant figures.
