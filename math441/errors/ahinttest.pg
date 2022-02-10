@@ -24,14 +24,11 @@ loadMacros(
 "PGcourse.pl",
 );
 Context("Numeric");
-Context()->{format}{number} = "%.8f#";
 
 $amant = 1234567;
 
-$vrong_amant = Compute("$amant + 1")->cmp(tolType => 'absolute', tolerance => 0.00000001);
-
 $amant_cmp = Compute($amant)->cmp(tolType => 'absolute', tolerance => 0.00000001)->withPostFilter(
-    AnswerHints($vrong_amant => "Too loig!"));
+    AnswerHints(Compute("$amant + 1") => "Too loig!"));
 
 # Actual problem goes here:
 TEXT(beginproblem());
