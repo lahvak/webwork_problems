@@ -28,7 +28,8 @@ Context()->{format}{number} = "%.8f#";
 
 $amant = 1234567;
 
-$amant_cmp = Compute($amant)->cmp(tolType => 'absolute', tolerance => 0.00000001);
+$amant_cmp = Compute($amant)->cmp(tolType => 'absolute', tolerance => 0.00000001)->withPostFilter(
+    AnswerHints(Compute("$amant + 1") => "Too loig!"));
 
 # Actual problem goes here:
 TEXT(beginproblem());
