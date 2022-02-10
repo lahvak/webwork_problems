@@ -60,7 +60,7 @@ $flsum = $sumfls - $sumfls % (10**$adrops);
 $summant = $flsum/(10**$adrops);
 
 $amant_cmp = Compute($amant)->cmp(tolType => 'absolute', tolerance => 0.00000001)->withPostFilter(
-    AnswerHints(Compute("$amant + 1") => "Are you using rounding instead of chopping?"));
+    AnswerHints(Compute("$amant + 1") => ["Are you using rounding instead of chopping?", checkCorrect=>0, cmp_options=>[tolType => 'absolute', tolerance => 0.00000001]]));
 $bmant_cmp = Compute($bmant)->cmp(tolType => 'absolute', tolerance => 0.00000001)->withPostFilter(
     AnswerHints(Compute("$bmant + 1") => "Are you using rounding instead of chopping?"));
 $summant_cmp = Compute($summant)->cmp(tolType => 'absolute', tolerance => 0.000000001)->withPostFilter(
