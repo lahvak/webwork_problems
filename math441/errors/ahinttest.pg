@@ -28,7 +28,7 @@ Context("Numeric");
 $amant = 1234567;
 
 $amant_cmp = Compute($amant)->cmp(tolType => 'absolute', tolerance => 0.00000001)->withPostFilter(
-    AnswerHints(Compute("$amant + 1") => "Too loig!", 0 => "too smal"));
+    AnswerHints($amant + 1 => "Too loig!", 0 => "too smal"));
 
 # Actual problem goes here:
 TEXT(beginproblem());
