@@ -24,11 +24,12 @@ loadMacros(
 "PGcourse.pl",
 );
 Context("Numeric");
+Context()->flags->set(tolType => 'absolute', tolerance => 0.00000001);
 
 $amant = 1234567;
 
-$amant_cmp = Compute($amant)->cmp(tolType => 'absolute', tolerance => 0.00000001)->withPostFilter(
-    AnswerHints($amant + 1 => "Too loig!", 0 => "too smal"));
+$amant_cmp = Compute($amant)->cmp()->withPostFilter(
+    AnswerHints($amant + 1 => "Too loig!"));
 
 # Actual problem goes here:
 TEXT(beginproblem());
