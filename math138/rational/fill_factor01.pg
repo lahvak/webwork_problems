@@ -44,14 +44,14 @@ $w1 = 10; # width of 1st answer blank
 Context()->texStrings;
 if ($displayMode eq 'TeX') {
   $expression =
-  "\( \displaystyle \frac{$coefnum\left(" . ans_rule($w1) . "\right)}{$coefden\left($commom\right)} = \frac{$coefnum}{$doefden}\)";
+  "\( \displaystyle \frac{$coefnum\left(" . ans_rule($w1) . "\right)}{$coefden\left($commom\right)} = \frac{$coefnum}{$doefden}, x\neq $c\)";
 } else {
   $expression =
   ColumnTable(BeginTable(border=>0, spacing=>0, padding=>0).
               AlignedRow(["\($coefnum\left(\right.\)" . ans_rule($w1) . "\(\left.\right)\)"], align=>CENTER, separation=>0).
               AlignedRow([$HR], align=>CENTER, separation=>0).
               AlignedRow(["\($coefden\left($common\right)\)"], align=>CENTER, separation=>0).
-              EndTable(), "\( = \frac{$coefnum}{$coefden}\)",
+              EndTable(), "\( = \frac{$coefnum}{$coefden}\), \(x \neq $c\)",
               indent=>0, separation=>0, valign=>"CENTER")
 }
 Context()->normalStrings;
@@ -61,9 +61,9 @@ Context()->normalStrings;
 #  Main text
 
 BEGIN_PGML
-Fill in the missong factor:
+Fill in the missing factor:
 
-[$expression]***, [`x \neq [$c]`]
+[$expression]***
 
 END_PGML
 
