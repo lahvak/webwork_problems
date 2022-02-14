@@ -34,7 +34,7 @@ TEXT(beginproblem());
 Context("Numeric");
 
 $coefnum = list_random(2,3,5,7);
-do { $coefden = list_random(2,3,5,7); } until ($coef2 != $coef1);
+do { $coefden = list_random(2,3,5,7); } until ($coefden != $coefnum);
 
 $c = random(1,9);
 
