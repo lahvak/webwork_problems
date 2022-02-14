@@ -46,7 +46,7 @@ $w1 = 10; # width of 1st answer blank
 Context()->texStrings;
 if ($displayMode eq 'TeX') {
   $expression =
-  "\( \displaystyle \frac{$coefnum\left(" . ans_rule($w1) . "\right)}{$denom} = \frac{$coefnum}{$coefden x}\), \(x\neq $c\)"} else {
+  "\( \displaystyle \frac{$coefnum" . ans_rule($w1) . "}{$denom} = \frac{$coefnum}{$coefden x}\), \(x\neq $c\)"} else {
   $expression =
   ColumnTable(BeginTable(border=>0, spacing=>0, padding=>0).
               AlignedRow(["\($coefnum\)" . ans_rule($w1)], align=>CENTER, separation=>0).
