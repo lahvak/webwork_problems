@@ -44,7 +44,7 @@ $w1 = 10; # width of 1st answer blank
 Context()->texStrings;
 if ($displayMode eq 'TeX') {
   $expression =
-  "\( \displaystyle \frac{$coefnum\left(" . ans_rule($w1) . "\right)}{$coefden\left($common\right)} = \frac{$coefnum}{$coefden}, x\neq $c\)";
+  "\( \displaystyle \frac{$coefnum\left(" . ans_rule($w1) . "\right)}{$coefden\left($common\right)} = \frac{$coefnum}{$coefden}\), \(x\neq $c\)";
 } else {
   $expression =
   ColumnTable(BeginTable(border=>0, spacing=>0, padding=>0).
