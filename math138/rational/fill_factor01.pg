@@ -51,7 +51,7 @@ if ($displayMode eq 'TeX') {
               AlignedRow(["\($coefnum\left(\right.\)" . ans_rule($w1) . "\(\left.\right)\)"], align=>CENTER, separation=>0).
               AlignedRow([$HR], align=>CENTER, separation=>0).
               AlignedRow(["\($coefden\left($common\right)\)"], align=>CENTER, separation=>0).
-              EndTable(), "\( = \frac{$coefnum}{$coefden}\), \(x \neq $c\)",
+              EndTable(), "\(\displaystyle = \frac{$coefnum}{$coefden}\), \(x \neq $c\)",
               indent=>0, separation=>0, valign=>"CENTER")
 }
 Context()->normalStrings;
