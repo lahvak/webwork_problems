@@ -1,0 +1,86 @@
+## DESCRIPTION
+## Algebra: Simplify rational expression
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Rational expression)
+## DBsection(Simplifying rational expressions)
+## Level(2)
+## KEYWORDS('algebra', 'rational expressions')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"unionTables.pl",
+"PGML.pl",
+"AnswerFormatHelp.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("Numeric");
+
+$coefnum = list_random(2,3,5,7);
+do { $coefden = list_random(2,3,5,7); } until ($coefden != $coefnum);
+
+$c = random(1,9);
+
+$common = Compute("x*(x - $c)");
+
+$denom = Compute("$coefden x^2*(x - $c)");
+
+$w1 = 10; # width of 1st answer blank
+Context()->texStrings;
+if ($displayMode eq 'TeX') {
+  $expression =
+  "\( \displaystyle \frac{$coefnum\left(" . ans_rule($w1) . "\right)}{$denom} = \frac{$coefnum}{$coefden x}\), \(x\neq $c\)"} else {
+  $expression =
+  ColumnTable(BeginTable(border=>0, spacing=>0, padding=>0).
+              AlignedRow(["\($coefnum\)" . ans_rule($w1)], align=>CENTER, separation=>0).
+              AlignedRow([$HR], align=>CENTER, separation=>0).
+              AlignedRow(["\($denom\)"], align=>CENTER, separation=>0).
+              EndTable(), "\( \displaystyle = \frac{$coefnum}{$coefden x}\), \(x \neq $c\)",
+              indent=>0, separation=>0, valign=>"CENTER")
+}
+Context()->normalStrings;
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Fill in the missing factor:
+
+[$expression]***
+
+END_PGML
+
+
+############################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $common->cmp() );
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+The missing common factor is [`[$common]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
