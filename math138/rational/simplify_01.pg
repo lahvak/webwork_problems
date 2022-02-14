@@ -22,6 +22,7 @@ loadMacros(
 "PGcourse.pl",
 "unionTables.pl",
 "parserMultiAnswer.pl",
+"contextInequalities.pl",
 "PGML.pl",
 "AnswerFormatHelp.pl",
 );
