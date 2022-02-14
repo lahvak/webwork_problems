@@ -88,11 +88,13 @@ if ($displayMode eq 'TeX') {
 } else {
   $showfraction =
   ColumnTable("\( \displaystyle $fraction = \)",
+              ColumnTable(
               BeginTable(border=>0, spacing=>0, padding=>0).
               AlignedRow([ans_rule($blankwidth)], align=>CENTER, separation=>0).
               AlignedRow([$HR], align=>CENTER, separation=>0).
               AlignedRow([ans_rule($blankwidth)], align=>CENTER, separation=>0).
-              EndTable().", ".ans_rule($blankwidth),
+              EndTable(), ", ".ans_rule($blankwidth),
+              indent=>0, separation=>0, valign=>"CENTER"),
               indent=>0, separation=>0, valign=>"CENTER")
 }
 Context()->normalStrings;
