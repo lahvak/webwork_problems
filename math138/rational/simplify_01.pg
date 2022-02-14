@@ -40,10 +40,10 @@ $c = random(1,9,1);
 
 while ($c == $b/$a) { $c = random(1,9,1); } 
 
-$fraction = "\frac{$a y}{y-$c} + \frac{$b}{$c - y} ";
+$fraction = "\frac{$a x}{x-$c} + \frac{$b}{$c - x} ";
 
-$num = Formula("$a y - $b");
-$den = Formula("y - $c");
+$num = Formula("$a x - $b");
+$den = Formula("x - $c");
 
 $multians = MultiAnswer($num, $den)->with(
   singleResult => 0,
