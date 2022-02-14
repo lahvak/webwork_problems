@@ -40,7 +40,7 @@ do { $b = random(2,3,5,7); } until ($c != $b);
 
 $common = Compute("(x + $c)");
 
-$denom = Compute("x^3 + $c*x^2");
+$denom = Compute("x^3 + $c*x^2")->reduce;
 
 $w1 = 10; # width of 1st answer blank
 Context()->texStrings;
