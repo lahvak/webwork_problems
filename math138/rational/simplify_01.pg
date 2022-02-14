@@ -21,6 +21,7 @@ loadMacros(
 "MathObjects.pl",
 "PGcourse.pl",
 "unionTables.pl",
+"parserMultiAnswer.pl",
 "PGML.pl",
 "AnswerFormatHelp.pl",
 );
