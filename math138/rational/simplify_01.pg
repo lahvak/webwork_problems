@@ -132,7 +132,7 @@ ANS( $restrictions->cmp()->withPostFilter(~~&fix_plural_filter));
 
 BEGIN_PGML_SOLUTION
 The numerator and denominator have a common factor [`[$common]`]. After cancelling the common factor, we get
-[```[\frac{[$num]}{[$den]}.```]
+[```\frac{[$num]}{[$den]}.```]
 
 After the cancellation, the factor [`[$common]`] is no longer in the denominator, so we need to add a domain restriction to our answer: [`[$restrictions]`].
 END_PGML_SOLUTION
