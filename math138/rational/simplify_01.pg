@@ -103,7 +103,7 @@ Context()->normalStrings;
 BEGIN_PGML
 Simplify as much as possible.  When entering domain restrictions, use [|!=|] for [`\neq`] and separate inequalities with commas. If there are no domain restrictions, enter NONE.
 
-[$expression]***
+[$showfraction]***
 
 END_PGML
 
