@@ -75,7 +75,7 @@ $multians = MultiAnswer($num, $den)->with(
 
 Context(Inequalities);
 
-$restriction = Inequality("x != 2 and x != 3");
+$restrictions = Inequality("x != 2 and x != 3");
 
 # 
 #  Display the fraction and answer blanks nicely
