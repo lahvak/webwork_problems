@@ -117,8 +117,16 @@ $showPartialCorrectAnswers = 1;
 
 install_problem_grader(~~&std_problem_grader);
 
+sub fix_plural_filter {
+  my $ans = shift; 
+  if ($ans->{ans_message} =~ /(.*) inequalitys(.*)/) {
+      $ans->{ans_message} = "$1 inequalities$2";
+  }
+  return $ans; 
+}
+
 ANS( $multians->cmp() );
-ANS( $restrictions->cmp() );
+ANS( $restrictions->cmp()->withPostFilter(~~&fix_plural_filter));
 
 ############################
 #  Solution
