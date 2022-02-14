@@ -51,8 +51,8 @@ if ($displayMode eq 'TeX') {
   ColumnTable(BeginTable(border=>0, spacing=>0, padding=>0).
               AlignedRow(["\($coefnum x \)" . ans_rule($w1)], align=>CENTER, separation=>0).
               AlignedRow([$HR], align=>CENTER, separation=>0).
-              AlignedRow(["$denom"], align=>CENTER, separation=>0).
-              EndTable(), "\( = \frac{$coefnum}{$coefden}\), \(x \neq 0\), \(x \neq $c\)",
+              AlignedRow(["\($denom\)"], align=>CENTER, separation=>0).
+              EndTable(), "\( \displaystyle = \frac{$coefnum}{$coefden}\), \(x \neq 0\), \(x \neq $c\)",
               indent=>0, separation=>0, valign=>"CENTER")
 }
 Context()->normalStrings;
