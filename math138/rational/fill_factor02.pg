@@ -40,7 +40,7 @@ $c = random(1,9);
 
 $common = Compute("x*(x - $c)");
 
-$denom = Compute("x^2*(x - $c)");
+$denom = Compute("$coefden x^2*(x - $c)");
 
 $w1 = 10; # width of 1st answer blank
 Context()->texStrings;
