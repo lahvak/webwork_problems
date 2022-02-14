@@ -46,7 +46,7 @@ $w1 = 10; # width of 1st answer blank
 Context()->texStrings;
 if ($displayMode eq 'TeX') {
   $expression =
-  "\( \displaystyle \frac{$coefnum \left(x - $b\right)\left(" . ans_rule($w1) . "\right)}{$denom} = \frac{$coefnum\left{x-$b\right)}{x^2}\), \(x\neq -$c\)"} else {
+  "\( \displaystyle \frac{$coefnum \left(x - $b\right)\left(" . ans_rule($w1) . "\right)}{$denom} = \frac{$coefnum\left(x-$b\right)}{x^2}\), \(x\neq -$c\)"} else {
   $expression =
   ColumnTable(BeginTable(border=>0, spacing=>0, padding=>0).
               AlignedRow(["\($coefnum\left(x - $b\right)\left(\right. \)" . ans_rule($w1) . "\(\left.\right)\)"], align=>CENTER, separation=>0).
