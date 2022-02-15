@@ -42,7 +42,9 @@ $powd = random(1,5);
 $powdiff = random(1,4);
 $pown = $powd + $powdiff;
 
-$fraction = "\frac{x^{$pown}(x - $a)}{$b x^{$powd}(x - $a)}";
+$numorig = Formula("x^($pown)*(x - $a)")->reduce;
+$denorig = Formula("$b x^($powd)*(x - $a)")->reduce;
+$fraction = "\frac{$numorig}{$denorig}";
 
 $num = Formula("x^($powdiff)")->reduce;
 $den = Formula("$b");
