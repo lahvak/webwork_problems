@@ -44,7 +44,6 @@ $pown = $powd + $powdiff;
 
 $numorig = Formula("x^($pown)*(x - $a)")->reduce;
 $denorig = Formula("$b x^($powd)*(x - $a)")->reduce;
-$fraction = "\frac{$numorig}{$denorig}";
 
 $num = Formula("x^($powdiff)")->reduce;
 $den = Formula("$b");
@@ -87,6 +86,7 @@ $restrictions = List("x != 0, x != $a");
 #
 $blankwidth = 15;
 Context()->texStrings;
+$fraction = "\frac{$numorig}{$denorig}";
 if ($displayMode eq 'TeX') {
   $showfraction =
   "\( \displaystyle $fraction = \frac{".$multians->ans_rule(2*$blankwidth)."}{".$multians->ans_rule(2*$blankwidth)."}\}, ".ans_rule(2*$blankwidth);
