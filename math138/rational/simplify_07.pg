@@ -45,7 +45,7 @@ $ambc = $c*($a - $b);
 $abc = $a*$b*$c;
 
 
-$numorig = Formula("y^4 - $b*y^3 - $asq*y + $a2b")->reduce;
+$numorig = Formula("y^4 - $b*y^3 - $asq*y^2 + $a2b*y")->reduce;
 $denorig = Formula("$c*y^3 + $ambc*y^2 - $abc*y")->reduce;
 
 $num = Formula("y - $a")->reduce;
@@ -141,7 +141,7 @@ ANS( $restrictions->cmp()->withPostFilter(~~&fix_plural_filter));
 #  Solution
 
 BEGIN_PGML_SOLUTION
-The numerator can be factored as [`y(y - [$b])(y - [$a])(y + [$a])`], and the denominator can be factored as [`$c(y - [$b])(y + [$a])`].
+The numerator can be factored as [`y(y - [$b])(y - [$a])(y + [$a])`], and the denominator can be factored as [`[$c](y - [$b])(y + [$a])`].
 The numerator and denominator have three common factors: [`[$common1]`], [`[$common2]`], and [`[$common3]`]. After cancelling, we get
 [```\frac{[$num]}{[$den]}.```]
 
