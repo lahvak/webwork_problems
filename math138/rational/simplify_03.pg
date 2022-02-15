@@ -140,7 +140,7 @@ BEGIN_PGML_SOLUTION
 The numerator and denominator have two common factors [`[$common1]`] and [`[$common2]`]. After cancelling them, we get
 [```\frac{[$num]}{[$den]}.```]
 
-After the cancellation, the factor [`[$common1]`] is no longer in the denominator, so we need to add one domain restriction to our answer: [`[$restrictions]`].
+After the cancellation, the factor [`[$common2]`] is no longer in the denominator, so we need to add one domain restriction to our answer: [`[$restrictions]`].
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
