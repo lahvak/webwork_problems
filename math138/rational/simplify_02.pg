@@ -47,7 +47,8 @@ $fraction = "\frac{x^{$pown}(x - $a)}{$b x^{$powd}(x - $a)}";
 $num = Formula("x^($powdiff)")->reduce;
 $den = Formula("$b");
 
-$common = Formula("x - $a");
+$common1 = Formula("x^($powd)")->reduce;
+$common2 = Formula("x - $a");
 
 $multians = MultiAnswer($num, $den)->with(
   singleResult => 0,
