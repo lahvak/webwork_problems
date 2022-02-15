@@ -78,7 +78,7 @@ $multians = MultiAnswer($num, $den)->with(
 );
 
 
-Context(Inequalities);
+Context(Inequalities)->variables->are(y=>"Real");
 
 $restrictions = List("y != $a");
 
