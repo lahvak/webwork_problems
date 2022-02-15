@@ -42,7 +42,7 @@ do {$b = random(2,9);} until (gcd($a, $b) == 1);
 $xdenpow = random(2,5);
 $ynumpow = random(2,7);
 $xdiffpow = random(1,4);
-$ydiffpow - random(1,5);
+$ydiffpow = random(1,5);
 $xnumpow = $xdenpow + $xdiffpow;
 $ydenpow = $ynumpow + $ydiffpow;
 
