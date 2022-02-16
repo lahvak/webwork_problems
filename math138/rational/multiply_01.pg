@@ -37,8 +37,8 @@ Context("Numeric")->variables->are(x=>"Real");
 Context()->{error}{msg}{"Operands of '*' can't be words"} = " ";
 
 $a = random(2,9);
-do {$b = random(2,9);} until (gcd($a, $b) == 1);
 $c = random(2,3);
+do {$b = random(2,13);} until (gcd($a, $b) == 1 && gcd($c, $b) == 1);
 $topcoef = $a*$c;
 $powd = random(1,5);
 $powdiff = random(1,4);
