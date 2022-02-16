@@ -91,8 +91,8 @@ $factored_den2 = Formula(factored @d2)->reduce;
 $factored_num = Formula(factored @n)->reduce;
 $factored_den = Formula(factored @d)->reduce;
 
-$common1 = Formula("x + $f1a")->reduce;
-$common2 = Formula("x + $f2a")->reduce;
+$common1 = Formula("t + $f1a")->reduce;
+$common2 = Formula("t + $f2a")->reduce;
 
 $multians = MultiAnswer($num, $den)->with(
   singleResult => 0,
@@ -120,9 +120,9 @@ $multians = MultiAnswer($num, $den)->with(
 );
 
 
-Context(Inequalities);
+Context(Inequalities)->variables->are(t=>"Real");
 
-$restrictions = List("x != -$f1a, x != -$f2a");
+$restrictions = List("t != -$f1a, t != -$f2a");
 
 # 
 #  Display the fraction and answer blanks nicely
