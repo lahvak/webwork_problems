@@ -91,8 +91,8 @@ $factored_den2 = Formula(factored @d2)->reduce;
 $factored_num = Formula(factored @n)->reduce;
 $factored_den = Formula(factored @d)->reduce;
 
-$common1 = Formula("x - $f1a")->reduce;
-$common2 = Formula("x - $f2a")->reduce;
+$common1 = Formula("x + $f1a")->reduce;
+$common2 = Formula("x + $f2a")->reduce;
 
 $multians = MultiAnswer($num, $den)->with(
   singleResult => 0,
@@ -122,7 +122,7 @@ $multians = MultiAnswer($num, $den)->with(
 
 Context(Inequalities);
 
-$restrictions = List("x != $f1a, x != $f2a");
+$restrictions = List("x != -$f1a, x != -$f2a");
 
 # 
 #  Display the fraction and answer blanks nicely
@@ -181,10 +181,10 @@ ANS( $restrictions->cmp()->withPostFilter(~~&fix_plural_filter));
 #  Solution
 
 BEGIN_PGML_SOLUTION
-First we can rewrite the product as a single fraction:
-[```[$fraction1]\cdot[$fraction2]  = \frac{[$num1]\cdot[$num2]}{[$den1]\cdot[$den2]}```]
+First we factor all the polynomials and write the product as a single fraction:
+[```[$fraction1]\cdot[$fraction2]  = \frac{[$factored_num1]\cdot[$factored_num2]}{[$factored_den1]\cdot[$factored_den2]}```]
 The numerator and denominator have two common factors: [`[$common1]`] and [`[$common2]`]. After cancelling, we get
-[```\frac{[$num]}{[$den]}.```]
+[```\frac{[$factored_num]}{[$factored_den]} = \frac{[$num]}{[$den]}.```]
 
 After the cancellation, the two cancelled factors are no longer in the denominator, so we need to add a domain restrictions to our answer: [`[$restrictions]`].
 END_PGML_SOLUTION
