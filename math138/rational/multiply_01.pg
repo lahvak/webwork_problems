@@ -89,7 +89,7 @@ $multians = MultiAnswer($num, $den)->with(
 
 Context(Inequalities);
 
-$restrictions = List("x != 0, x != $a");
+$restrictions = List("x != 0");
 
 # 
 #  Display the fraction and answer blanks nicely
