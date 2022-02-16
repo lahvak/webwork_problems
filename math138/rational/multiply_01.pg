@@ -48,7 +48,7 @@ $num1 = Formula("$topcoef")->reduce;
 $den1 = Formula("$b*x^($powd)")->reduce;
 
 $num2 = Formula("x^($pown)")->reduce;
-$den2 = Formula("$a x^($powd)")->reduce;
+$den2 = Formula("$a")->reduce;
 
 $num = Formula("$c*x^($powdiff)")->reduce;
 $den = Formula("$b");
@@ -149,7 +149,7 @@ ANS( $restrictions->cmp()->withPostFilter(~~&fix_plural_filter));
 
 BEGIN_PGML_SOLUTION
 First we can rewrite the product as a single fraction:
-[```[$fraction1]\cdot[$fraction2]  = \frac{[$num1]\cdot[$num2]}{[$den1]\cdot[$\den2]}```]
+[```[$fraction1]\cdot[$fraction2]  = \frac{[$num1]\cdot[$num2]}{[$den1]\cdot[$den2]}```]
 The numerator and denominator have the common factor [`[$common]`]. After cancelling, we get
 [```\frac{[$num]}{[$den]}.```]
 
