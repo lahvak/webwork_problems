@@ -73,14 +73,14 @@ sub factored {
 @d = ("x", 1, $f2c, 1, $f2d, 1, 0);
 
 
-$num1 = Formula(poly @n1)->reduce;
-$den1 = Formula(poly @d1)->reduce;
+$num1 = Formula(poly @n1)->reduce->reduce;
+$den1 = Formula(poly @d1)->reduce->reduce;
 
-$num2 = Formula(poly @n2)->reduce;
-$den2 = Formula(poly @d2)->reduce;
+$num2 = Formula(poly @n2)->reduce->reduce;
+$den2 = Formula(poly @d2)->reduce->reduce;
 
-$num = Formula(poly @n)->reduce;
-$den = Formula(poly @d)->reduce;
+$num = Formula(poly @n)->reduce->reduce;
+$den = Formula(poly @d)->reduce->reduce;
 
 $factored_num1 = Formula(factored @n1)->reduce;
 $factored_den1 = Formula(factored @d1)->reduce;
