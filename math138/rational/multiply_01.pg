@@ -103,7 +103,7 @@ if ($displayMode eq 'TeX') {
   "\( \displaystyle $fraction1\cdot$fraction2 = \frac{".$multians->ans_rule(2*$blankwidth)."}{".$multians->ans_rule(2*$blankwidth)."}\}, ".ans_rule(2*$blankwidth);
 } else {
   $showfraction =
-  ColumnTable("\( \displaystyle $fraction1\cdot\fraction2 = \)",
+  ColumnTable("\( \displaystyle $fraction1\cdot$fraction2 = \)",
               ColumnTable(
               BeginTable(border=>0, spacing=>0, padding=>0).
               AlignedRow([ans_rule($blankwidth)], align=>CENTER, separation=>0).
@@ -149,7 +149,7 @@ ANS( $restrictions->cmp()->withPostFilter(~~&fix_plural_filter));
 
 BEGIN_PGML_SOLUTION
 First we can rewrite the product as a single fraction:
-[```$fraction1\cdot\fraction2  = \frac{[$num1]\cdot[$num2]}{[$den1]\cdot[$\den2]}```]
+[```[$fraction1]\cdot[$fraction2]  = \frac{[$num1]\cdot[$num2]}{[$den1]\cdot[$\den2]}```]
 The numerator and denominator have the common factor [`[$common]`]. After cancelling, we get
 [```\frac{[$num]}{[$den]}.```]
 
