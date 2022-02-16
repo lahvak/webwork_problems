@@ -179,9 +179,9 @@ ANS( $restrictions->cmp()->withPostFilter(~~&fix_plural_filter));
 
 BEGIN_PGML_SOLUTION
 First we factor all the polynomials and write the product as a single fraction:
-[```[$fraction1]\cdot[$fraction2]  = \frac{([$factored_num1])\cdot[$factored_num2]}{[$factored_den1]\cdot[$factored_den2]}```]
+[```[$fraction1]\cdot[$fraction2]  = \frac{[$factored_num1]\cdot[$factored_num2]}{([$factored_den1])\cdot[$factored_den2]}```]
 The numerator and denominator have three common factors: [`[$common1]`], [`[$common2]`], and [`[$common3]`]. After cancelling, we get
-[```\frac{[$factored_num]}{[$factored_den]}}.```]
+[```\frac{[$factored_num]}{[$factored_den]}.```]
 
 After the cancellation, two of the cancelled factors are no longer in the denominator, so we need to add a domain restrictions to our answer: [`[$restrictions]`]. The third factor, [`[$common3]`], is still present in the denominator even after cancelling, so we do not add a domain restriction for it.
 END_PGML_SOLUTION
