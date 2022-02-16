@@ -119,7 +119,7 @@ $multians = MultiAnswer($num, $den)->with(
 
 Context(Inequalities)->variables->are(t=>"Real");
 
-$restrictions = List("t != -$f1a, t != -$f2a");
+$restrictions = List("t != 0, t != -$f2a");
 
 # 
 #  Display the fraction and answer blanks nicely
