@@ -1,0 +1,37 @@
+# DESCRIPTION
+# A mad experiment that will probly not even
+# WeBWorK problem written by Jan Hlavacek
+# ENDDESCRIPTION
+
+## DBsubject('WeBWorK')
+## DBchapter('Demos')
+## DBsection('Problem')
+## KEYWORDS('')
+## TitleText1('')
+## EditionText1('')
+## AuthorText1('')
+## Section1('')
+## Problem1('')
+## Author('Jan Hlavacek')
+## Institution('SVSU')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+$b = 2;
+
+given($b){
+    when(1){$a = 4;}
+    when(2){$a = 17;}
+    when(3){$a = -1;}
+}
+
+BEGIN_PGML
+Blah blah [$a]
+END_PGML
+ENDDOCUMENT();
