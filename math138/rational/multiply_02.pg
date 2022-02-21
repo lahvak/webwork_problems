@@ -39,7 +39,7 @@ Context()->{error}{msg}{"Operands of '*' can't be words"} = " ";
 $f1a = random(1,7);
 $f1b = list_random(-1,1)*random(2,9);
 do {$f1c = random(1,7);} until ($f1c != $f1a && $f1c != $f1b);
-do {$f1d = list_random(-1,1)*random(1,7);} until ($f1d != $f1a && $f1d != $f1b);
+do {$f1d = list_random(-1,1)*random(1,7);} until ($f1d != $f1a && $f1d != $f1b && $f1d != $f1c);
 $f2a = $f1d;
 do {$f2b = list_random(-1,1)*random(1,7);} until ($f2b != $f1c && $f2b != $f1d);
 do {$f2c = list_random(-1,1)*random(1,7);} until ($f2c != $f1a && $f2c != $f1b && $f2c != $f2a && $f2c != $f2b);
@@ -70,7 +70,7 @@ sub factored {
 @d2 = ("x", 1, $f2c, 1, $f2d, 1, 0);
 
 @n = ("x", 1, $f1b, 1, $f2b, 1, 0);
-@d = ("x", 1, $f2c, 1, $f2d, 1, 0);
+@d = ("x", 1, $f1c, 1, $f2c, 1, 0);
 
 
 $num1 = Formula(poly @n1)->reduce->reduce;
