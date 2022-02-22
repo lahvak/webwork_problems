@@ -150,7 +150,7 @@ Factoring and reducing the fractions:
 
 [```
 [$fraction1]\cdot\frac{[$d1]}{[$c1]} = \frac{[$a]\cdot[$common1]\cdot x}{[$b]\cdot[$common2]}\cdot\frac{[$d]\cdot[$common2]}{[$c]\cdot[$common1]\cdot x}
-= \frac{[$a]\cdot[$d]}{[$b]\cdot[$c]} = \frac{[$num]}{[$den]}.
+= \frac{[$a]\cdot[$d]}{[$b]\cdot[$c]},\ x \neq 0 = \frac{[$num]}{[$den]},\ x \neq 0;
 ```]
 
 END_PGML_SOLUTION
