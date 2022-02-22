@@ -131,7 +131,7 @@ BEGIN_PGML_SOLUTION
 Factoring and reducing the fractions:
 
 [```
-[$fraction1]\cdot\frac{[$d1]}{[$c1]} = \frac{[$a]\cdot[$common1]}{[$b]\cdot[$common2]}\cdot\frac{[$d]\cdot[$common2]}{[$b]\cdot[$common1]}
+[$fraction1]\cdot\frac{[$d1]}{[$c1]} = \frac{[$a]\cdot[$common1]}{[$b]\cdot[$common2]}\cdot\frac{[$d]\cdot[$common2]}{[$c]\cdot[$common1]}
 = \frac{[$a]\cdot[$d]}{[$b]\cdot[$c]} = \frac{[$num]}{[$den]}.
 ```]
 
