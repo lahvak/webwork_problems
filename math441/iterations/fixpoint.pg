@@ -1,0 +1,102 @@
+##DESCRIPTION
+## DBsubject(Numerical Analysis)
+## DBchapter(Iterative Methods)
+## DBsection(Bisection)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(3)
+## KEYWORDS('iterative methods, bisection')
+##ENDDESCRIPTION
+
+# File Created: 2021-02-21
+# Location: SVSU
+# Course: Numerical Analysis
+
+DOCUMENT();     
+loadMacros("PGstandard.pl",  
+           "PGauxiliaryFunctions.pl",
+           "MathObjects.pl",
+           "PGML.pl",
+           "scaffold.pl",
+);
+TEXT(&beginproblem);
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric");
+
+$n = random(3,7);
+$a = random(2,15);
+
+$left = Compute("-2*$a^(1/$k)/($k*$a)");
+
+$right = 0;
+
+$p0 = 1.0;
+
+$g = Formula("x - 2/($k*$a)*(x^($k) - $a)");
+
+$g->perlFunction("G");
+
+$p1 = G($p0);
+$p2 = G($p1);
+$p3 = G($p2);
+
+
+Scaffold::Begin(
+    can_open => "when_previous_correct",
+    is_open => "correct_or_first_incorrect",
+    hardcopy_is_open => "correct_or_first_incorrect"
+);
+Section::Begin("Finding [:g:]");
+
+BEGIN_PGML
+In this problem you will find an approximation for the number [`p = \sqrt[[$k]]{[$a]}`] by solving the equation [`x^{[$k]} - [$a] = 0`] using a
+fixed point method.
+
+In order to do that, we have to rewrite the equation in the fixed point form [`g(x) = x`] for some function [`g`]. The most obvious candidate would be [`g(x) = x + x^{[$k]} - [$a]`], however it is easy to see that in that case [`g'(p) > 1`] so the iterations would not converge.
+
+We need to find another function [`g`] such that [`g(x) = x`] is equivalent with [`x^{[$k]} - [$a] = 0`] and [`\left\lvert g'(p)\right\rvert < 1`].
+
+We can try a candidate in the form [``g(x) = x + C\left(x^{[$k]} - [$a]\right)``] for some suitable constant [`C`].
+
+Your first task is to find all the values of [`C`] such that [`\left\lvert g'(p)\right\rvert < 1`]. The answer will be an interval:
+
+[`\left\lvert g'(p)\right\rvert < 1`] for [_________]{$left} [`{} < C < {}`] [_________]{$right}.
+
+END_PGML
+Section::End();
+
+Section::Begin("Step 2");
+BEGIN_PGML
+That's correct: [``g'(x) = 1 + C[$k]x^{[$k]-1}``], and so [``g'(p) = 1 + C[$k]\left([$a]^{1/[$k]}\right)^{[$k-1]} = 1 + C[$k]\cdot[$a]^{[$k-1]/[$k]}``]
+
+Then [``\left\lvert g'(p) \right\rvert < 1``] means
+
+[```
+\begin{aligned}
+-1 &< 1 + C[$k]\cdot[$a]^{[$k-1]/[$k]} < 1\\
+-2 &< C[$k]\cdot[$a]^{[$k-1]/[$k]} < 0\\
+-\frac{2}{[$k]\cdot[$a]^{[$k-1]/[$k]}} &< C < 0
+\end{aligned}
+```]
+
+We can choose any [`C`] in this interval. Since
+
+[``` -\frac{2}{[$k]\cdot[$a]^{[$k-1]/[$k]}} = -\frac{2\cdot [$a]^{[$k]}}{[$k]\cdot [$a]} < -\frac{2}{[$k]\cdot [$a]} < 0```]
+
+we can choose [``C = -\frac{2}{[$k]\cdot [$a]}``] which gives us
+
+[```g(x) = x -\frac{2}{[$k]\cdot [$a]}\left(x^{[$k]} - [$a]\right)```]
+
+If we graph this function, we will see that there is an interval [`[a,b]`] with [`0 < a < 1 < p < b`] such that  for any [`x \in [a,b]`], [`g(x) \in [a,b]`] and [`\left\lvert g'(x)\right\rvert < k`], for some [`0 < k < 1`] independent of [`x`].  For any choice of [`p_0 \in [a,b]`], the iteration of [`g`] rill converge to [`p`].
+
+Start with [`p_0 = 1`] and calculate [`p_1`], [`p_2`] and [`p_3`].
+
+* [`p_1 = `][_________]{$p1}
+* [`p_2 = `][_________]{$p2}
+* [`p_3 = `][_________]{$p3}
+END_PGML
+Section::End();
+
+Scaffold::End();
+ENDDOCUMENT();
