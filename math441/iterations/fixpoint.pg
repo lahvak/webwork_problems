@@ -68,27 +68,27 @@ Section::End();
 
 Section::Begin("Step 2");
 BEGIN_PGML
-That's correct: [``g'(x) = 1 + C[$k]x^{[$k]-1}``], and so [``g'(p) = 1 + C[$k]\left([$a]^{1/[$k]}\right)^{[$k-1]} = 1 + C[$k]\cdot[$a]^{[$k-1]/[$k]}``]
+That's correct: [``g'(x) = 1 + [$k]Cx^{[$k]-1}``], and so [``g'(p) = 1 + [$k]C\left([$a]^{1/[$k]}\right)^{[$k-1]} = 1 + [$k]C\cdot[$a]^{[$k-1]/[$k]}``]
 
 Then [``\left\lvert g'(p) \right\rvert < 1``] means
 
 [```
 \begin{aligned}
--1 &< 1 + C[$k]\cdot[$a]^{[$k-1]/[$k]} < 1\\
--2 &< C[$k]\cdot[$a]^{[$k-1]/[$k]} < 0\\
+-1 &< 1 + [$k]C\cdot[$a]^{[$k-1]/[$k]} < 1\\
+-2 &< [$k]C\cdot[$a]^{[$k-1]/[$k]} < 0\\
 -\frac{2}{[$k]\cdot[$a]^{[$k-1]/[$k]}} &< C < 0
 \end{aligned}
 ```]
 
 We can choose any [`C`] in this interval. Since
 
-[``` -\frac{2}{[$k]\cdot[$a]^{[$k-1]/[$k]}} = -\frac{2\cdot [$a]^{[$k]}}{[$k]\cdot [$a]} < -\frac{2}{[$k]\cdot [$a]} < 0```]
+[``` -\frac{2}{[$k]\cdot[$a]^{[$k-1]/[$k]}} = -\frac{2\cdot [$a]^{1/[$k]}}{[$k]\cdot [$a]} < -\frac{2}{[$k]\cdot [$a]} < 0```]
 
 we can choose [``C = -\frac{2}{[$k]\cdot [$a]}``] which gives us
 
 [```g(x) = x -\frac{2}{[$k]\cdot [$a]}\left(x^{[$k]} - [$a]\right)```]
 
-If we graph this function, we will see that there is an interval [`[a,b]`] with [`0 < a < 1 < p < b`] such that  for any [`x \in [a,b]`], [`g(x) \in [a,b]`] and [`\left\lvert g'(x)\right\rvert < k`], for some [`0 < k < 1`] independent of [`x`].  For any choice of [`p_0 \in [a,b]`], the iteration of [`g`] rill converge to [`p`].
+If we graph this function, we will see that there is an interval [`[a,b]`] with [`0 < a < 1 < p < b`] such that  for any [`x \in [a,b]`], [`g(x) \in [a,b]`] and [`\left\lvert g'(x)\right\rvert < k`], for some [`0 < k < 1`] independent of [`x`].  For any choice of [`p_0 \in [a,b]`], the iteration of [`g`] will converge to [`p`].
 
 Start with [`p_0 = 1`] and calculate [`p_1`], [`p_2`] and [`p_3`].
 
