@@ -24,7 +24,7 @@ $showPartialCorrectAnswers = 1;
 
 Context("Numeric");
 
-$n = random(3,7);
+$k = random(3,7);
 $a = random(2,15);
 
 $left = Compute("-2*$a^(1/$k)/($k*$a)");
