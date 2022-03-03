@@ -1,0 +1,63 @@
+## DESCRIPTION
+## Algebra: Solve problems using variation
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Rational equations and functions)
+## DBsection(Applications and models)
+## Level(5)
+## KEYWORDS('algebra', 'variation')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric");
+
+$factor = random(2.5,3.5, .5);
+$d2 = random(10,50)*10;
+$d1 = $factor*$d2;
+$p1 = random(5,30);
+$p2 = $factor*$p1;
+
+$k = $p1*$d1;
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Monthly demand for certain product is inversely proportional to its price.  When the price is $[$p1], the demand is [$q1] units of the product.
+What is the demand when the price is [$p2]?  Round to the nearest integer if necessary.
+
+Demand is [________________]{$q2} units.
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The equation relating the demand [:q:] and the price [:p:]  is
+[```q = \frac{k}{p}```]
+for some constant of proportionality [:k:].  To find [:k:], we plug in [:p = [$p1]:] and [:q = [$q1]:] and solve for [:k:]:
+[```\begin{aligned}[$q1] &= \frac{k}{[$p1]}\\[$q1]\cdot [$p1] &= k\\k &= [$k]\end{aligned}```]
+Now we know that the equation is
+[```q = \frac{[$k]}{p}```]
+
+Plugging in [:p = [$p2]:] gives us
+[``q = \frac{[$k]}{[$p2]} = [$q2]``]
+
+END_PGML_SOLUTION
+ENDDOCUMENT();
