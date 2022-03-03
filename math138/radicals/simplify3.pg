@@ -21,6 +21,7 @@ loadMacros(
 "MathObjects.pl",
 "contextLimitedPowers.pl",
 "PGML.pl",
+"answerHints.pl",
 "PGcourse.pl",
 );
 
@@ -75,6 +76,7 @@ $exp = 2*$outer_exp;
 #  MathObjects
 $expr = Compute("sqrt($coef*x^$exp)");
 $ans = Compute("$a*|x|^($outer_exp)*sqrt($b)");
+$no_abs = Compute("$a*x^($outer_exp)*sqrt($b)");
 
 
 ###########################
@@ -109,7 +111,7 @@ ANS( $ans-> cmp( checker => sub {
   Value::Error("Check to see if your answer is simplified.") unless $OK;
   return $OK;
   }, formatStudentAnswer=>"reduced"
-  )
+  )->withPostFilter(AnswerHints($no_abs => "Make sure your answer works for negative values of x!"));
 );
 
 
