@@ -1,0 +1,59 @@
+## DESCRIPTION
+## Algebra: Solve problems using rational equations
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Rational equations and functions)
+## DBsection(Applications and models)
+## Level(5)
+## KEYWORDS('algebra', 'rational equations')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric")->variables->are(p=>"Real");
+
+$p = random(30,80,5);
+$hmp = 100 - $p;
+
+$k = $hmp/5*random(8,17)*1000;
+
+$cost = Formula("$k*p/(100 - p)")->reduce;
+
+$C = $cost->eval(p => $p);
+
+###########################
+#  Main text
+
+BEGIN_PGML
+The formula below gives the cost [:C:] of removing [:p:] percent of industrial pollutants from a small lake.  
+
+[``C = [$cost]``]
+
+The DNR received a grant
+of $[$C] for pollution removal.  What percent of the pollutants can be removed with these funds?
+
+[________________]{$p}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+END_PGML_SOLUTION
+ENDDOCUMENT();
