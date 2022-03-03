@@ -1,0 +1,66 @@
+## DESCRIPTION
+## Algebra: Solve problems using variation
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Rational equations and functions)
+## DBsection(Applications and models)
+## Level(5)
+## KEYWORDS('algebra', 'variation')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric");
+
+
+$F1 = random(2,9)/10;
+$F2 = random(11,25)/10;
+$k = random(20,80)/100;
+
+$d1 = $k*$F1;
+$d2 = $k*$F2;
+
+###########################
+#  Main text
+
+BEGIN_PGML
+According to Hook's law, the distance a spring is stretched or compressed is directly proportional to the force applied to the spring.
+
+When a force of [$F1] Newtons is applied to a spring, it stretches [$d1] meters.
+
+What force must be applied to the spring to stretch to [$d2] meters?
+
+[`F = `][_____________]{$f2} Newtons.
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+According to the Hook's law, [: F = kd :] where [:F:] is the force and [:d:] is the distance teh pring stretches, and [:k:] is a constant of proportionality specific to the spring and the units used. In the problem, all the units of force are Newtons and all the distances are measured in meters, so we do not have to worry about unit conversion.
+
+It is given that when [:F = [$F1]:] Newtons, the distance [:d = [$d1]:] meters.  From this we can determine that [:k = [$k]:].
+
+Therefore the equation describing the relation of force in Newtons and distance in meters for this particular spring is
+[``` d = [$k]F ```]
+
+When [:d = [$d2]:] meters, the force [:F:] in Newtons must satisfy the equation [:[$d2] = [$k]F:].  Solving this equation gives us [:F = [$F2]:] Newtons.
+
+END_PGML_SOLUTION
+ENDDOCUMENT();
