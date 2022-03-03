@@ -32,7 +32,7 @@ Context("Numeric");
 
 $factor = random(2.5,3.5, .5);
 $q2 = random(10,50)*10;
-$q1 = $factor*$d2;
+$q1 = $factor*$q2;
 $p1 = random(5,30);
 $p2 = $factor*$p1;
 
