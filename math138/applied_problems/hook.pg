@@ -53,7 +53,7 @@ END_PGML
 
 BEGIN_PGML_SOLUTION
 
-According to the Hook's law, [: F = kd :] where [:F:] is the force and [:d:] is the distance teh pring stretches, and [:k:] is a constant of proportionality specific to the spring and the units used. In the problem, all the units of force are Newtons and all the distances are measured in meters, so we do not have to worry about unit conversion.
+According to the Hook's law, [: d = kF :] where [:F:] is the force and [:d:] is the distance teh pring stretches, and [:k:] is a constant of proportionality specific to the spring and the units used. In the problem, all the units of force are Newtons and all the distances are measured in meters, so we do not have to worry about unit conversion.
 
 It is given that when [:F = [$F1]:] Newtons, the distance [:d = [$d1]:] meters.  From this we can determine that [:k = [$k]:].
 
