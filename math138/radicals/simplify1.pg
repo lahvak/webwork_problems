@@ -53,6 +53,8 @@ sub sqrt {
 
 # end of subclass
 
+package main;
+
 Context("Numeric")->variables->are(x=>"Real");
 Context()->variables->set(x=>{limits=>[5,10]});
 Context()->functions->set(sqrt=>{class=>'my::Function::numeric'});
