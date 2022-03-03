@@ -1,0 +1,131 @@
+## DESCRIPTION
+## Algebra: Simplify expression with radicals
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## KEYWORDS('algebra', 'rules of radicals')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedPowers.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+# Taken from University of Missouri problem
+# Mizzou/College_Algebra/Rational_and_Radical_Exponents_Simplifying_Radicals/Radical2.pg
+
+#
+# Subclass the numeric functions
+#
+package my::Function::numeric;
+our @ISA = ('Parser::Function::numeric');
+
+#
+# Override sqrt() to return a special value (usually 1) when evaluated
+# effectively eliminating it from the product.
+#
+sub sqrt {
+  my $self = shift;
+  my $value = $self->context->flag("setSqrt");
+  return $value+1 if $value && $_[0] == 1; # force sqrt(1) to be incorrect
+  return $value if $value;
+  return $self->SUPER::sqrt(@_);
+}
+
+# end of subclass
+
+package main;
+
+Context("Numeric")->variables->are(x=>"Real");
+Context()->variables->set(x=>{limits=>[5,10]});
+Context()->functions->set(sqrt=>{class=>'my::Function::numeric'});
+Context()->flags->set(reduceConstantFunctions=>0);
+
+# Don't allow fractional powers (avoids 1/2 power)
+# [Could subclass exponentiation to handle that as well]
+
+LimitedPowers::OnlyPositiveIntegers();
+
+$a = random(2,3);
+$b = list_random(2,3,5,6,7);
+$coef = $a*$a*$b;
+
+$outer_exp = random(1,5)*2;
+$exp = 2*$outer_exp;
+
+#  MathObjects
+$expr = Compute("sqrt($coef*x^$exp)");
+$ans = Compute("$a*x^($outer_exp)*sqrt($b)");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Simplify the following expression:
+
+[``[$expr] = ``][__________________________]
+
+END_PGML
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $ans-> cmp( checker => sub {
+  my ($correct,$student,$ans) = @_;
+  return 0 if $ans->{isPreview} || $correct != $student;
+  #
+  #  Get parsed formula for student and correct answers
+  #
+  $student = $ans->{student_formula};
+  $correct = $correct->{original_formula} if defined $correct->{original_formula};
+  #
+  # check if equal when sqrt's are replaced by 1
+  #
+  Context()->flags->set(setSqrt => 1);
+  delete $correct->{test_values};
+  delete $student->{test_values};
+  my $OK = ($correct == $student);
+  Context()->flags->set(setSqrt => 0);
+  #
+  Value::Error("Check to see if your answer is simplified.") unless $OK;
+  return $OK;
+  }, formatStudentAnswer=>"reduced"
+  )
+);
+
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+[```\begin{aligned}
+[$expr] &= \sqrt{[$a]^2 [$b] x^{[$outer_exp*2]}}\\
+&= \sqrt{[$a]^2}\cdot \sqrt{x^{[$outer_exp*2]}}\cdot\sqrt{[$b]}\\
+&= [$a]x^{[$outer_exp]}\sqrt{[$b]}
+\end{aligned}```]
+
+We do not need absolute value because even after simplifying, the power of [:x:] is __even__.
+END_PGML_SOLUTION
+
+COMMENT('Power of x always 4k.');
+
+ENDDOCUMENT();
