@@ -50,10 +50,20 @@ The formula below gives the cost [:C:] of removing [:p:] percent of industrial p
 The DNR received a grant
 of $[$C] for pollution removal.  What percent of the pollutants can be removed with these funds?
 
-[________________]{$p}
+[________________]{$p}%
 END_PGML
 
 BEGIN_PGML_SOLUTION
+
+Setting [:C = [$C]:] will give us the rational equation
+
+[``` [$C] = [$cost] ```]
+
+Multiplying both sides by the denominator [`100 - p`] gives us a linear equation
+
+[``` [$C](100 - p) = [$k]p ```]
+
+Solving this equation, we get [`p = [$p]`].  Therefore [$p]% of the pollutants can be removed.
 
 END_PGML_SOLUTION
 ENDDOCUMENT();
