@@ -111,7 +111,7 @@ ANS( $ans-> cmp( checker => sub {
   Value::Error("Check to see if your answer is simplified.") unless $OK;
   return $OK;
   }, formatStudentAnswer=>"reduced"
-  )->withPostFilter(AnswerHints($no_abs => "Make sure your answer works for negative values of x!"));
+  )->withPostFilter(AnswerHints($no_abs => "Make sure your answer works for negative values of x!"))
 );
 
 
