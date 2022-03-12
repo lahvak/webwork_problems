@@ -1,0 +1,68 @@
+## DESCRIPTION
+## Algebra: Simplify expression with radicals
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## KEYWORDS('algebra', 'rules of radicals', 'rationalizing denominators')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedRadical.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("LimitedRadical");
+
+$a = list_random(2,3,5,6,7,11,13,14,15);
+$b = random(2,9);
+$c = $a - $b*$b;
+
+$expr = Formula("$c/(sqrt($a) - $b)");
+
+$ans = Compute("sqrt($a) + $b");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Rationalize the denominator and simplify:
+
+[``[$expr] = ``][__________________________]{$ans}
+
+Enter [`\sqrt{\mathstrut\ldots}`] as *sqrt(...)*.
+END_PGML
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+[```\begin{aligned}
+[$expr] &= [$expr]\cdot\frac{\sqrt{[$a]} + [$b]}{\sqrt{[$a]} + [$b]}\\
+&= \frac{[$c]\left(\sqrt{[$a]} + [$b]\right)}{[$a] - [$b]^2}\\
+&= \frac{[$c]\left(\sqrt{[$a]} + [$b]\right)}{[$c]}\\
+&= [$ans]
+\end{aligned}```]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
