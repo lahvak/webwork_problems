@@ -41,7 +41,7 @@ $powy = random(2,5);
 $powy2 = 4*$powy;
 $powy3 = $powy2 + 1;
 
-$form1 = Formula("$mult*x^($povx3)*y")->reduce;
+$form1 = Formula("$mult*x^($powx3)*y")->reduce;
 $form2 = Formula("x^3*y^($powy3)")->reduce;
 
 $expr = Formula("root(4,$form1) - root(4,$form2)");
