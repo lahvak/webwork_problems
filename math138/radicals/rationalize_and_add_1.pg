@@ -1,0 +1,74 @@
+## DESCRIPTION
+## Algebra: Simplify expression with radicals
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## KEYWORDS('algebra', 'rules of radicals')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedRadical.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("LimitedRadical");
+
+$a = list_random(2,3,5,7,11,13,17);
+do {$b = random(2,9);} while ($b % $a == 0);
+$c = $a + $b;
+
+$expr = Formula("sqrt($a) + $b/sqrt($a)");
+
+$ans = Compute("$c*sqrt($a)/$a");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Simplify the following expression:
+
+[``[$expr] = ``][__________________________]{$ans}
+
+Enter [`\sqrt{\mathstrut\ldots}`] as *sqrt(...)*. Your answer should only have one radical in it.
+END_PGML
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+First rationalize the denominator:
+[```\begin{aligned}
+[$expr] &= \sqrt{[$a]} + \frac{[$b]}{\sqrt{[$a]}\cdot\frac{\sqrt{[$a]}}{\sqrt{[$a]}}\\
+&= \sqrt{[$a]} + \frac{[$b]\sqrt{[$a]}{$a}\\
+\end{aligned}```]
+Then find common denominator and add fractions:
+[```\begin{aligned}
+\sqrt{[$a]} + \frac{[$b]\sqrt{[$a]}{$a} &= \frac{[$a]\sqrt{[$a]}}{[$a]} + \frac{[$b]\sqrt{[$a]}{$a}\\
+&= \frac{[$a]\sqrt{[$a]} + [$b]\sqrt{[$a]}}{[$a]}\\
+&= \frac{([$a] + [$b])\sqrt{[$a]}}{[$a]}\\
+&= [$ans]
+\end{aligned}```]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
