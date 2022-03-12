@@ -54,7 +54,7 @@ Simplify the following expression:
 
 [``[$expr] = ``][__________________________]{$ans}
 
-Enter [`\sqrt{\dots}`] as *sqrt(...)*.
+Enter [`\sqrt{\ldots}`] as *sqrt(...)*.
 END_PGML
 
 ############################
