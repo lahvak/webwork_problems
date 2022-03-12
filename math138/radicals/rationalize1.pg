@@ -38,7 +38,7 @@ $c = $a - $b*$b;
 
 $expr = Formula("$c/(sqrt($a) - $b)");
 
-$ans = Compute("sqrt($a) + $b");
+$ans = Formula("sqrt($a) + $b");
 
 
 ###########################
