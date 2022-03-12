@@ -58,12 +58,12 @@ END_PGML
 BEGIN_PGML_SOLUTION
 First rationalize the denominator:
 [```\begin{aligned}
-[$expr] &= \sqrt{[$a]} + \frac{[$b]}{\sqrt{[$a]}\cdot\frac{\sqrt{[$a]}}{\sqrt{[$a]}}\\
-&= \sqrt{[$a]} + \frac{[$b]\sqrt{[$a]}{$a}\\
+[$expr] &= \sqrt{[$a]} + \frac{[$b]}{\sqrt{[$a]}}\cdot\frac{\sqrt{[$a]}}{\sqrt{[$a]}}\\
+&= \sqrt{[$a]} + \frac{[$b]\sqrt{[$a]}}{$a}
 \end{aligned}```]
 Then find common denominator and add fractions:
 [```\begin{aligned}
-\sqrt{[$a]} + \frac{[$b]\sqrt{[$a]}{$a} &= \frac{[$a]\sqrt{[$a]}}{[$a]} + \frac{[$b]\sqrt{[$a]}{$a}\\
+\sqrt{[$a]} + \frac{[$b]\sqrt{[$a]}}{$a} &= \frac{[$a]\sqrt{[$a]}}{[$a]} + \frac{[$b]\sqrt{[$a]}}{$a}\\
 &= \frac{[$a]\sqrt{[$a]} + [$b]\sqrt{[$a]}}{[$a]}\\
 &= \frac{([$a] + [$b])\sqrt{[$a]}}{[$a]}\\
 &= [$ans]
