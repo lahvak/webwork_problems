@@ -1,0 +1,75 @@
+## DESCRIPTION
+## Algebra: Simplify expression with radicals
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## KEYWORDS('algebra', 'rules of radicals')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedRadical.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("LimitedRadical");
+
+$b = list_random(2,3,5);
+$mult = $b*$b*$b*$b;
+$powx = random(2,6);
+$powx2 = 4*$powx;
+$powx3 = $powx2 + 3;
+$powy = random(2,5);
+$powy2 = 4*$powy;
+$powy3 = $powy2 + 1;
+
+$form1 = Formula("$mult*x^($povx3)*y")->reduce;
+$form2 = Formula("x^3*y^($powy3)")->reduce;
+
+$expr = Formula("root(4,$form1) - root(4,$form2)");
+
+$ans = Formula("($b*x^($powx) - y^($powy))*root(4,x^3*y)");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Simplify the following expression:
+
+[``[$expr] = ``][__________________________]{$ans}
+
+Enter [`\sqrt[4]{\mathstrut\ldots}`] as *root(4, ...)*.
+END_PGML
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+[```\begin{aligned}
+[$expr] &= \sqrt[4]{[$b]^3 x^{[$powx2]} x^3y} + \sqrt[4]{x^3y^{[$powy2]}y}\\
+&= [$b]x^{[$powx]}\sqrt[4]{x^3y} + y^{[$powy]}\sqrt[4]{x^3y}\\
+&= [$ans]
+\end{aligned}```]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
