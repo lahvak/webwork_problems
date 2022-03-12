@@ -64,8 +64,8 @@ END_PGML
 
 BEGIN_PGML_SOLUTION
 [```\begin{aligned}
-[$expr] &= \sqrt{x^($pow2)([$a]x)} + \sqrt{[$mult]([$a]x)}\\
-&= x^{$pow}\sqrt{[$a]x} + [$b]\sqrt{[$a]x}\\
+[$expr] &= \sqrt{x^{[$pow2]}([$a]x)} + \sqrt{[$mult]([$a]x)}\\
+&= x^{[$pow]}\sqrt{[$a]x} + [$b]\sqrt{[$a]x}\\
 &= [$ans]
 \end{aligned}```]
 
