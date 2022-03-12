@@ -35,11 +35,12 @@ Context("LimitedRadical");
 $a = list_random(-1,1)*random(2,5);
 $b = random(2,5);
 $mult = $b*$b;
+$multa = $mult*$a;
 $c = random(2,9);
 $coef = $c + $b;
 
 $form1 = Formula("x + $a")->reduce;
-$form2 = Formula("$mult*x + $mult*$a")->reduce;
+$form2 = Formula("$mult*x + $multa")->reduce;
 
 $expr = Formula("$c*sqrt($form1) + sqrt($form2)");
 
