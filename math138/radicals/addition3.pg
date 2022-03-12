@@ -1,0 +1,74 @@
+## DESCRIPTION
+## Algebra: Simplify expression with radicals
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## KEYWORDS('algebra', 'rules of radicals')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedRadical.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("LimitedRadical");
+
+$a = list_random(2,3,5,6,7);
+$b = random(2,5);
+$mult = $b*$b;
+$coef = $mult*$a;
+$pow = random(2,6);
+$pow2 = 2*$pow;
+$pow3 = $pow2 + 1;
+
+$form1 = Formula("$a*x^($pow3)")->reduce;
+$form2 = Formula("$coef*x")->reduce;
+
+$expr = Formula("sqrt($form1) + sqrt($form2)");
+
+$ans = Compute("(x^($pow) + $b)*sqrt($a*x)");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Simplify the following expression:
+
+[``[$expr] = ``][__________________________]{$ans}
+
+Enter [`\sqrt{\mathstrut\ldots}`] as *sqrt(...)*.
+END_PGML
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+[```\begin{aligned}
+[$expr] &= \sqrt{x^($pow2)([$a]x)} + \sqrt{[$mult]([$a]x)}\\
+&= x^{$pow}\sqrt{[$a]x} + [$b]\sqrt{[$a]x}\\
+&= [$ans]
+\end{aligned}```]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
