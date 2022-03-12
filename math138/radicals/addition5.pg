@@ -65,8 +65,8 @@ END_PGML
 
 BEGIN_PGML_SOLUTION
 [```\begin{aligned}
-[$expr] &= \sqrt[4]{[$b]^3 x^{[$powx2]} x^3y} + \sqrt[4]{x^3y^{[$powy2]}y}\\
-&= [$b]x^{[$powx]}\sqrt[4]{x^3y} + y^{[$powy]}\sqrt[4]{x^3y}\\
+[$expr] &= \sqrt[4]{[$b]^3 x^{[$powx2]} x^3y} - \sqrt[4]{x^3y^{[$powy2]}y}\\
+&= [$b]x^{[$powx]}\sqrt[4]{x^3y} - y^{[$powy]}\sqrt[4]{x^3y}\\
 &= [$ans]
 \end{aligned}```]
 
