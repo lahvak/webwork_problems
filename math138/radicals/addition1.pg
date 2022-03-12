@@ -19,7 +19,7 @@ DOCUMENT();
 loadMacros(
 "PGstandard.pl",
 "MathObjects.pl",
-"contextLimitedRadicals.pl",
+"contextLimitedRadical.pl",
 "PGML.pl",
 "PGcourse.pl",
 );
