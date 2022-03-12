@@ -30,7 +30,7 @@ TEXT(beginproblem());
 ###########################
 #  Setup
 
-Context("LimitedRadical")->variables(are=>[x,y]);
+Context("LimitedRadical")->variables->are(x => "Real", y => "Real");
 
 $b = list_random(2,3,5);
 $mult = $b*$b*$b*$b;
