@@ -1,0 +1,72 @@
+## DESCRIPTION
+## Algebra: Simplify expression with radicals
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## KEYWORDS('algebra', 'rules of radicals')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedRadical.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("LimitedRadical");
+
+$b = random(2,5);
+$mult = $b*$b*$b;
+$pow = random(2,6);
+$pow2 = 3*$pow;
+$pow3 = $pow2 + 1;
+
+$form1 = Formula("$mult*x")->reduce;
+$form2 = Formula("x^($pow3)")->reduce;
+
+$expr = Formula("root(3,$form1) + root(3,$form2)");
+
+$ans = Formula("($b + x^($pow))*root(3,x)");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Simplify the following expression:
+
+[``[$expr] = ``][__________________________]{$ans}
+
+Enter [`\sqrt[3]{\mathstrut\ldots}`] as *root(3, ...)*.
+END_PGML
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+[```\begin{aligned}
+[$expr] &= \sqrt[3]{[$b]^3 x} + \sqrt[3]{x^{[$pow2]}x}\\
+&= [$b]\sqrt[3]{x} + x^{[$pow]}\sqrt[3]{x}\\
+&= [$ans]
+\end{aligned}```]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
