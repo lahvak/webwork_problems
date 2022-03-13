@@ -1,0 +1,76 @@
+## DESCRIPTION
+## Algebra: Complex solutions to a quadratic equation
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Complex roots)
+## Level(2)
+## KEYWORDS('algebra', 'complex numbers', 'quadratic equations')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+$showPartialCorrectAnswers = 0;
+
+Context("Complex");
+Context()->variables->add(x => 'Complex');
+
+$re = 0;
+$im = list_random(-1,1)*random(1,6,1);
+
+$p = Complex($re,$im);
+$p2 = Compute("$p^2");
+$p3 = Compute("$p^3");
+
+$a = random(2,5);
+$b = $im*$im;
+$c = $a*$b;
+
+$fun = Formula("x^3 - $a*x^2 + $b*x - $c")->reduce;
+
+$ans = $fun->substitute(x => "$p");
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Given the polynomial function [`f(x) = [$fun]`], calculate and simplify [`f([$p])`].
+
+[`f([$p]) = `][___________]{$ans}
+END_PGML
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+
+[```\begin{aligned}
+f([$p]) &= ([$p])^3 - [$a]([$p])^2 + [$b]([$p]) - [$c]\\
+&= [$p3] - [$a]([$p2]) + [$b]([$p]) - [$c]\\
+&= [$ans]
+\end{aligned}```]
+
+END_PGML_SOLUTION
+
+COMMENT('Answer is always 0.');
+
+ENDDOCUMENT();
