@@ -48,7 +48,7 @@ $c = $a*$b;
 
 $fun = Formula("x^3 - $a*x^2 + $b*x - $c")->reduce;
 
-Context("LimitedComplex-cartesian");
+Context("LimitedComplex-cartesian-strict");
 
 $ans = $fun->substitute(x => "$p");
 
