@@ -38,7 +38,7 @@ $c = random(1,9);
 do {$d = random(1,9)} while ($d == $c);
 
 $den = list_random(2,3,5,7,11,13,17);
-do {$num = random(1,15);} while ($b % $a == 0);
+do {$num = random(1,15);} while ($num % $den == 0);
 
 $root = Compute("$num/$den");
 
