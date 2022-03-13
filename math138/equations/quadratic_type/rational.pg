@@ -52,7 +52,7 @@ $quad = Formula("$a*z^2 - $b*z + $c")->reduce;
 
 $subs = $quad->substitute(z => "$frac");
 
-$num2 = $num*$c - $den*$d;
+$num2 = $den*$c - $num*$d;
 $den2 = $den - $num;
 
 $sol = Compute("$num2/$den2");
@@ -80,7 +80,7 @@ END_PGML_HINT
 BEGIN_PGML_SOLUTION
 Substituting [`z`] for [`[$frac]`] will give us a quadratic equation
 [```[$quad] = 0 ```]
-which has solutions [`z =  1`] and [`z = [$root2]`].  Substituting [`[$frac]`] back for [`z`] gives us two equations
+which has solutions [`z =  1`] and [`z = [$root]`].  Substituting [`[$frac]`] back for [`z`] gives us two equations
 [`[$frac] = \frac{[$num1]}{[$den1]}`] and [`[$frac] = [$root]`].  The first has no solution, the second has one solution [`[$sol]`].
 
 There is only one solution: [`[$sol]`].
