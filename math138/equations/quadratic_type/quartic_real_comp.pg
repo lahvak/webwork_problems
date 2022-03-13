@@ -49,7 +49,7 @@ $sq2 = -$s2*$s2;
 $b = $sq1 + $sq2;
 $c = $sq1*$sq2;
 
-$z = Formula("x - $a")->reduce;
+$z = Formula("(x - $a)^2")->reduce;
 
 $quad = Formula("z^2 - $b*z + $c")->reduce;
 
@@ -72,7 +72,7 @@ List all solutions, separated by commas: [________________________________]{$sol
 END_PGML
 
 BEGIN_PGML_HINT
-Try substituting [`z`] for [`([$z])^2`].
+Try substituting [`z`] for [`[$z]`].
 END_PGML_HINT
 
 ############################
@@ -81,14 +81,14 @@ END_PGML_HINT
 BEGIN_PGML_SOLUTION
 Rewriting the equation as
 [```[$subs] = 0```]
-and substituting [`z`] for [`([$z])^2`] will give us a quadratic equation
+and substituting [`z`] for [`[$z]`] will give us a quadratic equation
 [```[$quad] = 0 ```]
-which has solutions [`z = [$sq1]`] and [`z = [$sq2]`].  Substituting [`([$z])^2`] back for [`z`] gives us two equations
-[`([$z])^2 = [$sq1]`] and [`([$z])^2 = [$sq2]`].  The first has solutions [`[$sol1]`] and [`[$sol2]`], the second has solutions [`[$sol3]`] and [`[$sol4]`].
+which has solutions [`z = [$sq1]`] and [`z = [$sq2]`].  Substituting [`[$z]`] back for [`z`] gives us two equations
+[`[$z] = [$sq1]`] and [`[$z] = [$sq2]`].  The first has solutions [`[$sol1]`] and [`[$sol2]`], the second has solutions [`[$sol3]`] and [`[$sol4]`].
 
 The complete set of solutions is [`[$sols]`].
 END_PGML_SOLUTION
 
-COMMENT('Two integer solutions, two imaginary integer solutions');
+COMMENT('Two integer solutions, two complex integer solutions');
 
 ENDDOCUMENT();
