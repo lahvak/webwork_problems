@@ -82,7 +82,7 @@ Context("LimitedRadical");
 $sol1 = Formula($sol1s);
 $sol2 = Formula($sol2s);
 
-$sols = Formula("{$sol1, $sol2}");
+$sols = Formula("$sol1, $sol2");
 
 
 ###########################
