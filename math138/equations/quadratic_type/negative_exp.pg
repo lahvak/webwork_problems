@@ -33,6 +33,7 @@ TEXT(beginproblem());
 $showPartialCorrectAnswers = 1;
 
 Context("Fraction")->variables->add(z => "Real");
+Context()->noreduce('x^(-a)');
 
 $den1 = random(2,9);
 $num1 = 1;
