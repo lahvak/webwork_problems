@@ -48,8 +48,24 @@ if ($cube1 == 1) {
     $sol1s = "2";
 } elsif ($cube1 == -8) {
     $sol1s = "-2";
+} elsif ($cube1 < 0) {
+    $sol1s = "-root(3, -$cube1)";
 } else {
     $sol1s = "root(3, $cube1)";
+}
+
+if ($cube2 == 1) {
+    $sol2s = "1";
+} elsif ($cube2 == -1) {
+    $sol2s = "-1";
+} elsif ($cube2 == 8) {
+    $sol2s = "2";
+} elsif ($cube2 == -8) {
+    $sol2s = "-2";
+} elsif ($cube2 < 0) {
+    $sol2s = "-root(3, -$cube2)";
+} else {
+    $sol2s = "root(3, $cube2)";
 }
 
 
@@ -62,7 +78,7 @@ $subs = $quad->substitute(z => "x^3");
 Context("LimitedRadical");
 
 $sol1 = Formula($sol1s);
-$sol2 = Formula("root(3,$cube2)");
+$sol2 = Formula($sol2s);
 
 $sols = Formula("{$sol1, $sol2}");
 
