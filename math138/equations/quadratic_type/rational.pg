@@ -1,0 +1,89 @@
+## DESCRIPTION
+## Algebra: Equations of quadratic type
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Completing the square)
+## Level(1)
+## KEYWORDS('algebra', 'quadratic type')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+"contextFraction.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+$showPartialCorrectAnswers = 1;
+
+Context("Fraction")->variables->add(z => "Real");
+
+$c = random(1,9);
+do {$d = random(1,9)} while ($d == $c);
+
+$den = list_random(2,3,5,7,11,13,17);
+do {$num = random(1,15);} while ($b % $a == 0);
+
+$root = Compute("$num/$den");
+
+$a = $den;
+$b = $num + $den;
+$c = $num;
+
+$frac = Formula("(x - $c)/(x - $d)")->reduce;
+
+$quad = Formula("$a*z^2 - $b*z + $c")->reduce;
+
+$subs = $quad->substitute(z => "$frac");
+
+$num2 = $num*$c - $den*$d;
+$den2 = $den - $num;
+
+$sol = Compute("$num2/$den2");
+
+$sols = List("$sol");
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Find all _real_ solutions of the following equation:
+
+[```[$subs] = 0```]
+
+List all solutions, separated by commas: [________________________________]{$sols}
+END_PGML
+
+BEGIN_PGML_HINT
+Try substituting [`z`] for [`[$frac]`].
+END_PGML_HINT
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+Substituting [`z`] for [`[$frac]`] will give us a quadratic equation
+[```[$quad] = 0 ```]
+which has solutions [`z =  1`] and [`z = [$root2]`].  Substituting [`[$frac]`] back for [`z`] gives us two equations
+[`[$frac] = \frac{[$num1]}{[$den1]}`] and [`[$frac] = [$root]`].  The first has no solution, the second has one solution [`[$sol]`].
+
+There is only one solution: [`[$sol]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
