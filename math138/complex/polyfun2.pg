@@ -19,6 +19,7 @@ DOCUMENT();
 loadMacros(
 "PGstandard.pl",
 "MathObjects.pl",
+"contextLimitedComplex.pl",
 "PGcourse.pl",
 "PGML.pl",
 );
@@ -46,6 +47,8 @@ $b = $im*$im;
 $c = $a*$b;
 
 $fun = Formula("x^3 - $a*x^2 + $b*x - $c")->reduce;
+
+Context("LimitedComplex-cartesian");
 
 $ans = $fun->substitute(x => "$p");
 
