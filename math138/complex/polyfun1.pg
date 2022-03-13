@@ -19,6 +19,7 @@ DOCUMENT();
 loadMacros(
 "PGstandard.pl",
 "MathObjects.pl",
+"contextLimitedComplex.pl",
 "PGcourse.pl",
 "PGML.pl",
 );
@@ -46,7 +47,11 @@ $c = non_zero_random(-9,9);
 
 $fun = Formula("$a*x^2 + $b*x + $c")->reduce;
 
-$ans = $fun->substitute(x => "$p");
+$val = $fun->substitute(x => "$p");
+
+Context("LimitedComplex-cartesian-strict");
+
+$ans = Complex($val->string);
 
 ###########################
 #  Main text
