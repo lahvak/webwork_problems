@@ -81,7 +81,7 @@ BEGIN_PGML_SOLUTION
 Substituting [`z`] for [`[$frac]`] will give us a quadratic equation
 [```[$quad] = 0 ```]
 which has solutions [`z =  1`] and [`z = [$root]`].  Substituting [`[$frac]`] back for [`z`] gives us two equations
-[`[$frac] = \frac{[$num1]}{[$den1]}`] and [`[$frac] = [$root]`].  The first has no solution, the second has one solution [`[$sol]`].
+[`[$frac] = 1`] and [`[$frac] = [$root]`].  The first has no solution, the second has one solution [`[$sol]`].
 
 There is only one solution: [`[$sol]`].
 END_PGML_SOLUTION
