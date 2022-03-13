@@ -1,0 +1,86 @@
+## DESCRIPTION
+## Algebra: Equations of quadratic type
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Completing the square)
+## Level(1)
+## KEYWORDS('algebra', 'quadratic type')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric")->variables->add(z => "Real");
+
+$den1 = list_random(2,3,5,7);
+do {$num1 = random(1,9);} while ($num1 % $den1 == 0);
+
+$root2 = random(2,9);
+
+$a = $den1;
+$b = $den1*$root2 + $num1;
+$c = $num1*$root2;
+
+$quad = Formula("$a*z^2 - $b*z + $c")->reduce;
+
+$quart = Formula("$a*x - $b*sqrt(x) + $c")->reduce;
+
+$subs = $quad->substitute(z => "sqrt(x)");
+
+$num1sq = $num1*$num1;
+$den1sq = $den1*$den1;
+$sol2 = $root2*$root2;
+
+$sols = List("$num1sq/$den1sq, $sol2");
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Fill all _real_ solutions of the following equation:
+
+[```[$quart] = 0```]
+
+List all solutions, separated by commas: [________________________________]{$sols}
+END_PGML
+
+BEGIN_PGML_HINT
+Try substituting [`z`] for [`\sqrt{x}`].
+END_PGML_HINT
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+Rewriting the equation as
+[```[$subs] = 0```]
+and substituting [`z`] for [`\sqrt{x}`] will give us a quadratic equation
+[```[$quad] = 0 ```]
+which has solutions [`z = \frac{[$num1]}{[$den1]}`] and [`z = [$root2]`].  Substituting [`\sqrt{x}`] back for [`z`] gives us two equations
+[`\sqrt{x} = \frac{[$num1]}{[$den1]}`] and [`\sqrt{x} = [$root2]`].  The first has one real solution [`\frac{[$num1sq]}{[$den1sq]}`], the second has one real solution [`[$sol2]`].
+
+The complete set of solutions is [`\frac{[$num1sq]}{[$den1sq]}`], [`[$sol2]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
