@@ -82,7 +82,7 @@ Context("LimitedRadical");
 $sol1 = Formula($sol1s);
 $sol2 = Formula($sol2s);
 
-$sols = Formula("$sol1, $sol2");
+$sols = List("$sol1, $sol2");
 
 
 ###########################
@@ -93,7 +93,7 @@ Fill all _real_ solutions of the following equation:
 
 [```[$quart] = 0```]
 
-Enter [`\sqrt[n]{\mathstrut\ldots}`] as *root(n, ...)* if needed.
+You can enter [`\sqrt[n]{\mathstrut\ldots}`] as *root(n, ...)* if needed.
 
 List all solutions, separated by commas: [________________________________]{$sols}
 END_PGML
