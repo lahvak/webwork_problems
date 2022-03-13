@@ -80,6 +80,6 @@ which has solutions [`z = [$sq1]`] and [`z = [$sq2]`].  Substituting [`x^2`] bac
 The complete set of solutions is [`[$sols]`].
 END_PGML_SOLUTION
 
-COMMENT('Four integer solutions');
+COMMENT('Two integer solutions, two imaginary integer solutions');
 
 ENDDOCUMENT();
