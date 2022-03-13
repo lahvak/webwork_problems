@@ -1,0 +1,101 @@
+## DESCRIPTION
+## Algebra: Equations of quadratic type
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Completing the square)
+## Level(1)
+## KEYWORDS('algebra', 'quadratic type')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+"contextLimitedRadical.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric")->variables->add(z => "Real");
+
+$cube1 = non_zero_random(-8,8);
+do {$cube2 = non_zero_random(-8,8);} while ($cube1 == $cube2);
+
+$b = $cube1 + $cube2;
+$c = $cube1*$cube2;
+
+if ($cube1 == 1) {
+    $sol1s = "1";
+} elsif ($cube1 == -1) {
+    $sol1s = "-1";
+} elsif ($cube1 == 8) {
+    $sol1s = "2";
+} elsif ($cube1 == -8) {
+    $sol1s = "-2";
+} else {
+    $sol1s = "root(3, $cube1)";
+}
+
+
+$quad = Formula("z^2 - $b*z + $c")->reduce;
+
+$quart = Formula("x^6 - $b*x^3 + $c")->reduce;
+
+$subs = $quad->substitute(z => "x^3");
+
+Context("LimitedRadical");
+
+$sol1 = Compute($sol1s);
+$sol2 = Compute("root(3,$cube2)");
+
+$sols = List("$sol1, $sol2");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Fill all _real_ solutions of the following equation:
+
+[```[$quart] = 0```]
+
+Enter [`\sqrt[n]{\mathstrut\ldots}`] as *root(n, ...)* if needed.
+
+List all solutions, separated by commas: [________________________________]{$sols}
+END_PGML
+
+BEGIN_PGML_HINT
+Try substituting [`z`] for [`x^3`].
+END_PGML_HINT
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+Rewriting the equation as
+[```[$subs] = 0```]
+and substituting [`z`] for [`x^3`] will give us a quadratic equation
+[```[$quad] = 0 ```]
+which has solutions [`z = [$cube1]`] and [`z = [$cube2]`].  Substituting [`x^3`] back for [`z`] gives us two equations
+[`x^3 = [$cube1]`] and [`x^3 = [$cube2]`].  The first has one real solution [`[$sol1]`], the second has one real solution [`[$sol2]`].
+
+The complete set of solutions is [`[$sols]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
