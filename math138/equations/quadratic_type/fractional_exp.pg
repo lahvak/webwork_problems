@@ -31,7 +31,7 @@ TEXT(beginproblem());
 
 $showPartialCorrectAnswers = 1;
 
-Context("Fraction")->variables->add(z => "Real");
+Context("Fractions")->variables->add(z => "Real");
 
 $den1 = random(2,5);
 $num1 = 1;
