@@ -69,4 +69,7 @@ f([$p]) &= [$a]([$p])^2 [$b]([$p]) + [$c]\\
 \end{aligned}```]
 
 END_PGML_SOLUTION
+
+COMMENT('Answer is always real.');
+
 ENDDOCUMENT();
