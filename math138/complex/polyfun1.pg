@@ -38,6 +38,7 @@ $re = random(1,5,1);
 $im = list_random(-1,1)*random(1,8,1);
 
 $p = Complex($re,$im);
+$p2 = Compute("$p^2");
 
 $a = random(2,5);
 $b = -2*$re*$a;
@@ -63,7 +64,7 @@ BEGIN_PGML_SOLUTION
 
 [```\begin{aligned}
 f([$p]) &= [$a]([$p])^2 [$b]([$p]) + [$c]\\
-&= [$a]([$p^2]) [$b]([$p]) + [$c]\\
+&= [$a]([$p2]) [$b]([$p]) + [$c]\\
 &= [$ans]
 \end{aligned}```]
 
