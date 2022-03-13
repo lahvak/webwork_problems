@@ -21,6 +21,7 @@ loadMacros(
 "MathObjects.pl",
 "PGcourse.pl",
 "PGML.pl",
+"contextFraction.pl",
 );
 
 TEXT(beginproblem());
@@ -31,7 +32,7 @@ TEXT(beginproblem());
 
 $showPartialCorrectAnswers = 1;
 
-Context("Fractions")->variables->add(z => "Real");
+Context("Fraction")->variables->add(z => "Real");
 
 $den1 = random(2,5);
 $num1 = 1;
