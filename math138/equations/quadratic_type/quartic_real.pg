@@ -60,6 +60,8 @@ Fill all solutions of the following equation:
 List all solutions, separated by commas: [________________________________]{$sols}
 END_PGML
 
+BEGIN_PGML_HINT
+Try substituting [`z`] for [`x^2`].
 END_PGML_HINT
 
 ############################
