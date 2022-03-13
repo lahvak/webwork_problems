@@ -21,7 +21,6 @@ loadMacros(
 "MathObjects.pl",
 "PGcourse.pl",
 "PGML.pl",
-"parserPopUp.pl",
 );
 
 TEXT(beginproblem());
@@ -54,7 +53,7 @@ $ans = $fun->substitute(x => "$p");
 BEGIN_PGML
 Given the polynomial function [`f(x) = [$fun]`], calculate and simplify [`f([$p])`].
 
-[`f([$p]) = ][___________]{$ans}
+[`f([$p]) = `][___________]{$ans}
 END_PGML
 
 ############################
