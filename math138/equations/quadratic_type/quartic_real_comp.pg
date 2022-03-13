@@ -1,0 +1,94 @@
+## DESCRIPTION
+## Algebra: Equations of quadratic type
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Completing the square)
+## Level(1)
+## KEYWORDS('algebra', 'quadratic type')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+$showPartialCorrectAnswers = 1;
+
+Context("Complex")->variables->are(x => "Complex", z => "Complex");
+
+$a = non_zero_random(-9,9);
+
+$s1 = random(1,5);
+do {$s2 = random(1,5);} while ($s1 == $s2);
+
+$sol1 = Compute("$a + $s1");
+$sol2 = Compute("$a - $s1");
+$sol3 = Compute("$a + $s2*i");
+$sol4 = Compute("$a - $s2*i");
+
+$sq1 = $s1*$s1;
+$sq2 = -$s2*$s2;
+
+$b = $sq1 + $sq2;
+$c = $sq1*$sq2;
+
+$z = Formula("x - $a")->reduce;
+
+$quad = Formula("z^2 - $b*z + $c")->reduce;
+
+$quart = Formula("(x - $a)^4 - $b*(x - $a)^2 + $c")->reduce;
+
+$subs = $quad->substitute(z => "$z");
+
+$sols = List("$sol1, $sol2, $sol3, $sol4");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Fill all solutions of the following equation:
+
+[```[$quart] = 0```]
+
+List all solutions, separated by commas: [________________________________]{$sols}
+END_PGML
+
+BEGIN_PGML_HINT
+Try substituting [`z`] for [`([$z])^2`].
+END_PGML_HINT
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+Rewriting the equation as
+[```[$subs] = 0```]
+and substituting [`z`] for [`([$z])^2`] will give us a quadratic equation
+[```[$quad] = 0 ```]
+which has solutions [`z = [$sq1]`] and [`z = [$sq2]`].  Substituting [`([$z])^2`] back for [`z`] gives us two equations
+[`([$z])^2 = [$sq1]`] and [`([$z])^2 = [$sq2]`].  The first has solutions [`[$sol1]`] and [`[$sol2]`], the second has solutions [`[$sol3]`] and [`[$sol4]`].
+
+The complete set of solutions is [`[$sols]`].
+END_PGML_SOLUTION
+
+COMMENT('Two integer solutions, two imaginary integer solutions');
+
+ENDDOCUMENT();
