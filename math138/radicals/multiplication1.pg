@@ -55,7 +55,7 @@ $ans = Formula("x + $p*root(3,x^2) + $q")->reduce;
 BEGIN_PGML
 Multiply and simplify the following expression:
 
-[``[$expr] = ``][__________________________]{$ans}
+[``[$expr] = ``][______________________________________]{$ans}
 
 Enter [`\sqrt[3]{\mathstrut\ldots}`] as *root(3, ...)*.
 END_PGML
@@ -65,7 +65,7 @@ END_PGML
 
 BEGIN_PGML_SOLUTION
 [```\begin{aligned}
-[$expr] &= \sqrt[3]{x^3} [$b]\sqrt[3]{x^2} + [$c]*sqrt[3]{x} + [$a]*\sqrt[3]{x^2} [$ab]\sqrt[3]{x} [$q]\\
+[$expr] &= \sqrt[3]{x^3} [$b]\sqrt[3]{x^2} + [$c]*\sqrt[3]{x} + [$a]*\sqrt[3]{x^2} [$ab]\sqrt[3]{x} + [$q]\\
 &= [$ans]
 \end{aligned}```]
 
