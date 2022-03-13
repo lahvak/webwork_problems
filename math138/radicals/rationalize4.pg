@@ -1,0 +1,72 @@
+## DESCRIPTION
+## Algebra: Simplify expression with radicals
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## KEYWORDS('algebra', 'rules of radicals', 'rationalizing denominators')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedRadical.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("LimitedRadical");
+
+$f1 = list_random(2,3,5,7,11);
+do {$f2 = list_random(2,3,5,7);} while ($f2 == $f1);
+$a = $f1*$f2;
+$b = $f2;
+$b2 = $b*$b;
+$c = random(2,7);
+$num = $f2*$c;
+
+$expr = Formula("$num/(sqrt($a) + $b*sqrt(x))");
+
+$ans = Formula("$c*(sqrt($a) - $b*sqrt(x))/($f1 - $f2*x)");
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Rationalize the denominator and simplify:
+
+[``[$expr] = ``][__________________________]{$ans}
+
+Enter [`\sqrt{\mathstrut\ldots}`] as *sqrt(...)*.
+END_PGML
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+[```\begin{aligned}
+[$expr] &= [$expr]\cdot\frac{\sqrt{[$a]} - [$b]\sqrt{x}}{\sqrt{[$a]} - [$b]\sqrt{x}}\\
+&= \frac{[$num]\left(\sqrt{[$a]} - [$b]\sqrt{x}\right)}{[$a] - [$b2]x}\\
+&= \frac{[$num]\left(\sqrt{[$a]} - [$b]\sqrt{x}\right)}{[$f2]\left([$f1] - [$f2]x\right)}\\
+&= [$ans]
+\end{aligned}```]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
