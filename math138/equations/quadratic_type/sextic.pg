@@ -49,7 +49,8 @@ if ($cube1 == 1) {
 } elsif ($cube1 == -8) {
     $sol1s = "-2";
 } elsif ($cube1 < 0) {
-    $sol1s = "-root(3, -$cube1)";
+    $acube1 = -$cube1;
+    $sol1s = "-root(3, $acube1)";
 } else {
     $sol1s = "root(3, $cube1)";
 }
@@ -63,7 +64,8 @@ if ($cube2 == 1) {
 } elsif ($cube2 == -8) {
     $sol2s = "-2";
 } elsif ($cube2 < 0) {
-    $sol2s = "-root(3, -$cube2)";
+    $acube2 = -$cube2;
+    $sol2s = "-root(3, $acube2)";
 } else {
     $sol2s = "root(3, $cube2)";
 }
