@@ -61,8 +61,8 @@ $subs = $quad->substitute(z => "x^3");
 
 Context("LimitedRadical");
 
-$sol1 = Compute($sol1s);
-$sol2 = Compute("root(3,$cube2)");
+$sol1 = Formula($sol1s);
+$sol2 = Formula("root(3,$cube2)");
 
 $sols = List("$sol1, $sol2");
 
