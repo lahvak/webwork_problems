@@ -113,7 +113,7 @@ and substituting [`z`] for [`x^3`] will give us a quadratic equation
 which has solutions [`z = [$cube1]`] and [`z = [$cube2]`].  Substituting [`x^3`] back for [`z`] gives us two equations
 [`x^3 = [$cube1]`] and [`x^3 = [$cube2]`].  The first has one real solution [`[$sol1]`], the second has one real solution [`[$sol2]`].
 
-The complete set of solutions is [`[$sols]`].
+The complete set of solutions is [`[$sol1]`], [`[$sol2]`].
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
