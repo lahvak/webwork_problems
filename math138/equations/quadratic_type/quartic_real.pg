@@ -55,7 +55,7 @@ $sols = List("$sol1, -$sol1, $sol2, -$sol2");
 #  Main text
 
 BEGIN_PGML
-Fill all solutions of the following equation:
+Find all solutions of the following equation:
 
 [```[$quart] = 0```]
 

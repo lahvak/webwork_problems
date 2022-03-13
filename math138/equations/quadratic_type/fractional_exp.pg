@@ -67,7 +67,7 @@ List all solutions, separated by commas: [________________________________]{$sol
 END_PGML
 
 BEGIN_PGML_HINT
-Try substituting [`z`] for [`\sqrt{x}`].
+Try substituting [`z`] for [`x^{\frac{1}{3}}`].
 END_PGML_HINT
 
 ############################

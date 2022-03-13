@@ -58,7 +58,7 @@ $sols = List("$num1sq/$den1sq, $sol2");
 #  Main text
 
 BEGIN_PGML
-Fill all _real_ solutions of the following equation:
+Find all _real_ solutions of the following equation:
 
 [```[$quart] = 0```]
 
