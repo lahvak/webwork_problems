@@ -1,0 +1,74 @@
+## DESCRIPTION
+## Algebra: Simplify expression with radicals
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Properties of exponents, rational exponents and radicals)
+## DBsection(Properties of exponents)
+## Level(2)
+## KEYWORDS('algebra', 'rules of radicals')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"contextLimitedRadical.pl",
+"PGML.pl",
+"PGcourse.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("LimitedRadical");
+
+$a = random(1,9);
+do {$b = -random(2,5);} while ($a + $b == 0);
+$c = -$a*$b;
+
+$p = $a + $b;
+$q = $a*$c;
+
+$ab = $a*$b;
+
+$form1 = Formula("root(3,x) + $a")->reduce;
+$form2 = Formula("root(3,x^2) + $b*root(3,x) + $c")->reduce;
+
+$expr = Formula("($form1)*($form2)");
+
+$ans = Formula("x + $p*root(3,x^2) + $q")->reduce;
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Multiply and simplify the following expression:
+
+[``[$expr] = ``][__________________________]{$ans}
+
+Enter [`\sqrt[3]{\mathstrut\ldots}`] as *root(3, ...)*.
+END_PGML
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+[```\begin{aligned}
+[$expr] &= \sqrt[3]{x^3} [$b]\sqrt[3]{x^2} + [$c]*sqrt[3]{x} + [$a]*\sqrt[3]{x^2} [$ab]\sqrt[3]{x} [$q]\\
+&= [$ans]
+\end{aligned}```]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
