@@ -48,7 +48,7 @@ When a force of [$F1] Newtons is applied to a spring, it stretches [$d1] meters.
 
 What force must be applied to the spring to stretch to [$d2] meters?
 
-[`F = `][_____________]{$f2} Newtons.
+[`F = `][_____________]{$F2} Newtons.
 END_PGML
 
 BEGIN_PGML_SOLUTION
