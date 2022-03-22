@@ -63,11 +63,11 @@ $d3 = Compute("$d3top/$d3bot");
 BEGIN_PGML
 Fill in the blanks so that the following complete squares will be correct.
 
-*  [` x^2 + [$b1]x + `][_____]{$d1} [` = (x + `][____]{$a1}[`)^2`]
+*  [` x^2 - [$b1]x + `][_____]{$d1} [` = (x - `][____]{$a1}[`)^2`]
 
-*  [` x^2 + [$b2]x + `][_____]{$d2} [` = (x + `][____]{$a2}[`)^2`]
+*  [` x^2 - [$b2]x + `][_____]{$d2} [` = (x - `][____]{$a2}[`)^2`]
 
-*  [` x^2 + [$b3]x + `][_____]{$d3} [` = (x + `][____]{$a3}[`)^2`]
+*  [` x^2 - [$b3]x + `][_____]{$d3} [` = (x - `][____]{$a3}[`)^2`]
 
 END_PGML
 
@@ -77,11 +77,11 @@ $showHint = 4;
 BEGIN_PGML_HINT
 When matching 
 
-[`` x^2 + bx + d ``]
+[`` x^2 - bx + d ``]
 
 with
 
-[`` x^2 + 2ax + a^2 = (x + a)^2 ``]
+[`` x^2 - 2ax + a^2 = (x - a)^2 ``]
 
 you can see that [` b = 2a `] and [` d = a^2 `].
 
@@ -96,11 +96,11 @@ BEGIN_PGML_SOLUTION
 
 In the equation
 
-*  [` x^2 + \color{red}{[$b1]} x + \color{orange}{d} = (x + a)^2`]
+*  [` x^2 - \color{red}{[$b1]} x + \color{orange}{d} = (x - a)^2`]
 
 we need to find [`a`] and [`d`].  From the perfect square equation, we know that
 
-*  [` x^2 + \color{red}{2a} x + \color{orange}{a^2} = (x + a)^2`]
+*  [` x^2 - \color{red}{2a} x + \color{orange}{a^2} = (x - a)^2`]
 
 By comparing the two equations, we see that [` 2a = [$b1] `] and [` d = a^2 `]
 
@@ -114,11 +114,11 @@ Then [` d = a^2 = \left([$a1]\right)^2 = [$d1] `]
 
 In the equation
 
-*  [` x^2 + \color{red}{[$b2]} x + \color{orange}{d} = (x + a)^2`]
+*  [` x^2 - \color{red}{[$b2]} x + \color{orange}{d} = (x - a)^2`]
 
 we need to find [`a`] and [`d`].  From the perfect square equation, we know that
 
-*  [` x^2 + \color{red}{2a} x + \color{orange}{a^2} = (x + a)^2`]
+*  [` x^2 - \color{red}{2a} x + \color{orange}{a^2} = (x - a)^2`]
 
 By comparing the two equations, we see that [` 2a = [$b2] `] and [` d = a^2 `]
 
@@ -132,11 +132,11 @@ Then [` d = a^2 = \left([$a2]\right)^2 = [$d2] `]
 
 In the equation
 
-*  [` x^2 + \color{red}{[$b3]} x + \color{orange}{d} = (x + a)^2`]
+*  [` x^2 - \color{red}{[$b3]} x + \color{orange}{d} = (x - a)^2`]
 
 we need to find [`a`] and [`d`].  From the perfect square equation, we know that
 
-*  [` x^2 + \color{red}{2a} x + \color{orange}{a^2} = (x + a)^2`]
+*  [` x^2 - \color{red}{2a} x + \color{orange}{a^2} = (x - a)^2`]
 
 By comparing the two equations, we see that [` 2a = [$b3] `] and [` d = a^2 `]
 
@@ -147,6 +147,6 @@ First we need to find [`a`]:
 Then [` d = a^2 = \left([$a3]\right)^2 = [$d3] `]
 END_PGML_SOLUTION
 
-COMMENT('(x+a)^2');
+COMMENT('(x - a)^2');
 
 ENDDOCUMENT();
