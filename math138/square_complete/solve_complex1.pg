@@ -64,6 +64,8 @@ if ($sign == -1) {
 
 Context("Complex");
 
+$r1i = Compute("$r1*i");
+
 $sol1 = Compute("-($a1)+$r1*i");
 $sol2 = Compute("-($a1)-$r1*i");
 
@@ -172,7 +174,7 @@ BEGIN_PGML
 
 Now use the square root property and solve for [`x`]:
 
-[` x = `][________]{-$a1}[` \pm `][________]{$r1*i}
+[` x = `][________]{-$a1}[` \pm `][________]{$r1i}
 
 The two solutions are [________]{$mp} and [________]{$mp}.
 
