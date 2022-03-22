@@ -104,7 +104,7 @@ Section::Begin("Step 1: Complete the square.");
 BEGIN_PGML
 Add a number to both sides so the left side will become a perfect square:
 
-[` [$lhsstart] + `][_____]{$d1} [` = `][____]{$r1s}
+[` [$lhsstart] + `][_____]{$d1} [` = `][____]{-$r1s}
 END_PGML
 
 #Hint for step 1:
@@ -172,7 +172,7 @@ BEGIN_PGML
 
 Now use the square root property and solve for [`x`]:
 
-[` x = `][________]{-$a1}[` \pm `][________]{$r1}
+[` x = `][________]{-$a1}[` \pm `][________]{$r1*i}
 
 The two solutions are [________]{$mp} and [________]{$mp}.
 
