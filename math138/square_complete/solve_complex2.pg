@@ -55,7 +55,7 @@ $a3 = Compute("$b/$a3bot");
 $d3 = Compute("$d3top/$d3bot");
 $r3 = Compute("$rtop/$d3bot");
 
-$ar3 = Compute("abs($r3)");
+$ar3 = Compute("-$r3");
 
 Context("Fraction")->flags->set(showMixedNumbers => 0);
 
