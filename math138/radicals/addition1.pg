@@ -39,6 +39,8 @@ $multa = $mult*$a;
 $c = random(2,9);
 $coef = $c + $b;
 
+Context()->variables->set(x=>{limits=>[-$a-1,-$a+1]});
+
 $form1 = Formula("x + $a")->reduce;
 $form2 = Formula("$mult*x + $multa")->reduce;
 
