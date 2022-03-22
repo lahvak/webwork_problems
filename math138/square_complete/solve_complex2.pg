@@ -206,6 +206,6 @@ END_PGML_SOLUTION
 Section::End();
 Scaffold::End();
 
-COMMENT('Complex solutions')
+COMMENT('Complex solutions');
 
 ENDDOCUMENT();
