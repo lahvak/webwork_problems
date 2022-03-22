@@ -37,6 +37,8 @@ $b = random(2,5);
 $mult = $b*$b;
 $multa = $mult*$a;
 
+Context()->variables->set(x=>{limits=>[-$a-1,-$a+1]});
+
 $form = Formula("x + $a")->reduce;
 $form1 = Formula("x^5 + $a*x^4")->reduce;
 $form2 = Formula("$mult*x + $multa")->reduce;
