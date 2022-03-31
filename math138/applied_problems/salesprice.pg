@@ -1,0 +1,94 @@
+## DESCRIPTION
+## Algebra: Applications of quadratic equations
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Quadratic equations and functions)
+## DBsection(Applications and models)
+## Level(5)
+## KEYWORDS('algebra', 'quadratic equation')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+"contextCurrency.pl",
+);
+
+TEXT(beginproblem());
+$showPartialCorrectAnswers=1;
+
+###########################
+#  Setup
+
+Context("Numeric");
+
+$sold = random(10,30);
+$left = random(5,20);
+$price = random(10,30) + random(1,9)/10;
+$profit = random(0.3,5,0.1);
+
+$cost = ($sold + $left)*($price - $profit);
+
+Context("Currency");
+Context()->currency->set(symbol=>'$');
+Context()->currency->addSymbol("dollars","dollar");
+
+$salesprice = Currency("$price")->cmp(promoteReals=>1);
+$profitperunit = Currency("$profit");
+$originalcost = Currency("$cost");
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Few years ago Malvine published a book of stories.  She bought a number of prints from the publisher. She kept [$left] of them
+to give to her friends, and sold the rest.  According to her records, she paid the publisher [$originalcost] for the whole batch. 
+
+She recalls that she made a profit of [$profitperunit] on each book that she
+sold, and she broke exactly even after selling all the books except the [$left]
+that she gave to her friends.  She is now trying to straighten out her
+accounting, and to do that, she needs to figure out exactly how many books she
+sold and what price did she charge for them.
+
+Can you help her figure it out?
+
+-----------
+
+Malvine sold [_____________]{$sold} books, and she charged [_____________]{$salesprice} for each of them.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+Let's use [`n`] to denote the number of books Malvine sold, and [`p`] the price she charged for them.
+
+We can express the number of books she bought from the publisher in terms of [`n`].  She sold [`n`] boosk and she gave [$left] books away, so the 
+number of books she bought was [`n + [$left]`].
+
+Since she remembers the profit per book, we can express the original wholesale price of each book in terms of the sales price [`p`].
+The sales price is the original wholesale price plus the profit, so the original wholesale price was [`p - [$profit]`] dollars.
+
+Her total cost was [$originalcost], which gives us the equation
+[```(n+[$left])(p - [$profit]) = [$cost]```]
+
+She also remembers that after selling the [`n`] copies for [`p`] dollars  each, she exactly broke even, which means that
+[```n\cdot p = [$cost]```]
+
+From this second equation we see that
+[```p = \frac{[$cost]}{n}```]
+Substituting this into the first equation gives us
+[```(n + [$left])\left(\frac{[$cost]}{n} - [$profit]\right) = [$cost]```]
+To get rid of the parenteses on the left side, we distribute:
+[```[$cost] - [$profit] n + \frac{[$left]\cdot [$cost]}{n} - [$left]\cdot [$profit] = [$cost]```]
+Subtracting [$cost] from both sides and multiplying both sides by the common denominator [`n`] gives us
+[```-[$profit] n^2 - [$left]\cdot [$profit] n + [$left]\cdot [$cost] = 0```]
+END_PGML_SOLUTION
+ENDDOCUMENT();
