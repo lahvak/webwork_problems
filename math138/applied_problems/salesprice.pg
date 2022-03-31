@@ -40,7 +40,7 @@ $price = $wholesaleprice - $profit;
 
 $cost = ($sold + $left)*($price - $profit);
 
-$cost1 - $sold*$price;
+$cost1 = $sold*$price;
 
 Context("Currency");
 Context()->currency->set(symbol=>'$');
