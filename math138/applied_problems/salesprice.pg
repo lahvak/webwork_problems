@@ -31,13 +31,13 @@ $showPartialCorrectAnswers=1;
 
 Context("Numeric");
 
-$profitrate = random(0.1,0.3,0.05);
+$keeprate = random(0.1,0.3,0.05);
 $total = random(4,18,2)*10;
-$left = $profitrate*$sold;
+$left = $keeprate*$sold;
 $sold = $total - $left;
-$wholesaleprice = random(10,30) + random(2,8,2)/10;
-$profit = $wholesaleprice*$profitrate;
-$price = $wholesaleprice - $profit;
+$price = random(10,30) + random(1,9,2)/10;
+$profit = $price*$keeprate;
+$wholesaleprice = $price - $profit;
 
 $cost = ($sold + $left)*($price - $profit);
 
