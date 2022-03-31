@@ -32,8 +32,9 @@ $showPartialCorrectAnswers=1;
 Context("Numeric");
 
 $profitrate = random(0.1,0.3,0.05);
-$sold = random(4,18,2)*10;
+$total = random(4,18,2)*10;
 $left = $profitrate*$sold;
+$sold = $total - $left;
 $wholesaleprice = random(10,30) + random(2,8,2)/10;
 $profit = $wholesaleprice*$profitrate;
 $price = $wholesaleprice - $profit;
