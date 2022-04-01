@@ -39,7 +39,7 @@ $price = random(10,30) + random(1,9,2)/10;
 $profit = $price*$keeprate;
 $wholesaleprice = $price - $profit;
 
-$cost = $total*$wholesale;
+$cost = $total*$wholesaleprice;
 
 $cost1 = $sold*$price;
 
