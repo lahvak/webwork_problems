@@ -33,7 +33,7 @@ Context("Numeric");
 
 $keeprate = random(0.1,0.3,0.05);
 $total = random(4,18,2)*10;
-$left = $keeprate*$sold;
+$left = $keeprate*$total;
 $sold = $total - $left;
 $price = random(10,30) + random(1,9,2)/10;
 $profit = $price*$keeprate;
