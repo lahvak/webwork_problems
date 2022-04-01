@@ -41,7 +41,7 @@ $wholesaleprice = $price - $profit;
 
 $cost = $total*$wholesaleprice;
 
-$cost1 = $sold*$price;
+$c = $total*$sold;
 
 Context("Currency");
 Context()->currency->set(symbol=>'$');
@@ -57,7 +57,6 @@ $originalcost = Currency("$cost");
 BEGIN_PGML
 Few years ago Malvine published a book of stories.  She bought a number of prints from the publisher. She kept [$left] of them
 to give to her friends, and sold the rest.  According to her records, she paid the publisher [$originalcost]
-([$cost1])
 for the whole batch. 
 
 She recalls that she made a profit of [$profitperunit] on each book that she
@@ -97,5 +96,17 @@ To get rid of the parenteses on the left side, we distribute:
 [```[$cost] - [$profit] n + \frac{[$left]\cdot [$cost]}{n} - [$left]\cdot [$profit] = [$cost]```]
 Subtracting [$cost] from both sides and multiplying both sides by the common denominator [`n`] gives us
 [```-[$profit] n^2 - [$left]\cdot [$profit] n + [$left]\cdot [$cost] = 0```]
+Dividing by [`-[$profit]`] will give us
+[``` n^2 + [$left] n - [$c] = 0 ```]
+    or
+[``` (n + [$total])(n - [$sold]) = 0 ```]
+
+The equation has two solutions, [`n = -[$total]`] and [` n = [$sold]`]. Since the number of books sold cannot be negative, the solution is
+[` n = [$sold]`].
+
+To find the selling price we plug the [`n`] into the equation
+[```p = \frac{[$cost]}{n}```]
+to get
+[```p = \frac{[$cost]}{[$sold]} = [$salesprice]```]
 END_PGML_SOLUTION
 ENDDOCUMENT();
