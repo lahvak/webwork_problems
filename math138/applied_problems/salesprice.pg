@@ -47,7 +47,8 @@ Context("Currency");
 Context()->currency->set(symbol=>'$');
 Context()->currency->addSymbol("dollars","dollar");
 
-$salesprice = Currency("$price")->cmp(promoteReals=>1);
+$salesprice = Currency("$price");
+$salesprice_eval = $salesprice->cmp(promoteReals=>1);
 $profitperunit = Currency("$profit");
 $originalcost = Currency("$cost");
 
@@ -69,7 +70,7 @@ Can you help her figure it out?
 
 -----------
 
-Malvine sold [_____________]{$sold} books, and she charged [_____________]{$salesprice} for each of them.
+Malvine sold [_____________]{$sold} books, and she charged [_____________]{$salesprice_eval} for each of them.
 
 END_PGML
 
