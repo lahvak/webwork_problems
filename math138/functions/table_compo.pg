@@ -39,19 +39,19 @@ Context("Numeric")->strings->add(undefined=>{});
 %f_hash;
 @f_hash{@xs} = @ys;
 
-@zs = map {$ys[random(0,10)]} @xs;
+@zs = map {$ys[random(0,9)]} @xs;
 %g_hash;
 @g_hash{@xs} = @zs;
 
-$x1 = $xs[random(1,10)];
-do {$x2 = $xs[random(1,10)]} while ($x1 == $x2);
+$x1 = $xs[random(0,9)];
+do {$x2 = $xs[random(0,9)]} while ($x1 == $x2);
 
-$y1 = $f_hash{$x1};
-$z1 = $g_hash{$y1};
-$y2 = $f_hash{$x2};
-$z2 = $g_hash{$y2};
-$y3 = $g_hash{$x2};
-$z3 = $f_hash{$y3};
+$y1 = $g_hash{$x1};
+$z1 = $f_hash{$y1};
+$y2 = $g_hash{$x2};
+$z2 = $f_hash{$y2};
+$y3 = $f_hash{$x2};
+$z3 = $g_hash{$y3};
 $y4 = $f_hash{$x1};
 $z4 = $f_hash{$y4};
 
@@ -68,7 +68,7 @@ allcellcss => 'vertical-align:top; horizontal-padding: 6pt; '
 $tableg = 
 DataTable([
 [['\(x\) ',midrule => 1],@xs],
-['\(f(x)\)',@zs],
+['\(g(x)\)',@zs],
 ],
 align=>'r|cccccccccc',
 allcellcss => 'vertical-align:top; horizontal-padding: 6pt; '
@@ -90,10 +90,10 @@ The function [: g :] is defined by the table
 
 Find the following values.  Use the word "undefined" when appropriate.
 
-*   [: (f\circ g)([$x1]) :] is [________________]{$z1}
-*   [: (f\circ g)([$x2]) :] is [________________]{$z2}
-*   [: (g\circ f)([$x2]) :] is [________________]{$z3}
-*   [: (f\circ f)([$x1]) :] is [________________]{$z4}
+*   [` (f\circ g)([$x1]) `] is [________________]{$z1}
+*   [` (f\circ g)([$x2]) `] is [________________]{$z2}
+*   [` (g\circ f)([$x2]) `] is [________________]{$z3}
+*   [` (f\circ f)([$x1]) `] is [________________]{$z4}
 
 END_PGML
 
