@@ -1,0 +1,92 @@
+## DESCRIPTION
+## Algebra: Rewrite a logarithmic equation in an exponential form
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Exponential and Logarithmic Functions)
+## DBsection(Logarithmic functions)
+## Level(2)
+## KEYWORDS('algebra', 'logarithmic functions')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"unionTables.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("Numeric");
+
+$b = random(2,7);
+$e = random(1,2,3);
+
+$base = Compute("$b");
+$exp = Compute("$e");
+$res = Compute("$base^$exp");
+#
+#  Display exponents nicely
+#
+$w1 = 10; # width of 1st answer blank
+$w2 = 10; # width of 2nd answer blank
+$w3 = 10; # width of 3rd answer blank
+Context()->texStrings;
+if ($displayMode eq 'TeX') {
+  $showpower =
+  "\( \displaystyle $base^{" . ans_rule($w2) . "} = " . ans_rule($w3) . "\)";
+} else {
+  $showpower =
+  ColumnTable(BeginTable(border=>0, spacing=>0, padding=>0).
+              AlignedRow(["",ans_rule($w2),"",""], align=>LEFT, separation=>0).
+              AlignedRow(["\( $base\)",
+                         " = ",
+                         ans_rule($w3)],
+                         align=>LEFT, separation=>0).
+              EndTable(),
+              indent=>0, separation=>0, valign=>"BOTTOM")
+}
+Context()->normalStrings;
+
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Rewrite the logarithmic quation [```\log_{[$base]} [$res] = [$exp] ```]
+
+in exponential form:
+
+[$showpower]***
+
+END_PGML
+
+
+############################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $exp->cmp() );
+ANS( $res->cmp() );
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
