@@ -1,0 +1,108 @@
+# DESCRIPTION
+# Absolute value inequalities (simple, less then)
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+# ENDDESCRIPTION
+
+## DBsubject(Algebra)
+## DBchapter(Functions)
+## DBsection(Definition, concept)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(2)
+## TitleText1('Algebra and Trigonometry')
+## AuthorText1('Swokowski, Cole')
+## EditionText1('13')
+## Section1('.')
+## Problem1('')
+## KEYWORDS('algebra,domain,function,intervals')
+
+DOCUMENT();
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGML.pl",
+"PGcourse.pl",
+"PGchoicemacros.pl",
+"AnswerFormatHelp.pl",
+"niceTables.pl",
+);
+
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric")->strings->add(undefined=>{});
+
+# Define variables here:
+
+@ind = NchooseK(40,10);
+@ys = map {$_ - 20} @ind;
+@xs = PGsort( sub {$_[0] < $_[1]}, @ys);
+%f_hash;
+@f_hash{@xs} = @ys;
+
+@zs = map {$ys[random(0,10)]} @xs;
+%g_hash;
+@g_hash{@xs} = @zs;
+
+$x1 = $xs[random(1,10)];
+do {$x2 = $xs[random(1,10)]} while ($x1 == $x2);
+
+$y1 = $f_hash{$x1};
+$z1 = $g_hash{$y1};
+$y2 = $f_hash{$x2};
+$z2 = $g_hash{$y2};
+$y3 = $g_hash{$x2};
+$z3 = $f_hash{$y3};
+$y4 = $f_hash{$x1};
+$z4 = $f_hash{$y4};
+
+Context()->texStrings;
+$tablef = 
+DataTable([
+[['\(x\) ',midrule => 1],@xs],
+['\(f(x)\)',@ys],
+],
+align=>'r|cccccccccc',
+allcellcss => 'vertical-align:top; horizontal-padding: 6pt; '
+);
+
+$tableg = 
+DataTable([
+[['\(x\) ',midrule => 1],@xs],
+['\(f(x)\)',@zs],
+],
+align=>'r|cccccccccc',
+allcellcss => 'vertical-align:top; horizontal-padding: 6pt; '
+);
+Context()->normalStrings;
+
+Context("Interval");
+
+# Actual problem goes here:
+TEXT(beginproblem());
+BEGIN_PGML
+The function [: f :] is defined by the table
+
+[$tablef]*** 
+
+The function [: g :] is defined by the table
+
+[$tableg]*** 
+
+Find the following values.  Use the word "undefined" when appropriate.
+
+*   [: (f\circ g)([$x1]) :] is [________________]{$z1}
+*   [: (f\circ g)([$x2]) :] is [________________]{$z2}
+*   [: (g\circ f)([$x2]) :] is [________________]{$z3}
+*   [: (f\circ f)([$x1]) :] is [________________]{$z4}
+
+END_PGML
+
+# Solution:
+BEGIN_PGML_SOLUTION
+*  [`(f\circ g)([$x1]) = f(g([$x1])) = f([$y1]) = [$z1]`]
+*  [`(f\circ g)([$x2]) = f(g([$x2])) = f([$y2]) = [$z2]`]
+*  [`(g\circ f)([$x2]) = g(f([$x2])) = g([$y3]) = [$z3]`]
+*  [`(f\circ f)([$x1]) = f(f([$x1])) = f([$y4]) = [$z4]`]
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
