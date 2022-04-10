@@ -53,6 +53,7 @@ if ($displayMode eq 'TeX') {
   ColumnTable(BeginTable(border=>0, spacing=>0, padding=>0).
               AlignedRow(["",ans_rule($w2),"",""], align=>LEFT, separation=>0).
               AlignedRow(["\( $base\)",
+                         "",
                          " = ",
                          ans_rule($w3)],
                          align=>LEFT, separation=>0).
