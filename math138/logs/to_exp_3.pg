@@ -33,7 +33,7 @@ TEXT(beginproblem());
 
 Context("Numeric");
 
-$b1 = random(2,7);
+$b = random(2,7);
 if ($b < 6) {
     $e = random(1,3);
 } else {
