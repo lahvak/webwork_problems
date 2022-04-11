@@ -1,0 +1,78 @@
+## DESCRIPTION
+## Algebra: Rewrite a logarithmic equation in an exponential form
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Exponential and Logarithmic Functions)
+## DBsection(Logarithmic functions)
+## Level(2)
+## KEYWORDS('algebra', 'logarithmic functions')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"unionTables.pl",
+"PGML.pl",
+"contextFraction.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("Numeric");
+
+$b = random(2,7);
+if ($b < 6) {
+    $e = random(2,3);
+} else {
+    $e = 2;
+}
+
+$base = Compute("$b^$e")->reduce;
+$res = Compute("$b");
+Context("Fraction");
+$exp = Compute("1/$e");
+
+#
+###########################
+#  Main text
+
+BEGIN_PGML
+Rewrite the exponential equation [```[$base]^{[$exp]} = [$res] ```]
+
+in logarithmic form:
+
+[``\log_{[$base]}``][___________]{$res}[``{} = {}``][__________]{$exp}
+
+END_PGML
+
+
+############################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+Exponential and logarithmic functions with base [$base] are _inverse_ of each other, which means that if the input [:x:] plugged into the logarithmic function with base [$base] produces the output [:y:], then plugging [:y:] as an input into the exponential function with base [$base] will produce the output [:x:].
+
+In the equation [```{[$base]}^{[$exp]} = [$res] ```] the input is [`[$exp]`] and the output is [`[$res]`], so in the corresponding logarithmic equation, the input of the logarithmic function will be [`[$res]`] and the output [`[$exp]`]:
+
+[``` \log_{[$base]}[$res] = [$exp] ```]
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
