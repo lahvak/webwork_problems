@@ -69,7 +69,7 @@ Exponential and logarithmic functions with base [$base] are _inverse_ of each ot
 
 In the equation [```{[$base]}^{[$exp]} = [$res] ```] the input is [`[$exp]`] and the output is [`[$res]`], so in the corresponding logarithmic equation, the input of the logarithmic function will be [`[$res]`] and the output [`[$exp]`]:
 
-[``` \log_{[$base]}[$res]} = [$exp] ```]
+[``` \log_{[$base]}[$res] = [$exp] ```]
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
