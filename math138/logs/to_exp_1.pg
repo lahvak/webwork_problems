@@ -69,7 +69,7 @@ Context()->normalStrings;
 #  Main text
 
 BEGIN_PGML
-Rewrite the logarithmic quation [```\log_{[$base]} [$res] = [$exp] ```]
+Rewrite the logarithmic equation [```\log_{[$base]} [$res] = [$exp] ```]
 
 in exponential form:
 
