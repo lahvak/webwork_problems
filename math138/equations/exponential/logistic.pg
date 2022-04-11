@@ -1,0 +1,73 @@
+## DESCRIPTION
+## Algebra: Exponential equations - logistic
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Exponential and Logarithmic Functions)
+## DBsection(Exponential and Logarithmic Equations)
+## Level(1)
+## KEYWORDS('algebra', 'exponential equation')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"PGML.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+$showPartialCorrectAnswers = 1;
+
+Context("Numeric")->variables->are(t => "Real");
+
+$K = random(2,9)*100;
+$L = random($K/2, $K-20, 10);
+$r = random(1,9)/10;
+
+$KoverL = Compute("$K/$L");
+$KoverLm1 = Compute("$KoverL - 1");
+$log = Compute("ln($KoverLm1)");
+$sol = Compute("-$log/($r)");
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Find the solution of the equation
+
+[```\frac{[$K]}{1 + e^{-[$r]t}} = [$L]```]
+
+The solution is [`t=`] [_____________________]{$sol}
+END_PGML
+
+BEGIN_PGML_HINT
+Start by isolating the exponential function.
+END_PGML_HINT
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+First we need to isolate the exponential function on one side of the equation.  Since the exponential is in teh denominator, we need to multiply by [``1 + e^{-[$r]t}``] to get
+[```[$K] = [$L]\left({1 + e^{-[$r]t}}\right)```]
+Dividing by [`[$L]`] and subtracting [`1`] gives us
+[```e^{-[$r]t} = [$KoverLm1]```]
+The logarithmic form of this equation is
+[```-[$r]t = \ln [$KoverLm1]```]
+Finally, dividing by [`-[$r]`] gives us the solution
+[```t = \frac{\ln [$KoverLm1]}{-[$r]} = [$sol]```]
+END_PGML_SOLUTION
+ENDDOCUMENT();
