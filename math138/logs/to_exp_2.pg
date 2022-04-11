@@ -1,0 +1,102 @@
+## DESCRIPTION
+## Algebra: Rewrite a logarithmic equation in an exponential form
+# written by Jan Hlavacek (jhlavace@svsu.edu)
+## ENDDESCRIPTION
+
+
+## DBsubject(Algebra)
+## DBchapter(Exponential and Logarithmic Functions)
+## DBsection(Logarithmic functions)
+## Level(2)
+## KEYWORDS('algebra', 'logarithmic functions')
+
+
+###########################
+#  Initialization
+
+DOCUMENT();
+
+loadMacros(
+"PGstandard.pl",
+"MathObjects.pl",
+"PGcourse.pl",
+"unionTables.pl",
+"PGML.pl",
+"contextFraction.pl",
+);
+
+TEXT(beginproblem());
+
+
+###########################
+#  Setup
+
+Context("Numeric");
+
+$b = random(2,7);
+if ($b < 6) {
+    $e = -random(1,3);
+} else {
+    $e = -random(1,2);
+}
+
+$base = Compute("$b");
+$exp = Compute("$e");
+Context("Fraction");
+$res = Compute("$base^$exp")->reduce;
+#
+#  Display exponents nicely
+#
+$w1 = 10; # width of 1st answer blank
+$w2 = 10; # width of 2nd answer blank
+$w3 = 10; # width of 3rd answer blank
+Context()->texStrings;
+if ($displayMode eq 'TeX') {
+  $showpower =
+  "\( \displaystyle $base^{" . ans_rule($w2) . "} = " . ans_rule($w3) . "\)";
+} else {
+  $showpower =
+  BeginTable(border=>0, spacing=>0, padding=>0).
+              AlignedRow(["",ans_rule($w2),"",""], align=>LEFT, separation=>0).
+              AlignedRow(["\( $base\)",
+                         "",
+                         "&nbsp;=&nbsp;",
+                         ans_rule($w3)],
+                         align=>LEFT, separation=>0).
+              EndTable();
+}
+Context()->normalStrings;
+
+###########################
+#  Main text
+
+BEGIN_PGML
+Rewrite the logarithmic quation [```\log_{[$base]} [$res] = [$exp] ```]
+
+in exponential form:
+
+[$showpower]***
+
+END_PGML
+
+
+############################
+#  Answer evaluation
+
+$showPartialCorrectAnswers = 1;
+
+ANS( $exp->cmp() );
+ANS( $res->cmp() );
+
+############################
+#  Solution
+
+BEGIN_PGML_SOLUTION
+Exponential and logarithmic functions with base [$base] are _inverse_ of each other, which means that if the input [:x:] plugged into the logarithmic function with base [$base] produces the output [:y:], then plugging [:y:] as an input into the exponential function with base [$base] will produce the output [:x:].
+
+In the equation [```\log_{[$base]} [$res] = [$exp] ```] the input is [`[$res]`] and the output is [`[$exp]`], so in the corresponding exponential equation, the input of the exponential function (the exponent) will be [`[$exp]`] and the output [`[$res]`]:
+
+[``` [$base]^{[$exp]} = [$res] ```]
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
