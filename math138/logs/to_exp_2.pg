@@ -35,15 +35,15 @@ Context("Numeric");
 
 $b = random(2,7);
 if ($b < 6) {
-    $e = -random(1,3);
+    $e = random(1,3);
 } else {
-    $e = -random(1,2);
+    $e = random(1,2);
 }
 
 $base = Compute("$b");
-$exp = Compute("$e");
+$exp = Compute("-$e");
 Context("Fraction");
-$res = Compute("$base^$exp")->reduce;
+$res = Compute("1/$base^$e")->reduce;
 #
 #  Display exponents nicely
 #
