@@ -110,7 +110,7 @@ Context()->flags->set(reduceConstants=>1,reduceConstantFunctions=>0);
 $x = non_zero_random(-3,3);
 $y = non_zero_random(-3,3);
 
-$diffquot = Formula("2*$a*$x*$u1 + $a*$u1^2*h + $b*$x*$u2 + $b*$y*$u1 + $b*$u1*$u2*h + 2*$c*$u2*$y + $c*$u2^2*h + $d*u1 + $e*u2")->reduce;
+$diffquot = Formula("2*$a*$x*$u1 + $a*$u1^2*h + $b*$x*$u2 + $b*$y*$u1 + $b*$u1*$u2*h + 2*$c*$u2*$y + $c*$u2^2*h + $d*$u1 + $e*$u2")->reduce;
 
 $ans1 = DifferenceQuotient($diffquot, "h");
 
