@@ -93,14 +93,14 @@ if($vector_case == 1){
     $u1 = Fraction("$sign1 12/13");
     $u2 = Fraction("$sign2 5/13");
 }elsif($vector_case == 5){
-    $u1 = Formula("$sign1 sqrt(2)/2")->reduce;
-    $u2 = Formula("$sign2 sqrt(2)/2")->reduce;
+    $u1 = Formula("$sign1 sqrt(2)/2");
+    $u2 = Formula("$sign2 sqrt(2)/2");
 }elsif($vector_case == 6){
-    $u1 = Formula("$sign1 sqrt(3)/2")->reduce;
+    $u1 = Formula("$sign1 sqrt(3)/2");
     $u2 = Fraction("$sign2 1/2");
 }else{
     $u1 = Fraction("$sign1 1/2");
-    $u2 = Formula("$sign2 sqrt(3)/2")->reduce;
+    $u2 = Formula("$sign2 sqrt(3)/2");
 }
 
 Context("Numeric");
