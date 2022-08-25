@@ -5,8 +5,8 @@
 
 
 ## DBsubject(Calculus - multivariable)
-## DBchapter(Functions of several variables)
-## DBsection(Directional derivatives)
+## DBchapter(Differentiation of multivariable functions)
+## DBsection(Directional derivatives and the gradient)
 ## Date(2021-04-04)
 ## Institution(SVSU)
 ## Author(Jan Hlavacek)
@@ -90,14 +90,14 @@ if($vector_case == 1){
     $u1 = Fraction("12/13");
     $u2 = Fraction("5/13");
 }elsif($vector_case == 5){
-    $u1 = Fraction("sqrt(2)/2");
-    $u2 = Fraction("sqrt(2)/2");
+    $u1 = Fraction("sqrt(2)","2");
+    $u2 = Fraction("sqrt(2)","2");
 }elsif($vector_case == 6){
-    $u1 = Fraction("sqrt(3)/2");
+    $u1 = Fraction("sqrt(3)","2");
     $u2 = Fraction("1/2");
 }else{
     $u1 = Fraction("1/2");
-    $u2 = Fraction("sqrt(3)/2");
+    $u2 = Fraction("sqrt(3)","2");
 }
 
 $u1 = $u1*list_random(-1,1);
