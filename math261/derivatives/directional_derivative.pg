@@ -77,30 +77,30 @@ Context("Fraction");
 Context()->flags->set(reduceConstants=>0,reduceConstantFunctions=>0);
 $vector_case = random(1,7);
 
-$sign1 = list_random(-1,1);
-$sign2 = list_random(-1,1);
+$sign1 = list_random("-","");
+$sign2 = list_random("-","");
 
 if($vector_case == 1){
-    $u1 = $sign1*Fraction("3/5");
-    $u2 = $sign2*Fraction("4/5");
+    $u1 = Fraction("$sign1 3/5");
+    $u2 = Fraction("$sign2 4/5");
 }elsif($vector_case == 2){
-    $u1 = $sign1*Fraction("4/5");
-    $u2 = $sign2*Fraction("3/5");
+    $u1 = Fraction("$sign1 4/5");
+    $u2 = Fraction("$sign2 3/5");
 }elsif($vector_case == 3){
-    $u1 = $sign1*Fraction("5/13");
-    $u2 = $sign2*Fraction("12/13");
+    $u1 = Fraction("$sign1 5/13");
+    $u2 = Fraction("$sign2 12/13");
 }elsif($vector_case == 4){
-    $u1 = $sign1*Fraction("12/13");
-    $u2 = $sign2*Fraction("5/13");
+    $u1 = Fraction("$sign1 12/13");
+    $u2 = Fraction("$sign2 5/13");
 }elsif($vector_case == 5){
-    $u1 = Formula("$sign1*sqrt(2)/2")->reduce;
-    $u2 = Formula("$sign2*sqrt(2)/2")->reduce;
+    $u1 = Formula("$sign1 sqrt(2)/2")->reduce;
+    $u2 = Formula("$sign2 sqrt(2)/2")->reduce;
 }elsif($vector_case == 6){
-    $u1 = Formula("$sign1*sqrt(3)/2")->reduce;
-    $u2 = $sign2*Fraction("1/2");
+    $u1 = Formula("$sign1 sqrt(3)/2")->reduce;
+    $u2 = Fraction("$sign2 1/2");
 }else{
-    $u1 = $sign1*Fraction("1/2");
-    $u2 = Formula("$sign2*sqrt(3)/2")->reduce;
+    $u1 = Fraction("$sign1 1/2");
+    $u2 = Formula("$sign2 sqrt(3)/2")->reduce;
 }
 
 Context("Numeric");
