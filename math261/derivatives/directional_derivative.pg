@@ -1,0 +1,138 @@
+## DESCRIPTION
+## Calculus: directional derivatives
+## ENDDESCRIPTION
+
+
+
+## DBsubject(Calculus - multivariable)
+## DBchapter(Functions of several variables)
+## DBsection(Directional derivatives)
+## Date(2021-04-04)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(3)
+## KEYWORDS('directional derivative')
+
+
+###########################
+#  Initialization
+
+
+DOCUMENT();
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "PGchoicemacros.pl",
+  "contextFraction.pl",
+  "parserDifferenceQuotient.pl",
+  "PGML.pl",
+  "PGcourse.pl"
+);
+
+TEXT(beginproblem());
+
+$showPartialCorrectAnswers = 1;
+
+##############################################
+#  Setup
+
+@possiblecoeffs = [-2,-1,1,2];
+@indices = NchooseK($#possiblecoeffs,3);
+@coeffs = @possiblecoeffs[@indices];
+
+# make one of the second degree coefficients zero
+$zerocoeff = random(1,3);
+
+if($zerocoeff == 1){
+    $a = 0;
+    $b = $coeffs[0];
+    $c = $coeffs[1];
+}elsif($zerocoeff == 2){
+    $a = $coeffs[0];
+    $b = 0;
+    $c = $coeffs[1];
+}else{
+    $a = $coeffs[0];
+    $b = $coeffs[1];
+    $c = 0;
+}
+
+# make one of the first degree coefficients zero
+$zerocoeff = random(1,2);
+
+if($zerocoeff == 1){
+    $d = 0;
+    $e = $coeffs[2];
+}else{
+    $d = $coeffs[2];
+    $e = 0;
+}
+
+Context("Numeric");
+Context()->variables->are(x=>'Real',y=>'Real',h=>'Real');
+$function = Formula("$a*x^2 + $b*x*y + $c*y^2 + $d*x + $e*y")->reduce;
+
+Context("Fraction");
+Context()->flags->set(reduceConstants=>0,reduceConstantFunctions=>0);
+$vector_case = random(1,7);
+
+if($vector_case == 1){
+    $u1 = Fraction("3/5");
+    $u2 = Fraction("4/5");
+}elsif($vector_case == 2){
+    $u1 = Fraction("4/5");
+    $u2 = Fraction("3/5");
+}elsif($vector_case == 3){
+    $u1 = Fraction("5/13");
+    $u2 = Fraction("12/13");
+}elsif($vector_case == 4){
+    $u1 = Fraction("12/13");
+    $u2 = Fraction("5/13");
+}elsif($vector_case == 5){
+    $u1 = Fraction("sqrt(2)/2");
+    $u2 = Fraction("sqrt(2)/2");
+}elsif($vector_case == 6){
+    $u1 = Fraction("sqrt(3)/2");
+    $u2 = Fraction("1/2");
+}else{
+    $u1 = Fraction("1/2");
+    $u2 = Fraction("sqrt(3)/2");
+}
+
+$u1 = $u1*list_random(-1,1);
+$u2 = $u2*list_random(-1,1);
+
+Context("Numeric");
+Context()->flags->set(reduceConstants=>1,reduceConstantFunctions=>0);
+
+$x = non_zero_random(-3,3);
+$y = non_zero_random(-3,3);
+
+$diffquot = Formula("2*$a*$x*$u1 + $a*$u1^2*h + $b*$x*$u2 + $b*$y*$u1 + $b*$u1*$u2*h + 2*$c*$u2*$y + $c*$u2^2*h + $d*u1 + $e*u2")->reduce;
+
+$ans1 = DifferenceQuotient($diffquot, "h");
+
+$limit = $diffquot->eval(h=>0);
+
+##########################################
+#  Main text
+
+BEGIN_PGML
+Given the function [`f(x,y) = [$function]`], the point [`(x_0, y_0) = ([$x],[$y])`] and the unit vector
+
+[```\mathbf{u} = \left\langle u_1, u_2\right\rangle = \left\langle [$u1], [$u2]\right\rangle```]
+
+1.  Simplify the difference quotient
+
+    [``\frac{f\left([$x]+u_1h, [$y] + u_2h\right) - f([$x],[$y])}{h}=``][______________________________]{$ans1}
+
+2.  Calculate the directional derivative of [:f:] at [`(x_0, y_0)`] in the direction of the unit vector [`\mathbf{u}`]:
+
+    [``\lim_{h\to 0}\frac{f\left([$x]+u_1h, [$y] + u_2h\right) - f([$x],[$y])}{h}=``][______________________________]{$limit}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+END_PGML_SOLUTION
+ENDDOCUMENT();
