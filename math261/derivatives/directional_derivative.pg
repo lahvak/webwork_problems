@@ -37,7 +37,7 @@ $showPartialCorrectAnswers = 1;
 ##############################################
 #  Setup
 
-@possiblecoeffs = [-2,-1,1,2];
+@possiblecoeffs = (-2,-1,1,2);
 @indices = NchooseK($#possiblecoeffs,3);
 @coeffs = @possiblecoeffs[@indices];
 
