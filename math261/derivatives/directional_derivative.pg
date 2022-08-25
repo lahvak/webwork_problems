@@ -104,6 +104,7 @@ $u1 = $u1*list_random(-1,1);
 $u2 = $u2*list_random(-1,1);
 
 Context("Numeric");
+Context()->variables->are(x=>'Real',y=>'Real',h=>'Real');
 Context()->flags->set(reduceConstants=>1,reduceConstantFunctions=>0);
 
 $x = non_zero_random(-3,3);
