@@ -32,7 +32,7 @@ TEXT(beginproblem());
 Context("Numeric");
 
 $diagram = '
-<svg xmlns = "http://www.w3.org/2000/svg" width="100%" height="100%">
+<svg xmlns = "http://www.w3.org/2000/svg" width="100%" height="200">
     <ellipse cx="170" cy="95" rx="150" ry="75" fill="transparent" stroke="#000000"/>
     <ellipse cx="350" cy="95" rx="150" ry="75" fill="transparent" stroke="#000000"/>
     <foreignObject x="75" y="80" width="75" height="30">
