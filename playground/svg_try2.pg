@@ -50,6 +50,9 @@ BEGIN_TEXT
 Blah blah blah
 $BR
 $diagram
+$BR
+$BR
+Sam mooh text.
 END_TEXT
 
 ANS($ans1->cmp());
