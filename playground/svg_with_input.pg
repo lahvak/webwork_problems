@@ -71,6 +71,6 @@ function updateans1()
 </pre>
 END_TEXT
 
-NAMED_ANS('answer1'=>$ans->cmp());
+NAMED_ANS('answer1'=>$ans1->cmp());
 
 ENDDOCUMENT();
