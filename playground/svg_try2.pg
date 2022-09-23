@@ -37,17 +37,17 @@ $diagram = '
     <ellipse cx="350" cy="95" rx="150" ry="75" fill="transparent" stroke="#000000"/>
     <foreignObject x="75" y="80" width="75" height="30">
         <body xmlns="http://www.w3.org/1999/xhtml">
-' . ans_rule(5) . '
+' . NAMED_ANS_RULE("left_area",5) . '
         </body>
     </foreignObject>
     <foreignObject x="220" y="80" width="75" height="30">
         <body xmlns="http://www.w3.org/1999/xhtml">
-' . ans_rule(5) . '
+' . NAMED_ANS_RULE("intersection",5) . '
         </body>
     </foreignObject>
     <foreignObject x="350" y="80" width="75" height="30">
         <body xmlns="http://www.w3.org/1999/xhtml">
-' . ans_rule(5) . '
+' . NAMED_ANS_RULE("right_area",5) . '
         </body>
     </foreignObject>
 </svg>';
@@ -68,8 +68,8 @@ $BR
 Sam mooh text.
 END_TEXT
 
-ANS($ans1->cmp());
-ANS($ans2->cmp());
-ANS($ans3->cmp());
+NAMED_ANS(left_area=>$ans1->cmp());
+NAMED_ANS(intersection=>$ans2->cmp());
+NAMED_ANS(right_area=>$ans3->cmp());
 
 ENDDOCUMENT();
