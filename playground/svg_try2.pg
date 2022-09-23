@@ -33,8 +33,8 @@ Context("Numeric");
 
 $diagram = '
 <svg xmlns = "http://www.w3.org/2000/svg" width="100%" height="100%">
-    <ellipse cx="100" y="100" rx="75" ry="50" fill="transparent" stroke="#000000"/>
-    <foreignObject x="75" y="100" width="100" height="50">
+    <ellipse cx="100" cy="50" rx="75" ry="50" fill="transparent" stroke="#000000"/>
+    <foreignObject x="55" y="50" width="100" height="20">
         <body xmlns="http://www.w3.org/1999/xhtml">
 ' . ans_rule(20) . '
         </body>
