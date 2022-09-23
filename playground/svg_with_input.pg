@@ -1,5 +1,5 @@
 ##DESCRIPTION
-##  SVSU Remedial math problems: graphs of linear inequalities, two variables
+##  SVSU Testing stuff
 ##ENDDESCRIPTION
 
 
@@ -12,7 +12,6 @@
 ## Institution(SVSU)
 ## Author(Jan Hlavacek)
 ## Level(1)
-## KEYWORDS('Algebra', 'Linear Inequalities', 'Two variables', 'JSXGraph')
 
 ################################################################################################
 # Setup and Macros
