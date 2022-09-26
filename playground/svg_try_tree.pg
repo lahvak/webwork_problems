@@ -45,7 +45,7 @@ $label1 = "Infected";
 $label2 = "Test result";
 
 $diagram = "
-<svg xmlns = 'http://www.w3.org/2000/svg' width='520' height='200' overflow='auto'>
+<svg xmlns = 'http://www.w3.org/2000/svg' width='520' height='220' overflow='auto'>
     <path d='M $root 130 l $branch1 -50' stroke='black'/>
     <path d='M $branch1end 80 h $label1width' stroke-dasharray='4' stroke='black'/>
     <path d='M $label1end 80 l $branch2 -25' stroke='black'/>
@@ -70,6 +70,11 @@ $diagram = "
         Positive: " . NAMED_ANS_RULE("positive_given_yes",5) . "
         </body>
     </foreignObject>
+    <foreignObject x='$branch2end' y='50' width='$label2width' height='30'>
+        <body xmlns='http://www.w3.org/1999/xhtml'>
+        Negative: " . NAMED_ANS_RULE("negative_given_yes",5) . "
+        </body>
+    </foreignObject>
 </svg>";
 
 $ans1 = Compute("42");
@@ -89,5 +94,6 @@ END_PGML
 
 NAMED_ANS(first_yes=>$ans1->cmp());
 NAMED_ANS(positive_given_yes=>$ans2->cmp());
+NAMED_ANS(negative_given_yes=>$ans3->cmp());
 
 ENDDOCUMENT();
