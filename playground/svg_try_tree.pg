@@ -33,7 +33,7 @@ Context("Numeric");
 
 $diagram = '
 <svg xmlns = "http://www.w3.org/2000/svg" width="520" height="200" overflow="auto">
-    <path d="M 20 100 L 40 50">
+    <path d="M 20 100 L 40 50" stroke="black">
     <path d="M 40 50 H 40" stroke-dasharray="4">
     <path d="M 80 50 L 100 25">
     <path d="M 80 50 L 100 75">
