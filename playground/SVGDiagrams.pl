@@ -98,4 +98,32 @@ sub BinaryTree {
     return $diagram;
 }
 
+sub VennDiagram {
+    my $leftlabel = shift;
+    my $rightlabel = shift;
+
+    return "
+<svg xmlns = 'http://www.w3.org/2000/svg' width='520' height='200' overflow='auto'>
+    <ellipse cx='170' cy='95' rx='150' ry='75' fill='transparent' stroke='#000000'/>
+    <ellipse cx='350' cy='95' rx='150' ry='75' fill='transparent' stroke='#000000'/>
+    <text x='70' y='30' font-size='12' text-anchor='end'>$leftlabel</text>
+    <text x='450' y='30' font-size='12' text-anchor='start'>$rightlabel</text>
+    <foreignObject x='75' y='80' width='75' height='30'>
+        <body xmlns='http://www.w3.org/1999/xhtml'>
+" . NAMED_ANS_RULE('left_area',5) . "
+        </body>
+    </foreignObject>
+    <foreignObject x='220' y='80' width='75' height='30'>
+        <body xmlns='http://www.w3.org/1999/xhtml'>
+" . NAMED_ANS_RULE('intersection',5) . "
+        </body>
+    </foreignObject>
+    <foreignObject x='350' y='80' width='75' height='30'>
+        <body xmlns='http://www.w3.org/1999/xhtml'>
+" . NAMED_ANS_RULE('right_area',5) . "
+        </body>
+    </foreignObject>
+</svg>";
+}
+
 1;
