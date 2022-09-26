@@ -63,8 +63,8 @@ $diagram = "
     <path d='M $label1end 180 l $branch2 25' stroke='black'/>
     <path d='M $branch2end 155 h $label2width' stroke-dasharray='4' stroke='black'/>
     <path d='M $branch2end 205 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <text x='$label1mid' y='10' font-size='14' text-anchor='middle' color='Blue'>$label1</text>
-    <text x='$label2mid' y='10' font-size='14' text-anchor='middle' color='Blue'>$label2</text>
+    <text x='$label1mid' y='10' font-size='14' text-anchor='middle' stroke='blue'>$label1</text>
+    <text x='$label2mid' y='10' font-size='14' text-anchor='middle' stroke='blue'>$label2</text>
     <foreignObject x='$branch1end' y='50' width='$label1width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
             $pos1 " . NAMED_ANS_RULE("first_yes",5) . "
