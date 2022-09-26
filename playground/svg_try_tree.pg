@@ -100,12 +100,12 @@ $diagram = "
         " . NAMED_ANS_RULE("negative_and_yes",8) . "
         </body>
     </foreignObject>
-    <foreignObject x='$label2end' y='130' width='$label2width' height='30'>
+    <foreignObject x='$label2end' y='140' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
         " . NAMED_ANS_RULE("positive_and_no",8) . "
         </body>
     </foreignObject>
-    <foreignObject x='$label2end' y='180' width='$label2width' height='30'>
+    <foreignObject x='$label2end' y='190' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
         " . NAMED_ANS_RULE("negative_and_no",8) . "
         </body>
@@ -134,5 +134,8 @@ NAMED_ANS(first_no=>$ans1->cmp());
 NAMED_ANS(positive_given_no=>$ans2->cmp());
 NAMED_ANS(negative_given_no=>$ans3->cmp());
 NAMED_ANS(positive_and_yes=>$ans2->cmp());
+NAMED_ANS(negative_and_yes=>$ans2->cmp());
+NAMED_ANS(positive_and_no=>$ans2->cmp());
+NAMED_ANS(negative_and_no=>$ans2->cmp());
 
 ENDDOCUMENT();
