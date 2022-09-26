@@ -34,17 +34,17 @@ Context("Numeric");
 $diagram = '
 <svg xmlns = "http://www.w3.org/2000/svg" width="520" height="200" overflow="auto">
     <path d="M 20 100 L 40 50" stroke="black"/>
-    <path d="M 40 50 H 40" stroke-dasharray="4" stroke="black"/>
+    <path d="M 40 50 H 80" stroke-dasharray="4" stroke="black"/>
     <path d="M 80 50 L 100 25" stroke="black"/>
     <path d="M 80 50 L 100 75" stroke="black"/>
-    <path d="M 100 25 H 40" stroke-dasharray="4" stroke="black"/>
-    <path d="M 100 75 H 40" stroke-dasharray="4" stroke="black"/>
+    <path d="M 100 25 H 140" stroke-dasharray="4" stroke="black"/>
+    <path d="M 100 75 H 140" stroke-dasharray="4" stroke="black"/>
     <path d="M 20 100 L 40 150" stroke="black"/>
-    <path d="M 40 150 H 40" stroke-dasharray="4" stroke="black"/>
+    <path d="M 40 150 H 80" stroke-dasharray="4" stroke="black"/>
     <path d="M 80 150 L 100 125" stroke="black"/>
     <path d="M 80 150 L 100 175" stroke="black"/>
-    <path d="M 100 125 H 40" stroke-dasharray="4" stroke="black"/>
-    <path d="M 100 175 H 40" stroke-dasharray="4" stroke="black"/>
+    <path d="M 100 125 H 140" stroke-dasharray="4" stroke="black"/>
+    <path d="M 100 175 H 140" stroke-dasharray="4" stroke="black"/>
     <text x="70" y="30" font-size="12" text-anchor="end">Set A</text>
     <text x="450" y="30" font-size="12" text-anchor="start">Set B</text>
     <foreignObject x="75" y="80" width="75" height="30">
