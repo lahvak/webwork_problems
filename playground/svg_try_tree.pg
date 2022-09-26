@@ -92,7 +92,22 @@ $diagram = "
     </foreignObject>
     <foreignObject x='$label2end' y='40' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        Negative: " . NAMED_ANS_RULE("positive_and_yes",5) . "
+        " . NAMED_ANS_RULE("positive_and_yes",8) . "
+        </body>
+    </foreignObject>
+    <foreignObject x='$label2end' y='90' width='$label2width' height='30'>
+        <body xmlns='http://www.w3.org/1999/xhtml'>
+        " . NAMED_ANS_RULE("negative_and_yes",8) . "
+        </body>
+    </foreignObject>
+    <foreignObject x='$label2end' y='130' width='$label2width' height='30'>
+        <body xmlns='http://www.w3.org/1999/xhtml'>
+        " . NAMED_ANS_RULE("positive_and_no",8) . "
+        </body>
+    </foreignObject>
+    <foreignObject x='$label2end' y='180' width='$label2width' height='30'>
+        <body xmlns='http://www.w3.org/1999/xhtml'>
+        " . NAMED_ANS_RULE("negative_and_no",8) . "
         </body>
     </foreignObject>
 </svg>";
