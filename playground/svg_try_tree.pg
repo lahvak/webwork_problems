@@ -41,15 +41,27 @@ $label2width = 150;
 $label2mid = $branch2end + $label2width/2;
 $label2end = $branch2end + $label2width;
 
-$label1 = "Infected";
-$label2 = "Test result";
 
-$pos1 = "Yes: ";
-$neg1 = "No: ";
-$pos2 = "Positive: ";
-$neg2 = "Negative: ";
+sub BinaryTree {
+    my $label1 = shift;
+    my $root = 20;
+    my $branch1 = 20;
+    my $branch1end = $root + $branch1;
+    my $pos1 = shift;
+    my $neg1 = shift;
+    my $label1width = shift;
+    my $label1mid = $branch1end + $label1width/2;
+    my $label1end = $branch1end + $label1width;
+    my $branch2 = 20;
+    my $branch2end = $label1end + $branch2;
+    my $label2 = shift;
+    my $pos2 = shift;
+    my $neg2 = shift;
+    my $label2width = shift;
+    my $label2mid = $branch2end + $label2width/2;
+    my $label2end = $branch2end + $label2width;
 
-$diagram = "
+    my $diagram = "
 <svg xmlns = 'http://www.w3.org/2000/svg' width='520' height='220' overflow='auto'>
     <path d='M $root 130 l $branch1 -50' stroke='black'/>
     <path d='M $branch1end 80 h $label1width' stroke-dasharray='4' stroke='black'/>
@@ -116,6 +128,11 @@ $diagram = "
         </body>
     </foreignObject>
 </svg>";
+
+    return $diagram;
+}
+
+$diagram = BinaryTree("Infected", "Yes: ", "No: ", 150, "Test result", "Positive: ", "Negative: ", 150);
 
 $ans1 = Compute("42");
 $ans2 = Compute("42");
