@@ -44,6 +44,11 @@ $label2end = $branch2end + $label2width;
 $label1 = "Infected";
 $label2 = "Test result";
 
+$pos1 = "Yes: ";
+$neg1 = "No: ";
+$pos2 = "Positive: ";
+$neg2 = "Negative: ";
+
 $diagram = "
 <svg xmlns = 'http://www.w3.org/2000/svg' width='520' height='220' overflow='auto'>
     <path d='M $root 130 l $branch1 -50' stroke='black'/>
@@ -58,56 +63,56 @@ $diagram = "
     <path d='M $label1end 180 l $branch2 25' stroke='black'/>
     <path d='M $branch2end 155 h $label2width' stroke-dasharray='4' stroke='black'/>
     <path d='M $branch2end 205 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <text x='$label1mid' y='10' font-size='14' text-anchor='middle'>$label1</text>
-    <text x='$label2mid' y='10' font-size='14' text-anchor='middle'>$label2</text>
+    <text x='$label1mid' y='10' font-size='14' text-anchor='middle' color='Blue'>$label1</text>
+    <text x='$label2mid' y='10' font-size='14' text-anchor='middle' color='Blue'>$label2</text>
     <foreignObject x='$branch1end' y='50' width='$label1width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-            Yes: " . NAMED_ANS_RULE("first_yes",5) . "
+            $pos1 " . NAMED_ANS_RULE("first_yes",5) . "
         </body>
     </foreignObject>
     <foreignObject x='$branch2end' y='25' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        Positive: " . NAMED_ANS_RULE("positive_given_yes",5) . "
+        $pos2 " . NAMED_ANS_RULE("positive_given_yes",5) . "
         </body>
     </foreignObject>
     <foreignObject x='$branch2end' y='75' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        Negative: " . NAMED_ANS_RULE("negative_given_yes",5) . "
+        $neg2 " . NAMED_ANS_RULE("negative_given_yes",5) . "
         </body>
     </foreignObject>
     <foreignObject x='$branch1end' y='150' width='$label1width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-            No: " . NAMED_ANS_RULE("first_no",5) . "
+            $neg1 " . NAMED_ANS_RULE("first_no",5) . "
         </body>
     </foreignObject>
     <foreignObject x='$branch2end' y='125' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        Positive: " . NAMED_ANS_RULE("positive_given_no",5) . "
+        $pos2 " . NAMED_ANS_RULE("positive_given_no",5) . "
         </body>
     </foreignObject>
     <foreignObject x='$branch2end' y='175' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        Negative: " . NAMED_ANS_RULE("negative_given_no",5) . "
+        $neg2 " . NAMED_ANS_RULE("negative_given_no",5) . "
         </body>
     </foreignObject>
     <foreignObject x='$label2end' y='40' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        " . NAMED_ANS_RULE("positive_and_yes",8) . "
+        &nbsp;" . NAMED_ANS_RULE("positive_and_yes",8) . "
         </body>
     </foreignObject>
     <foreignObject x='$label2end' y='90' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        " . NAMED_ANS_RULE("negative_and_yes",8) . "
+        &nbsp;" . NAMED_ANS_RULE("negative_and_yes",8) . "
         </body>
     </foreignObject>
     <foreignObject x='$label2end' y='140' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        " . NAMED_ANS_RULE("positive_and_no",8) . "
+        &nbsp;" . NAMED_ANS_RULE("positive_and_no",8) . "
         </body>
     </foreignObject>
     <foreignObject x='$label2end' y='190' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        " . NAMED_ANS_RULE("negative_and_no",8) . "
+        &nbsp;" . NAMED_ANS_RULE("negative_and_no",8) . "
         </body>
     </foreignObject>
 </svg>";
