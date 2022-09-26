@@ -33,12 +33,12 @@ $root = 20;
 $branch1 = 20;
 $branch1end = $root + $branch1;
 $label1width = 150;
-$label1mid = $labelwidth/2;
+$label1mid = $branch1end + $labelwidth/2;
 $label1end = $branch1end + $label1width;
 $branch2 = 20;
 $branch2end = $label1end + $branch2;
 $label2width = 150;
-$label2mid = $label2width/2;
+$label2mid = $branch2end + $label2width/2;
 $label2end = $branch2end + $label2width;
 
 $label1 = "Infected";
@@ -46,36 +46,31 @@ $label2 = "Test result";
 
 $diagram = "
 <svg xmlns = 'http://www.w3.org/2000/svg' width='520' height='200' overflow='auto'>
-    <path d='M $root 100 l $branch1 -50' stroke='black'/>
-    <path d='M $branch1end 50 h $label1width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $label1end 50 l $branch2 -25' stroke='black'/>
-    <path d='M $label1end 50 l $branch2 25' stroke='black'/>
-    <path d='M $branch2end 25 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $branch2end 75 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $root 100 l $branch1 50' stroke='black'/>
-    <path d='M $branch1end 150 h $label1width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $label1end 150 l $branch2 -25' stroke='black'/>
-    <path d='M $label1end 150 l $branch2 25' stroke='black'/>
-    <path d='M $branch2end 125 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $branch2end 175 h $label2width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $root 120 l $branch1 -50' stroke='black'/>
+    <path d='M $branch1end 70 h $label1width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $label1end 70 l $branch2 -25' stroke='black'/>
+    <path d='M $label1end 70 l $branch2 25' stroke='black'/>
+    <path d='M $branch2end 45 h $label2width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $branch2end 95 h $label2width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $root 120 l $branch1 50' stroke='black'/>
+    <path d='M $branch1end 170 h $label1width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $label1end 170 l $branch2 -25' stroke='black'/>
+    <path d='M $label1end 170 l $branch2 25' stroke='black'/>
+    <path d='M $branch2end 145 h $label2width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $branch2end 195 h $label2width' stroke-dasharray='4' stroke='black'/>
     <text x='$label1mid' y='10' font-size='12' text-anchor='middle'>$label1</text>
     <text x='$label2mid' y='10' font-size='12' text-anchor='middle'>$label2</text>
-    <foreignObject x='75' y='80' width='75' height='30'>
+    <foreignObject x='$brach1end' y='55' width='$branch1width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-" . NAMED_ANS_RULE("left_area",5) . '
+            Yes: " . NAMED_ANS_RULE("left_area",5) . "
         </body>
     </foreignObject>
-    <foreignObject x="220" y="80" width="75" height="30">
-        <body xmlns="http://www.w3.org/1999/xhtml">
-' . NAMED_ANS_RULE("intersection",5) . '
+    <foreignObject x='$brach2end' y='55' width='$branch2width' height='30'>
+        <body xmlns='http://www.w3.org/1999/xhtml'>
+        Positive: " . NAMED_ANS_RULE("intersection",5) . "
         </body>
     </foreignObject>
-    <foreignObject x="350" y="80" width="75" height="30">
-        <body xmlns="http://www.w3.org/1999/xhtml">
-' . NAMED_ANS_RULE("right_area",5) . '
-        </body>
-    </foreignObject>
-</svg>';
+</svg>";
 
 $ans1 = Compute("42");
 $ans2 = Compute("42");
