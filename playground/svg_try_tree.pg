@@ -1,0 +1,86 @@
+##DESCRIPTION
+##  SVSU Testing stuff
+##ENDDESCRIPTION
+
+
+## ProblemTester('')
+## Publisher('')
+## DBsubject(Algebra)
+## DBchapter(Systems of equations and inequalities)
+## DBsection(Inequalities)
+## Date(06/24/2019)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(1)
+
+################################################################################################
+# Setup and Macros
+################################################################################################
+DOCUMENT();      
+
+loadMacros(
+    "PGstandard.pl",
+    "MathObjects.pl",
+    "PGML.pl",
+);
+
+################################################################################################
+# Variables, Formulas, and Graphs
+################################################################################################
+TEXT(beginproblem());
+
+Context("Numeric");
+
+$diagram = '
+<svg xmlns = "http://www.w3.org/2000/svg" width="520" height="200" overflow="auto">
+    <path d="M 20 100 L 40 50">
+    <path d="M 40 50 H 40" stroke-dasharray="4">
+    <path d="M 80 50 L 100 25">
+    <path d="M 80 50 L 100 75">
+    <path d="M 100 25 H 40" stroke-dasharray="4">
+    <path d="M 100 75 H 40" stroke-dasharray="4">
+    <path d="M 20 100 L 40 150">
+    <path d="M 40 150 H 40" stroke-dasharray="4">
+    <path d="M 80 150 L 100 125">
+    <path d="M 80 150 L 100 175">
+    <path d="M 100 125 H 40" stroke-dasharray="4">
+    <path d="M 100 175 H 40" stroke-dasharray="4">
+    <text x="70" y="30" font-size="12" text-anchor="end">Set A</text>
+    <text x="450" y="30" font-size="12" text-anchor="start">Set B</text>
+    <foreignObject x="75" y="80" width="75" height="30">
+        <body xmlns="http://www.w3.org/1999/xhtml">
+' . NAMED_ANS_RULE("left_area",5) . '
+        </body>
+    </foreignObject>
+    <foreignObject x="220" y="80" width="75" height="30">
+        <body xmlns="http://www.w3.org/1999/xhtml">
+' . NAMED_ANS_RULE("intersection",5) . '
+        </body>
+    </foreignObject>
+    <foreignObject x="350" y="80" width="75" height="30">
+        <body xmlns="http://www.w3.org/1999/xhtml">
+' . NAMED_ANS_RULE("right_area",5) . '
+        </body>
+    </foreignObject>
+</svg>';
+
+$ans1 = Compute("42");
+$ans2 = Compute("42");
+$ans3 = Compute("42");
+
+################################################################################################
+# Main Text
+################################################################################################
+BEGIN_PGML
+Blah blah blah
+
+[@ $diagram @]*
+
+Sam mooh text.
+END_PGML
+
+NAMED_ANS(left_area=>$ans1->cmp());
+NAMED_ANS(intersection=>$ans2->cmp());
+NAMED_ANS(right_area=>$ans3->cmp());
+
+ENDDOCUMENT();
