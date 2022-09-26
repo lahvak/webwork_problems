@@ -32,7 +32,7 @@ TEXT(beginproblem());
 Context("Numeric");
 
 $diagram = '
-<svg xmlns = "http://www.w3.org/2000/svg" width="100%" height="200" overflow="auto">
+<svg xmlns = "http://www.w3.org/2000/svg" width="520" height="200" overflow="auto">
     <ellipse cx="170" cy="95" rx="150" ry="75" fill="transparent" stroke="#000000"/>
     <ellipse cx="350" cy="95" rx="150" ry="75" fill="transparent" stroke="#000000"/>
     <text x="70" y="30" font-size="12" text-anchor="end">Set A</text>
@@ -61,14 +61,13 @@ $ans3 = Compute("42");
 ################################################################################################
 # Main Text
 ################################################################################################
-BEGIN_TEXT
+BEGIN_PGML
 Blah blah blah
-$BR
-$diagram
-$BR
-$BR
+
+[@ $diagram @]
+
 Sam mooh text.
-END_TEXT
+END_PGML
 
 NAMED_ANS(left_area=>$ans1->cmp());
 NAMED_ANS(intersection=>$ans2->cmp());
