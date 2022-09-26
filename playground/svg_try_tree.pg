@@ -31,25 +31,37 @@ TEXT(beginproblem());
 
 Context("Numeric");
 
-$diagram = '
-<svg xmlns = "http://www.w3.org/2000/svg" width="520" height="200" overflow="auto">
-    <path d="M 20 100 L 40 50" stroke="black"/>
-    <path d="M 40 50 H 80" stroke-dasharray="4" stroke="black"/>
-    <path d="M 80 50 L 100 25" stroke="black"/>
-    <path d="M 80 50 L 100 75" stroke="black"/>
-    <path d="M 100 25 H 140" stroke-dasharray="4" stroke="black"/>
-    <path d="M 100 75 H 140" stroke-dasharray="4" stroke="black"/>
-    <path d="M 20 100 L 40 150" stroke="black"/>
-    <path d="M 40 150 H 80" stroke-dasharray="4" stroke="black"/>
-    <path d="M 80 150 L 100 125" stroke="black"/>
-    <path d="M 80 150 L 100 175" stroke="black"/>
-    <path d="M 100 125 H 140" stroke-dasharray="4" stroke="black"/>
-    <path d="M 100 175 H 140" stroke-dasharray="4" stroke="black"/>
-    <text x="70" y="30" font-size="12" text-anchor="end">Set A</text>
-    <text x="450" y="30" font-size="12" text-anchor="start">Set B</text>
-    <foreignObject x="75" y="80" width="75" height="30">
-        <body xmlns="http://www.w3.org/1999/xhtml">
-' . NAMED_ANS_RULE("left_area",5) . '
+$root = 20;
+$branch1 = 20;
+$branch1end = $root + $branch1;
+$label1width = 100;
+$label1mid = $labelwidth/2;
+$label1end = $branch1end + $label1width;
+$branch2 = 20;
+$branch2end = $label1end + $branch2;
+$label2width = 100;
+$label2mid = $label2width/2;
+$label2end = $branch2end + $label2width;
+
+$diagram = "
+<svg xmlns = \"http://www.w3.org/2000/svg\" width=\"520\" height=\"200\" overflow=\"auto\">
+    <path d=\"M $root 100 l $branch1 -50\" stroke=\"black\"/>
+    <path d=\"M $branch1end 50 h $label1width\" stroke-dasharray=\"4\" stroke=\"black\"/>
+    <path d=\"M $label1end 50 l $branch2 -25\" stroke=\"black\"/>
+    <path d=\"M $label1end 50 L $branch2 25\" stroke=\"black\"/>
+    <path d=\"M $branch2end 25 h $label2width\" stroke-dasharray=\"4\" stroke=\"black\"/>
+    <path d=\"M $branch2end 75 h $label2width\" stroke-dasharray=\"4\" stroke=\"black\"/>
+    <path d=\"M $root 100 l $branch1 50\" stroke=\"black\"/>
+    <path d=\"M $branch1end 150 h $label1width\" stroke-dasharray=\"4\" stroke=\"black\"/>
+    <path d=\"M $label1end 150 l $branch2 -25\" stroke=\"black\"/>
+    <path d=\"M $label1end 150 L $branch2 25\" stroke=\"black\"/>
+    <path d=\"M $branch2end 125 h $label2width\" stroke-dasharray=\"4\" stroke=\"black\"/>
+    <path d=\"M $branch2end 175 h $label2width\" stroke-dasharray=\"4\" stroke=\"black\"/>
+    <text x=\"70\" y=\"30\" font-size=\"12\" text-anchor=\"end\">Set A</text>
+    <text x=\"450\" y=\"30\" font-size=\"12\" text-anchor=\"start\">Set B</text>
+    <foreignObject x=\"75\" y=\"80\" width=\"75\" height=\"30\">
+        <body xmlns=\"http://www.w3.org/1999/xhtml\">
+" . NAMED_ANS_RULE("left_area",5) . '
         </body>
     </foreignObject>
     <foreignObject x="220" y="80" width="75" height="30">
