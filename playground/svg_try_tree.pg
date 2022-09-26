@@ -46,21 +46,21 @@ $label2 = "Test result";
 
 $diagram = "
 <svg xmlns = 'http://www.w3.org/2000/svg' width='520' height='200' overflow='auto'>
-    <path d='M $root 120 l $branch1 -50' stroke='black'/>
-    <path d='M $branch1end 70 h $label1width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $label1end 70 l $branch2 -25' stroke='black'/>
-    <path d='M $label1end 70 l $branch2 25' stroke='black'/>
-    <path d='M $branch2end 45 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $branch2end 95 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $root 120 l $branch1 50' stroke='black'/>
-    <path d='M $branch1end 170 h $label1width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $label1end 170 l $branch2 -25' stroke='black'/>
-    <path d='M $label1end 170 l $branch2 25' stroke='black'/>
-    <path d='M $branch2end 145 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <path d='M $branch2end 195 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <text x='$label1mid' y='10' font-size='12' text-anchor='middle'>$label1</text>
-    <text x='$label2mid' y='10' font-size='12' text-anchor='middle'>$label2</text>
-    <foreignObject x='$branch1end' y='45' width='$label1width' height='30'>
+    <path d='M $root 130 l $branch1 -50' stroke='black'/>
+    <path d='M $branch1end 80 h $label1width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $label1end 80 l $branch2 -25' stroke='black'/>
+    <path d='M $label1end 80 l $branch2 25' stroke='black'/>
+    <path d='M $branch2end 55 h $label2width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $branch2end 105 h $label2width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $root 130 l $branch1 50' stroke='black'/>
+    <path d='M $branch1end 180 h $label1width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $label1end 180 l $branch2 -25' stroke='black'/>
+    <path d='M $label1end 180 l $branch2 25' stroke='black'/>
+    <path d='M $branch2end 155 h $label2width' stroke-dasharray='4' stroke='black'/>
+    <path d='M $branch2end 205 h $label2width' stroke-dasharray='4' stroke='black'/>
+    <text x='$label1mid' y='10' font-size='14' text-anchor='middle'>$label1</text>
+    <text x='$label2mid' y='10' font-size='14' text-anchor='middle'>$label2</text>
+    <foreignObject x='$branch1end' y='50' width='$label1width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
             Yes: " . NAMED_ANS_RULE("first_yes",5) . "
         </body>
