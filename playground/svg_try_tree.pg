@@ -29,7 +29,7 @@ loadMacros(
 ################################################################################################
 TEXT(beginproblem());
 
-Context("Numeric");
+Context("TeXStrings");
 
 $root = 20;
 $branch1 = 20;
