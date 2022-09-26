@@ -29,8 +29,6 @@ loadMacros(
 ################################################################################################
 TEXT(beginproblem());
 
-Context("TeXStrings");
-
 $root = 20;
 $branch1 = 20;
 $branch1end = $root + $branch1;
