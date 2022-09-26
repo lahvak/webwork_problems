@@ -33,7 +33,7 @@ $root = 20;
 $branch1 = 20;
 $branch1end = $root + $branch1;
 $label1width = 150;
-$label1mid = $branch1end + $labelwidth/2;
+$label1mid = $branch1end + $label1width/2;
 $label1end = $branch1end + $label1width;
 $branch2 = 20;
 $branch2end = $label1end + $branch2;
@@ -62,12 +62,12 @@ $diagram = "
     <text x='$label2mid' y='10' font-size='12' text-anchor='middle'>$label2</text>
     <foreignObject x='$brach1end' y='55' width='$branch1width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-            Yes: " . NAMED_ANS_RULE("left_area",5) . "
+            Yes: " . NAMED_ANS_RULE("first_yes",5) . "
         </body>
     </foreignObject>
     <foreignObject x='$brach2end' y='55' width='$branch2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-        Positive: " . NAMED_ANS_RULE("intersection",5) . "
+        Positive: " . NAMED_ANS_RULE("positive_given_yes",5) . "
         </body>
     </foreignObject>
 </svg>";
@@ -87,8 +87,7 @@ Blah blah blah
 Sam mooh text.
 END_PGML
 
-NAMED_ANS(left_area=>$ans1->cmp());
-NAMED_ANS(intersection=>$ans2->cmp());
-NAMED_ANS(right_area=>$ans3->cmp());
+NAMED_ANS(first_yes=>$ans1->cmp());
+NAMED_ANS(positive_given_yes=>$ans2->cmp());
 
 ENDDOCUMENT();
