@@ -32,31 +32,34 @@ TEXT(beginproblem());
 $root = 20;
 $branch1 = 20;
 $branch1end = $root + $branch1;
-$label1width = 100;
+$label1width = 150;
 $label1mid = $labelwidth/2;
 $label1end = $branch1end + $label1width;
 $branch2 = 20;
 $branch2end = $label1end + $branch2;
-$label2width = 100;
+$label2width = 150;
 $label2mid = $label2width/2;
 $label2end = $branch2end + $label2width;
+
+$label1 = "Infected";
+$label2 = "Test result";
 
 $diagram = "
 <svg xmlns = 'http://www.w3.org/2000/svg' width='520' height='200' overflow='auto'>
     <path d='M $root 100 l $branch1 -50' stroke='black'/>
     <path d='M $branch1end 50 h $label1width' stroke-dasharray='4' stroke='black'/>
     <path d='M $label1end 50 l $branch2 -25' stroke='black'/>
-    <path d='M $label1end 50 L $branch2 25' stroke='black'/>
+    <path d='M $label1end 50 l $branch2 25' stroke='black'/>
     <path d='M $branch2end 25 h $label2width' stroke-dasharray='4' stroke='black'/>
     <path d='M $branch2end 75 h $label2width' stroke-dasharray='4' stroke='black'/>
     <path d='M $root 100 l $branch1 50' stroke='black'/>
     <path d='M $branch1end 150 h $label1width' stroke-dasharray='4' stroke='black'/>
     <path d='M $label1end 150 l $branch2 -25' stroke='black'/>
-    <path d='M $label1end 150 L $branch2 25' stroke='black'/>
+    <path d='M $label1end 150 l $branch2 25' stroke='black'/>
     <path d='M $branch2end 125 h $label2width' stroke-dasharray='4' stroke='black'/>
     <path d='M $branch2end 175 h $label2width' stroke-dasharray='4' stroke='black'/>
-    <text x='70' y='30' font-size='12' text-anchor='end'>Set A</text>
-    <text x='450' y='30' font-size='12' text-anchor='start'>Set B</text>
+    <text x='$label1mid' y='10' font-size='12' text-anchor='middle'>$label1</text>
+    <text x='$label2mid' y='10' font-size='12' text-anchor='middle'>$label2</text>
     <foreignObject x='75' y='80' width='75' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
 " . NAMED_ANS_RULE("left_area",5) . '
