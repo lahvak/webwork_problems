@@ -60,12 +60,12 @@ $diagram = "
     <path d='M $branch2end 195 h $label2width' stroke-dasharray='4' stroke='black'/>
     <text x='$label1mid' y='10' font-size='12' text-anchor='middle'>$label1</text>
     <text x='$label2mid' y='10' font-size='12' text-anchor='middle'>$label2</text>
-    <foreignObject x='$brach1end' y='55' width='$label1width' height='30'>
+    <foreignObject x='$branch1end' y='45' width='$label1width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
             Yes: " . NAMED_ANS_RULE("first_yes",5) . "
         </body>
     </foreignObject>
-    <foreignObject x='$brach2end' y='55' width='$label2width' height='30'>
+    <foreignObject x='$branch2end' y='25' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
         Positive: " . NAMED_ANS_RULE("positive_given_yes",5) . "
         </body>
