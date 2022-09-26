@@ -77,7 +77,7 @@ $diagram = "
     </foreignObject>
     <foreignObject x='$branch1end' y='150' width='$label1width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
-            Yes: " . NAMED_ANS_RULE("first_no",5) . "
+            No: " . NAMED_ANS_RULE("first_no",5) . "
         </body>
     </foreignObject>
     <foreignObject x='$branch2end' y='125' width='$label2width' height='30'>
@@ -88,6 +88,11 @@ $diagram = "
     <foreignObject x='$branch2end' y='175' width='$label2width' height='30'>
         <body xmlns='http://www.w3.org/1999/xhtml'>
         Negative: " . NAMED_ANS_RULE("negative_given_no",5) . "
+        </body>
+    </foreignObject>
+    <foreignObject x='$label2end' y='40' width='$label2width' height='30'>
+        <body xmlns='http://www.w3.org/1999/xhtml'>
+        Negative: " . NAMED_ANS_RULE("positive_and_yes",5) . "
         </body>
     </foreignObject>
 </svg>";
@@ -113,5 +118,6 @@ NAMED_ANS(negative_given_yes=>$ans3->cmp());
 NAMED_ANS(first_no=>$ans1->cmp());
 NAMED_ANS(positive_given_no=>$ans2->cmp());
 NAMED_ANS(negative_given_no=>$ans3->cmp());
+NAMED_ANS(positive_and_yes=>$ans2->cmp());
 
 ENDDOCUMENT();
