@@ -64,7 +64,7 @@ $ans3 = Compute("42");
 BEGIN_PGML
 Blah blah blah
 
-[@ $diagram @]
+[@ $diagram @]*
 
 Sam mooh text.
 END_PGML
