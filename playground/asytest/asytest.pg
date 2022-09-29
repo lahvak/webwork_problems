@@ -29,12 +29,17 @@ loadMacros(
 ################################################################################################
 TEXT(beginproblem());
 
-Context("Numeric");
+sub asyfigure3d {
+    my $fname = shift;
+    my $width = shift;
+    my $height = shift;
+    
+    my $alias = alias("${fname}.html");
 
-$fname = alias("cusp.html");
+    return "<iframe src=\"${alias}\" width=\"${width}\" height=\"${height}\" frameborder=\"0\"></iframe>";
+}
 
-$diagram = '<iframe src="' . $fname . '" width="401" height="172" frameborder="0"></iframe>';
-
+$diagram = asyfigure3d("cusp", 300, 300);
 
 ################################################################################################
 # Main Text
