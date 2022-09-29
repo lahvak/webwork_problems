@@ -33,7 +33,7 @@ Context("Numeric");
 
 $fname = alias("cusp.html");
 
-$diagram = '<iframe src="' . $fname . '" width="201" height="172" frameborder="0"></iframe>';
+$diagram = '<iframe src="' . $fname . '" width="401" height="172" frameborder="0"></iframe>';
 
 
 ################################################################################################
