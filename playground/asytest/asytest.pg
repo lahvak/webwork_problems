@@ -31,7 +31,9 @@ TEXT(beginproblem());
 
 Context("Numeric");
 
-$diagram = '<iframe src="cusp.html" width="201" height="172" frameborder="0"></iframe>';
+$fname = alias("cusp.html");
+
+$diagram = '<iframe src="' . $fname . '" width="201" height="172" frameborder="0"></iframe>';
 
 
 ################################################################################################
