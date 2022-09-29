@@ -1,0 +1,49 @@
+##DESCRIPTION
+##  SVSU Testing stuff
+##ENDDESCRIPTION
+
+
+## ProblemTester('')
+## Publisher('')
+## DBsubject(Algebra)
+## DBchapter(Systems of equations and inequalities)
+## DBsection(Inequalities)
+## Date(06/24/2019)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(1)
+
+################################################################################################
+# Setup and Macros
+################################################################################################
+DOCUMENT();      
+
+loadMacros(
+    "PGstandard.pl",
+    "MathObjects.pl",
+    "PGML.pl",
+);
+
+################################################################################################
+# Variables, Formulas, and Graphs
+################################################################################################
+TEXT(beginproblem());
+
+Context("Numeric");
+
+$diagram = '<iframe src="cusp.html" width="201" height="172" frameborder="0"></iframe>'
+
+
+################################################################################################
+# Main Text
+################################################################################################
+BEGIN_PGML
+Blah blah blah
+
+[@ $diagram @]*
+
+Sam mooh text.
+END_PGML
+
+
+ENDDOCUMENT();
