@@ -36,7 +36,7 @@ sub asyfigure3d {
     
     my $alias = alias("${fname}.html");
 
-    return "<iframe src=\"${alias}\" width=\"${width}\" height=\"${height}\" frameborder=\"0\"></iframe>";
+    return "<iframe src='${alias}' width='${width}' height='${height}' frameborder='0'></iframe>";
 }
 
 $diagram = asyfigure3d("cusp", 300, 300);
