@@ -48,8 +48,8 @@ $alpha = Formula("$sign" . $angles[$index]);
 $sinnum = Formula("$sign" . $sinnums[$index]);
 $cosnum = Formula($cosnums[$index]);
 
-$Anum = Formula("$C*$cosnum");
-$Bnum = Formula("-$C*$sinnum");
+$Anum = Formula("$C*$cosnum")->reduce;
+$Bnum = Formula("-$C*$sinnum")->reduce;
 
 TEXT(beginproblem());
 
