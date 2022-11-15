@@ -92,11 +92,11 @@ Write the function
 
 as a single **cosine** wave
 
-[```f(x) = C\cos(\omega \theta + \alpha)```]
+[```f(x) = C\cos([$omega] \theta + \alpha)```]
 
 with **positive** [`C`] and [`-\pi < \alpha < \pi`]:
 
-[`f(x) = `] [____________]{$C}[`\cos\left(\strut\omega\theta + \right.`][____________]{$alpha}[`\left.\strut\right)`]
+[`f(x) = `] [____________]{$C}[`\cos\left(\strut[$omega]\theta + \right.`][____________]{$alpha}[`\left.\strut\right)`]
 
 Find the _amplitude_ and _phase shift_ of the wave:
 
