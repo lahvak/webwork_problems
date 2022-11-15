@@ -47,6 +47,10 @@ $sin = Formula("$sign" . $sins[$index]);
 $cos = Formula($coss[$index]);
 
 Context("Fraction-NoDecimals");
+Context()->flags->set(
+      reduceConstants => 0,
+      reduceConstantFunctions => 0
+   );
 
 $A = Formula("$C*$cos");
 $B = Formula("-$C*$sin");
