@@ -29,7 +29,7 @@ loadMacros(
 
 Context("Numeric")->variables->are(theta=>['Real', TeX=>'\theta']);
 Context()->flags->set(
-      reduceConstants => 1,
+      reduceConstants => 0,
       reduceConstantFunctions => 0
    );
 
