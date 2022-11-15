@@ -38,11 +38,11 @@ Context()->flags->set(
 @coss = qw(sqrt(3)/2 sqrt(2)/2 1/2 -1/2 -sqrt(2)/2 -sqrt(3)/2);
 
 $index = random(0, $#angles);
-$sign = list_random(-1,1);
+$sign = list_random("-","");
 
-$alpha = Formula("$sign*" . $angles[$index])->reduce;
-$sin = Formula("$sign*" . $sins[$index])->reduce;
-$cos = Formula($coss[$index])->reduce;
+$alpha = Formula("$sign" . $angles[$index]);
+$sin = Formula("$sign" . $sins[$index]);
+$cos = Formula($coss[$index]);
 
 
 TEXT(beginproblem());
