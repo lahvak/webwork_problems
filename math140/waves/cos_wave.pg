@@ -19,14 +19,15 @@ loadMacros(
   "PGstandard.pl",
   "MathObjects.pl",
   "PGML.pl",
-  "PGcourse.pl"
+  "PGcourse.pl",
+  "contectFraction.pl",
 );
 
 ############################################
 #  Setup
 
 
-Context("Numeric")->variables->are(theta=>['Real', TeX=>'\theta']);
+Context("Fraction")->variables->are(theta=>['Real', TeX=>'\theta']);
 Context()->flags->set(
       reduceConstants => 1,
       reduceConstantFunctions => 0
@@ -39,9 +40,9 @@ Context()->flags->set(
 $index = random(0, $#angles);
 $sign = list_random(-1,1);
 
-$alpha = $sign*Formula($angles[$index]);
-$sin = $sign*Formula($sins[$index]);
-$cos = Formula($coss[$index]);
+$alpha = Formula("$sign*" . $angles[$index])->reduce;
+$sin = Formula("$sign*" . $sins[$index])->reduce;
+$cos = Formula($coss[$index])->reduce;
 
 
 TEXT(beginproblem());
