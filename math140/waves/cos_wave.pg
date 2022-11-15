@@ -38,12 +38,14 @@ Context()->flags->set(
 @coss = qw(sqrt(3)/2 sqrt(2)/2 1/2 -1/2 -sqrt(2)/2 -sqrt(3)/2);
 
 $index = random(0, $#angles);
-$sign = list_random("-","");
+$signind = random(0,1);
+$sign = ("","-")[$signind];
+$rsign = ("-","")[$signind];
 
 $C = random(2,9);
 
 $alpha = Formula("$sign" . $angles[$index]);
-$sin = Formula("$sign" . $sins[$index]);
+$msin = Formula("$rsign" . $sins[$index]);
 $cos = Formula($coss[$index]);
 
 Context("Fraction-NoDecimals");
@@ -53,22 +55,16 @@ Context()->flags->set(
    );
 
 $A = Formula("$C*$cos");
-$B = Formula("-$C*$sin");
-
-$check1 = (sin($alpha) == $sin);
-$check2 = (cos($alpha) == $cos);
-
+$B = Formula("$C*$msin");
 
 TEXT(beginproblem());
 
 BEGIN_PGML
 *  [`[$alpha]=`][_______________]{$alpha}
-*  [`[$sin]=`][_______________]{$sin}
+*  [`[$msin]=`][_______________]{$msin}
 *  [`[$cos]=`][_______________]{$cos}
 *  [`[$A]=`][_______________]{$A}
 *  [`[$B]=`][_______________]{$B}
-*  [$check1]
-*  [$check2]
 END_PGML
 
 
