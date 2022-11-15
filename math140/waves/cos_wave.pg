@@ -20,7 +20,6 @@ loadMacros(
   "MathObjects.pl",
   "PGML.pl",
   "PGcourse.pl",
-  "contextFraction.pl",
 );
 
 ############################################
@@ -29,7 +28,7 @@ loadMacros(
 
 Context("Numeric")->variables->are(theta=>['Real', TeX=>'\theta']);
 Context()->flags->set(
-      reduceConstants => 1,
+      reduceConstants => 0,
       reduceConstantFunctions => 0
    );
 
@@ -48,9 +47,9 @@ $cos = Formula($coss[$index]);
 TEXT(beginproblem());
 
 BEGIN_PGML
-[`[$alpha]=`][_______________]{$alpha}
-[`[$sin]=`][_______________]{$sin}
-[`[$cos]=`][_______________]{$cos}
+*  [`[$alpha]=`][_______________]{$alpha}
+*  [`[$sin]=`][_______________]{$sin}
+*  [`[$cos]=`][_______________]{$cos}
 END_PGML
 
 
