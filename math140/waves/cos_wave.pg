@@ -39,9 +39,13 @@ Context()->flags->set(
 $index = random(0, $#angles);
 $sign = list_random("-","");
 
+$C = random(2,9);
+
 $alpha = Formula("$sign" . $angles[$index]);
 $sin = Formula("$sign" . $sins[$index]);
 $cos = Formula($coss[$index]);
+$A = Formula("$sign$C" . $sins[$index]);
+$B = Formula("$C" . $coss[$index]);
 
 $check1 = (sin($alpha) == $sin);
 $check2 = (cos($alpha) == $cos);
@@ -53,6 +57,8 @@ BEGIN_PGML
 *  [`[$alpha]=`][_______________]{$alpha}
 *  [`[$sin]=`][_______________]{$sin}
 *  [`[$cos]=`][_______________]{$cos}
+*  [`[$A]=`][_______________]{$A}
+*  [`[$B]=`][_______________]{$B}
 *  [$check1]
 *  [$check2]
 END_PGML
