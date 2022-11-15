@@ -48,7 +48,7 @@ $cos = Formula($coss[$index]);
 
 Context("Fraction-NoDecimals");
 Context()->flags->set(
-      reduceConstants => 0,
+      reduceConstants => 1,
       reduceConstantFunctions => 0
    );
 
