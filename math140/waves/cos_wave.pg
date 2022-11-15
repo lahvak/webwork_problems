@@ -46,7 +46,7 @@ sub multnum {
         return $sign . $const;
     }
 
-    return $sign . $const . $ num;
+    return $sign . $const . $num;
 }
 
 $index = random(0, $#angles);
@@ -63,7 +63,7 @@ $sinnum = Formula($sign . $sinnums[$index]);
 $cosnum = Formula($cossign . $cosnums[$index]);
 
 $Anum = Formula(multnum($cossign, $C, $cosnums[$index]));
-$Anum = Formula(multnum($rsign, $C, $sinnums[$index]));
+$Bnum = Formula(multnum($rsign, $C, $sinnums[$index]));
 
 TEXT(beginproblem());
 
