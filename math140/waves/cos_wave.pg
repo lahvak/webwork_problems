@@ -20,7 +20,7 @@ loadMacros(
   "MathObjects.pl",
   "PGML.pl",
   "PGcourse.pl",
-  "contectFraction.pl",
+  "contextFraction.pl",
 );
 
 ############################################
