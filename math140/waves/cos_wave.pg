@@ -68,11 +68,11 @@ $Bnum = Formula(multnum($rsign, $C, $sinnums[$index]));
 TEXT(beginproblem());
 
 BEGIN_PGML
-*  [`[$alpha]=`][_______________]{$alpha}
-*  [`[$sinnum]=`][_______________]{$sinnum}
-*  [`[$cosnum]=`][_______________]{$cosnum}
-*  [`[$Anum]=`][_______________]{$Anum/2}
-*  [`[$Bnum]=`][_______________]{$Bnum/2}
+Write the following function as a single **cosine** wave, with a positive coefficient:
+
+[```f(x) = \frac{[$A]}{2}\cos(\theta) + \frac{[$B]}{2}\sin(\theta)```]
+
+[`f(x) = [____________]{$C}[`\cos\left(\strut\theta + \right.`][____________]{$alpha}[`\left.\strut\right)`]
 END_PGML
 
 
