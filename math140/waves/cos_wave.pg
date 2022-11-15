@@ -54,13 +54,27 @@ $cossign = ($index > $#angles/2) ? "-" : "";
 
 $signind = random(0,1);
 $sign = ("","-")[$signind];
-$rsign = ("-","")[$signind];
+$rsign = ("-","+")[$signind];
 
 $C = random(2,9);
 
 $alpha = Formula($sign . $angles[$index]);
 $sinnum = Formula($sign . $sinnums[$index]);
 $cosnum = Formula($cossign . $cosnums[$index]);
+
+if ($C % 2 == 0) {
+    $Chalf = $C/2;
+
+    $A = Formula(multnum($cossign, $Chalf, $cosnums[$index]));
+    $B = Formula(multnum("", $Chalf, $sinnums[$index]));
+
+    $form = Formula("$A*cos(theta) $rsign $B*sin(theta)");
+} else {
+    $A = Formula(multnum($cossign, $C, $cosnums[$index]));
+    $B = Formula(multnum("", $C, $sinnums[$index]));
+
+    $form = Formula("$A/2*cos(theta) $rsign $B/2*sin(theta)");
+}
 
 $Anum = Formula(multnum($cossign, $C, $cosnums[$index]));
 $Bnum = Formula(multnum($rsign, $C, $sinnums[$index]));
@@ -70,7 +84,7 @@ TEXT(beginproblem());
 BEGIN_PGML
 Write the following function as a single **cosine** wave, with a positive coefficient:
 
-[```f(x) = \frac{[$Anum]}{2}\cos(\theta) + \frac{[$Bnum]}{2}\sin(\theta)```]
+[```f(x) = [$form]```]
 
 [`f(x) = `] [____________]{$C}[`\cos\left(\strut\theta + \right.`][____________]{$alpha}[`\left.\strut\right)`]
 END_PGML
