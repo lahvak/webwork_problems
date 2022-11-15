@@ -27,7 +27,7 @@ loadMacros(
 #  Setup
 
 
-Context("Fraction")->variables->are(theta=>['Real', TeX=>'\theta']);
+Context("Numeric")->variables->are(theta=>['Real', TeX=>'\theta']);
 Context()->flags->set(
       reduceConstants => 1,
       reduceConstantFunctions => 0
