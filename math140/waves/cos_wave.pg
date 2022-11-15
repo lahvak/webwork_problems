@@ -44,8 +44,11 @@ $C = random(2,9);
 $alpha = Formula("$sign" . $angles[$index]);
 $sin = Formula("$sign" . $sins[$index]);
 $cos = Formula($coss[$index]);
-$A = Formula("$sign$C" . $sins[$index]);
-$B = Formula("$C" . $coss[$index]);
+
+Context("Fraction-NoDecimals");
+
+$A = Formula("$C*$cos");
+$B = Formula("-$C*$sin");
 
 $check1 = (sin($alpha) == $sin);
 $check2 = (cos($alpha) == $cos);
