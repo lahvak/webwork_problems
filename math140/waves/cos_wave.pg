@@ -35,21 +35,35 @@ Context()->flags->set(
 
 @angles = qw(pi/6 pi/4 pi/3 2pi/3 3pi/4 5pi/6);
 @sinnums = qw(1 sqrt(2) sqrt(3) sqrt(3) sqrt(2) 1);
-@cosnums = qw(sqrt(3) sqrt(2) 1 -1 -sqrt(2) -sqrt(3));
+@cosnums = qw(sqrt(3) sqrt(2) 1 1 sqrt(2) sqrt(3));
+
+sub multnum {
+    my $sign = shift (@_);
+    my $const = shift (@_);
+    my $num = shift (@_);
+
+    if ($num eq "1") {
+        return $sign . $const;
+    }
+
+    return $sign . $const . $ num;
+}
 
 $index = random(0, $#angles);
+$cossign = ($index > $#angles/2) ? "-" : "";
+
 $signind = random(0,1);
 $sign = ("","-")[$signind];
 $rsign = ("-","")[$signind];
 
 $C = random(2,9);
 
-$alpha = Formula("$sign" . $angles[$index]);
-$sinnum = Formula("$sign" . $sinnums[$index]);
-$cosnum = Formula($cosnums[$index]);
+$alpha = Formula($sign . $angles[$index]);
+$sinnum = Formula($sign . $sinnums[$index]);
+$cosnum = Formula($cossign . $cosnums[$index]);
 
-$Anum = Formula("$C*$cosnum")->reduce;
-$Bnum = Formula("-$C*$sinnum")->reduce;
+$Anum = Formula(multnum($cossign, $C, $cosnums[$index]));
+$Anum = Formula(multnum($rsign, $C, $sinnums[$index]));
 
 TEXT(beginproblem());
 
