@@ -70,9 +70,9 @@ TEXT(beginproblem());
 BEGIN_PGML
 Write the following function as a single **cosine** wave, with a positive coefficient:
 
-[```f(x) = \frac{[$A]}{2}\cos(\theta) + \frac{[$B]}{2}\sin(\theta)```]
+[```f(x) = \frac{[$Anum]}{2}\cos(\theta) + \frac{[$Bnum]}{2}\sin(\theta)```]
 
-[`f(x) = [____________]{$C}[`\cos\left(\strut\theta + \right.`][____________]{$alpha}[`\left.\strut\right)`]
+[`f(x) = `] [____________]{$C}[`\cos\left(\strut\theta + \right.`][____________]{$alpha}[`\left.\strut\right)`]
 END_PGML
 
 
