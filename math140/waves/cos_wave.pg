@@ -70,7 +70,7 @@ if ($C % 2 == 0) {
     $A = Formula(multnum($cossign, $Chalf, $cosnums[$index]));
     $B = Formula(multnum("", $Chalf, $sinnums[$index]));
 
-    $form = Formula("$A*cos(theta) $rsign $B*sin(theta)");
+    $form = Formula("$A*cos($omega*theta) $rsign $B*sin($omega*theta)");
 } else {
     $A = Formula(multnum($cossign, $C, $cosnums[$index]));
     $B = Formula(multnum("", $C, $sinnums[$index]));
