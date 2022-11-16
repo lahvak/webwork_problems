@@ -1,0 +1,107 @@
+##DESCRIPTION
+##  Polar Coordinates
+##ENDDESCRIPTION
+
+
+## DBsubject(Trigonometry)
+## DBchapter(Trigonometric functions)
+## DBsection(Combinations and compositions of functions)
+## Date(2020-12-13)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(2)
+## KEYWORDS('periodic motion')
+
+
+DOCUMENT();
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "PGML.pl",
+  "PGcourse.pl",
+  "contextFraction.pl",
+);
+
+############################################
+#  Setup
+
+
+Context("Numeric")->variables->are(theta=>['Real', TeX=>'\theta']);
+Context()->flags->set(
+      reduceConstants => 0,
+      reduceConstantFunctions => 0
+   );
+
+$omega = random(2,5);
+
+@angles = qw(pi/6 pi/4 pi/3 2pi/3 3pi/4 5pi/6);
+@sinnums = qw(1 sqrt(2) sqrt(3) sqrt(3) sqrt(2) 1);
+@cosnums = qw(sqrt(3) sqrt(2) 1 1 sqrt(2) sqrt(3));
+
+sub multnum {
+    my $sign = shift (@_);
+    my $const = shift (@_);
+    my $num = shift (@_);
+
+    if ($num eq "1") {
+        return $sign . $const;
+    }
+
+    return $sign . $const . $num;
+}
+
+$index = random(0, $#angles);
+$cossign = ($index > $#angles/2) ? "-" : "+";
+
+$signind = random(0,1);
+$sign = ("","-")[$signind];
+
+$C = random(2,9);
+
+$alpha = Formula($sign . $angles[$index]);
+$sinnum = Formula($sign . $sinnums[$index]);
+$cosnum = Formula($cossign . $cosnums[$index]);
+
+if ($C % 2 == 0) {
+    $Chalf = $C/2;
+
+    $A = Formula(multnum($sign, $Chalf, $sinnums[$index]));
+    $B = Formula(multnum("", $Chalf, $cosnums[$index]));
+
+    $form = Formula("$A*cos($omega*theta) $cossign $B*sin($omega*theta)");
+} else {
+    $A = Formula(multnum($sign, $C, $sinnums[$index]));
+    $B = Formula(multnum("", $C, $cosnums[$index]));
+
+    $form = Formula("$A/2*cos($omega*theta) $cossign $B/2*sin($omega*theta)");
+}
+
+$Anum = Formula(multnum($sign, $C, $sinnums[$index]));
+$Bnum = Formula(multnum($cossign, $C, $cosnums[$index]));
+
+$shift = -$alpha/$omega;
+
+TEXT(beginproblem());
+
+BEGIN_PGML
+Write the function
+
+[```f(x) = [$form]```]
+
+as a single **sine** wave
+
+[```f(x) = C\sin([$omega] \theta + \alpha)```]
+
+with **positive** [`C`] and [`-\pi < \alpha < \pi`]:
+
+[`f(x) = `] [____________]{$C}[`\sin\left(\strut[$omega]\theta + \right.`][____________]{$alpha}[`\left.\strut\right)`]
+
+Find the _amplitude_ and _phase shift_ of the wave:
+
+*   Amplitude: [____________]{$C}
+*   Phase shift: [____________]{$shift}
+END_PGML
+
+
+ENDDOCUMENT();
