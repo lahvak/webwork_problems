@@ -32,7 +32,7 @@ do {
 
     $x2 = non_zero_random(-3, 3);
     $y2 = non_zero_random(-4, 4);
-} until ((maximum(abs($x1*$x2 - $y1*$y2), abs($x1*$y2 + $y1*$x2)) < 11) and (($x1 != $x2) or ($y1 != $y2)));
+} until ((abs($x1*$x2 - $y1*$y2) < 11) and (abs($x1*$y2 + $y1*$x2) < 11) and (($x1 != $x2) or ($y1 != $y2)));
 
 Context("Complex");
 
