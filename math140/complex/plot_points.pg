@@ -35,6 +35,12 @@ $y2 = random(1, 5);
 $x3 = random(1, 5);
 $y3 = random(1, 5);
 
+Context("Complex");
+
+$z1 = Complex($x1, $y1);
+$z2 = Complex(-$x2, $y2);
+$z3 = Complex(-$x3, -$y3);
+
 $gt = GraphTool("{point, ($x1, $y1)}", "{point, (-$x2, $y2)}", "{point, (-$x3, -$y3)}")->with(
     availableTools      => ['PointTool'],
     bBox                => [ -6, 6, 6, -6 ],
@@ -47,16 +53,16 @@ $gt = GraphTool("{point, ($x1, $y1)}", "{point, (-$x2, $y2)}", "{point, (-$x3, -
 TEXT(beginproblem());
 
 BEGIN_PGML
-Graph the numbers [`[$x1] + [$y1]i`], [`-[$x2] + [$y2]i`] and [`-[$x3] - [$y3]i`].
+Graph the numbers [`[$z1]`], [`[$z2]`] and [`[$z3]`].
 
 [_]{$gt}
 END_PGML
 
 BEGIN_PGML_SOLUTION
 
-*  The number [`[$x1] + [$y1]i`] is [`[$x1]`] to the right and [`[$y1]`] up from the origin.
-*  The number [`-[$x2] + [$y2]i`] is [`[$x2]`] to the left and [`[$y2]`] up from the origin.
-*  The number [`-[$x3] - [$y3]i`] is [`[$x3]`] to the left and [`[$y3]`] down from the origin.
+*  The number [`[$z1]`] is [`[$x1]`] to the right and [`[$y1]`] up from the origin.
+*  The number [`[$z2]`] is [`[$x2]`] to the left and [`[$y2]`] up from the origin.
+*  The number [`[$z3]`] is [`[$x3]`] to the left and [`[$y3]`] down from the origin.
 
 The correct graph is
 
