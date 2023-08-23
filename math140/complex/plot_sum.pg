@@ -49,7 +49,7 @@ $gt = GraphTool("{point, ($x3, $y3)}")->with(
     showCoordinateHints => 0,
     xAxisLabel => "",
     yAxisLabel => "i",
-    staticObjects = ["{point, ($x1, $y1), name: z_1}, {point, ($x2, $y2), name: z_2}"]
+    staticObjects => ["{point, ($x1, $y1), name: z_1}", "{point, ($x2, $y2), name: z_2}"],
 );
 
 
