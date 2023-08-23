@@ -1,0 +1,72 @@
+##DESCRIPTION
+##  Addition of complex numbers with graphtool
+##ENDDESCRIPTION
+
+
+## DBsubject(Arithmetic)
+## DBchapter(Complex numbers)
+## DBsection(Complex plane)
+## Date(Wed 23 Aug 2023 09:51:21 AM EDT)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(1)
+## KEYWORDS('complex numbers')
+
+
+DOCUMENT();
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "PGML.pl",
+  "parserGraphTool.pl",
+  "PGcourse.pl",
+);
+
+############################################
+#  Setup
+
+$x1 = non_zero_random(-5, 5);
+$y1 = non_zero_random(-5, 5);
+
+do {
+    $x2 = non_zero_random(-5, 5);
+    $y2 = non_zero_random(-5, 5);
+} while ($x1/$y1 == $x2/$y2);
+
+Context("Complex");
+
+$z1 = Complex($x1, $y1);
+$z2 = Complex(-$x2, $y2);
+$z3 = $z1 + $z2;
+
+$x3 = $z3->Re;
+$y3 = $z3->Im;
+
+$gt = GraphTool("{point, ($x3, $y3)}")->with(
+    availableTools      => ['PointTool'],
+    bBox                => [ -11, 11, 11, -11 ],
+    showCoordinateHints => 0,
+    xAxisLabel => "",
+    yAxisLabel => "i",
+    staticObjects = ["{point, ($x1, $y1), name: z_1}, {point, ($x2, $y2), name: z_2}"]
+);
+
+
+TEXT(beginproblem());
+
+BEGIN_PGML
+Graph the number [`z_1 + z_2`]:
+
+[_]{$gt}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+The correct graph is
+
+[@ $gt->generateAnswerGraph(ariaDescription => 'Plot of the sum of complex numbers') @]*
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
