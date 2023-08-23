@@ -1,0 +1,60 @@
+##DESCRIPTION
+##  Complex numbers with graphtool
+##ENDDESCRIPTION
+
+
+## DBsubject(Arithmetic)
+## DBchapter(Complex numbers)
+## DBsection(Complex plane)
+## Date(Wed 23 Aug 2023 09:51:21 AM EDT)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(1)
+## KEYWORDS('complex numbers')
+
+
+DOCUMENT();
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "PGML.pl",
+  "parserGraphTool.pl",
+  "PGcourse.pl",
+);
+
+############################################
+#  Setup
+
+$x1 = non_zero_random(-5, 5);
+$y1 = non_zero_random(-5, 5);
+
+$x2 = non_zero_random(-5, 5);
+$y2 = non_zero_random(-5, 5);
+
+$gt = GraphTool("{point, ($x1, $y1)}", "{point, ($x2, $y2)}")->with(
+    availableTools      => ['PointTool'],
+    bBox                => [ -11, 11, 11, -11 ],
+    showCoordinateHints => 0,
+    xAxisLabel => "",
+    yAxisLabel => "i",
+);
+
+
+TEXT(beginproblem());
+
+BEGIN_PGML
+Graph the numbers [`[$x1] + [$y1]i`] and [`[$x2] + [$y2]i`].
+
+[_]{$gt}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+The correct graph is
+
+[@ $gt->generateAnswerGraph(ariaDescription => 'Plot of the two complex numbers') @]*
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
