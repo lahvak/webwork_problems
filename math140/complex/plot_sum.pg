@@ -63,6 +63,8 @@ END_PGML
 
 BEGIN_PGML_SOLUTION
 
+The two given numbers are [`[$z1]`] and [`[$z2]`].  Their sum is [`([$z1]) + ([$z2]) = [$z3]`].
+
 The correct graph is
 
 [@ $gt->generateAnswerGraph(ariaDescription => 'Plot of the sum of complex numbers') @]*
