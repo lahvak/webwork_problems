@@ -26,15 +26,18 @@ loadMacros(
 ############################################
 #  Setup
 
-$x1 = non_zero_random(-5, 5);
-$y1 = non_zero_random(-5, 5);
+$x1 = random(1, 5);
+$y1 = random(1, 5);
 
-$x2 = non_zero_random(-5, 5);
-$y2 = non_zero_random(-5, 5);
+$x2 = random(1, 5);
+$y2 = random(1, 5);
 
-$gt = GraphTool("{point, ($x1, $y1)}", "{point, ($x2, $y2)}")->with(
+$x3 = random(1, 5);
+$y3 = random(1, 5);
+
+$gt = GraphTool("{point, ($x1, $y1)}", "{point, (-$x2, $y2)}", "{point, (-$x3, -$y3)}")->with(
     availableTools      => ['PointTool'],
-    bBox                => [ -11, 11, 11, -11 ],
+    bBox                => [ -6, 6, 6, -6 ],
     showCoordinateHints => 0,
     xAxisLabel => "",
     yAxisLabel => "i",
@@ -44,12 +47,16 @@ $gt = GraphTool("{point, ($x1, $y1)}", "{point, ($x2, $y2)}")->with(
 TEXT(beginproblem());
 
 BEGIN_PGML
-Graph the numbers [`[$x1] + [$y1]i`] and [`[$x2] + [$y2]i`].
+Graph the numbers [`[$x1] + [$y1]i`], [`-[$x2] + [$y2]i`] and [`-[$x3] - [$y3]i`].
 
 [_]{$gt}
 END_PGML
 
 BEGIN_PGML_SOLUTION
+
+*  The number [`[$x1] + [$y1]i`] is [`[$x1]`] to the right and [`[$y1]`] up from the origin.
+*  The number [`-[$x2] + [$y2]i`] is [`[$x2]`] to the left and [`[$y2]`] up from the origin.
+*  The number [`-[$x3] - [$y3]i`] is [`[$x3]`] to the left and [`[$y3]`] down from the origin.
 
 The correct graph is
 
