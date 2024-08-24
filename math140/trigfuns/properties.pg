@@ -1,0 +1,127 @@
+##DESCRIPTION
+##  Properties of trigonometric functions
+##ENDDESCRIPTION
+
+
+## DBsubject(Precalculus)
+## DBchapter(Trigonometric Functions)
+## DBsection(Properties)
+## Date(2022-8-25)
+## Institution(SVSU)
+## Author(Jan Hlavacek)
+## Level(2)
+## KEYWORDS('Trigonometric Functions')
+
+
+DOCUMENT();
+
+loadMacros(
+  "PGstandard.pl",
+  "PGML.pl",
+  "parserCheckboxList.pl",
+  "PGcourse.pl"
+);
+
+############################################
+#  Setup
+
+$showPartialCorrectAnswers = 0;
+
+## WeBWorK blocks `use` so we cannot use constants
+
+$sin = 0;
+$cos = 1;
+$tan = 2;
+$cot = 3;
+$sec = 4;
+$csc = 5;
+$none = 6;
+
+sub TrigCheckboxes {
+    my @correct = @_;
+    if (!@correct) {
+        push @correct, $none;
+    }
+    return CheckboxList(
+        [
+            "\(\sin\)",
+            "\(\cos\)",
+            "\(\tan\)",
+            "\(\cot\)",
+            "\(\sec\)",
+            "\(\csc\)",
+            'None of them'
+        ],
+        [@correct],
+        labels => ["sin", "cos", "tan", "cot", "sec", "csc", "None"],
+        displayLabels => 0,
+    );
+}
+
+$q1 = "Domain is all real numbers:";
+
+$checks1 = TrigCheckboxes($sin, $cos);
+
+$q2 = "The function is odd:";
+
+$checks2 = TrigCheckboxes($sin, $tan, $cot, $csc);
+
+$q3 = "The function is even:";
+
+$checks3 = TrigCheckboxes($cos, $sec);
+
+$q4 = "The range is all real numbers:";
+
+$checks4 = TrigCheckboxes($tan, $cot);
+
+$q5 = "The range is the interval \([-1,1]\):";
+
+$checks5 = TrigCheckboxes($sin, $cos);
+
+$q6 = "The function is increasing on \([0, \pi/2]\):";
+
+$checks6 = TrigCheckboxes($sin, $tan, $sec);
+
+
+###############################################
+#  Main text
+
+BEGIN_PGML
+For each of the following properties, select all trigonometric functions that have the property.
+
+*   [$q1]
+
+    [_]{$checks1}
+
+*   [$q2]
+
+    [_]{$checks2}
+
+*   [$q3]
+
+    [_]{$checks3}
+
+*   [$q4]
+
+    [_]{$checks4}
+
+*   [$q5]
+
+    [_]{$checks5}
+
+*   [$q6]
+
+    [_]{$checks6}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+*  [$q1] [$checks1->correct_ans].
+*  [$q2] [$checks2->correct_ans].
+*  [$q3] [$checks3->correct_ans].
+*  [$q4] [$checks4->correct_ans].
+*  [$q5] [$checks5->correct_ans].
+*  [$q6] [$checks6->correct_ans].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
