@@ -1,0 +1,204 @@
+## DESCRIPTION
+## Interpret a transition matrix of a Markov chain
+## ENDDESCRIPTION
+
+## KEYWORDS('stochastic precesses', 'Markov chain')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Markov chains')
+## Date('10/08/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+@larger = random_subset(4, [5..9]);
+$rain_rain_rain = $larger[0]/10;
+$rain_rain_sun = 1 - $rain_rain_rain;
+$sun_rain_rain = $larger[1]/10;
+$sun_rain_sun = 1 - $sun_rain_rain;
+$rain_sun_sun = $larger[2]/10;
+$rain_sun_rain = 1 - $rain_sun_sun;
+$sun_sun_sun = $larger[3]/10;
+$sun_sun_rain = 1 - $sun_sun_sun;
+
+$rr_to_rr = $rain_rain_rain;
+$rr_to_rs = $rain_rain_sun;
+$rr_to_sr = 0;
+$rr_to_ss = 0;
+
+$rs_to_rr = 0;
+$rs_to_rs = 0;
+$rs_to_sr = $rain_sun_rain;
+$rs_to_ss = $rain_sun_sun;
+
+$sr_to_rr = $sun_rain_rain;
+$sr_to_rs = $sun_rain_sun;
+$sr_to_sr = 0;
+$sr_to_ss = 0;
+
+$ss_to_rr = 0;
+$ss_to_rs = 0;
+$ss_to_sr = $sun_sun_rain;
+$ss_to_ss = $sun_sun_sun;
+
+Context("Matrix");
+
+$P = Matrix([
+        [
+            $rr_to_rr,
+            $rr_to_rs,
+            $rr_to_sr,
+            $rr_to_ss
+        ],
+        [
+            $rs_to_rr,
+            $rs_to_rs,
+            $rs_to_sr,
+            $rs_to_ss
+        ],
+        [
+            $sr_to_rr,
+            $sr_to_rs,
+            $sr_to_sr,
+            $sr_to_ss
+        ],
+        [
+            $ss_to_rr,
+            $ss_to_rs,
+            $ss_to_sr,
+            $ss_to_ss
+        ],
+    ]);
+
+$P2 = $P*$P;
+$P4 = $P2*$P2;
+
+Context("Numeric");
+
+$from = random(0,3);
+@from_states = (
+    ["rainy", "rainy"],
+    ["rainy","sunny"],
+    ["sunny","rainy"],
+    ["sunny","sunny"]
+)[$from];
+$to = random(0,1);
+$to_name = ("rainy","sunny")[$to];
+@to_states = ($to, $to+2);
+
+$rainy_and_to = $P4->element($from, $to_states[0]);
+$sunny_and_to = $P4->element($from, $to_states[1]);
+
+$prob_to = $rainy_and_to + $sunny_and_to;
+
+BEGIN_PGML
+Suppose we have a bit more advanced weather model, in which the tomorrow weather is predicted not from just today weather,
+but also from yesterday weather, according to the following rules:
+
+*   If it rained yesterday and it rains today, it will rain tomorrow with probability [`[$rain_rain_rain]`].
+*   If it rained yesterday and is sunny today, it will rain tomorrow with probability [`[$rain_sun_rain]`].
+*   If it was sunny yesterday and it rains today, it will rain tomorrow with probability [`[$sun_rain_rain]`].
+*   If it was sunny yesterday and is sunny today, it will rain tomorrow with probability [`[$sun_sun_rain]`].
+
+We can still model this using a Markov chain, if we use states that represent two days of weather:
+
+*   **State 0:** It rained yesterday and it is raining today.
+*   **State 1:** It rained yesterday and it is sunny today.
+*   **State 2:** It was sunny yesterday and it is raining today.
+*   **State 3:** It was sunny yesterday and it is sunny today.
+
+Construct the transition matrix of this Markov chain. Note that some of the transitions are impossible!
+
+[_]*{$P}
+
+Now supposed that it was [$from_states[0]] yesterday and it is [$from_states[1]] today, find the probability
+that it will be [$to_name] four days from today:
+
+[_______________]{$prob_to}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+## transitions from the state 0:
+
+It was raining yesterday and today.
+
+*   If it rains tomorrow, the tomorrow state will be 0, and probability of that is [`[$rain_rain_rain]`].
+*   If it is sunny tomorrow, the tomorrow state will be 1, and probability of that is [`[$rain_rain_sun]`].
+
+There is no way to transition to states 2 and 3.
+
+The first row of the transition matrix will be [`\left[[$rain_rain_rain] [$rain_rain_sun] 0 0\right]`].
+
+## Transitions from the state 1
+
+It was raining yesterday and is sunny today.
+
+*   If it rains tomorrow, the tomorrow state will be 2, and probability of that is [`[$rain_sun_rain]`].
+*   If it is sunny tomorrow, the tomorrow state will be 3, and probability of that is [`[$rain_sun_sun]`].
+
+There is no way to transition to states 0 and 1.
+
+The second row of the transition matrix will be [`\left[0 0 [$rain_sun_rain] [$rain_sun_sun]\right]`].
+
+## Transitions from the state 2
+
+It was sunny yesterday and is raining today.
+
+*   If it rains tomorrow, the tomorrow state will be 0, and probability of that is [`[$sun_rain_rain]`].
+*   If it is sunny tomorrow, the tomorrow state will be 1, and probability of that is [`[$sun_rain_sun]`].
+
+There is no way to transition to states 2 and 3.
+
+The third row of the transition matrix will be [`\left[[$sun_rain_rain] [$sun_rain_sun] 0 0\right]`].
+
+## Transitions from the state 3
+
+It was sunny yesterday and is sunny today.
+
+*   If it rains tomorrow, the tomorrow state will be 2, and probability of that is [`[$sun_sun_rain]`].
+*   If it is sunny tomorrow, the tomorrow state will be 3, and probability of that is [`[$sun_sun_sun]`].
+
+There is no way to transition to states 0 and 1.
+
+The fourth row of the transition matrix will be [`0 0 \left[[$sun_sun_rain] [$sun_sun_sun]\right]`].
+
+The whole transition matrix will be
+
+[``[$P]``]
+
+
+Now supposed that it was [$from_states[0]] yesterday and it is [$from_states[1]] today, we need to find the probability
+that it will be [$to_name] four days from today. 
+
+In terms of states, it means today the state is [$from] and four days from today, the state will be [$to_states[0]] or
+[$to_states[1]].
+
+The probability we are looking for will be [`P^4_{[$from][$to_states[0]]} + P^4_{[$from][$to_states[1]]}`].
+
+We need to calculate the matrix [`P^4`].
+
+First let's calculate [`P^2`]:
+
+[``P^2 = [$P][$P] = [$P2]``]
+
+Then calculate [`P^4 = (P^2)^2`]:
+
+[``P^4 = [$P2][$P2] = [$P4]``]
+
+[`P^4_{[$from][$to_states[0]]} + P^4_{[$from][$to_states[1]]}` = [$rainy_and_to] + [$sunny_and_to] = [$prob_to]].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
