@@ -88,18 +88,18 @@ $P4 = $P2*$P2;
 Context("Numeric");
 
 $from = random(0,3);
-@from_states = (
+@from_states = @{(
     ["rainy", "rainy"],
     ["rainy","sunny"],
     ["sunny","rainy"],
     ["sunny","sunny"]
-)[$from];
+)[$from]};
 $to = random(0,1);
 $to_name = ("rainy","sunny")[$to];
 @to_states = ($to, $to+2);
 
-$rainy_and_to = $P4->element($from, $to_states[0]);
-$sunny_and_to = $P4->element($from, $to_states[1]);
+$rainy_and_to = $P4->element($from+1, $to_states[0]+1);
+$sunny_and_to = $P4->element($from+1, $to_states[1]+1);
 
 $prob_to = $rainy_and_to + $sunny_and_to;
 
