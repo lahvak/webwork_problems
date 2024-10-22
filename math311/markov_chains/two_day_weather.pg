@@ -140,7 +140,7 @@ It was raining yesterday and today.
 
 There is no way to transition to states 2 and 3.
 
-The first row of the transition matrix will be [`\left[[$rain_rain_rain] [$rain_rain_sun] 0 0\right]`].
+The first row of the transition matrix will be [`\begin{bmatrix}[$rain_rain_rain]&[$rain_rain_sun]&0&0\end{bmatrix}`].
 
 ## Transitions from the state 1
 
@@ -151,7 +151,7 @@ It was raining yesterday and is sunny today.
 
 There is no way to transition to states 0 and 1.
 
-The second row of the transition matrix will be [`\left[0 0 [$rain_sun_rain] [$rain_sun_sun]\right]`].
+The second row of the transition matrix will be [`\begin{bmatrix}0&0&[$rain_sun_rain]&[$rain_sun_sun]\end{bmatrix}`].
 
 ## Transitions from the state 2
 
@@ -162,7 +162,7 @@ It was sunny yesterday and is raining today.
 
 There is no way to transition to states 2 and 3.
 
-The third row of the transition matrix will be [`\left[[$sun_rain_rain] [$sun_rain_sun] 0 0\right]`].
+The third row of the transition matrix will be [`\begin{bmatrix}[$sun_rain_rain]&[$sun_rain_sun]&0&0\end{bmatrix}`].
 
 ## Transitions from the state 3
 
@@ -173,7 +173,7 @@ It was sunny yesterday and is sunny today.
 
 There is no way to transition to states 0 and 1.
 
-The fourth row of the transition matrix will be [`0 0 \left[[$sun_sun_rain] [$sun_sun_sun]\right]`].
+The fourth row of the transition matrix will be [`\begin{bmatrix}0&0&[$sun_sun_rain]&[$sun_sun_sun]\end{bmatrix}`].
 
 The whole transition matrix will be
 
@@ -198,7 +198,7 @@ Then calculate [`P^4 = (P^2)^2`]:
 
 [``P^4 = [$P2][$P2] = [$P4]``]
 
-[`P^4_{[$from][$to_states[0]]} + P^4_{[$from][$to_states[1]]}` = [$rainy_and_to] + [$sunny_and_to] = [$prob_to]].
+[`P^4_{[$from][$to_states[0]]} + P^4_{[$from][$to_states[1]]}` = [$rainy_and_to] + [$sunny_and_to] = [$prob_to]`].
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
