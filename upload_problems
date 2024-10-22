@@ -1,8 +1,9 @@
 #!/bin/sh
 # Problem library questions go to the my home directory;
 # there are symlinks from there to the courses
-export COLL="120A"
+export COLL="math311"
 export SRC_DIR=$COLL
-export TARGET_DIR="$COLL"
-export SERVER="webwork"
-rsync -arv --delete --progress -e ssh $SRC_DIR/ $SERVER:$TARGET_DIR/
+export TARGET_DIR="problems/$COLL"
+export SERVER="webworknotty"
+export USER="library"
+rsync -arv --delete --progress -e ssh $SRC_DIR/ ${USER}@$SERVER:$TARGET_DIR/
