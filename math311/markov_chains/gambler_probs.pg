@@ -1,0 +1,102 @@
+## DESCRIPTION
+## Probabilities of reaching a absorbing state
+## ENDDESCRIPTION
+
+## KEYWORDS('stochastic precesses', 'Markov chain')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Markov chains')
+## Date('10/22/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+$p = random(1,9)/10;
+$q = 1 - $p;
+
+$N = random(5,10);
+
+$i = random(1, $N-2);
+
+Context("Matrix");
+
+@array = (
+    [ 1, (0)*$N ]
+);
+
+sub trans_row {
+    my $row = shift;
+    my $col = shift;
+    my $p = shift;
+    if ($col == $row - 1) {
+        return 1 - $p;
+    } 
+    if ($col == $row + 1) {
+        return $p;
+    } 
+    0;
+}
+
+for my $i (1..($N-1)) {
+    push @array, [ map {trans_row $1, $_, $p} (0..$N) ];
+}
+
+push @array, [ (0)*$N, 1 ];
+
+$P = Matrix(@array);
+
+Context("Numeric");
+
+$qop = Compute("$q/$p");
+
+if ($p == 0.5) {
+    $prob = Compute("$i/$N");
+} else {
+    $prob = (1 - $qop**$i)/(1 - $qop**$N);
+}
+
+BEGIN_PGML
+At each round of a game, a gambler either wins a dollar with the probability [$p], or loses a dollar with the probability [$q].
+They stop playing when they run out of money, or when they reach their goal of $[$N].
+
+Let [`X_n`] represent the gambler's funds after playing [`n`] rounds of the game (assuming that after they stop playing, the funds will stay constant for any higher [`n`]).
+
+This is a Markov chain with transition matrix 
+
+[``[$P]``]
+
+Find the probability that the gambler will reach their desired goal of $[$N], given that they start with $[$i].
+
+[__________]{$prob}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+We need to solve the system
+
+[```\left\{
+\begin{aligned}
+[$a]\pi_0 + [$c]\pi_1 &= \pi_0\\
+[$b]\pi_0 + [$d]\pi_1 &= \pi_1\\
+\pi_0 + \pi_1 &= 1
+\end{aligned}
+\right.```]
+
+The solutions are
+
+*   [`\pi_0 = [$pi0]`]
+*   [`\pi_1 = [$pi1]`]
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,212 @@
+## DESCRIPTION
+## Find and interpret a transition matrix of a Markov chain
+## ENDDESCRIPTION
+
+## KEYWORDS('stochastic precesses', 'Markov chain')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Markov chains')
+## Date('10/08/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+@fail_rates = random_subset(2, [1..9]);
+@repair_rates = random_subset(2, [2..8]);
+
+$dev_1_fail = $fail_rates[0]/100;
+$dev_2_fail = $fail_rates[1]/100;
+$dev_1_repair = $repair_rates[0]/10;
+$dev_2_repair = $repair_rates[1]/10;
+
+$both_fail = $dev_1_fail * $dev_2_fail;
+$only_1_fail = $dev_1_fail - $both_fail;
+$only_2_fail = $dev_2_fail - $both_fail;
+$none_fail = 1 - ($dev_1_fail + $dev_2_fail - $both_fail);
+$repair_1_succes = $dev_1_repair * (1 - $dev_2_fail);
+$repair_2_succes = $dev_2_repair * (1 - $dev_1_fail);
+$repair_1_fail = (1 - $dev_1_repair) * (1 - $dev_2_fail);
+$repair_2_fail = (1 - $dev_2_repair) * (1 - $dev_1_fail);
+
+Context("Matrix");
+
+$P = Matrix([
+        [
+            $none_fail,
+            $only_1_fail,
+            $only_2_fail,
+            $both_fail,
+        ],
+        [
+            $repair_1_succes,
+            $repair_1_fail,
+            0,
+            $dev_2_fail,
+        ],
+        [
+            $repair_2_succes,
+            0,
+            $repair_2_fail,
+            $dev_1_fail,
+        ],
+        [
+            0,
+            0,
+            0,
+            1,
+        ],
+    ]);
+
+$P2 = $P*$P;
+$P4 = $P2*$P2;
+$P4_row1 = $P4->row(1);
+$P4_col4 = $P4->column(4);
+$prob8 = ($P4_row1 * $P4_col4)->element(1,1);
+
+Context("Numeric");
+
+$transient = List("0, 1, 2");
+$recurrent = List("3");
+
+BEGIN_PGML
+A remote probe has two communication devices that can fail independently of each other. Device 1 can fail during each cycle with probability
+[$dev_1_fail], and device 2 can fail during each cycle with probability [$dev_2_fail]. If device 1 fails and device 2 is working, during the next cycle
+operators can use device 2 to connect to the probe and attempt to reboot device 1:
+
+*   The operation lasts the whole cycle.
+*   If the device 2 fails during the operation, the reboot attempt is unssucessful.
+*   Otherwise the probability of a successful reboot of device 1 is [$dev_1_repair].
+
+Similarly, is device 2 dails and device 1 remains operational, operators can use device 1 to connect to the probe and attempt to reboot
+the device 2:
+
+*   The operation lasts the whole cycle.
+*   If the device 1 fails during the operation, the reboot attempt is unssucessful.
+*   Otherwise the probability of a successful reboot of device 2 is [$dev_2_repair].
+
+At the moment both devices fail, there is no way to reach the probe, and it is lost.
+
+---
+
+First, calculate several relevant probabilities:
+
+*   Probability that _both_ devices fail on the same cycle: [______________]{$both_fail}
+*   Probability that _only_ device 1 will fail on a given cycle: [______________]{$only_1_fail}
+*   Probability that _only_ device 2 will fail on a given cycle: [______________]{$only_2_fail}
+*   Probability that _none_ of the devices fails on a given cycle: [______________]{$none_fail}
+*   Given that at the beginning of the cycle the device 1 is in failed state while device 2 is operational,
+    the probability that the device 1 will be rebooted during the cycle: [______________]{$repair_1_succes}
+*   Given that at the beginning of the cycle the device 1 is in failed state while device 2 is operational,
+    the probability that the device 2 will stay operational but device 1 will fail to reboot: [______________]{$repair_1_fail}
+*   Given that at the beginning of the cycle the device 2 is in failed state while device 1 is operational,
+    the probability that the device 2 will be rebooted during the cycle: [______________]{$repair_2_succes}
+*   Given that at the beginning of the cycle the device 2 is in failed state while device 1 is operational,
+    the probability that the device 1 will stay operational but device 2 will fail to reboot: [______________]{$repair_2_fail}
+
+---
+
+We can model this as a Markov chain with the following states:
+
+*   **State 0**: both communiction devices are operating normally.
+*   **State 1**: device 1 failed, but device 2 is operational.
+*   **State 2**: device 1 is operational, but device 2 failed.
+*   **State 3**: both devices failed, the probe is lost.
+
+Fill in the transition matrix for this Markov chain:
+
+[_]*{$P}
+
+List the _transient_ states, separated by commas: [___________________]{$transient}
+
+List the _recurrent_ states, separated by commas: [___________________]{$recurrent}
+
+Find the probability that after 8 cycles, the probe is lost, assuming it was fully functional
+at the beginning: [__________]{$prob8}
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+
+## Relevant probabilities:
+
+*   Probability that _both_ devices fail on the same cycle:
+
+    The devices fail independently, so [`\operatorname{P}(\text{both fail}) = \operatorname{P}(\text{device 1 fails})\operatorname{P}(\text{device 2 fails})
+    = [$dev_1_fail]\cdot [$dev_2_fail] = [$both_fail]`].
+
+*   Probability that _only_ device 1 will fail on a given cycle:
+
+    This is [`\operatorname{P}(\text{device 1 fials}) - \operatorname{P}(\text{both devices fail}) = [$dev_1_fail] - [$both_fail] = [$only_1_fail]`].
+
+*   Probability that _only_ device 2 will fail on a given cycle:
+
+    This is [`\operatorname{P}(\text{device 2 fials}) - \operatorname{P}(\text{both devices fail}) = [$dev_2_fail] - [$both_fail] = [$only_2_fail]`].
+
+*   Probability that _none_ of the devices fails on a given cycle:
+
+    This is [`1 - \operatorname{P}(\text{only device 1 fails}) - \operatorname{P}(\text{only device 2 fails}) - \operatorname{P}(\text{both devices fail}) = 1 - [$only_1_fail] - [$only_2_fail] - [$both_fail] = [$none_fail]`].
+
+*   Given that at the beginning of the cycle the device 1 is in failed state while device 2 is operational,
+    the probability that the device 1 will be rebooted during the cycle:
+
+    [`\operatorname{P}(\text{device 2 will not fail})\operatorname{P}(\text{device 1 is rebooted}\mid\text{device 2 does not fail}) = (1 - [$dev_2_fail])\cdot [$dev_1_repair] = [$repair_1_succes]`]
+
+*   Given that at the beginning of the cycle the device 1 is in failed state while device 2 is operational,
+    the probability that the device 2 will stay operational but device 1 will fail to reboot:
+
+    [`\operatorname{P}(\text{device 2 will not fail})\operatorname{P}(\text{device 1 is not rebooted}\mid\text{device 2 does not fail}) = (1 - [$dev_2_fail])\cdot (1 - [$dev_1_repair]) = [$repair_1_fail]`]
+
+*   Given that at the beginning of the cycle the device 2 is in failed state while device 1 is operational,
+    the probability that the device 2 will be rebooted during the cycle:
+
+    [`\operatorname{P}(\text{device 1 will not fail})\operatorname{P}(\text{device 2 is rebooted}\mid\text{device 1 does not fail}) = (1 - [$dev_1_fail])\cdot [$dev_2_repair] = [$repair_2_succes]`]
+
+*   Given that at the beginning of the cycle the device 2 is in failed state while device 1 is operational,
+    the probability that the device 1 will stay operational but device 2 will fail to reboot:
+
+    [`\operatorname{P}(\text{device 1 will not fail})\operatorname{P}(\text{device 2 is not rebooted}\mid\text{device 1 does not fail}) = (1 - [$dev_1_fail])\cdot (1 - [$dev_2_repair]) = [$repair_2_fail]`]
+
+## Transition matrix and classification of states
+
+The transition matrix will be
+
+[``[$P]``]
+
+The transition states are [$transition].
+
+The only recurrent state us [$recurrent].
+
+## Probability of lost probe
+
+We need to find [`P^8_{03}`].
+
+First calculate [`P^2`]:
+
+[``[$P2]``]
+
+Then calculate [`P^4`]:
+
+[``[$P4]``]
+
+We do not need the whole [`P^8`], only the entry in the first row and the last column. We need to multiply the first row of [`P^4`] with
+the last column of [`P^4`]:
+
+[``[$P4_row1][$P4_col4] = \left[[$prob8]\right]``]
+
+The probability is [$prob8].
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

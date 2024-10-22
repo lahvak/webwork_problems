@@ -1,0 +1,109 @@
+## DESCRIPTION
+## Interpret a transition matrix of a Markov chain
+## ENDDESCRIPTION
+
+## KEYWORDS('stochastic precesses', 'Markov chain')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Markov chains')
+## Date('10/15/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+@two_rows = random_subset(2, [2, 3]);
+$absorb = $two_rows[0];
+$noabsorb = $two_rows[1];
+$a1 = random(2,6)/10;
+$a2 = 1 - $a1;
+
+$b1 = random(1,3)/10;
+$b2 = random(2,5)/10;
+$b3 = 1 - $b1 - $b2;
+
+$c1 = random(1,8)/10;
+$c2 = 1 - $c1;
+
+$d1 = random(1,3)/10;
+$d2 = random(2,5)/10;
+$d3 = 1 - $d1 - $d2;
+
+@row1 = ($a1, 0, 0, 0, 0);
+$row1[$absorb] = $a2;
+
+@row2 = (0, $b1, 0, 0, $b3);
+$row2[$noabsorb] = $b2;
+
+@row34 = (0, $c1, 0, 0, 0);
+$row34[$noabsorb] = $c2;
+
+@row5 = (0, $d1, 0, 0, $d3);
+$row5[$noabsorb] = $d2;
+
+@array = (
+    ~~@row1,
+    ~~@row2,
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0],
+    ~~@row5,
+);
+$array[$noabsorb] = ~~@row34;
+
+Context("Matrix");
+
+$P = Matrix(@array);
+
+$comm0 = List("0");
+$comm1 = List("1, $noabsorb, 4");
+$commabs = List("$absorb");
+
+$trans = List("0");
+
+$rec = List("1, 2, 3, 4");
+
+BEGIN_PGML
+A Markov chain with states 0, 1, 2, 3, and 4 has a transition matrix
+
+[``P = [$P]``].
+
+Enter the folowing lists, with entries separated by commas:
+
+*   List all the states that communicate with state 0: [____________]{$comm0}.
+*   List all the states that communicate with state 1: [____________]{$comm1}.
+*   List all the states that communicate with state [$absorb]: [____________]{$commabs}.
+*   List all the _transient_ states: [____________]{$trans}.
+*   List all the _recurrent_ states: [____________]{$rec}.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The only states accessible from state 0 are state 0 and [$absorb].
+
+The states accessible from state 1 are state 1, state [$noabsorb] and state 4.
+
+The states accessible from state [$noabsorb] are state 1, state [$noabsorb] and state 4.
+
+The states accessible from state 4 are state 1, state [$noabsorb] and state 4.
+
+The only state accessible from state [$absorb] is [$absorb].
+
+The state 0 is transient, and communicate only with itself.
+
+The state [$absorb] is recurrent (in fact, absorbing), and communicates only with itself.
+
+The states 1, [$noabsorb], and 4 are all recurrent, and communicate with each other.
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

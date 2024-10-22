@@ -1,0 +1,75 @@
+## DESCRIPTION
+## Calculate long term proportions
+## ENDDESCRIPTION
+
+## KEYWORDS('stochastic precesses', 'Markov chain')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Markov chains')
+## Date('10/15/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+@probs = random_subset(2, [1..9]);
+$a = $probs[0]/10;
+$c = $probs[1]/10;
+
+$b = 1 - $a;
+$d = 1 - $c;
+
+@array = (
+    [$a, $b],
+    [$c, $d],
+);
+
+Context("Matrix");
+
+$P = Matrix(@array);
+
+Context("Numeric");
+
+$pi0 = Real($c/($b + $c));
+$pi1 = Real($b/($b + $c));
+
+BEGIN_PGML
+An irreducible Markov chain with states 0 and 1 has a transition matrix
+
+[``[$P]``]
+
+Find the long term proportions [`\pi_0`] and [`\pi_1`].
+
+*   [`\pi_0 = `][__________]{$pi0}
+*   [`\pi_1 = `][__________]{$pi1}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+We need to solve the system
+
+[```\left\{
+\begin{aligned}
+[$a]\pi_0 + [$c]\pi_1 &= \pi_0\\
+[$b]\pi_0 + [$d]\pi_1 &= \pi_1\\
+\pi_0 + \pi_1 &= 1
+\end{aligned}
+\right.```]
+
+The solutions are
+
+*   [`\pi_0 = [$pi0]`]
+*   [`\pi_1 = [$pi1]`]
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
