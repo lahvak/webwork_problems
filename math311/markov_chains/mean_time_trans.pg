@@ -1,0 +1,129 @@
+## DESCRIPTION
+## Calculate mean times in transient states
+## ENDDESCRIPTION
+
+## KEYWORDS('stochastic precesses', 'Markov chain')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Markov chains')
+## Date('10/22/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+$p = random(1,9)/10;
+$q = 1 - $p;
+$rorig = random(1,6);
+$sorig = random(1,$rorig-1);
+$r = $rorig/10;
+$s = $sorig/10;
+$t = 1 - $r - $s;
+$a = random(1,9)/10;
+$b = 1 - $a;
+$c = random(1,9)/10;
+$d = 1 - $c;
+
+@perm = random_subset(5, 0..4);
+
+@trans = @perm[(0,1)];
+
+@permmat = ();
+
+for my $i (0..4) {
+    push @permmat, [ map {$i == $perm[$_] ? 1 : 0} (0..4) ];
+}
+
+Context("Matrix");
+
+$Porig = Matrix((
+        [$p, $q, 0, 0, 0],
+        [$r, $s, $t, 0, 0],
+        [0, 0, $a, $b, 0],
+        [0, 0, $c, $d, 0],
+        [0, 0, 0, 0, 1]
+));
+
+$pmatrix = Matrix(@permmat);
+
+$P = $pmatrix * $Porig * ($pmatrix->transpose);
+
+if ($trans[0] < $trans[1]) {
+    $Pt = Matrix((
+            [$p, $q],
+            [$r, $s]
+        ));
+} else {
+    $Pt = Matrix((
+            [$s, $r],
+            [$q, $p]
+        ))
+}
+
+$I = Value::Matrix->I(2);
+$S = ($I - $Pt)->inverse;
+
+Context("Numeric");
+
+$transient_states = List(@trans);
+
+$trans0 = min(@trans);
+$trans1 = max(@trans);
+$meantime01 = $S->element(1,2);
+$meantime00 = $S->element(1,1);
+
+BEGIN_PGML
+A Markov chain with states 0, 1, 2, 3, and 4 has a transion matrix
+
+[``[$P]``]
+
+a)  List the transient states: [___________]{$transient_states}.
+
+b)  Find the mean time in state [$trans1], given [`X_0 = [$trans0]`]: [___________]{$meantime01}.
+
+c)  Find the mean time in state [$trans0], given [`X_0 = [$trans0]`]: [___________]{$meantime00}.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+State [$perm[4]] is a recurrent state. It is actually an absorbing state, that
+communicates only with itself, and is not even accessible from any other state.
+That means the only way to be in state [$perm[4]] is by starting at it, and
+staying there forever.
+
+States [$perm[2]] and [$perm[3]] are recurrent states. From state [$perm[2]]
+you can only transition to itself or state [$perm[3]], and from state
+[$perm[3]] you can only transition to itself or [$perm[2]].
+
+From the state [$perm[0]] you can only transition to itself or [$perm[1]], however, from [$perm[1]] you can transition to
+itself, [$perm[0]] and [$perm[2]].  From both states [$perm[0]] and [$perm[1]], there is a non-zero probability of eventually
+transitioning to the state [$perm[2]] a never returning back.
+Therefore the states [$perm[0]] and [$perm[1]] are transient.
+
+The matrix of the transition probabilities for the transient states will then be
+
+[``P_T = [$Pt]``]
+
+where the first row and column correspond to state [$trans0] and the second row and column to the state [$trans1].
+
+The inverse of [`I - P_T`] is
+
+[``S = [$S]``]
+
+The expected number of times in state [$trans1] given [`X_0 = [$trans0]`] is [`s_{[$trans0][$trans1]} = [$meantime01]`].
+
+The expected number of times in state [$trans0] given [`X_0 = [$trans0]`] is [`s_{[$trans0][$trans0]} = [$meantime00]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

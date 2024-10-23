@@ -33,7 +33,7 @@ $i = random(1, $N-2);
 Context("Matrix");
 
 @array = (
-    [ 1, (0)*$N ]
+    [ 1, (0)x$N ]
 );
 
 sub trans_row {
@@ -50,10 +50,10 @@ sub trans_row {
 }
 
 for my $i (1..($N-1)) {
-    push @array, [ map {trans_row $1, $_, $p} (0..$N) ];
+    push @array, [ map {trans_row $i, $_, $p} (0..$N) ];
 }
 
-push @array, [ (0)*$N, 1 ];
+push @array, [ (0)x$N, 1 ];
 
 $P = Matrix(@array);
 
@@ -83,20 +83,16 @@ Find the probability that the gambler will reach their desired goal of $[$N], gi
 END_PGML
 
 BEGIN_PGML_SOLUTION
-We need to solve the system
+We just need to plug in the following formula:
 
-[```\left\{
-\begin{aligned}
-[$a]\pi_0 + [$c]\pi_1 &= \pi_0\\
-[$b]\pi_0 + [$d]\pi_1 &= \pi_1\\
-\pi_0 + \pi_1 &= 1
-\end{aligned}
-\right.```]
+[``
+P_i = \begin{cases}
+\frac{1 - \left(\frac{q}{p}\right)^i}{1 - \left(\frac{q}{p}\right)^N} & \text{ if } p \neq \frac{1}{2}\\
+\frac{i}{N} & \text{ if } p = \frac{1}{2}
+\end{cases}
+``]
 
-The solutions are
-
-*   [`\pi_0 = [$pi0]`]
-*   [`\pi_1 = [$pi1]`]
+where [`N = [$N]`], [`i = [$i]`], [`p = [$p]`], and [`q = 1 - p = [$q]`].
 END_PGML_SOLUTION
 
 ENDDOCUMENT();
