@@ -1,0 +1,65 @@
+## DESCRIPTION
+## Recognize a counting process
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Counting process')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Poisson processes')
+## Date('11/14/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "parserMultipleChoice.pl",
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+$conditions = [
+    '\(N(t)\) is not always non-negative.',
+    '\(N(t)\) is not always an integer',
+    'There are \(s\) and \(t\) such that \(s < t\) but \(N(s) > N(t)\).'
+];
+
+$conditions_checks = CheckboxList(
+    [$conditions],
+    [0],
+    values=>["not non-negative,", "not integer,", "not non-decreasing,"]
+);
+
+$isCounting = RadioMultiAnswer([
+            ['This is a counting process'],
+            ['This is not a counting process, because (mark all that applies) %s', $conditions_checks]
+        ], 0);
+
+BEGIN_PGML
+At noon on Tuesday, a traffic monitoring device is installed at one of the four entrances of an office building. It keeps track
+of people passing through the entrance. Every time it detects a person entering or leaving the building, it increases its
+counter by 1.  When the device is installed, its counter is set to 0.
+
+Let [`N(t)`] for [`0 \le t \le 50`] be the value of the counter at the time [`t`].
+
+Is this a _counting process_?
+
+[_]{$isCounting}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+This is a counting process. It satisfies all three conditions:
+
+*   [`N(t) \ge 0`] since the counter starts at zero, and can only increase.
+*   [`N(t)`] is an integer, since it start at 0 and can only increase by 1 each time it detects a person.
+*   [`N(t)`] is non-decreasing, since if [`s < t`], then either [`N(s) = N(t)`] if no person passed through
+    the entrance between the times [`s`] and [`t`], or [`N(s) < N(t)`] if some people passed through the entrance.
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

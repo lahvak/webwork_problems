@@ -1,0 +1,60 @@
+## DESCRIPTION
+## Recognize a counting process
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Counting process')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Poisson processes')
+## Date('11/14/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "parserMultipleChoice.pl",
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+$conditions = [
+    '\(N(t)\) is not always non-negative.',
+    '\(N(t)\) is not always an integer',
+    'There are \(s\) and \(t\) such that \(s < t\) but \(N(s) > N(t)\).'
+];
+
+$conditions_checks = CheckboxList(
+    [$conditions],
+    [@$conditions[0,1]],
+    values=>["not non-negative,", "not integer,", "not non-decreasing,"]
+);
+
+$isCounting = RadioMultiAnswer([
+            ['This is a counting process'],
+            ['This is not a counting process, because (mark all that applies) %s', $conditions_checks]
+        ], 1);
+
+BEGIN_PGML
+Joe has a bank account that currently has $200.32 overdraft.  He decides to pay it off and then use it to save for his retirement. He plans
+to make payments to that account every time he has some spare money, and not withdraw from it for the next 50 years.
+
+Let [`N(t)`] for [`0 \le t \le 50`] be the balance in the account, in dollars, at the time [`t`], measured in years.
+
+Is this a _counting process_?
+
+[_]{$isCounting}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+This is not a counting process, as it violates two of the conditions: at the begining the balance is _negative_, which violates the condition
+that [`N(t) \ge 0`].  Also, from the very begining, the values are not integers, which violates the condition that [`N(t)`] is always an integer.
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

@@ -1,0 +1,58 @@
+## DESCRIPTION
+## Recognize a counting process
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Counting process')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Poisson processes')
+## Date('11/14/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "parserMultipleChoice.pl",
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+$conditions = [
+    '\(N(t)\) is not always non-negative.',
+    '\(N(t)\) is not always an integer',
+    'There are \(s\) and \(t\) such that \(s < t\) but \(N(s) > N(t)\).'
+];
+
+$conditions_checks = CheckboxList(
+    [$conditions],
+    [@$conditions[1]],
+    values=>["not non-negative,", "not integer,", "not non-decreasing,"]
+);
+
+$isCounting = RadioMultiAnswer([
+            ['This is a counting process'],
+            ['This is not a counting process, because (mark all that applies) %s', $conditions_checks]
+        ], 1);
+
+BEGIN_PGML
+A bank has 5 different locations, that all serve customers. Let [`N(t)`] be the _average_ number of customers
+that were served by the 5 locations by the time [`t`] since January 1, 2024 (averaged over the 5 locations).
+
+Is this a _counting process_?
+
+[_]{$isCounting}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+This is not a counting process, as it violates the condition that [`N(t)`] is an integer.  Since we are averaging over
+5 different locations, the average can become a non-integer rational number.
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
