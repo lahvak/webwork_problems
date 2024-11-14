@@ -85,7 +85,7 @@ END_PGML
 
 BEGIN_PGML_SOLUTION
 The life time of the board is the minimum of the lifetimes of the three components.  The minimum of several exponential variables is exponential, with rate that
-is the sum of the rates of the individual variables.  Here we have three exponential variables with rates [`\lambda_1 = \frac{1}{[$mean1]} = [$rate1]}`],
+is the sum of the rates of the individual variables.  Here we have three exponential variables with rates [`\lambda_1 = \frac{1}{[$mean1]} = [$rate1]`],
 [`\lambda_2 = \frac{1}{[$mean2]} = [$rate2]`], and [`\lambda_3 = \frac{1}{[$mean3]} = [$rate3]`].
 
 The rate of the minimum of the three random variables is [`\lambda = \lambda_1 + \lambda_2 + \lambda_3 = [$rate1] + [$rate2] + [$rate3] = [$ratemin]`].  The mean life time will then be
