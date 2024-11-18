@@ -1,0 +1,150 @@
+## DESCRIPTION
+## Sample a Poisson process
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Poisson process')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Poisson processes')
+## Date('11/15/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "parserMultipleChoice.pl",
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+Context("Numeric");
+
+# Average number of customers per day
+$rate1 = random(10,30);
+
+# Average number of minutes spent with a customer
+$mean2 = random(4,12);
+$rate2 = Compute("1/$mean2");
+
+# Number of days
+$days = random(20,60);
+
+# Include both days?
+
+$inclusive = random(0,1);
+
+# Starting month
+$startmonth = random(3,8);
+
+@monthdays = (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+$startmonthdays = $monthdays[$startmonth-1];
+
+$startday = random(1,$startmonthdays);
+
+$endmonth = $startmonth;
+$endday = $startday + $days - $inclusive;
+
+while($endday > $monthdays[$endmonth - 1]) {
+    $endday -= $monthdays[$endmonth - 1];
+    $endmonth++;
+}
+
+@monthnames = qw(January, February, March, April, May, June, July, August, September, October, November, December);
+
+# Find previous year:
+
+$date = $formattedOpenDate;   # Built-in WeBWorK variable
+$date =~s/ .*//;                        # Prune off the detailed starting time
+@parts = split('/',$date);            # Break apart month, day and year which are separated by /
+$year = $parts[2];
+
+if(!$year){
+    $year = 2021;
+}
+
+$year--;
+
+$dates = $inclusive ?
+    "between $monthnames[$startmonth-1] $startday, $year, and $monthnames[$endmonth - 1] $endday, $year, _inclusive_":
+    "_after_ $monthnames[$startmonth-1] $startday, $year, up to and _including_ $monthnames[$endmonth - 1] $endday, $year";
+
+$threshold = random(3*$mean2, 5*$mean2);
+
+$prob_more_than_threshold = Compute("exp(-($threshold*$rate2))");
+
+$N1rate = $prob_more_than_threshold*$rate1;
+
+$increment_rate = $N1rate*$days;
+
+$M = random(5,10);
+$prob_exactly_M = Compute("exp(-$increment_rate)*(($increment_rate)^($M))/(($M)!)");
+
+$isPoisson = RadioMultiAnswer([
+            ['\(N_1(t)\) is not a Poisson process.'],
+            ['\(N_1(t)\) is a Poisson process with rate %s', $N1rate]
+        ], 1);
+
+BEGIN_PGML
+## Sampling from a Poisson process
+
+The numeber of customers that have arrived to an office since January 1, [$year], is modeled as a Poisson process
+with the rate [`\lambda = [$rate1]`] customers per day. The office has enough staff so that any customer that arrives
+is served immediately without delay.
+
+The time a customer spends at the office is an _exponential_ random variable with mean [$mean2] minutes, independent of any of the other customers
+and of the customer's arrival time.
+
+The office wants to keep track of the number of customers that spend more than [$threshold] minutes at the office.
+
+*   Calculate the probability that a randomly selected customer will spend more than [$threshold] minutes at the office.
+
+    [_______________]{$prob_more_than_threshold}
+
+*   Let [`N_1(t)`] represents the number of customers, since January 1, [$year], who spent more than [$threshold] minutes at the office.
+    Is this a Poisson process?
+
+    [_]{$isPoisson}
+
+*   Calculate the probability that [$dates]**, there were _exactly_ [$M] customers who spent more that [$threshold] minutes at the office.
+
+    [_______________]{$prob_exactly_M}
+END_PGML
+
+BEGIN_PGML_HINT
+Note that these calculations are very sensitive to rounding erros.  It is best to carry out the calculation with the full precision
+allowed by your calculator, and only round the very last answer, if necessary.
+END_PGML_HINT
+
+BEGIN_PGML_SOLUTION
+Let [`T`] be the time a randomly selected customer spends at the office.  We know that [`T`] is _eponentially distributed_ with mean [$mean2],
+so
+
+[``\operatorname{P}(T > t) = e^{-\frac{t}{[$mean2]}}``]
+
+so with [`t = [$threshold]`] we get
+
+[``\operatorname{P}(T > [$threshold]) = e^{-\frac{[$threshold]}{[$mean2]}} = [$prob_more_than_threshold].``]
+
+Now we are independently classifying the events of the process [`N(t)`] into two groups: these where the customer spent more than [$threshold]
+minutes at the office, with probability [`p = [$prob_more_than_threshold]`], and the those where the time spend at the office was at most [$threshold],
+with probability [`1 - [$prob_more_than_threshold]`].
+
+The process [`N_1(t)`] counts the events in the first group. Since the classifications are indepencent of each other, with constant probability,
+[`N_1(t)`] is a Poisson process with rate [`\lambda_1 = p\lambda = [$prob_more_than_threshold]\cdot [$rate1] = [$N1rate]`].
+
+The increment of the [`N_1(t)`] process over the [$days] days has Poisson distribution with rate [`[$days]\lambda_1 = [$increment_rate]`].
+The probability that the increment will be exactly [$M] is
+
+[```e^{-\lambda_1} \frac{\lambda_1^{[$M]}}{[$M]!} = e^{-[$increment_rate]}\frac{([$increment_rate])^{[$M]}}{[$M]!} = [$prob_exactly_M].```]
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
