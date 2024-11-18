@@ -1,0 +1,65 @@
+## DESCRIPTION
+## Sample a Poisson process
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Poisson process')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Poisson processes')
+## Date('11/17/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+Context("Numeric");
+
+# Average number of widgets per minute
+$rate1 = random(12,58, 2)/10;
+$hourly = 60*$rate1;
+
+# Times
+$time1 = random(5,10);
+
+$E = Compute("60*$rate1*(3*[$time1]/4)");
+
+BEGIN_PGML
+## Sampling from a Poisson process
+
+Widgets are coming down a conveyor belt at the rate [`\lambda = [$rate1]`] per
+minute. At the end of the belt, each widget is processed by one of two
+available packaging machines, chosen randomly. The machines are initially
+chosen with equal probabilities, however, machine 2 is faulty, and accepts
+widgets for processing with decreasing probability as time goes. The widgets
+rejected by machine 2 have to be processed by machine 1.
+
+Assume that the probability that a widget is processed by the machine 2 starts
+at 1/2, and decreases _linearly_ so that after [$time1] hours it becomes 0.
+
+Let [`N_i(t)`] be the total number of widgets handled by the machine [`i`] by the time [`t`].
+
+Find [`\operatorname{E}\left(N_1([$time1])\right)`]: [_______________]{$E}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+At the time [`s`], the probability that the first machine will be picked is 
+[```G(s) = \frac{1}{2} + \frac{s}{2\cdot [$time1]}```]
+
+The _hourly_ rate of the process is [`60\lambda = 60\cdot [$rate1] = [$hourly]`].
+
+Then [``\operatorname{E}\left(N_1(t)\right) = [$hourly]\int_0^{[$time1]} G(s)\;ds = 
+    [$E]``].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
