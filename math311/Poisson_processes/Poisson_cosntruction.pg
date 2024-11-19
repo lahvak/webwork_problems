@@ -1,0 +1,64 @@
+## DESCRIPTION
+## Construct a Poisson process from interarrival times
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Poisson process')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Poisson processes')
+## Date('11/18/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+Context("Numeric");
+
+$rate = random(8,49)/10;
+
+$startt = random(2,20);
+$duration = random(2,10);
+$endt = $startt + $duration;
+
+$incrate = $rate*$duration;
+
+$n = int($incrate) + random(-1,5);
+
+$prob_increment_is_n = Compute("exp(-$incrate)*($incrate)^($n)/(($n)!)");
+
+BEGIN_PGML
+A series of events occur such that the times between two consecutive events are
+independent exponentially distributed random variables with the rate [`\lambda = [$rate]`].
+
+Find the probability that there will be exactly [$n] events between the times [$startt] and [$endt]:
+
+[______________]{$prob_increment_is_n}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+Let [`N(t)`], [`t \ge 0`] be a counting process that counts the number of events that occured before
+time [`t`].
+
+The events occur with _interarrival times_ that are independent exponentially distributed with the same rate [`\lambda = [$rate]`].
+That means their counting process [`N(t)`], [`t \ge 0`] is a _Poisson process_ with the same rate [`\lambda`].
+
+We are supopsed to find the probability that the _increment_ of this process from time [$startt] to [$endt] is exactly [$n].
+We know that the increment of a Poisson process from time [`s`] to time [`s+t`] is a _Poisson distributed_ random variable,
+with rate [`\lambda t`], so the probability that the increment is exactly [`n`] is
+[```\operatorname{P}\left(N(s+t) - N(s) = n\right) = e^{-\lambda t}\frac{(\lambda t)^n}{n!}```]
+In this case, [`\lambda = [$rate]`], [`t = [$duration]`], and [`n = [$n]`], so the probability is
+[```e^{-[$rate]\cdot [$duration]}\frac{([$rate]\cdot [$duration])^{[$n]}}{[$n]!} = [$prob_increment_is_n].```]
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

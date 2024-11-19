@@ -1,0 +1,146 @@
+## DESCRIPTION
+## Sample a Poisson process
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Poisson process')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Poisson processes')
+## Date('11/18/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+Context("Numeric");
+
+$time = random(15, 25);
+$mean = random(3*$time/8, 2*$time/5, 0.1);
+
+$b = 2*$mean;
+
+$n1 = random(1,5)*1000;
+
+$tovermu = $time/$mean;
+
+$lambdahat = Compute("$n1/($time - $mean*(1 - exp(-$tovermu)))");
+$n2t = Compute("$n1*(1 - exp(-$tovermu))/($tovermu - 1 + exp(-$tovermu))");
+
+$lambdahatunif = Compute("$n1/($time - $b/2)");
+$n2tunif = Compute("$n1*($b/2)/($time - $b/2)");
+
+BEGIN_PGML
+## Tracking a number of viral infections.
+
+Suppose that a rare viral infection has a relatively long incubation period during which there are no symptoms.  Suppose further that
+the number of individuals that contracted the infection by the time [`t`] (in years) can be modeled by a Poisson process with an unknown rate
+[`\lambda`]. Let's also assume that the incubation periods for different individuals are independent.
+
+In certain population, at time [`t = [$time]`], there are estimated [$n1] individuals that are showing symptoms of the disease.
+
+*    Assuming the incubation periods are _exponentially distributed_ with mean [$mean],
+
+    1.  Estimate the infection rate [`\lambda`]:
+
+        [`\hat\lambda = `][______________]{$lambdahat}
+
+    1.  Estimate the number of individuals that are infected but are not yet showing symptoms:
+
+        [`N_2([$time]) \approx `][______________]{$n2t}
+
+*    Assuming instead the incubation periods are _uniformly distributed_ on the interval [`(0, [$b])`]:
+
+    1.  Estimate the infection rate [`\lambda`]:
+
+        [`\hat\lambda = `][______________]{$lambdahatunif}
+
+    1.  Estimate the number of individuals that are infected but are not yet showing symptoms:
+
+        [`N_2([$time]) \approx `][______________]{$n2tunif}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+This is an example of sampling of a Poisson process. At the time [`t`], each
+infection is classified either as symptomatic at the time [`t`], if the
+infected individual has passed the incubation period, or asymptomatic at the
+time [`t`], if the infected individual has not yet passed the incubation
+period. The probability the infection that occured at time [`s`] will be
+symptomatic is the probability that the incubation period is _shorter_ than [`t
+- s`], which is [`G(t-s)`], where [`G`] is the _cumulative density function_ for the
+length of the incubation period.
+
+The probability that the infection that occured at time [`s`] is asymptomatic at time [`t`] is then [`1 - G(t-s)`].
+
+If [`N_1(t)`] refers to the number of infections that are _symptomatic_ by the time [`t`], and [`N_2(t)`] refers to
+the number of infections that are not yet symptomatic at the time [`t`], then
+
+[``
+\begin{aligned}
+\operatorname{E}N_1(t) &= \lambda\int_0^t G(t - s)\;ds = \lambda\int_0^t G(y)\;dy\\
+\operatorname{E}N_2(t) &= \lambda\int_0^t 1 - G(t - s)\;ds = \lambda\int_0^t 1 - G(y)\;dy
+\end{aligned}
+``]
+
+If we have an estimate [`n_1`] for [`N_1(t)`], then the first equation will tell us that
+
+[```n_1 \approx \lambda\int_0^t G(y)\;dy```]
+
+so we can estimate [`\lambda`] by
+
+[```\hat\lambda = \frac{n_1}{\int_0^t G(y)\;dy}```]
+
+We can then plug this estimate into the second equation to get an estimate for [`N_t(t)`]:
+
+[```N_2(t) \approx \hat\lambda\int_0^t 1 - G(y)\;dy = \frac{n_1 \int_0^t 1 - G(y)\;dy}{\int_0^t G(y)\;dy}```]
+
+*   If the incubation period is _exponentially distributed_ with mean [`\mu`], then 
+    [```G(y) = 1 - e^{-\frac{y}{\mu}} \text{ for } y \ge 0```]
+    and
+    [```\int_0^t G(y)\;dy = t - \mu\left(1 - e^{-\frac{t}{\mu}}\right)```]
+    while
+    [```\int_0^t 1 - G(y)\;dy = \mu\left(1 - e^{-\frac{t}{\mu}}\right)```]
+
+    Then [```\hat\lambda = \frac{n_1}{t - \mu\left(1 - e^{-\frac{t}{\mu}}\right)}```]
+    and
+    [```N_2(t) \approx \frac{n_1\mu\left(1 - e^{-\frac{t}{\mu}}\right)}{t - \mu\left(1 - e^{-\frac{t}{\mu}}\right)}```]
+
+    In our case [`t = [$time]`], [`\mu = [$mean]`] and [`n_1 = [$n1]`], so after we plug in and simplify, we get
+
+    [`\hat\lambda = [$lambdahat]`] and
+
+    [`N_2([$time]) \approx [$n2t]`].
+
+*   If instead the incubation period is _uniformly distributed_ on the interval [`(0,b)`], then
+    [```G(y) = \begin{cases}
+    \frac{y}{b} & \text{ if $0 \le y < b$}\\
+    1 & \text{ if $y \ge b$}
+    \end{cases}```]
+    and for [`t > b`] we get
+    [```\int_0^t G(y)\;dy = t - \frac{b}{2} ```]
+    while
+    [```\int_0^t 1 - G(y)\;dy = \frac{b}{2}```]
+
+    Then [```\hat\lambda = \frac{n_1}{t - \frac{b}{2}}```]
+    and 
+    [```N_2(t) \approx \frac{n_1\frac{b}{2}}{t - \frac{b}{2}} = \frac{n_1 b}{2t - b}```]
+
+    In our case [`t = [$time]`], [`b = [$b]`] and [`n_1 = [$n1]`], so after we plug in and simplify, we get
+
+    [`\hat\lambda = [$lambdahatunif]`] and
+
+    [`N_2([$time]) \approx [$n2tunif]`].
+
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

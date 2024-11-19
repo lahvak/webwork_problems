@@ -1,0 +1,96 @@
+## DESCRIPTION
+## Combine several Poisson processes
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Poisson process')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Poisson processes')
+## Date('11/17/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+Context("Numeric");
+
+@rates = random_subset(3, 11..45);
+
+$rate0 = $rates[0]/10;
+$rate1 = $rates[1]/10;
+$rate2 = $rates[2]/10;
+
+$total_rate = $rate0 + $rate1 + $rate2;
+
+$start = random(8,10);
+$duration = random(3,5);
+$end = $start + $duration;
+#Avoid noon AM/PM confusion
+if ($end == 12) {
+    $end++;
+    $duration++;
+}
+
+if ($end > 12) {
+    $end -= 12;
+    $ampm = "PM";
+} else {
+    $ampm = "AM";
+}
+
+$incrate = $total_rate*$duration;
+
+$n = int($incrate) + list_random(-1,1)*random(1,5);
+
+$prob_increment_is_n = Compute("exp(-$incrate)*($incrate)^($n)/(($n)!)");
+
+$m = int(60/$total_rate) + random(-3,3);
+
+$prob_intertime_greater_than_m = Compute("exp(-$total_rate*$m/60)");
+
+BEGIN_PGML
+An office building holds 3 offices. The numbers of customers arriving to each of the offices
+can be modeled by independent Poisson processes with hourly rates [$rate0],
+[$rate1] and [$rate2], respectively.
+
+*   Find the probability that there will be exactly [$n] customers arriving to the building
+    between [$start]:00 AM and [$end]:00 [$ampm].
+
+    [______________]{$prob_increment_is_n}
+
+*   Find the probability that the time between the arrival of the fifth customer and the sixth customer to the
+    building will be larger that [$m] minutes.
+
+    [______________]{$prob_intertime_greater_than_m}
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The number of customers arriving to the building is a Poisson process with rate
+[`\lambda = [$rate0] + [$rate1] + [$rate2] = [$total_rate]`].
+
+*   There are [$duration] hours between [$start]:00 AM and [$end]:00 [$ampm].
+
+    The increment of the Poisson process between [$start]:00 AM and [$end]:00 [$ampm]
+    is a Poisson random variable with rate [`[$duration]\cdot\lambda = [$incrate]`].
+
+    The probability that this variable is euqal to [$n] is
+    [```e^{-[$incrate]}\frac{([$incrate])^{[$n]}}{[$n]!} = [$prob_increment_is_n]```]
+
+*   The interarrival time between two consecutive customers is an exponential variable
+    with rate [`\lambda`]. The probability that this variable is _larger than_ [`t`] is
+    [`e^{-\lambda t}`]. Since [`t = \frac{[$m]}{60}`], this probability is
+    [```e^{-\lambda\frac{[$m]}{60}} = [$prob_intertime_greater_than_m].```]
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
