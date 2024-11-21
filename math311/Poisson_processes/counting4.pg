@@ -39,7 +39,7 @@ $conditions_checks = CheckboxList(
 $isCounting = RadioMultiAnswer([
             ['This is a counting process'],
             ['This is not a counting process, because (mark all that applies) %s', $conditions_checks]
-        ], 1);
+        ], 1, checkTypes => 0);
 
 BEGIN_PGML
 A bank has 5 different locations, that all serve customers. Let [`N(t)`] be the _average_ number of customers

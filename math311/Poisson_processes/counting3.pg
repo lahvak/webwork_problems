@@ -32,7 +32,7 @@ $conditions = [
 
 $conditions_checks = CheckboxList(
     [$conditions],
-    [0],
+    [0],  # Does not matter what's here
     values=>["not non-negative,", "not integer,", "not non-decreasing,"]
 );
 
