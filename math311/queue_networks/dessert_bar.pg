@@ -1,0 +1,188 @@
+## DESCRIPTION
+## Analyze a queue network
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Queue networks')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Networks of queues')
+## Date('12/05/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "parserMultipleChoice.pl",
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+Context("Numeric");
+Context()->variables->are(n => 'Real');
+
+# rates
+$r1 = random(2,6)/10;
+$r2 = random(1,6)/100;
+$r3 = random(4,9)/100;
+
+# Transition probabilities
+$P12 = random(2,7)/10;
+$P13 = 1 - $P12;
+
+$P2out = random(5,10)/100;
+$P23in = random(1,4)/10;
+$P24in = 1 - $P23in;
+$P23 = $P23in*(1 - $P2out);
+$P24 = $P24in*(1 - $P2out);
+$P3out = random(7,15)/100;
+$P32in = random(1,4)/10;
+$P34in = 1 - $P32in;
+$P32 = $P32in*(1 - $P3out);
+$P34 = $P24in*(1 - $P3out);
+
+$lambda1 = $r1;
+$lambda2 = ($r2 + $r1*($P12 + $P13*$P32) + $r3*$P32)/(1 - $P23*$P32);
+$lambda3 = $r3 + $r1*$P13 + $lambda2*$P23;
+$lambda4 = $lambda2*$P24 + $lambda3*$P34;
+
+# Service rates
+$rates1 = random(6,12);
+$rates2 = ceil(100*($lambda2 + random(5,9)/10))/100;
+$rates3 = ceil(100*($lambda3 + random(5,9)/10))/100;
+$rates4 = ceil(100*($lambda4 + random(5,9)/10))/100;
+
+# Steady-state probabilities
+$P1 = Compute("($lambda1/$rates1)^n*(1 - $lambda1/$rates1)");
+$P1->{test_points} = [ [0], [1], [2], [3], [4], [5] ];
+$P2 = Compute("($lambda2/$rates2)^n*(1 - $lambda2/$rates2)");
+$P2->{test_points} = [ [0], [1], [2], [3], [4], [5] ];
+$P3 = Compute("($lambda3/$rates3)^n*(1 - $lambda3/$rates3)");
+$P3->{test_points} = [ [0], [1], [2], [3], [4], [5] ];
+$P4 = Compute("($lambda4/$rates4)^n*(1 - $lambda4/$rates4)");
+$P4->{test_points} = [ [0], [1], [2], [3], [4], [5] ];
+
+# Expected numbers of customers
+$L1 = Compute("$lambda1/($rates1 - $lambda1)");
+$L2 = Compute("$lambda2/($rates2 - $lambda2)");
+$L3 = Compute("$lambda3/($rates3 - $lambda3)");
+$L4 = Compute("$lambda4/($rates4 - $lambda4)");
+
+$L = $L1 + $L2 + $L3 + $L4;
+$lambdaa = Compute("$r1 + $r2 + $r3");
+$W = Compute("$L/$lambdaa");
+
+BEGIN_PGML
+## An open network of queues
+
+A party organizer set up a 4-station system that guests can use to get a dessert. Guests are arriving at a Poisson rate
+[`r_1 = [$r1]`] guests per minute to station 1, where they receive their plates, silverware and napkins. The service time
+at station 1 is exponential with the rate [`\lambda_1^s = [$rates1]`] guests per minute. From station 1, the guests proceed
+with probability [`P_{12} = [$P12]`] to station 2 or, with probability [`P_{13} = [$P13]`] to station 3. Some guests
+already have their plates, silverware and napkins, so they bypass station 1 and arrive directly to station 2,
+with the rate of [`r_2 = [$r2]`] guests per minute, or to station 3, with the rate [`r_3 = [$r3]`] guests per minute.
+
+At the station 2 guests get their cakes and pies. The service time at the station 2 is exponential, with the rate of
+[`\lambda_2^s = [$rates2]`] guests per minute. From the station 2, guests can proceed to the station 3, with the probability
+[`P_{23} = [$P23]`], or to the station 4, with the probability [`P_{24} = [$P24]`].
+
+At the station 3 guests get their ice cream or custard. The service time at the station 3 is exponential, with the rate of
+[`\lambda_3^s = [$rates3]`] guests per minute. From the station 3, guests can proceed to the station 2, with the probability
+[`P_{32} = [$P32]`], or to the station 4, with the probability [`P_{34} = [$P34]`].
+
+Station 4 serves toppings. The service rate at the station 4 is exponential with the rate of [`\lambda_4^s = [$rates4]`]
+guests per minute. After visiting the station 4, the guests leave the system.
+
+Each station is a single server, works independently of all the other stations,
+and has its own queue, with unlimited capacity.
+
+>> ----{50%} <<
+
+1.  Figure out the arrival rates for each of the stations:
+
+    *    Station 1: [`\lambda_1^a =`][____________]{$lambda1}
+    *    Station 2: [`\lambda_2^a =`][____________]{$lambda2}
+    *    Station 3: [`\lambda_3^a =`][____________]{$lambda3}
+    *    Station 4: [`\lambda_4^a =`][____________]{$lambda4}
+
+2.  For each station, which expression gives the steady-state (limiting) probability
+    that there are exactly [`n`] guests at the station?
+
+    *   Station 1: [`P_1(n) = `] [____________]{$P1}
+    *   Station 2: [`P_2(n) = `] [____________]{$P2}
+    *   Station 3: [`P_3(n) = `] [____________]{$P3}
+    *   Station 4: [`P_4(n) = `] [____________]{$P4}
+
+3.  Calculate the following quantities:
+
+    *   The expected number of guests in the system: [`L =`][____________]{$L}.
+    *   The expected time a guest spends in the system: [`W =`][____________]{$W}.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+1.  The arrival rate of each station is the sum of its arrival rate from the outside and the rates with
+    which guests move to that station from all the other stations.
+    The departure rate of each station is the same as its arrival rate, and for each station we know the probabilities
+    with which the guests choose the next station. This gives us the following set of equations
+    that the arrival rates [`\lambda_i^a`] must satisfy:
+    [```\lambda_i^a = r_i + \sum_{j=1}^k \lambda_j^a P_{ji} \text{ for } i = 1, 2, \dots, k```]
+
+    Specifically
+    [```
+        \begin{aligned}
+        \lambda_1^a &= r_1\\
+        \lambda_2^a &= r_2 + \lambda_1^a P_{12} + \lambda_3^a P_{32}\\
+        \lambda_3^a &= r_3 + \lambda_1^a P_{13} + \lambda_2^a P_{23}\\
+        \lambda_4^a &= \lambda_2^a P_{24} + \lambda_3^a P_{34}
+        \end{aligned}
+    ```]
+    or, plugging in specific numbers
+    [```
+        \begin{aligned}
+        \lambda_1^a &= [$r1]\\
+        \lambda_2^a &= [$r2] + \lambda_1^a [$P12] + \lambda_3^a [$P32]\\
+        \lambda_3^a &= [$r3] + \lambda_1^a [$P13] + \lambda_2^a [$P23]\\
+        \lambda_4^a &= \lambda_2^a [$P24] + \lambda_3^a [$P34]
+        \end{aligned}
+    ```]
+
+    Solving these equations gives us
+
+    *   [`\lambda_1^a = [$lambda1]`]
+    *   [`\lambda_2^a = [$lambda2]`]
+    *   [`\lambda_3^a = [$lambda3]`]
+    *   [`\lambda_4^a = [$lambda4]`]
+
+2.  Each station is an independent single server system, with arrival rate [`\lambda_i^a`] and service rate [`\lambda_i^s`].
+    The steady-state probability of [`n`] guests at the station [`i`] is
+    [```P_i(n) = \left(\frac{\lambda_i^a}{\lambda_i^s}\right)^n\left(1 - \frac{\lambda_i^a}{\lambda_i^s}\right)```]
+
+    *   Station 1: [`\lambda_1^a = [$lambda1]`] and [`\lambda_1^s = [$rates1]`], and so
+        [```P_1(n) = [$P1]```]
+
+    *   Station 2: [`\lambda_2^a = [$lambda2]`] and [`\lambda_2^s = [$rates2]`], and so
+        [```P_2(n) = [$P2]```]
+
+    *   Station 3: [`\lambda_3^a = [$lambda3]`] and [`\lambda_3^s = [$rates3]`], and so
+        [```P_3(n) = [$P3]```]
+
+    *   Station 4: [`\lambda_4^a = [$lambda4]`] and [`\lambda_4^s = [$rates4]`], and so
+        [```P_4(n) = [$P4]```]
+
+3.  The expected number of guests at station [`i`] is [`L_i = \frac{\lambda_i^a}{\lambda_i^s - \lambda_i^a}`].
+    Since the steady-state numbers of guests at each station are independent of each other, the expected values
+    can simply be added together, therefore [`L = L_1 + L_2 + L_3 + L_4 = [$L1] + [$L2] + [$L3] + [$L4] = [$L]`]
+
+    The expected time a guest spends in the system is [`W = L/\lambda^a`], where [`\lambda^a`] is the rate guests
+    are arriving at the system. The guests only arrive at stations 1, 2 and 3, so [`\lambda^a = r_1 + r_2 + r_3 =
+    [$r1] + [$r2] + [$r3] = [$lambdaa]`].  Therefore [`W = \frac{[$L]}{[$lambdaa]} = [$W]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
