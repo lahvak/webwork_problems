@@ -1,0 +1,238 @@
+## DESCRIPTION
+## Analyze a queue network
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Queue networks')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Networks of queues')
+## Date('12/05/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "parserMultipleChoice.pl",
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+Context("Numeric");
+Context()->variables->are(P00 => 'Real', P01 => 'Real', P10 => 'Real', P11 => 'Real', Pw1 => 'Real');
+
+# rates
+@diffs = random_subset(2, [5..10]);
+
+# Arrival rate
+$ratea = random(5,20);
+
+# Service rate
+$rates1 = $ratea + $rates[0];
+$rates2 = $ratea + $rates[1];
+
+$d00 = Formula("$ratea*P00");
+$a00 = Formula("$rates2*P01");
+$d10 = Formula("$rates1*P10");
+$a10 = Formula("$ratea*P00 + $rates2*P11");
+$d01 = Formula("($ratea + $rates2)*P01");
+$a01 = Formula("$ratea*P10 + $rates*Pw1");
+$d11 = Formula("($rates1 + $rates2)*P11");
+$a11 = Formula("$ratea*P01");
+$dw1 = Formula("$rates2*Pw1");
+$aw1 = Formula("$rates1*P11");
+
+$coeff01 = $ratea/$rates2;
+$coeff11 = $coeff01*$ratea/($rates1 + $rates2);
+$coeff10 = $ratea/$rates1*(1 + $ratea/($rates1 + $rates2));
+$coeffw1 = $rates1/$rates2*$coeff11;
+
+$P00 = 1/(1 + $coeff01 + $coeff11 + $coeff10 + $coeffw1);
+$P01 = $coeff01*$P00;
+$P11 = $coeff11*$P00;
+$P10 = $coeff01*$P00;
+$Pw1 = $coeffw1*$P00;
+
+$L = Compute("$P01 + $P10 + 2*$P11 + 2*$Pw1");
+$W = Compute("$L/$ratea");
+
+BEGIN_PGML
+## A "two chairs" system
+
+A system consists of two stations, each of them capable of holding only one customer, with no queue.
+A customer arriving to the system at a Poisson rate [`\lambda^a = [$ratea]`] will go to
+station 1 is there is no customer at station 1 at the time.
+If the arriving customer finds station 1 already occupied, he or she will be turned away.
+
+When the customer is finished with station 1, they will immediately move to station 2 if the station 2 is vacant.
+If the station 2 is occupied, the customer at station 1 will remain there, waiting for the station 2 to become available.
+
+When a customer is finished with the station 2, they immediately leave the system.
+
+Both service times are exponential random variables with rates [`\lambda_1^s = [$rates1]`] for station 1 and [`\lambda_2^s = [$rates2]`]
+for station 2.
+
+>> ----{50%} <<
+
+The system can be in one of the following 5 states:
+
+*   There are no customers in the system.  We will denote this as state [`(0,0)`].
+*   There is one customer at station 1 and no customers at station 2. This will be denoted as state [`(1,0)`].
+*   There are no customers at station 1 and one customer at station 2. this will be state [`(0,1)`].
+*   There is one customer at each of the station, and both of them are currently being served, denoted as state [`(1,1)`].
+*   There is one customer at each of the station, but the customer at station 1 is done with their service, and is
+    waiting for station 2 to become available. This we will denote as state [`(w,1)`].
+
+1.  Write down the 5 balance equations, with departure rates on the left and arrival rates on the right.
+    
+    Use [|P00|], [|P01|], [|P10|], [|P11|] and [|Pw1|] for the steady-state probabilities.
+
+    *   State [`(0,0)`]:
+
+        [____________]{$d00} [`{}={}`] [____________]{$a00}
+
+    *   State [`(1,0)`]:
+
+        [____________]{$d10} [`{}={}`] [____________]{$a10}
+
+    *   State [`(0,1)`]:
+
+        [____________]{$d01} [`{}={}`] [____________]{$a01}
+
+    *   State [`(1,1)`]:
+
+        [____________]{$d11} [`{}={}`] [____________]{$a11}
+
+    *   State [`(w,1)`]:
+
+        [____________]{$dw1} [`{}={}`] [____________]{$aw1}
+
+
+2.  Solve the 5 balance equations, together with the equation [`P00 + P01 + P10 + P11 + Pw1 = 1`], to find the
+    steady state probabilities:
+
+    *   [`P00 = `][____________]{$P00}
+    *   [`P10 = `][____________]{$P10}
+    *   [`P01 = `][____________]{$P01}
+    *   [`P11 = `][____________]{$P11}
+    *   [`Pw1 = `][____________]{$Pw1}
+
+3.  Calculate the following quantities:
+
+    *   The expected number of customers in the system: [`L =`][____________]{$L}.
+    *   The expected time a customer spends in the system: [`W =`][____________]{$W}.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The balance equations are:
+
+*   State [`(0,0)`]:
+
+    *   departure rate: there is only one way to depart state [`(0,0)`]. 
+        It will happen when a customer arrives, at rate [`\lambda^a`].
+
+    *   arrival rate: There is also only one way to arrive to state [`(0,0)`].
+        The system must be in state [`(0,1)`] and the customer at the second station
+        finishes, at the rate [`\lambda_2^s`].
+
+    So the equation will be [```[$d00] = [$a00]```]
+
+*   State [`(1,0)`]:
+
+    *   departure rate: there is only one way to depart state [`(1,0)`]. 
+        It will happen when the customer at station 1 finished and moves to station 2,
+        at the rate [`\lambda_1^s`].
+
+    *   arrival rate: There two ways to arrive to state [`(1,0)`].
+
+        *   The system may be in state [`(0,0)`] and a customer arrives, at the
+            rate [`\lambda^a`].
+        *   The system may be in state [`(1,1)`] and the customer at the second station
+            finishes, at the rate [`\lambda_2^s`].
+
+    So the equation will be [```[$d10] = [$a10]```]
+
+*   State [`(0,1)`]:
+
+    *   departure rate: there are two ways to depart state [`(0,1)`]. 
+
+        *   A customer may arrive and the state becomes [`(1,1)`]. The rate is
+            [`\lambda^a`].
+
+        *   The customer at the second station finishes and leaves, at the rate [`\lambda_2^s`].
+
+    *   arrival rate: There two ways to arrive to state [`(0,1)`].
+
+        *   The system may be in state [`(1,0)`] and the customer finishes at station 1 and moves
+            to station 2, at the rate [`\lambda_1^s`].
+        *   The system may be in state [`(w,1)`] and the customer at the second station
+            finishes and leaves, which allows the waiting customer from station 1 to move to
+            station 2, at the rate [`\lambda_2^s`].
+
+    So the equation will be [```[$d01] = [$a01]```]
+
+*   State [`(1,1)`]:
+
+    *   departure rate: there are two ways to depart state [`(1,1)`]. 
+
+        *   The customer at the first station may finish, but since there still is a customer at station 2,
+            the customer at station 1 must wait there, and the state becomes [`(w,1)`].
+            The rate is [`\lambda_1^s`].
+
+        *   The customer at the second station finishes and leaves, at the rate [`\lambda_2^s`].
+
+    *   arrival rate: There  is only one way to arrive to state [`(1,1)`].
+
+        The system must be in state [`(0,1)`] when a new customer arrives, at the rate
+        [`\lambda^a`].
+
+    So the equation will be [```[$d11] = [$a11]```]
+
+*   State [`(w,1)`]:
+
+    *   departure rate: there is one way to depart state [`(w,1)`].
+
+        The customer at station 2 must finish and leave, allowing the customer at
+        station 1 to move to station 2.
+
+    *   arrival rate: There  is only one way to arrive to state [`(w,1)`].
+
+        The system must be in state [`(1,1)`] when the customer at station 1 finishes, at the rate
+        [`\lambda^a`].
+
+    So the equation will be [```[$dw1] = [$aw1]```]
+
+This is the system of equations that we have to solve:
+
+[```
+\begin{aligned}
+[$d00] &= [$a00]\\
+[$d01] &= [$a01]\\
+[$d10] &= [$a10]\\
+[$d11] &= [$a11]\\
+[$dw1] &= [$aw1]\\
+P_{00} + P_{01} + P_{10} + P_{11} + P_{w1} &= 1
+\end{aligned}
+```]
+
+Solving this system gives us
+
+*    [`P_{00} = [$P00]`]
+*    [`P_{01} = [$P01]`]
+*    [`P_{10} = [$P10]`]
+*    [`P_{11} = [$P11]`]
+*    [`P_{w1} = [$Pw1]`]
+
+The expected number of customers in the system is
+[`L = 0\cdot P_{00} + 1\cdot \left(P_{01} + P_{10}\right) + 2\cdot \left(P_{11} + P_{w1}\right)`]
+which is [`[$L]`], and the expected time a customer spends in the system is [`W = L/\lambda^a = [$W]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

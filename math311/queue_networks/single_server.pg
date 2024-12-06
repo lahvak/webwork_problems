@@ -1,0 +1,74 @@
+## DESCRIPTION
+## Analyze a queue network
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Queue networks')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Networks of queues')
+## Date('12/01/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "parserMultipleChoice.pl",
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+Context("Numeric");
+
+# Average number of customers per hour
+$ratea = random(5,20);
+
+# Service rate
+$ratediff = random(5,10);
+$rates = $ratea + $ratediff;
+
+$P0 = $ratediff/$rates;
+$n = random(2,5);
+$Pn = Compute("($ratea/$rates)^($n)*$P0");
+
+$L = Compute("$ratea/$ratediff");
+$W = Compute("1/$ratediff");
+
+$Wq = Compute("$ratea/($rates*$ratediff)");
+$Lq = Compute("$ratea^2/($rates*$ratediff)");
+
+BEGIN_PGML
+## A single server system
+
+Custromers are arriving to a single server system at a Poisson rate [$ratea] customers per hour. The single server
+processes customers in an exponential time with rate [$rates] customers per hour.
+
+Calculate the following quantities:
+
+*   The long term proportion of time there will be zero customers in the system: [________]{$P0}.
+*   The long term proportion of time there will be [$n] customers in the system: [________]{$Pn}.
+*   The mean number of customers in the system: [________]{$L}.
+*   The mean time a customer will spend in the system: [________]{$W}.
+*   The mean number of customers waiting in the queue: [________]{$Lq}.
+*   The mean time a customer will spend in the queue: [________]{$Wq}.
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The system has an arrival rate [`\lambda^a = [$ratea]`] and service rate [`\lambda^s = [$rates]`].
+
+*   [`P(0) = 1 - \frac{\lambda^a}{\lambda^s} = 1 - \frac{[$ratea]}{[$rates]} = [$P0]`]
+*   [`P([$n]) = \left(\frac{\lambda^a}{\lambda^s}\right)^{[$n]}\left(1 - \frac{\lambda^a}{\lambda^s}\right)
+    = \left(\frac{[$ratea]}{[$rates]}\right)^{[$n]}\left(1 - \frac{[$ratea]}{[$rates]}\right) = [$Pn]`]
+*   [`L = \frac{\lambda^a}{\lambda^s - \lambda^a} = \frac{[$ratea]}{[$rates] - [$ratea]} = [$L]`]
+*   [`W = \frac{1}{\lambda^s - \lambda^a} = \frac{1}{[$rates] - [$ratea]} = [$W]`]
+*   [`L_Q = \frac{(\lambda^a)^2}{\lambda^s(\lambda^s - \lambda^a)} = \frac{([$ratea])^2}{[$rates]([$rates] - [$ratea])} = [$Lq]`]
+*   [`W_Q = \frac{\lambda^a}{\lambda^s(\lambda^s - \lambda^a)} = \frac{[$ratea]}{[$rates]([$rates] - [$ratea])} = [$Wq]`]
+END_PGML_SOLUTION
+
+ENDDOCUMENT();

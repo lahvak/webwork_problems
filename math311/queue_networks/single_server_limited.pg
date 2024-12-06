@@ -1,0 +1,134 @@
+## DESCRIPTION
+## Analyze a queue network
+## ENDDESCRIPTION
+
+## KEYWORDS('Probability', 'Stochastic processes', 'Queue networks')
+
+## DBsubject('Probability')
+## DBchapter('Stochastic processes')
+## DBsection('Networks of queues')
+## Date('12/03/2024')
+## Author('Jan Hlavacek <jhlavace@svsu.edu>')
+## Institution('SVSU')
+
+DOCUMENT();
+
+loadMacros(
+    "PGstandard.pl",    # Standard macros for PG language
+    "PGML.pl",          # PGML markup and Math Objects
+    "parserMultipleChoice.pl",
+    "PGcourse.pl",      # Customization file for the course
+);
+
+# Uncomment the following if you don't want to show which
+# answers are correct and which are incorrect
+#$showPartialCorrectAnswers = 0;
+
+Context("Numeric");
+Context()->variables->are(P0 => 'Real', P1 => 'Real', P2 => 'Real', P3 => 'Real');
+
+# rates
+@rates = random_subset(2, [5..20]);
+
+# Arrival rate
+$ratea = $rates[0];
+
+# Service rate
+$rates = $rates[1];
+
+$d0 = Formula("$ratea*P0");
+$a0 = Formula("$rates*P1");
+$d1 = Formula("($ratea + $rates)P1");
+$a1 = Formula("$ratea*P0 + $rates*P2");
+$d2 = Formula("($ratea + $rates)*P2");
+$a2 = Formula("$ratea*P1 + $rates*P3");
+$d3 = Formula("$rates*P3");
+$a3 = Formula("$ratea*P2");
+
+$ratio = Compute("($ratea)/($rates)");
+$sum = Compute("1 + $ratio + ($ratio)^2 + ($ratio)^3");
+
+$P0 = Compute("1/$sum");
+$P1 = Compute("$ratio*$P0");
+$P2 = Compute("$ratio*$P1");
+$P3 = Compute("$ratio*$P2");
+
+$L = Compute("$P1 + 2*$P2 + 3*$P3");
+$W = Compute("$L/$ratea");
+
+BEGIN_PGML
+## A single server system with limited capacity
+
+Custromers are arriving to a single server system at a Poisson rate [$ratea] customers per hour. The single server
+processes customers in an exponential time with rate [$rates] customers per hour.  The system has a limited capacity,
+and only handle at most 3 customers at a time.  Any customer arriving when there already are 3 customers in the
+system will be turned away.
+
+The system can be in one of 4 different states, according to the number of customers in the system. 
+
+1.  Write down the 4 balance equations, with departure rates on the left and arrival rates on the right.
+    
+    Use [|P0|], [|P1|], [|P2|] and [|P3|] for the steady-state probabilities.
+
+    *   **State 0:** no customers in the system
+
+        [____________]{$d0} [`{}={}`] [____________]{$a0}
+
+    *   **State 1:** one customer in the system
+
+        [____________]{$d1} [`{}={}`] [____________]{$a1}
+
+    *   **State 2:** two customers in the system
+
+        [____________]{$d2} [`{}={}`] [____________]{$a2}
+
+    *   **State 3:** three customers in the system
+
+        [____________]{$d3} [`{}={}`] [____________]{$a3}
+
+2.  Solve the 4 balance equations, together with the equation [`P0 + P1 + P2 + P3 = 1`], to find the
+    steady state probabilities:
+
+    *   [`P0 = `][____________]{$P0}
+    *   [`P1 = `][____________]{$P1}
+    *   [`P2 = `][____________]{$P2}
+    *   [`P3 = `][____________]{$P3}
+
+3.  Calculate the following quantities:
+
+    *   The expected number of customers in the system: [`L =`][____________]{$L}.
+    *   The expected time a customer spends in the system: [`W =`][____________]{$W}.
+
+END_PGML
+
+BEGIN_PGML_SOLUTION
+The system has an arrival rate [`\lambda^a = [$ratea]`] and service rate [`\lambda^s = [$rates]`].
+
+The balance equations are
+
+[```
+    \begin{aligned}
+    [$d0] &= [$a0]\\
+    [$d1] &= [$a1]\\
+    [$d2] &= [$a2]\\
+    [$d3] &= [$a3]
+    \end{aligned}
+```]
+
+Adding the equation [`P_0 + P_1 + P_2 + P_3 = 1`] and solving will give us
+
+[```
+    \begin{aligned}
+    P_0 &= [$P0]\\
+    P_1 &= [$P1]\\
+    P_2 &= [$P2]\\
+    P_3 &= [$P3]
+    \end{aligned}
+```]
+
+The expected number of customers in the system is [`0\cdot P_0 + 1\cdot P_1 + 2\cdot P_2 + 3\cdot P_3 = 0 + [$P1] + 2\cdot [$P2] + 3\cdot [$P3] = [$L]`].
+
+The expected time a customer spends in the system is [`W = L/\lambda^a = \frac{[$L]}{[$ratea]} = [$W]`].
+END_PGML_SOLUTION
+
+ENDDOCUMENT();
