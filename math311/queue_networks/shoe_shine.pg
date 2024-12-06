@@ -25,24 +25,30 @@ loadMacros(
 #$showPartialCorrectAnswers = 0;
 
 Context("Numeric");
-Context()->variables->are(P00 => 'Real', P01 => 'Real', P10 => 'Real', P11 => 'Real', Pw1 => 'Real');
+Context()->variables->are(
+    P00 => ['Real', TeX => 'P_{00}'],
+    P01 => ['Real', TeX => 'P_{01}'],
+    P10 => ['Real', TeX => 'P_{10}'],
+    P11 => ['Real', TeX => 'P_{11}'],
+    Pw1 => ['Real', TeX => 'P_{w1}']
+);
 
 # rates
-@diffs = random_subset(2, [5..10]);
+@diffs = random_subset(2, [1..6]);
 
 # Arrival rate
-$ratea = random(5,20);
+$ratea = random(5,15);
 
 # Service rate
-$rates1 = $ratea + $rates[0];
-$rates2 = $ratea + $rates[1];
+$rates1 = $ratea + $diffs[0];
+$rates2 = $ratea + $diffs[1];
 
 $d00 = Formula("$ratea*P00");
 $a00 = Formula("$rates2*P01");
 $d10 = Formula("$rates1*P10");
 $a10 = Formula("$ratea*P00 + $rates2*P11");
 $d01 = Formula("($ratea + $rates2)*P01");
-$a01 = Formula("$ratea*P10 + $rates*Pw1");
+$a01 = Formula("$rates1*P10 + $rates2*Pw1");
 $d11 = Formula("($rates1 + $rates2)*P11");
 $a11 = Formula("$ratea*P01");
 $dw1 = Formula("$rates2*Pw1");
@@ -56,7 +62,7 @@ $coeffw1 = $rates1/$rates2*$coeff11;
 $P00 = 1/(1 + $coeff01 + $coeff11 + $coeff10 + $coeffw1);
 $P01 = $coeff01*$P00;
 $P11 = $coeff11*$P00;
-$P10 = $coeff01*$P00;
+$P10 = $coeff10*$P00;
 $Pw1 = $coeffw1*$P00;
 
 $L = Compute("$P01 + $P10 + 2*$P11 + 2*$Pw1");
@@ -66,28 +72,28 @@ BEGIN_PGML
 ## A "two chairs" system
 
 A system consists of two stations, each of them capable of holding only one customer, with no queue.
-A customer arriving to the system at a Poisson rate [`\lambda^a = [$ratea]`] will go to
-station 1 is there is no customer at station 1 at the time.
-If the arriving customer finds station 1 already occupied, he or she will be turned away.
+A customer arriving at the system at a Poisson rate [`\lambda^a = [$ratea]`] per hour will go to
+the station 1 if there is no customer at the station 1 at the time.
+If the arriving customer finds the station 1 already occupied, he or she will be turned away.
 
-When the customer is finished with station 1, they will immediately move to station 2 if the station 2 is vacant.
-If the station 2 is occupied, the customer at station 1 will remain there, waiting for the station 2 to become available.
+When the customer is finished with the station 1, they will immediately move to the station 2 if the station 2 is vacant.
+If the station 2 is occupied, the customer at the station 1 will remain there, waiting for the station 2 to become available.
 
 When a customer is finished with the station 2, they immediately leave the system.
 
-Both service times are exponential random variables with rates [`\lambda_1^s = [$rates1]`] for station 1 and [`\lambda_2^s = [$rates2]`]
-for station 2.
+Both service times are exponential random variables with hourly rates [`\lambda_1^s = [$rates1]`] for the station 1 and [`\lambda_2^s = [$rates2]`]
+for the station 2.
 
 >> ----{50%} <<
 
 The system can be in one of the following 5 states:
 
 *   There are no customers in the system.  We will denote this as state [`(0,0)`].
-*   There is one customer at station 1 and no customers at station 2. This will be denoted as state [`(1,0)`].
-*   There are no customers at station 1 and one customer at station 2. this will be state [`(0,1)`].
-*   There is one customer at each of the station, and both of them are currently being served, denoted as state [`(1,1)`].
-*   There is one customer at each of the station, but the customer at station 1 is done with their service, and is
-    waiting for station 2 to become available. This we will denote as state [`(w,1)`].
+*   There is one customer at the station 1 and no customers at the station 2. This will be denoted as state [`(1,0)`].
+*   There are no customers at the station 1 and one customer at the station 2. this will be state [`(0,1)`].
+*   There is one customer at each of the stations, and both of them are currently being served, denoted as state [`(1,1)`].
+*   There is one customer at each of the stations, but the customer at the station 1 is done with their service, and is
+    waiting for the station 2 to become available. This we will denote as state [`(w,1)`].
 
 1.  Write down the 5 balance equations, with departure rates on the left and arrival rates on the right.
     
@@ -136,26 +142,26 @@ The balance equations are:
 *   State [`(0,0)`]:
 
     *   departure rate: there is only one way to depart state [`(0,0)`]. 
-        It will happen when a customer arrives, at rate [`\lambda^a`].
+        It will happen when a customer arrives, at rate [`\lambda^a = [$ratea]`].
 
     *   arrival rate: There is also only one way to arrive to state [`(0,0)`].
         The system must be in state [`(0,1)`] and the customer at the second station
-        finishes, at the rate [`\lambda_2^s`].
+        finishes, at the rate [`\lambda_2^s = [$rates2]`].
 
     So the equation will be [```[$d00] = [$a00]```]
 
 *   State [`(1,0)`]:
 
     *   departure rate: there is only one way to depart state [`(1,0)`]. 
-        It will happen when the customer at station 1 finished and moves to station 2,
-        at the rate [`\lambda_1^s`].
+        It will happen when the customer at the station 1 finishes and moves to the station 2,
+        at the rate [`\lambda_1^s = [$rates1]`].
 
     *   arrival rate: There two ways to arrive to state [`(1,0)`].
 
         *   The system may be in state [`(0,0)`] and a customer arrives, at the
-            rate [`\lambda^a`].
+            rate [`\lambda^a = [$ratea]`].
         *   The system may be in state [`(1,1)`] and the customer at the second station
-            finishes, at the rate [`\lambda_2^s`].
+            finishes, at the rate [`\lambda_2^s = [$rates2]`].
 
     So the equation will be [```[$d10] = [$a10]```]
 
@@ -164,17 +170,17 @@ The balance equations are:
     *   departure rate: there are two ways to depart state [`(0,1)`]. 
 
         *   A customer may arrive and the state becomes [`(1,1)`]. The rate is
-            [`\lambda^a`].
+            [`\lambda^a = [$ratea]`].
 
-        *   The customer at the second station finishes and leaves, at the rate [`\lambda_2^s`].
+        *   The customer at the second station finishes and leaves, at the rate [`\lambda_2^s = [$rates2]`].
 
     *   arrival rate: There two ways to arrive to state [`(0,1)`].
 
-        *   The system may be in state [`(1,0)`] and the customer finishes at station 1 and moves
-            to station 2, at the rate [`\lambda_1^s`].
+        *   The system may be in state [`(1,0)`] and the customer finishes at the station 1 and moves
+            to the station 2, at the rate [`\lambda_1^s = [$rates1]`].
         *   The system may be in state [`(w,1)`] and the customer at the second station
-            finishes and leaves, which allows the waiting customer from station 1 to move to
-            station 2, at the rate [`\lambda_2^s`].
+            finishes and leaves, which allows the waiting customer from the station 1 to move to
+            the station 2, at the rate [`\lambda_2^s = [$rates2]`].
 
     So the equation will be [```[$d01] = [$a01]```]
 
@@ -182,16 +188,16 @@ The balance equations are:
 
     *   departure rate: there are two ways to depart state [`(1,1)`]. 
 
-        *   The customer at the first station may finish, but since there still is a customer at station 2,
-            the customer at station 1 must wait there, and the state becomes [`(w,1)`].
-            The rate is [`\lambda_1^s`].
+        *   The customer at the first station may finish, but since there still is a customer at the station 2,
+            the customer at the station 1 must wait there, and the state becomes [`(w,1)`].
+            The rate is [`\lambda_1^s = [$rates1]`].
 
-        *   The customer at the second station finishes and leaves, at the rate [`\lambda_2^s`].
+        *   The customer at the second station finishes and leaves, at the rate [`\lambda_2^s = [$rates2]`].
 
     *   arrival rate: There  is only one way to arrive to state [`(1,1)`].
 
         The system must be in state [`(0,1)`] when a new customer arrives, at the rate
-        [`\lambda^a`].
+        [`\lambda^a = [$ratea]`].
 
     So the equation will be [```[$d11] = [$a11]```]
 
@@ -199,13 +205,13 @@ The balance equations are:
 
     *   departure rate: there is one way to depart state [`(w,1)`].
 
-        The customer at station 2 must finish and leave, allowing the customer at
-        station 1 to move to station 2.
+        The customer at the station 2 must finish and leave, allowing the customer at
+        the station 1 to move to the station 2.
 
     *   arrival rate: There  is only one way to arrive to state [`(w,1)`].
 
-        The system must be in state [`(1,1)`] when the customer at station 1 finishes, at the rate
-        [`\lambda^a`].
+        The system must be in state [`(1,1)`] when the customer at the station 1 finishes, at the rate
+        [`\lambda_1^2 = [$rates1]`].
 
     So the equation will be [```[$dw1] = [$aw1]```]
 
